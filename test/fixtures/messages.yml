@@ -1,13 +1,14 @@
 # == Schema Information
 #
-# Table name: channels
+# Table name: messages
 #
-#  id          :bigint           not null, primary key
-#  admin_id    :integer          not null
-#  name        :string           not null
-#  description :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id         :bigint           not null, primary key
+#  user_id    :integer          not null
+#  parent_id  :integer
+#  body       :text
+#  channel_id :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 # This model initially had no columns defined. If you add columns to the

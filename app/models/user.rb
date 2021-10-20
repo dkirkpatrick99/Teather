@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint           not null, primary key
+#  username        :string           not null
+#  password_digest :string           not null
+#  session_token   :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
 class User < ApplicationRecord
 
   attr_reader :password
@@ -8,13 +19,22 @@ class User < ApplicationRecord
 
   after_initialize :ensure_session_token
 
-#   has_many :reviews,
-#     foreign_key: :author_id
+    has_many :messages,
+    foreign_key: :user_id,
+    class_name: :Message
     
-#   has_many :favorites
-#   has_many :favorite_benches,
-#     through: :favorites,
-#     source: :bench
+    has_many :memberships,
+    foreign_key: :user_id,
+    class_name: :Membership
+    # :dependant => :delete_all
+    
+    has_many :started_channels,
+    foreign_key: :admin_id,
+    class_name: :Channel
+    
+    has_many :channels,
+        through: :memberships,
+        source: :channel
 
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
