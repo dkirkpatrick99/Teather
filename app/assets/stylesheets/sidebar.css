@@ -1,0 +1,55 @@
+.sidebar-main-container {
+    border: 0.1em solid rgb(58,61,64);
+    background-color: rgb(25,24,29);
+    height: 95vh;
+    min-width: 220px;
+    color: white;
+}
+
+.username-container {
+    height: 45px;
+    border-bottom: 0.1em solid rgb(58,61,64);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 20px;
+}
+
+.channel-list-container {
+    margin-top: 40px;
+    margin-left: 20px
+
+}
+
+.channel-name {
+    font-size: 18px;
+}
+
+.channel-list {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.channel-list li {
+    padding-top: 10px;
+    list-style: none;
+}
+
+.dm-list-container {
+    margin-top: 40px;
+    margin-left: 20px
+}
+
+.dm-name {
+    font-size: 18px;
+}
+
+.dm-list {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.dm-list li {
+    padding-top: 10px;
+    list-style: none;
+}

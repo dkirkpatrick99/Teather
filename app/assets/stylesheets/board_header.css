@@ -1,0 +1,41 @@
+.board-header-container {
+    width: 100%;
+    height: 40px;
+    /* border: 1px solid blue; */
+    display: flex;
+    background-color: rgb(18,15,23);
+
+}
+
+.search-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 75%;
+    color: white;
+}
+
+.search-input {
+    background-color: rgb(56, 55, 60);
+    width: 60%;
+    height: 60%;
+    color: white;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+    border-radius: 5px;
+}
+.search-input::placeholder {
+    color: white;
+    text-align: center;
+}
+
+
+.user-status-image {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 21%;
+    color: white;
+}

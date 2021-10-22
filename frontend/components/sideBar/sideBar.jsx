@@ -28,10 +28,10 @@ class SideBar extends React.Component {
                 if(!channel){
                     return;
                 };
-                if(!channel.isDm){
+                if(!channel.is_dm){
                     // channelArr.push([channel.id, channel.name]);
                     threads["channel"].push([channel.id, channel.name]);
-                } else if (channel.isDm) {
+                } else if (channel.is_dm) {
                     threads["dm"].push([channel.id, channel.name, channel.admin_id]);
                 }
             })
@@ -45,7 +45,7 @@ class SideBar extends React.Component {
         let channelLinks
         if(threadHash !== null){
             channelLinks = threadHash["channel"].map(channel => 
-                <li key={channel[0]}> {channel[1]}
+                <li key={channel[0]}> {"# "+channel[1]}
 
 
                 </li>
@@ -57,21 +57,23 @@ class SideBar extends React.Component {
                 </li>
             ) : null
         }
-
         return (
             <div className='sidebar-main-container'> 
                 <div className="username-container">
                     <div>{this.props.currentUser.username}</div>
+                    <div>h</div>
                 </div>
 
-                <div className="channel-list">
-                    <ul>
+                <div className="channel-list-container">
+                    <div className="channel-name">Channels</div>
+                    <ul className="channel-list">
                         {channelLinks}
                     </ul>
                 </div>
 
-                <div>
-                    <ul>
+                <div className="dm-list-container">
+                    <div className="dm-name">Direct Messages</div>
+                    <ul className="dm-list">
                         {dmLinks}
                     </ul>
                 </div>

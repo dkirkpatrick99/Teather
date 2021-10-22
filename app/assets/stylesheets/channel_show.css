@@ -1,0 +1,41 @@
+.channel-show-main{
+    height: 95vh;
+    width: 100%;
+    border-top: 0.1em solid rgb(58,61,64);
+    background-color: rgb(26,29,33);
+    color: white;
+
+}
+
+.name-of-channel-container{
+    border-bottom: 0.1em solid rgb(58,61,64);
+    height: 45px;
+    /* width: 70vh; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.messages-main-container{
+    /* border: 1px solid gray; */
+    height: 80%;
+    /* width: 100vh; */
+}
+
+.message-tobe-sent-container {
+    height: 100px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message-tobe-sent-container > input {
+    height: 70%;
+    width: 95%;
+    background-color: rgb(34,37,41);
+    border-style: hidden;
+    border-radius: 7px;
+    border: 1px solid gray;
+}
