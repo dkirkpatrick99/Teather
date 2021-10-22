@@ -11,7 +11,6 @@ class SessionForm extends React.Component {
     }
 
     componentDidMount() {
-        console.log("starting didMount")
         this.props.fetchUsers();
         this.props.fetchChannels();
     }

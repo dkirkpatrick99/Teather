@@ -19,9 +19,9 @@ class Api::ChannelsController < ApplicationController
 
             # Membership.create({user_id: stack_bot.id, 
             #                     channel_id: @channel.id})
-            # Membership.create({user_id: @channel.admin_id, 
-            #                     channel_id: @channel.id})
-                            
+            Membership.create({user_id: @channel.admin_id, 
+                                channel_id: @channel.id})
+                            debugger
             # if @channel.is_dm
             #     Membership.create({ user_id: @channel.name,
             #                         channel_id: @channel.id

@@ -7,9 +7,6 @@ import { fetchUsers } from '../../actions/user_actions'
 import { fetchChannels } from "../../actions/channel_actions";
 
 const mapStateToProps = (state) => {
-    let user = state.entities.users
-    let channels = state.entities.channels
-    debugger
     return {
         errors: state.errors.session,
         formType: 'login',
