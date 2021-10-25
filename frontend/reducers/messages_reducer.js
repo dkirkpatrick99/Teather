@@ -1,10 +1,11 @@
 import { RECEIVE_CHANNEL } from '../actions/channel_actions';
-import { RECEIVE_MESSAGE, RECEIVE_NEW_MESSAGE } from '../actions/message_actions';
+import { RECEIVE_MESSAGE, RECEIVE_NEW_MESSAGE, RECEIVE_MESSAGES } from '../actions/message_actions';
 
 const messagesReducer = (state = {}, action) => {
     Object.freeze(state);
-
     switch (action.type) {
+        case RECEIVE_MESSAGES:
+            return Object.assign({}, state, action.payload)
         case RECEIVE_MESSAGE:
             return Object.assign({}, state, action.payload.messages)
         case RECEIVE_CHANNEL:

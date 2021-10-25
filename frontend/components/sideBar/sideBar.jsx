@@ -1,4 +1,6 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class SideBar extends React.Component {
 
@@ -16,8 +18,6 @@ class SideBar extends React.Component {
 
     renderChannelsAndDms() {
         const that = this;
-        // const channelArr = [];
-        // const dmArr = [];
         const threads = {"dm":[], "channel":[]};
         const memberships = this.props.memberships;
         if(this.props.userChannels[1] && this.props.memberships[1]) {
@@ -40,22 +40,36 @@ class SideBar extends React.Component {
     }
 
     render () {
+        const channelId = parseInt(this.props.match.params.channel_id);
         const threadHash = this.renderChannelsAndDms();
         let dmLinks
         let channelLinks
         if(threadHash !== null){
-            channelLinks = threadHash["channel"].map(channel => 
-                <li key={channel[0]}> {"# "+channel[1]}
-
-
-                </li>
+            channelLinks = threadHash["channel"].map(channel => {
+                
+                return channelId === channel[0] ? 
+                    <li key={channel[0]}>
+                        <NavLink to={`/client/${channel[0]}`}>{"# " + channel[1] + "SELECTED"}</NavLink>
+                    </li>
+                :
+                    <li key={channel[0]}> 
+                        <NavLink to={`/client/${channel[0]}`}>{"# " + channel[1]}</NavLink>
+                    </li>
+                }
             );
-            dmLinks = threadHash["dm"] ? threadHash["dm"].map(dm => 
-                <li key={dm[0]}> {dm[1]}
+            dmLinks = threadHash["dm"] ? threadHash["dm"].map(dm => {
 
-
-                </li>
-            ) : null
+            
+                return channelId === dm[0] ?
+                    <li key={dm[0]}> 
+                        <NavLink to={`/client/${dm[0]}`}>{dm[1]}SELECTED</NavLink>
+                    </li>
+                :
+                    <li key={dm[0]}>
+                        <NavLink to={`/client/${dm[0]}`}>{dm[1]}</NavLink>
+                    </li>
+            }) 
+            : null
         }
         return (
             <div className='sidebar-main-container'> 
@@ -86,4 +100,4 @@ class SideBar extends React.Component {
 
 }
 
-export default SideBar;
+export default withRouter(SideBar);

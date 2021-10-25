@@ -12,13 +12,14 @@ class MessageBoard extends React.Component {
         super(props);
     };
 
+    
     render(){
         return (
             <div className="client-main-container">
                 <BoardHeader />
                 <div className="flex-container">
-                <SideBarContainer />
-                <ChannelShowContainer />
+                <SideBarContainer channelId={this.props.channelId}/>
+                <ChannelShowContainer channelId={this.props.channelId}/>
                 </div>
                 
             </div>
@@ -30,7 +31,11 @@ class MessageBoard extends React.Component {
 
 // export default MessageBoard
 
-
+const mapSTP = (state, ownProps) => {
+    return {
+        channelId: ownProps.match.params
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -38,4 +43,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(MessageBoard);
+export default connect(mapSTP, mapDispatchToProps)(MessageBoard);

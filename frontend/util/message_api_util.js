@@ -19,3 +19,9 @@ export const updateMessage = message => (
         data: { message }
     })
 );
+
+export const fetchMessages = () => (
+    $.ajax({
+        url: `api/messages`
+    })
+);

@@ -1,11 +1,12 @@
 import * as MessageApiUtil from '../util/message_api_util';
-
+export const RECEIVE_MESSAGES = 'RECEIVE_MESSAGES';
 export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 export const RECEIVE_NEW_MESSAGE = 'RECEIVE_NEW_MESSAGE';
 export const RECEIVE_MESSAGE_ERRORS = 'RECEIVE_MESSAGE_ERRORS';
 
 export const receiveMessages = messages => ({
-
+    type: RECEIVE_MESSAGES,
+    payload
 })
 
 export const receiveMessage = payload => ({
@@ -18,9 +19,13 @@ const receiveErrors = errors => ({
     errors
 });
 
-// export const fetchMessage = messageId => dispatch => MessageApiUtil.fetchMessage(messageId)
-//     .then(message => dispatch(receiveMessage(message)),
-//         errors => dispatch(receiveErrors(errors.responseJSON)));
+export const fetchMessages = () => dispatch => MessageApiUtil.fetchMessages()
+    .then(messages => dispatch(receiveMessages(messages)),
+        errors => dispatch(receiveErrors(errors.responseJSON)));
+
+export const fetchMessage = messageId => dispatch => MessageApiUtil.fetchMessage(messageId)
+    .then(message => dispatch(receiveMessage(message)),
+        errors => dispatch(receiveErrors(errors.responseJSON)));
 
 export const createMessage = message => dispatch => MessageApiUtil.createMessage(message);
 

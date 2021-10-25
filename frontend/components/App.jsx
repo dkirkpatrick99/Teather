@@ -20,14 +20,14 @@ const App = () => (
     <div>
         <header>
 
-            <GreetingContainer />
+            {/* <GreetingContainer /> */}
         </header>
         <Switch>
             <AuthRoute exact path="/login" component={LogInFormContainer} />
             <AuthRoute exact path="/signup" component={SignUpFormContainer} />
             {/* <ProtectedRoute exact path= "/sidebar" component={SideBarContainer} /> */}
-            <ProtectedRoute exact path="/channel/:channel_id" component={MessageBoardContainer} />
-            {/* <AuthRoute exact path="/" component= {GreetingContainer}/> */}
+            <ProtectedRoute exact path="/client/:channel_id" component={MessageBoardContainer} />
+            <AuthRoute exact path="/" component= {GreetingContainer}/>
         </Switch>
     </div>
 );

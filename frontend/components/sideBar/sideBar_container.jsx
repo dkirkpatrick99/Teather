@@ -9,8 +9,6 @@ const mapStateToProps = (state) => {
         userChannels: state.entities.channels,
         currentUser: state.entities.users[state.session.id],
         memberships: state.entities.memberships
-        // formType: 'login',
-        // navLink: <Link to="/signup">sign up instead</Link>,
     };
 };
 
