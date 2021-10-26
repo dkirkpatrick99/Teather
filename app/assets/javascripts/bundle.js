@@ -459,9 +459,13 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(BoardHeader);
 
   function BoardHeader(props) {
+    var _this;
+
     _classCallCheck(this, BoardHeader);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.displayMatches = _this.displayMatches.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(BoardHeader, [{
@@ -471,6 +475,36 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
       this.props.fetchChannels();
     }
   }, {
+    key: "findMatches",
+    value: function findMatches(wordToMatch, channels, users) {
+      console.log("channels" + channels);
+      return Object.values(channels).filter(function (channel) {
+        // here we need to figure out if the city or state matches what was searched
+        var regex = new RegExp(wordToMatch, 'gi');
+        return channel.name.match(regex);
+      });
+    } // numberWithCommas(x) {
+    // return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    // }
+
+  }, {
+    key: "displayMatches",
+    value: function displayMatches(e) {
+      if (Object.keys(this.props.allChannels).length !== 0) {
+        var suggestions = document.querySelector('.suggestions');
+        var matchArray = this.findMatches(e.currentTarget.value, this.props.allChannels);
+        var html = matchArray.map(function (channel) {
+          var regex = new RegExp(e.currentTarget.value, 'gi');
+          var channelName = channel.name.replace(regex, "<span class=\"hl\">".concat(e.currentTarget.value, "</span>")); // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+
+          return "\n            <li>\n                <span class=\"name\">".concat(channelName, "</span>\n            </li>\n            ");
+        }).join('');
+        console.log("html" + html);
+        console.log("suggestions" + suggestions);
+        suggestions.innerHTML = html;
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
@@ -478,9 +512,12 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "search-input-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
+        onChange: this.displayMatches,
         className: "search-input",
         type: "text",
         placeholder: "Search users and channels"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("ul", {
+        className: "suggestions"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "user-status-image"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "icon")));

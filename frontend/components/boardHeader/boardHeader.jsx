@@ -8,6 +8,7 @@ class BoardHeader extends React.Component{
 
     constructor(props) {
         super(props)
+        this.displayMatches = this.displayMatches.bind(this)
     }
 
     componentDidMount(props) {
@@ -15,12 +16,51 @@ class BoardHeader extends React.Component{
         this.props.fetchChannels();
     }
 
+    findMatches(wordToMatch, channels, users) {
+        console.log("channels" + channels)
+    return Object.values(channels).filter(channel => {
+        // here we need to figure out if the city or state matches what was searched
+        const regex = new RegExp(wordToMatch, 'gi');
+        return channel.name.match(regex)
+    });
+    }
+
+    // numberWithCommas(x) {
+    // return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    // }
+
+    displayMatches(e) {
+        if(Object.keys(this.props.allChannels).length !== 0){
+            const suggestions = document.querySelector('.suggestions');
+            const matchArray = this.findMatches(e.currentTarget.value, this.props.allChannels);
+            const html = matchArray.map(channel => {
+                const regex = new RegExp(e.currentTarget.value, 'gi');
+                const channelName = channel.name.replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
+                // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+                return `
+            <li>
+                <span class="name">${channelName}</span>
+            </li>
+            `;
+            }).join('');
+        
+            console.log("html" + html)
+            console.log("suggestions" + suggestions)
+        
+            suggestions.innerHTML = html;
+
+        }
+    }
+
+    
     render () {
+
         return (
             <div className="board-header-container">
                 <div className="search-input-container">
-                    <input className="search-input" type="text" placeholder="Search users and channels"/>
-                    {/* <button className="header-button" onClick={this.props.logout}>Log Out</button>  */}
+                    <input onChange={this.displayMatches} className="search-input" type="text" placeholder="Search users and channels"/>
+                    <ul className="suggestions">
+                    </ul>
                 </div>
                 <div className="user-status-image">
                     <div>icon</div>
