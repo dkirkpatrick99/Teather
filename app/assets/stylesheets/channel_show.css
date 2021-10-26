@@ -29,6 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
 }
 
 .message-tobe-sent-container > input {
@@ -38,4 +39,5 @@
     border-style: hidden;
     border-radius: 7px;
     border: 1px solid gray;
+    color: white;
 }

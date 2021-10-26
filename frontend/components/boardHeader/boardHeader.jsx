@@ -20,7 +20,7 @@ class BoardHeader extends React.Component{
             <div className="board-header-container">
                 <div className="search-input-container">
                     <input className="search-input" type="text" placeholder="Search users and channels"/>
-                    <button className="header-button" onClick={this.props.logout}>Log Out</button> 
+                    {/* <button className="header-button" onClick={this.props.logout}>Log Out</button>  */}
                 </div>
                 <div className="user-status-image">
                     <div>icon</div>

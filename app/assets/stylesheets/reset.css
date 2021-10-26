@@ -51,6 +51,8 @@ a {
     font-size:100%;
     vertical-align:baseline;
     background:transparent;
+    color: white;
+    list-style: none;
 }
 /* change colours to suit your needs */
 ins {
@@ -87,4 +89,8 @@ hr {
 }
 input, select {
     vertical-align:middle;
+}
+
+li {
+    list-style: none;
 }
