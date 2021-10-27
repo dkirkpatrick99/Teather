@@ -21,7 +21,7 @@ class SideBar extends React.Component {
         const that = this;
         const threads = {"dm":[], "channel":[]};
         const memberships = this.props.memberships;
-        if(this.props.userChannels[1] && this.props.memberships[1]) {
+        if(Object.keys(this.props.userChannels) !== 0 && Object.keys(this.props.memberships) !== 0) {
             Object.values(memberships).forEach(membership => {
                 const channelId = membership.channel_id;
                 const channel = that.props.userChannels[channelId];

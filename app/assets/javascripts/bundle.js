@@ -629,29 +629,20 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
           messages: Object.values(payload)[1].messages
         });
       });
-    } // shouldComponentUpdate(){
-    //     if (this.props.channelID && this.state[1] !== "empty") {
-    //         if (parseInt(this.props.channelID) !== parseInt(this.state[1].channel.id)){
-    //             debugger
-    //             return true
-    //         } else {
-    //             debugger
-    //             return false
-    //         }
-    //     } else {
-    //         return true
-    //     }
-    // }
-
+    }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      var prevMessages = prevProps.messages;
+      var prevMessages = Object.values(prevProps.messages);
       var prevChannelId = prevProps.channelId;
       var propChannelId = this.props.channelId;
 
       if (prevChannelId && prevChannelId !== this.props.channelId) {
-        this.getCurrentChannel(this.props); // this.setState({channeId: prevChannelId, messages: prevMessages})
+        this.getCurrentChannel(this.props);
+      }
+
+      if (prevMessages.length < Object.values(this.props.messages).length) {
+        this.getCurrentChannel(this.props);
       }
     }
   }, {
@@ -665,11 +656,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
           channelId: Object.values(payload)[1].channel.id,
           messages: Object.values(payload)[1].messages
         });
-      }); // .then(payload => {
-      //     debugger
-      //     this.setState(Object.values(payload))
-      // })
-
+      });
       return currentCh;
     }
   }, {
@@ -683,7 +670,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
             key: message.id
           }, message.body);
-        }) : "hello";
+        }) : "no messages";
       }
 
       if (this.props.currentChannel) {
@@ -776,6 +763,167 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_channel_show__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/channel/listener.jsx":
+/*!**************************************************!*\
+  !*** ./frontend/components/channel/listener.jsx ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var Listener = /*#__PURE__*/function (_React$Component) {
+  _inherits(Listener, _React$Component);
+
+  var _super = _createSuper(Listener);
+
+  function Listener(props) {
+    var _this;
+
+    _classCallCheck(this, Listener);
+
+    _this = _super.call(this, props);
+    _this.createSubscriptions = _this.createSubscriptions.bind(_assertThisInitialized(_this));
+    return _this;
+  } // calls create subscriptions once the client page is rendered
+
+
+  _createClass(Listener, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.currentUser) {
+        this.createSubscriptions();
+      }
+    } // calls createSubscriptions if a channel re render is needed but won't recreate
+    // already existing Action Cable subscriptions
+
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      //DO NOT REMOVE THIS IF CHECK!
+      if (prevProps && prevProps.currentChannel !== this.props.currentChannel) {
+        this.createSubscriptions();
+      }
+    } // iterates through and deletes Action Cable subscriptions on logout
+
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.chats.forEach(function (channel) {
+        channel.unsubscribe();
+      });
+    }
+  }, {
+    key: "createSubscriptions",
+    value: function createSubscriptions() {
+      var _this2 = this;
+
+      var memberships = this.props.memberships;
+      this.chats = memberships.map(function (membership) {
+        return App.cable.subscriptions.create({
+          channel: "ChatChannel",
+          room: membership.channel_id
+        }, {
+          connected: function connected() {
+            console.log("Connected to ".concat(membership.channel_id));
+          },
+          disconnected: function disconnected() {
+            console.log("Disconnected!");
+          },
+          received: function received(data) {
+            var payload = {
+              messages: _defineProperty({}, data.message.id, data.message),
+              user: _defineProperty({}, data.user.id, data.user)
+            };
+            console.log(data);
+
+            _this2.props.receiveMessage(payload);
+          }
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (!this.props.currentUser) return null;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
+    }
+  }]);
+
+  return Listener;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Listener);
+
+/***/ }),
+
+/***/ "./frontend/components/channel/listener_container.jsx":
+/*!************************************************************!*\
+  !*** ./frontend/components/channel/listener_container.jsx ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _listener__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./listener */ "./frontend/components/channel/listener.jsx");
+/* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.session.id,
+    currentChannel: state.session.currentChannel,
+    memberships: Object.values(state.entities.memberships)
+  };
+};
+
+var mapDispatchTopProps = function mapDispatchTopProps(dispatch) {
+  return {
+    receiveMessage: function receiveMessage(payload) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_2__.receiveMessage)(payload));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchTopProps)(_listener__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -995,6 +1143,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _boardHeader_boardHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../boardHeader/boardHeader */ "./frontend/components/boardHeader/boardHeader.jsx");
 /* harmony import */ var _channel_channel_show_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../channel/channel_show_container */ "./frontend/components/channel/channel_show_container.jsx");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _channel_listener_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../channel/listener_container */ "./frontend/components/channel/listener_container.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1025,6 +1174,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var MessageBoard = /*#__PURE__*/function (_React$Component) {
   _inherits(MessageBoard, _React$Component);
 
@@ -1038,12 +1188,14 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
 
   _createClass(MessageBoard, [{
     key: "render",
-    value: function render() {
+    value: // houses all of the main app components and is the only route rendered while 
+    // a user is logged in
+    function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "client-main-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_boardHeader_boardHeader__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_sideBar_sideBar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
         channelId: this.props.channelId
-      }));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_listener_container__WEBPACK_IMPORTED_MODULE_6__["default"], null));
     }
   }]);
 
@@ -1395,7 +1547,7 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
       };
       var memberships = this.props.memberships;
 
-      if (this.props.userChannels[1] && this.props.memberships[1]) {
+      if (Object.keys(this.props.userChannels) !== 0 && Object.keys(this.props.memberships) !== 0) {
         Object.values(memberships).forEach(function (membership) {
           var channelId = membership.channel_id;
           var channel = that.props.userChannels[channelId];
@@ -1580,7 +1732,7 @@ var channelsReducer = function channelsReducer() {
       return Object.assign({}, newState, _defineProperty({}, action.channel.channel.id, action.channel.channel));
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_CHANNEL:
-      delete newState[action.channelId];
+      delete newState[action.channel_id];
       return newState;
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__.LOGOUT_CURRENT_USER:

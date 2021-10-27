@@ -18,25 +18,23 @@ class Api::MessagesController < ApplicationController
     def create
         @message = Message.new(message_params)
         @message.user_id ||= current_user.id
-
         if @message.save
-            # ActionCable
-            #     .server
-            #     .broadcast("room-#{@message.channel_id}:messages",
-            #     message: {
-            #         id: @message.id,
-            #         body: @message.body,
-            #         userId: @message.user_id,
-            #         channelId: @message.channel_id,
-            #         createdAt: @message.created_at,
-            #     },
-            #     user: {
-            #         id: current_user.id,
-            #         username: current_user.username
-            #     }
-            # );
-            # below render not necessary 
-            render 'api/messages/show'
+            ActionCable
+                .server
+                .broadcast("room-#{@message.channel_id}:messages",
+                message: {
+                    id: @message.id,
+                    body: @message.body,
+                    userId: @message.user_id,
+                    channelId: @message.channel_id,
+                    createdAt: @message.created_at,
+                },
+                user: {
+                    id: current_user.id,
+                    username: current_user.username
+                }
+            );
+            # render "api/messagess/show"
         else
             render json: @message.errors.full_messages, status: 422
         end

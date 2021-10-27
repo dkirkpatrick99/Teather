@@ -13,29 +13,29 @@ class Api::ChannelsController < ApplicationController
     def create
         @channel = Channel.new(channel_params)
         @channel.admin_id = current_user.id
-        # stack_bot = User.find_by(username: "stack_bot")
+        stack_bot = User.find_by(username: "stack_bot")
 
         if @channel.save
 
-            # Membership.create({user_id: stack_bot.id, 
-            #                     channel_id: @channel.id})
+            Membership.create({user_id: stack_bot.id, 
+                                channel_id: @channel.id})
             Membership.create({user_id: @channel.admin_id, 
                                 channel_id: @channel.id})
                             debugger
-            # if @channel.is_dm
-            #     Membership.create({ user_id: @channel.name,
-            #                         channel_id: @channel.id
-            #                     })
-            #     Message.create({ body: "Direct messages have started",
-            #                     user_id: stack_bot.id,
-            #                     channel_id: @channel.id
-            #                     })
-            # else
-            #     Message.create({ body: "Welcome to #{@channel.name}",
-            #                     user_id: stack_bot.id,
-            #                     channel_id: @channel.id
-            #                     })
-            # end
+            if @channel.is_dm
+                Membership.create({ user_id: @channel.name,
+                                    channel_id: @channel.id
+                                })
+                Message.create({ body: "Direct messages have started",
+                                user_id: stack_bot.id,
+                                channel_id: @channel.id
+                                })
+            else
+                Message.create({ body: "Welcome to #{@channel.name}",
+                                user_id: stack_bot.id,
+                                channel_id: @channel.id
+                                })
+            end
 debugger
             render 'api/channels/show'
         else
@@ -47,16 +47,16 @@ debugger
         channel = Channel.find_by(id: params[:id])
 
         if !!channel
-            # memberships = channel.memberships
-            # memberships.each do |mem|
-            #     mem.delete
-            # end
+            memberships = channel.memberships
+            memberships.each do |mem|
+                mem.delete
+            end
             channel.delete
         else
             render json: @channel.errors.full_messages, status: 422
         end
         
-        # @channel = Channel.find_by(name: "Global")
+        @channel = Channel.find_by(name: "Global")
         render 'api/channels/show'
 
     end

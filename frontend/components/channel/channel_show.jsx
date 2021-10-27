@@ -24,29 +24,15 @@ class ChannelShow extends React.Component {
             });
     }
 
-    // shouldComponentUpdate(){
-        
-    //     if (this.props.channelID && this.state[1] !== "empty") {
-            
-    //         if (parseInt(this.props.channelID) !== parseInt(this.state[1].channel.id)){
-    //             debugger
-    //             return true
-    //         } else {
-    //             debugger
-    //             return false
-    //         }
-    //     } else {
-    //         return true
-    //     }
-    // }
-
     componentDidUpdate(prevProps, prevState) {
-        let prevMessages = prevProps.messages;
+        let prevMessages = Object.values(prevProps.messages);
         let prevChannelId = prevProps.channelId;
         let propChannelId = this.props.channelId
         if(prevChannelId && prevChannelId !== this.props.channelId) {
             this.getCurrentChannel(this.props)
-            // this.setState({channeId: prevChannelId, messages: prevMessages})
+        }
+        if(prevMessages.length < Object.values(this.props.messages).length) {
+            this.getCurrentChannel(this.props)
         }
     }
 
@@ -56,10 +42,6 @@ class ChannelShow extends React.Component {
             .then(payload => {
                 this.setState({ channelId: Object.values(payload)[1].channel.id, messages: Object.values(payload)[1].messages })
             });
-        // .then(payload => {
-        //     debugger
-        //     this.setState(Object.values(payload))
-        // })
         return currentCh
     } 
 
@@ -70,7 +52,7 @@ class ChannelShow extends React.Component {
             currentMessages = Object.keys(this.state.messages).length !== 0 ? 
                 Object.values(this.state.messages).map(message => 
                     <li key={message.id}>{message.body}</li>
-                ) : "hello"
+                ) : "no messages"
         }
         if(this.props.currentChannel){
             channelName = this.props.currentChannel.name

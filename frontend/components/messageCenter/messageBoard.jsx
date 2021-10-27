@@ -5,6 +5,7 @@ import SideBarContainer from '../sideBar/sideBar_container'
 import BoardHeader from '../boardHeader/boardHeader'
 import ChannelShowContainer from '../channel/channel_show_container'
 import { logout } from '../../actions/session_actions'
+import ListenerContainer from '../channel/listener_container';
 
 class MessageBoard extends React.Component {
 
@@ -12,7 +13,8 @@ class MessageBoard extends React.Component {
         super(props);
     };
 
-    
+    // houses all of the main app components and is the only route rendered while 
+    // a user is logged in
     render(){
         return (
             <div className="client-main-container">
@@ -21,6 +23,7 @@ class MessageBoard extends React.Component {
                 <SideBarContainer channelId={this.props.channelId}/>
                 {/* <ChannelShowContainer channelId={this.props.channelId}/> */}
                 {/* </div> */}
+                < ListenerContainer />
                 
             </div>
 
