@@ -4,26 +4,33 @@ import { render } from 'react-dom';
 
 
 
-const Greeting = ({ currentUser, logout }) => {
-    const sessionLinks = () => (
+class Greeting extends React.Component{
+    constructor(props) {
+        super(props)
+    }
 
-        <nav className="login-signup">
-            <Link to="/login">Login</Link>
-      &nbsp;or&nbsp;
-            <Link to="/signup">Sign up!</Link>
-        </nav>
-    );
-    const personalGreeting = () => (
-        <hgroup className="header-group">
 
-            {/* <h2 className="header-name">Hi, {currentUser.username}!</h2>
-            <button className="header-button" onClick={logout}>Log Out</button> */}
-        </hgroup>
-    );
-
-    return currentUser ? personalGreeting() : sessionLinks();
-
-};
+    render() {
+        return (
+            <div className="greeting-main-container">
+                <div className="top-greeting-container">
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        src="https://a.slack-edge.com/085e3/marketing/img/homepage/video/brand-campaign_hero-video.mp4"
+                        type="video/mp4"
+                        id="rollingball-gif"
+                    />
+                    <div className="greeting-main-text">
+                        <h1>Slack is where the future works</h1>
+                        <h2>Transform the way you work with one place for everyone and everything you need to get stuff done.</h2>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
 
 
 export default Greeting;

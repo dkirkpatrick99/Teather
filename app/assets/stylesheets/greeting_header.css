@@ -1,0 +1,26 @@
+.greeting-header-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-header-container {
+    display: flex;
+    padding-left: 5%;
+}
+
+.left-header-container > div {
+    padding-left: 30px;
+}
+
+.right-header-container {
+    display: flex;
+    padding-right: 5%;
+}
+
+.right-header-container > div {
+    padding-right: 30px;
+}
+
+.app-name-logo {
+    display: flex;
+}
