@@ -984,12 +984,20 @@ var Greeting = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(Greeting, [{
+    key: "changeElementHeight",
+    value: function changeElementHeight() {
+      var videoContainer = document.querySelector(".video-container");
+      var topContainer = document.querySelector('.top-greeting-container');
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "greeting-main-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "top-greeting-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "video-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("video", {
         autoPlay: true,
         loop: true,
@@ -997,9 +1005,9 @@ var Greeting = /*#__PURE__*/function (_React$Component) {
         src: "https://a.slack-edge.com/085e3/marketing/img/homepage/video/brand-campaign_hero-video.mp4",
         type: "video/mp4",
         id: "rollingball-gif"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "greeting-main-text"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Slack is where the future works"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Transform the way you work with one place for everyone and everything you need to get stuff done."))));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Teather is where the future works"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Transform the way you work with one place for everyone and everything you need to get stuff done."))));
     }
   }]);
 

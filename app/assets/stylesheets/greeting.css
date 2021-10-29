@@ -1,6 +1,38 @@
+.top-greeting-container {
+    height: 500px;
+}
+
+.video-container {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+        min-height: 300px;
+    min-width: 600px;
+}
+
 #rollingball-gif {
     width: 100%;
     position: absolute;
-    z-index: 1;
-    min-height: 200px;
+    z-index: -1;
+    min-height: 300px;
+    min-width: 600px;
+}
+
+.greeting-main-text {
+    color: black;
+    height: 100%;
+    width: 423px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 40px;
+}
+
+.greeting-main-text > h1 {
+    font-size: 50px;
+}
+
+.greeting-main-text > p {
+    margin-top: 20px;
+    font-size: 20px;
 }
