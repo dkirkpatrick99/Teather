@@ -13,34 +13,36 @@ class GreetingHeader extends React.Component {
 
     render() {
         return(
-            <div className="greeting-header-container">
-                <div className="left-header-container">
-                    <div className="app-name-logo">
-                        <div>icon</div>
-                        <div>Teather</div>
-                    </div>
-                    <div>
+            // <div className="greeting-header-container">
+                <div className='header-centerizer'>
+                    <div className="left-header-container">
+                        <div className="app-name-logo">
+                            <img src="slack-icon-logo.png" alt=""/>
+                            <h1>Teather</h1>
+                        </div>
+                        <div className="dropdown">
+                            <div>Past Projects</div>
+                            <div className="projects-dropdown-content">
+                                <button>MoneyWise</button>
+                                <button>Super Jelly Hero</button>
+                                <button>BallUp</button>
+                            </div>
+                        </div>
+
                         <Link to="">GitHub</Link>
-                    </div>
-                    <div>
                         <Link to="">LinkedIn</Link>
-                    </div>
-                    <div>
                         <Link to="">Portfolio</Link>
+                    
                     </div>
 
-                </div>
-
-                <div className="right-header-container">
-                    <div>
+                    <div className="right-header-container">
                         <Link to="/login">Sign In</Link>
+                        <Link className='get-started-button' to="/signup">Get Started</Link>
                     </div>
-                    <div>
-                        <Link to="/signup">Get Started</Link>
-                    </div>
+
                 </div>
 
-            </div>
+            // </div>
         )
     }
 }

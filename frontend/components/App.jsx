@@ -19,9 +19,9 @@ import GreetingHeader from './greeting/greeting_header'
 
 const App = () => (
     <div>
-        <header>
+        {/* <header>
             <AuthRoute exact path={['/', '/signup', '/login']} component={GreetingHeader} />
-        </header>
+        </header> */}
         <Switch>
             <AuthRoute exact path="/login" component={LogInFormContainer} />
             <AuthRoute exact path="/signup" component={SignUpFormContainer} />

@@ -1,26 +1,97 @@
 .greeting-header-container {
     display: flex;
+    justify-content: center;
+    /* justify-content: space-between; */
+    /* width: 70%; */
+}
+
+.header-centerizer {
+    display: flex;
+    position: sticky; top: 0;
     justify-content: space-between;
+    width: 70%;
+    height: 70px;
+    border: 1px solid red;
+    border-radius: 40px;
+    align-items: center;
+    z-index: 1;
+    background-color: white;
+    /* box-shadow: 5px 2px rgb(62, 60, 60); */
 }
 
 .left-header-container {
     display: flex;
     padding-left: 5%;
+    align-items: center;
+}
+
+.left-header-container > a {
+    margin-left: 30px;
+    font-weight: bold;
+
 }
 
 .left-header-container > div {
-    padding-left: 30px;
+    margin-left: 30px;
+    font-weight: bold;
+
 }
 
 .right-header-container {
     display: flex;
     padding-right: 5%;
+    align-items: center;
 }
 
-.right-header-container > div {
-    padding-right: 30px;
+.right-header-container > a {
+    margin-right: 30px;
+    font-weight: bold;
 }
 
 .app-name-logo {
     display: flex;
+}
+
+.app-name-logo img {
+    height: 20px;
+    width: 20px;
+    padding-right: 5px;
+}
+
+.app-name-logo h1 {
+    font-size: 25px;
+}
+
+.get-started-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 100px;
+    background-color: #611f69;
+    color: white;
+    text-align: center;
+    border-radius: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.get-started-button a {
+    color: white;
+}
+/* dropdown CSS ******* */
+
+.projects-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgb(34, 37, 41);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .projects-dropdown-content {
+  display: block;
+  border-radius: 10px;
 }
