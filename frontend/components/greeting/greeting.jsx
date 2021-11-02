@@ -70,7 +70,7 @@ class Greeting extends React.Component{
                         <div className='smoosh'>
 
                             <div className="chat-text-container">
-                                <img src="SlackChat2.gif" alt=""/>
+                                <img src="SlackChat4.gif" alt=""/>
                                 <div className="chat-desc-container">
                                     <h2>Move faster by organizing your work life</h2>
                                     <p>The key to productivity in Slack is organized spaces called channels—a different one for everything you’re working on. With all the people, messages and files related to a topic in one place, you can move a whole lot faster.</p>
@@ -88,8 +88,8 @@ class Greeting extends React.Component{
 
                                 <div className='DM-content-container'>
                                     <div className="chat-desc-container">
-                                        <h2>Move faster by organizing your work life</h2>
-                                        <p>The key to productivity in Slack is organized spaces called channels—a different one for everything you’re working on. With all the people, messages and files related to a topic in one place, you can move a whole lot faster.</p>
+                                        <h2>Simplify teamwork for everyone</h2>
+                                    <p>Give everyone you work with—inside and outside your company—a more productive way to stay in sync. Respond faster with emoji, keep conversations focused in channels, and simplify all your communication into one place.</p>
                                         <Link className='greeting-signup-button' to='/signup'>Try For Free</Link>
                                     </div>
                                     <img src="SlackDM.gif" alt="" />
@@ -107,15 +107,17 @@ class Greeting extends React.Component{
                                 <div className="video-text-container">
                                     <img src="SlackVideoCalling.gif" alt="" />
                                     <div className="chat-desc-container">
-                                        <h2>Move faster by organizing your work life</h2>
-                                        <p>The key to productivity in Slack is organized spaces called channels—a different one for everything you’re working on. With all the people, messages and files related to a topic in one place, you can move a whole lot faster.</p>
+                                        <h2>And you can chat face to face, with just a click</h2>
+                                    <p>Meet more efficiently with video conferencing. It’s easier to see things eye-to-eye when you’re face-to-face. Video conferencing helps you share information more efficiently, so work gets done faster.</p>
                                         <Link to='/signup'>Try For Free</Link>
                                     </div>
                                 </div>
 
                                 <div className='end-mid-container'>
-                                    <img src="slack-icon-logo.png" alt="" />
-                                    <h2>Welcome to where the future works</h2>
+                                    <div className='end-icon-text-container'>
+                                        <img src="slack-icon-logo.png" alt="" />
+                                        <h2>Welcome to where the future works</h2>
+                                    </div>
                                     <div className='greeting-button-container'>
                                         <Link className='greeting-signup-white' to='/signup'>TRY TEATHER</Link>
                                         <Link className='greeting-login-button' to='/'>CONTACT ME</Link>

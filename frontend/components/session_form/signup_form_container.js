@@ -9,7 +9,7 @@ import { fetchChannels } from "../../actions/channel_actions";
 const mapStateToProps = ({ errors }) => {
     return {
         errors: errors.session,
-        formType: 'signup',
+        formType: 'Sign Up for',
         navLink: <Link to="/login">log in instead</Link>,
     };
 };

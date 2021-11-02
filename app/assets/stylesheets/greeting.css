@@ -76,7 +76,15 @@
     color: white;
     border-radius: 5px;
     margin: 20px;
+    transition: 0.3s;
 }
+
+.greeting-signup-button:hover {
+    background-color: white;
+    color: #611f69;
+    transform: scale(1.1);
+    border: 3px solid #611f69;
+}   
 
 .greeting-login-button {
     display: flex;
@@ -89,7 +97,15 @@
     border: 1px solid #611f69;
     border-radius: 5px;
     background-color: white;
+    transition: 0.3s;
 }
+
+.greeting-login-button:hover {
+    background-color: #611f69;
+    color: white;
+    transform: scale(1.1);
+    border: 3px solid black;
+}   
 
 .chat-text-container {
     display: flex;
@@ -133,8 +149,12 @@
 }
 
 .chat-desc-container h2 {
-    padding-bottom: 20px;
+    padding-bottom: 50px;
     font-size: 60px;
+}
+
+.chat-desc-container p {
+    font-size: 20px;
 }
 
 .chat-desc-container a {
@@ -151,13 +171,18 @@
 
 .greeting-text-blocks-container {
     display: flex;
-    margin-top: 30px;
-    margin-bottom: 60px;
+    margin-top: 40px;
+    margin-bottom: 70px;
     justify-content: space-around;
+}
+
+.greeting-text-blocks-container div:hover {
+    transform: scale(1.5);
 }
 
 .greeting-text-blocks-container div {
     width: 25%;
+      transition: 0.3s;
 }
 
 .greeting-text-blocks-container h2 {
@@ -192,7 +217,7 @@
 
 .end-mid-container {
     margin-bottom: 100px;
-    margin-top: 100px;
+    margin-top: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -200,12 +225,18 @@
 }
 
 .end-mid-container img {
-    width: 100px;
-    height: 100px;
+    width: 160px;
+    height: 160px;
+    padding-right: 30px;
 }
 
 .end-mid-container h2 {
     font-size: 60px;
+    margin-top: 70px;
+}
+
+.end-icon-text-container {
+    display: flex;
 }
 
 .greeting-signup-white {

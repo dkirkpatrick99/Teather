@@ -40,33 +40,60 @@ class SessionForm extends React.Component {
     }
 
     render() {
+        const submitName = `${this.props.formType} Teather`
         return (
-            <div className="login-form-container">
+            <div className="login-form-container-main">
                 <form onSubmit={this.handleSubmit} className="login-form-box">
-                    Welcome to TeatherLite!
-          <br />
-          Please {this.props.formType} or {this.props.navLink}
-                    {this.renderErrors()}
-                    <div className="login-form">
-                        <br />
-                        <label>Username:
-              <input type="text"
-                                value={this.state.username}
-                                onChange={this.update('username')}
-                                className="login-input"
-                            />
-                        </label>
-                        <br />
-                        <label>Password:
-              <input type="password"
-                                value={this.state.password}
-                                onChange={this.update('password')}
-                                className="login-input"
-                            />
-                        </label>
-                        <br />
-                        <input className="session-submit" type="submit" value={this.props.formType} />
-                    </div>
+                   <div className='session-logo-name'>
+                        <img src="slack-icon-logo.png" alt=""/>
+                        <h1>Teather</h1>
+                   </div>
+                   <div className='login-form-container'>
+                        <div className='session-form-welcome-text'>
+                            <h2>{this.props.formType} Teather</h2>
+                            <p>We suggest using the email address you use at work.</p>
+                        </div>
+                        {this.renderErrors()}
+                        <div className="login-form">
+                            <div className='login-input-flex'>
+                                <label>Display Name:</label>
+                                <input type="text"
+                                    value={this.state.username}
+                                    placeholder='Charlie Day'
+                                    onChange={this.update('username')}
+                                    className="login-input"
+                                />
+
+                                <label>Username:</label>
+                                <input type="text"
+                                        value={this.state.username}
+                                        placeholder="DayMan456"
+                                        onChange={this.update('username')}
+                                        className="login-input"
+                                    />
+                            
+                                <label>Email:</label>
+                                <input type="text"
+                                        value={this.state.username}
+                                        placeholder="FighterOfTheNightMan@ahahhh.com"
+                                        onChange={this.update('username')}
+                                        className="login-input"
+                                    />
+                          
+                                <label>Password:</label>
+                                <input type="password"
+                                        value={this.state.password}
+                                        placeholder="MilkSteak1"
+                                        onChange={this.update('password')}
+                                        className="login-input"
+                                    />
+                                <div className='submit-button-container'>
+                                    <input className="greeting-signup-button" type="submit" value={submitName}/>
+                                </div>
+                            </div>
+                            
+                        </div>
+                   </div>
                 </form>
             </div>
         );
