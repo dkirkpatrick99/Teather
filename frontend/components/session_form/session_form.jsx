@@ -5,7 +5,9 @@ class SessionForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            formal_name: '',
             username: '',
+            email: '',
             password: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,66 +44,116 @@ class SessionForm extends React.Component {
 
     render() {
         const submitName = `${this.props.formType} Teather`
-        return (
-            <div className="login-form-container-main">
-                <form onSubmit={this.handleSubmit} className="login-form-box">
+        if(this.props.formType === 'Sign Up for') {
 
-                   <div className='session-logo-name'>
-                        <Link to='/'>
-                            
-                            <h1><img src="slack-icon-logo.png" alt="" /> Teather</h1>
+            return (
+                <div className="login-form-container-main">
+                    <form onSubmit={this.handleSubmit} className="login-form-box">
+    
+                       <div className='session-logo-name'>
+                            <Link to='/'>
+                                
+                                <h1><img src="slack-icon-logo.png" alt="" /> Teather</h1>
+    
+                            </Link>
+                       </div>
+                       <div className='login-form-container'>
+                            <div className='session-form-welcome-text'>
+                                <h2>{this.props.formType} Teather</h2>
+                                <p>We suggest using the email address you use at work.</p>
+                            </div>
+                            {this.renderErrors()}
+                            <div className="login-form">
+                                <div className='login-input-flex'>
+    
+                                    <label>Display Name:</label>
+                                    <input type="text"
+                                        value={this.state.formal_name}
+                                        placeholder='Charlie Day'
+                                        onChange={this.update('formal_name')}
+                                        className="login-input"
+                                    />
+    
+                                    <label>Username:</label>
+                                    <input type="text"
+                                            value={this.state.username}
+                                            placeholder="DayMan456"
+                                            onChange={this.update('username')}
+                                            className="login-input"
+                                        />
+                                
+                                    <label>Email:</label>
+                                    <input type="text"
+                                            value={this.state.email}
+                                            placeholder="FighterOfTheNightMan@ahahhh.com"
+                                            onChange={this.update('email')}
+                                            className="login-input"
+                                        />
+                              
+                                    <label>Password:</label>
+                                    <input type="password"
+                                            value={this.state.password}
+                                            placeholder="MilkSteak1"
+                                            onChange={this.update('password')}
+                                            className="login-input"
+                                        />
+                                    <div className='submit-button-container'>
+                                        <input className="greeting-signup-button" type="submit" value={submitName}/>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                       </div>
+                    </form>
+                </div>
+            );
+        } else {
+            return(
+                <div className="login-form-container-main">
+                    <form onSubmit={this.handleSubmit} className="login-form-box">
 
-                        </Link>
-                   </div>
-                   <div className='login-form-container'>
-                        <div className='session-form-welcome-text'>
-                            <h2>{this.props.formType} Teather</h2>
-                            <p>We suggest using the email address you use at work.</p>
+                        <div className='session-logo-name'>
+                            <Link to='/'>
+
+                                <h1><img src="slack-icon-logo.png" alt="" /> Teather</h1>
+
+                            </Link>
                         </div>
-                        {this.renderErrors()}
-                        <div className="login-form">
-                            <div className='login-input-flex'>
-                                <label>Display Name:</label>
-                                <input type="text"
-                                    value={this.state.username}
-                                    placeholder='Charlie Day'
-                                    onChange={this.update('username')}
-                                    className="login-input"
-                                />
+                        <div className='login-form-container'>
+                            <div className='session-form-welcome-text'>
+                                <h2>{this.props.formType} Teather</h2>
+                                <p>We suggest using the email address you use at work.</p>
+                            </div>
+                            {this.renderErrors()}
+                            <div className="login-form">
+                                <div className='login-input-flex'>
 
-                                <label>Username:</label>
-                                <input type="text"
-                                        value={this.state.username}
-                                        placeholder="DayMan456"
-                                        onChange={this.update('username')}
-                                        className="login-input"
-                                    />
-                            
-                                <label>Email:</label>
-                                <input type="text"
-                                        value={this.state.username}
+                                    <label>Email:</label>
+                                    <input type="text"
+                                        value={this.state.email}
                                         placeholder="FighterOfTheNightMan@ahahhh.com"
-                                        onChange={this.update('username')}
+                                        onChange={this.update('email')}
                                         className="login-input"
                                     />
-                          
-                                <label>Password:</label>
-                                <input type="password"
+
+                                    <label>Password:</label>
+                                    <input type="password"
                                         value={this.state.password}
                                         placeholder="MilkSteak1"
                                         onChange={this.update('password')}
                                         className="login-input"
                                     />
-                                <div className='submit-button-container'>
-                                    <input className="greeting-signup-button" type="submit" value={submitName}/>
+                                    <div className='submit-button-container'>
+                                        <input className="greeting-signup-button" type="submit" value={submitName} />
+                                    </div>
                                 </div>
+
                             </div>
-                            
                         </div>
-                   </div>
-                </form>
-            </div>
-        );
+                    </form>
+                </div>
+            )
+        }
     }
 }
 

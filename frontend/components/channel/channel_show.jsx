@@ -17,11 +17,11 @@ class ChannelShow extends React.Component {
     componentDidMount(props) {
         this.props.fetchChannels();
         this.props.fetchUsers();
-        // this.props.fetchMessages();
         this.props.fetchChannel(this.props.channelId)
             .then(payload => {
                 this.setState({ channelId: Object.values(payload)[1].channel.id, messages: Object.values(payload)[1].messages})
             });
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -34,6 +34,8 @@ class ChannelShow extends React.Component {
         if(prevMessages.length < Object.values(this.props.messages).length) {
             this.getCurrentChannel(this.props)
         }
+        var elem = document.querySelector('.messages-main-container');
+        if (elem) elem.scrollTop = elem.scrollHeight;
     }
 
     getCurrentChannel(props) {
@@ -50,10 +52,25 @@ class ChannelShow extends React.Component {
         let channelName = "Loading Channel Name"
         if(this.state) {
             currentMessages = Object.keys(this.state.messages).length !== 0 ? 
-                Object.values(this.state.messages).map(message => 
-                    <li key={message.id}>{message.body}</li>
-                ) : "no messages"
+                
+                Object.values(this.state.messages).map(message => {
+                    let date = new Date(message.created_at)
+                    let dateFormat = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(date);
+                    return (
+                        <li key={message.id}>
+                            <div className='message-item-contain'>
+                                <div className='message-sender-contain'>
+                                    <div className='message-sender-name'>{this.props.allUsers[message.user_id].formal_name}</div>
+                                    <p className='message-time-stamp'>{dateFormat}</p>
+                                </div>
+                                <p className="message-body-text">{message.body}</p>
+                            </div>
+                        </li>)
+                }) : "no messages"  
         }
+        // var elem = document.querySelector('.messages-main-container');
+        // if(elem)elem.scrollTop = elem.scrollHeight;
+
         if(this.props.currentChannel){
             channelName = this.props.currentChannel.name
         }
@@ -61,7 +78,7 @@ class ChannelShow extends React.Component {
         return(
             <div className="channel-show-main">
                 <div className="name-of-channel-container">
-        <div className="name-of-channel"># {channelName}</div>
+                <div className="name-of-channel"># {channelName}</div>
                     <div className="number-of-members"># of members: 4</div>
                 </div>
                 <div className="messages-main-container">

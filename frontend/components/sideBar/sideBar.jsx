@@ -72,43 +72,60 @@ class SideBar extends React.Component {
             }) 
             : null
         }
-        return (
-            <div className='flex-container'>
-                <div className='sidebar-main-container'> 
-                    <div className="username-container">
-                        <div className="dropdown">
-                            <div>{this.props.currentUser.username}</div>
-                            <div className="username-dropdown-content">
-                                <div>
-                                    <div>pic</div>
-                                    <div>{this.props.currentUser.username}</div>
+
+        if(!!this.props.currentUser) {
+            return (
+                
+                <div className='flex-container'>
+                    <div className='sidebar-main-container'> 
+                        <div className="username-container">
+                            <div className="dropdown">
+                                <div>{this.props.currentUser.username} <img src="arrow.png" alt=""/></div>
+                                <div className="username-dropdown-content">
+                                    <div>
+                                        <div>pic</div>
+                                        <div>{this.props.currentUser.username}</div>
+                                    </div>
+                                    <button onClick={this.props.logout}>SignOut of {this.props.currentUser.username}</button>
+                                    <button>Visit my portfolio</button>
+                                    <button>Switch to Light Theme</button>
                                 </div>
-                                <button onClick={this.props.logout}>SignOut of {this.props.currentUser.username}</button>
-                                <button>Visit my portfolio</button>
-                                <button>Switch to Light Theme</button>
                             </div>
+                            <div>h</div>
                         </div>
-                        <div>h</div>
-                    </div>
+    
+                        <div className="channel-list-container">
+                            <div className='channel-img-contain'>
 
-                    <div className="channel-list-container">
-                        <div className="channel-name">Channels</div>
-                        <ul className="channel-list">
-                            {channelLinks}
-                        </ul>
-                    </div>
+                                <div className="channel-name">Channels</div>
+                                <img src="plus.png" alt=""/>
+                            </div>
+                            <ul className="channel-list">
+                                {channelLinks}
+                            </ul>
+                        </div>
+    
+                        <div className="dm-list-container">
+                            <div className='dm-img-contain'>
+                                <div className="dm-name">Direct Messages</div>
+                                <img src="plus.png" alt=""/>
 
-                    <div className="dm-list-container">
-                        <div className="dm-name">Direct Messages</div>
-                        <ul className="dm-list">
-                            {dmLinks}
-                        </ul>
+                            </div>
+                            <ul className="dm-list">
+                                {dmLinks}
+                            </ul>
+                        </div>
                     </div>
+                    < ChannelShowContainer channelID={this.props.channelID} currentUserId={this.props.currentUser.id} />
                 </div>
-                < ChannelShowContainer channelID={this.props.channelID} currentUserId={this.props.currentUser.id} />
-            </div>
+    
+            );
 
-        );
+        } else {
+            return (
+                <div></div>
+            )
+        }
     };
 
 }

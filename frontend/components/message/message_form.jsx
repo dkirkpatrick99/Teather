@@ -35,7 +35,12 @@ class MessageForm extends React.Component {
         return (
             <div >
                 <form className="message-tobe-sent-container" onSubmit={this.handleSubmit}>
-                    <input className="message-to-send" onChange={this.update('body')} value={this.state.body} type="text" placeholder='Send a message to {this.props.channelName}' />
+                    <textarea className="message-to-send" onChange={this.update('body')} value={this.state.body} type="text" placeholder='Send a message to {this.props.channelName}' />
+                    <div className='image-input-contain'>
+                    <input type="image" src="send.png" alt="Submit"/>
+
+                    </div>
+
                 </form>
             </div>
 

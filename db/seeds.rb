@@ -12,12 +12,12 @@ Channel.destroy_all
 User.destroy_all
 
 # Users seed
-bot = User.create({username: "stack_bot", password: "nomopojo"})
-demo = User.create({username: "DemoUser", password: "pleasehireme"})
-me = User.create({username: "Dalton", password: "hello1"})
-jenny = User.create({username: "Jenny", password: "hello1"})
-jairo = User.create({username: "Jairo", password: "hello1"})
-michael = User.create({username: "Michael", password: "hello1"})
+bot = User.create({username: "stack_bot", formal_name: "Stack Bot", email: "stackbot@stack.com", password: "nomopojo"})
+demo = User.create({username: "DemoUser", formal_name: "Demo User", email: "demouser@gmail.com", password: "pleasehireme"})
+me = User.create({username: "Dalton123", formal_name: "Dalton Kirkpatrick", email: "d.kirkpatrick99@gmail.com", password: "hello1"})
+jenny = User.create({username: "Jenster", formal_name: "Jenny Morris", email: "jenny@email.com", password: "hello1"})
+jairo = User.create({username: "Jairo", formal_name: "Jairo Lombera", email: "jairo@email.com", password: "hello1"})
+michael = User.create({username: "Michael", formal_name: "Michael Manotok", email: "michael@email.com",  password: "hello1"})
 
 # Channels seed
 

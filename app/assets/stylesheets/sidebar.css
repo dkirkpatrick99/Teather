@@ -15,10 +15,41 @@
     font-size: 20px;
 }
 
+.dropdown img {
+    width: 10px;
+    height: 10px;
+    filter:invert(90%); 
+    transform: rotate(180deg);
+}
+
 .channel-list-container {
     margin-top: 40px;
     margin-left: 20px
 
+}
+
+.channel-img-contain {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dm-img-contain {
+    display: flex;
+    justify-content: space-between;
+}
+
+.channel-img-contain img {
+    width: 15px;
+    height: 15px;
+    filter:invert(100%);
+    padding-right: 15px;
+}
+
+.dm-img-contain img {
+    width: 15px;
+    height: 15px;
+    filter:invert(100%);
+    padding-right: 15px;
 }
 
 .channel-name {
@@ -34,6 +65,11 @@
     padding-top: 10px;
     list-style: none;
     color: #a3a3a6;
+}
+
+.channel-list a {
+    color: #a3a3a6;
+
 }
 
 .dm-list-container {
@@ -54,6 +90,11 @@
     padding-top: 10px;
     list-style: none;
     color: #a3a3a6;
+}
+
+.dm-list a {
+    color: #a3a3a6;
+
 }
 
 /* dropdown CSS ********** */

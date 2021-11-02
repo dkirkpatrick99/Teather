@@ -14,7 +14,8 @@ const mapStateToProps = (state, ownProps) => {
         messages: state.entities.messages,
         currentChannel: currentChanne,
         currentUser: state.entities.users[state.session.id],
-        channelId: ownProps.channelID
+        channelId: ownProps.channelID,
+        allUsers: state.entities.users
 
     };
 };
