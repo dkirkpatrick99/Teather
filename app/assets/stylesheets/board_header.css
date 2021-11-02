@@ -4,7 +4,7 @@
     /* border: 1px solid blue; */
     display: flex;
     background-color: rgb(18,15,23);
-
+    /* position: absolute; */
 }
 
 .search-input-container {

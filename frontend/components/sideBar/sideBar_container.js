@@ -4,6 +4,8 @@ import SideBar from './sideBar';
 import { fetchChannels, fetchChannel, createChannel} from '../../actions/channel_actions'
 import { fetchUsers, fetchUser } from '../../actions/user_actions'
 import { logout } from '../../actions/session_actions'
+import { openModal } from '../../actions/modal_actions';
+
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -20,7 +22,10 @@ const mapDispatchToProps = dispatch => {
         fetchUser: (userId) => dispatch(fetchUser(userId)),
         fetchChannels: () => dispatch(fetchChannels()),
         createChannel: (channel) => dispatch(createChannel(channel)),
-        logout: () => dispatch(logout())
+        logout: () => dispatch(logout()),
+        openModal: modal => dispatch(openModal(modal))
+
+
     };
 };
 

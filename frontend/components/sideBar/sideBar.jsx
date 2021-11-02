@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import  ChannelShowContainer from '../channel/channel_show_container'
+import ChannelCreateFrom from '../channel/channel_create_form'
 
 class SideBar extends React.Component {
 
@@ -72,7 +73,6 @@ class SideBar extends React.Component {
             }) 
             : null
         }
-
         if(!!this.props.currentUser) {
             return (
                 
@@ -95,10 +95,10 @@ class SideBar extends React.Component {
                         </div>
     
                         <div className="channel-list-container">
-                            <div className='channel-img-contain'>
+                            <div  className='channel-img-contain'>
 
-                                <div className="channel-name">Channels</div>
-                                <img src="plus.png" alt=""/>
+                                <div onClick={() => this.props.openModal('createChannel')} className="channel-name">Channels</div>
+                                <img onClick={() => this.props.openModal('createChannel')} src="plus.png" alt=""/>
                             </div>
                             <ul className="channel-list">
                                 {channelLinks}

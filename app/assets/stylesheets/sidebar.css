@@ -4,6 +4,7 @@
     height: 95vh;
     min-width: 220px;
     color: white;
+    /* position: absolute; */
 }
 
 .username-container {

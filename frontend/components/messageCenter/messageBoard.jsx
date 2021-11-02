@@ -6,6 +6,7 @@ import BoardHeader from '../boardHeader/boardHeader'
 import ChannelShowContainer from '../channel/channel_show_container'
 import { logout } from '../../actions/session_actions'
 import ListenerContainer from '../channel/listener_container';
+import Modal from '../modal/modal';
 
 class MessageBoard extends React.Component {
 
@@ -23,7 +24,8 @@ class MessageBoard extends React.Component {
                 <SideBarContainer channelId={this.props.channelId}/>
                 {/* <ChannelShowContainer channelId={this.props.channelId}/> */}
                 {/* </div> */}
-                < ListenerContainer />
+                <ListenerContainer />
+                <Modal />
                 
             </div>
 
