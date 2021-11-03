@@ -949,7 +949,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  var currentChannel = state.entities.channels[ownProps.channelId.channel_id];
+  var currentChannel = state.entities.channels[ownProps.channelId];
   return {
     channels: state.entities.channels,
     memberships: state.entities.memberships,
@@ -1550,6 +1550,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var placeholder = "Send a message to ".concat(this.props.channelName);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         className: "message-tobe-sent-container",
         onSubmit: this.handleSubmit
@@ -1558,7 +1559,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
         onChange: this.update('body'),
         value: this.state.body,
         type: "text",
-        placeholder: "Send a message to {this.props.channelName}"
+        placeholder: placeholder
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "image-input-contain"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
@@ -1738,13 +1739,11 @@ var Modal = function Modal(_ref) {
     className: "modal-screen",
     onClick: closeModal
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "modal-render-top"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "modal-render",
     onClick: function onClick(e) {
       return e.stopPropagation();
     }
-  }, component)));
+  }, component));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
