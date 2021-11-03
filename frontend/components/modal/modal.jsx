@@ -32,8 +32,11 @@ const Modal = ({ modal, closeModal }) => {
 
     return (
         <div className="modal-screen" onClick={closeModal}>
-            <div className="modal-render" onClick={e => e.stopPropagation()}>
-                {component}
+            <div className='modal-render-top'>
+                <div className="modal-render" onClick={e => e.stopPropagation()}>
+                    {component}
+                </div>
+
             </div>
         </div>
     )

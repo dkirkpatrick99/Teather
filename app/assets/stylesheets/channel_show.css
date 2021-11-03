@@ -27,19 +27,6 @@
     flex-direction: column-reverse;
 }
 
-/* .channel-show-main::-webkit-scrollbar-thumb {
-  background: red !important;
-  border-radius: 100px !important;
-}
-
-.messages-main-container::-webkit-scrollbar-thumb {
-  background: red !important;
-  border-radius: 100px !important;
-}
-div::-webkit-scrollbar-track {
-  border-radius: 100px !important;
-  background-color: red !important;
-} */
 .message-tobe-sent-container {
     height: 100px; 
     display: flex;
@@ -79,10 +66,10 @@ div::-webkit-scrollbar-track {
     filter:invert(100%);
 }
 
-.message-tobe-sent-container img {
+/* .message-tobe-sent-container img {
     width: 20px;
     height: 20px;
-}
+} */
 
 .message-item-contain {
     padding-left: 30px;

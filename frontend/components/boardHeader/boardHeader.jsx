@@ -17,7 +17,7 @@ class BoardHeader extends React.Component{
     }
 
     findMatches(wordToMatch, channels, users) {
-        console.log("channels" + channels)
+        // console.log("channels" + channels)
     return Object.values(channels).filter(channel => {
         // here we need to figure out if the city or state matches what was searched
         const regex = new RegExp(wordToMatch, 'gi');
@@ -44,8 +44,8 @@ class BoardHeader extends React.Component{
             `;
             }).join('');
         
-            console.log("html" + html)
-            console.log("suggestions" + suggestions)
+            // console.log("html" + html)
+            // console.log("suggestions" + suggestions)
         
             suggestions.innerHTML = html;
 

@@ -17,6 +17,7 @@ class ChannelShow extends React.Component {
     componentDidMount(props) {
         this.props.fetchChannels();
         this.props.fetchUsers();
+        // debugger
         this.props.fetchChannel(this.props.channelId)
             .then(payload => {
                 this.setState({ channelId: Object.values(payload)[1].channel.id, messages: Object.values(payload)[1].messages})
@@ -74,7 +75,7 @@ class ChannelShow extends React.Component {
         if(this.props.currentChannel){
             channelName = this.props.currentChannel.name
         }
-
+        
         return(
             <div className="channel-show-main">
                 <div className="name-of-channel-container">
@@ -86,7 +87,7 @@ class ChannelShow extends React.Component {
                         {currentMessages}
                     </ul>
                 </div>
-                < MessageFromContainer channelName={channelName} channelId={this.state.channelId} currentUserId={this.props.currentUserId}/>
+                < MessageFromContainer channelName={channelName} channelId={this.state.channelId} currentUserId={this.props.currentUser.id}/>
                 
             </div>
         )

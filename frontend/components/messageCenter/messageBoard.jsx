@@ -20,10 +20,10 @@ class MessageBoard extends React.Component {
         return (
             <div className="client-main-container">
                 <BoardHeader />
-                {/* <div className="flex-container"> */}
+                <div className="flex-container">
                 <SideBarContainer channelId={this.props.channelId}/>
-                {/* <ChannelShowContainer channelId={this.props.channelId}/> */}
-                {/* </div> */}
+                <ChannelShowContainer channelId={this.props.channelId.channel_id}/>
+                </div>
                 <ListenerContainer />
                 <Modal />
                 

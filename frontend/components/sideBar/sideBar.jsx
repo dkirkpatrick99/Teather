@@ -76,7 +76,7 @@ class SideBar extends React.Component {
         if(!!this.props.currentUser) {
             return (
                 
-                <div className='flex-container'>
+                // <div className='flex-container'>
                     <div className='sidebar-main-container'> 
                         <div className="username-container">
                             <div className="dropdown">
@@ -116,8 +116,8 @@ class SideBar extends React.Component {
                             </ul>
                         </div>
                     </div>
-                    < ChannelShowContainer channelID={this.props.channelID} currentUserId={this.props.currentUser.id} />
-                </div>
+                    /* < ChannelShowContainer channelID={this.props.channelID} currentUserId={this.props.currentUser.id} /> */
+                // </div>
     
             );
 

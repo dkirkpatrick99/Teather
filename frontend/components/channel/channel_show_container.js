@@ -7,14 +7,15 @@ import { fetchChannels, fetchChannel } from "../../actions/channel_actions";
 import { fetchMessages } from '../../actions/message_actions'
 
 const mapStateToProps = (state, ownProps) => {
-    let currentChanne = state.entities.channels[ownProps.channelID]
+    let currentChannel = state.entities.channels[ownProps.channelId.channel_id]
+    
     return {
         channels: state.entities.channels,
         memberships: state.entities.memberships,
         messages: state.entities.messages,
-        currentChannel: currentChanne,
+        currentChannel: currentChannel,
         currentUser: state.entities.users[state.session.id],
-        channelId: ownProps.channelID,
+        // channelId: ownProps.channelID,
         allUsers: state.entities.users
 
     };

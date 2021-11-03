@@ -515,7 +515,7 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "findMatches",
     value: function findMatches(wordToMatch, channels, users) {
-      console.log("channels" + channels);
+      // console.log("channels" + channels)
       return Object.values(channels).filter(function (channel) {
         // here we need to figure out if the city or state matches what was searched
         var regex = new RegExp(wordToMatch, 'gi');
@@ -536,9 +536,9 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
           var channelName = channel.name.replace(regex, "<span class=\"hl\">".concat(e.currentTarget.value, "</span>")); // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
 
           return "\n            <li>\n                <span class=\"name\">".concat(channelName, "</span>\n            </li>\n            ");
-        }).join('');
-        console.log("html" + html);
-        console.log("suggestions" + suggestions);
+        }).join(''); // console.log("html" + html)
+        // console.log("suggestions" + suggestions)
+
         suggestions.innerHTML = html;
       }
     }
@@ -813,7 +813,8 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchChannels();
-      this.props.fetchUsers();
+      this.props.fetchUsers(); // debugger
+
       this.props.fetchChannel(this.props.channelId).then(function (payload) {
         _this2.setState({
           channelId: Object.values(payload)[1].channel.id,
@@ -909,7 +910,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       }, currentMessages)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_message_message_form__WEBPACK_IMPORTED_MODULE_3__["default"], {
         channelName: channelName,
         channelId: this.state.channelId,
-        currentUserId: this.props.currentUserId
+        currentUserId: this.props.currentUser.id
       }));
     }
   }]);
@@ -948,14 +949,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  var currentChanne = state.entities.channels[ownProps.channelID];
+  var currentChannel = state.entities.channels[ownProps.channelId.channel_id];
   return {
     channels: state.entities.channels,
     memberships: state.entities.memberships,
     messages: state.entities.messages,
-    currentChannel: currentChanne,
+    currentChannel: currentChannel,
     currentUser: state.entities.users[state.session.id],
-    channelId: ownProps.channelID,
+    // channelId: ownProps.channelID,
     allUsers: state.entities.users
   };
 };
@@ -1652,9 +1653,13 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
     function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "client-main-container"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_boardHeader_boardHeader__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_sideBar_sideBar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_boardHeader_boardHeader__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "flex-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_sideBar_sideBar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
         channelId: this.props.channelId
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_listener_container__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_7__["default"], null));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_show_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        channelId: this.props.channelId.channel_id
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_listener_container__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_7__["default"], null));
     }
   }]);
 
@@ -1733,11 +1738,13 @@ var Modal = function Modal(_ref) {
     className: "modal-screen",
     onClick: closeModal
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "modal-render-top"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "modal-render",
     onClick: function onClick(e) {
       return e.stopPropagation();
     }
-  }, component));
+  }, component)));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -2231,53 +2238,55 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
       }
 
       if (!!this.props.currentUser) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "flex-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "sidebar-main-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "username-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "dropdown"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.currentUser.username, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          src: "arrow.png",
-          alt: ""
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "username-dropdown-content"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "pic"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.currentUser.username)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-          onClick: this.props.logout
-        }, "SignOut of ", this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Switch to Light Theme"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "h")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "channel-list-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "channel-img-contain"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          onClick: function onClick() {
-            return _this.props.openModal('createChannel');
-          },
-          className: "channel-name"
-        }, "Channels"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          onClick: function onClick() {
-            return _this.props.openModal('createChannel');
-          },
-          src: "plus.png",
-          alt: ""
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-          className: "channel-list"
-        }, channelLinks)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "dm-list-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "dm-img-contain"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "dm-name"
-        }, "Direct Messages"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          src: "plus.png",
-          alt: ""
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-          className: "dm-list"
-        }, dmLinks))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_show_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          channelID: this.props.channelID,
-          currentUserId: this.props.currentUser.id
-        }));
+        return (
+          /*#__PURE__*/
+          // <div className='flex-container'>
+          react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "sidebar-main-container"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "username-container"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "dropdown"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.currentUser.username, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            src: "arrow.png",
+            alt: ""
+          })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "username-dropdown-content"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "pic"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.currentUser.username)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+            onClick: this.props.logout
+          }, "SignOut of ", this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Switch to Light Theme"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "h")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "channel-list-container"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "channel-img-contain"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            onClick: function onClick() {
+              return _this.props.openModal('createChannel');
+            },
+            className: "channel-name"
+          }, "Channels"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            onClick: function onClick() {
+              return _this.props.openModal('createChannel');
+            },
+            src: "plus.png",
+            alt: ""
+          })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+            className: "channel-list"
+          }, channelLinks)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "dm-list-container"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "dm-img-contain"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "dm-name"
+          }, "Direct Messages"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            src: "plus.png",
+            alt: ""
+          })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+            className: "dm-list"
+          }, dmLinks)))
+          /* < ChannelShowContainer channelID={this.props.channelID} currentUserId={this.props.currentUser.id} /> */
+          // </div>
+
+        );
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
       }
