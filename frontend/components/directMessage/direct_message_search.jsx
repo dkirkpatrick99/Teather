@@ -38,8 +38,6 @@ class DirectMessageSearch extends React.Component {
         // channelObject["name"] = `${currentUser.formal_name}'*'${receivingUser.formal_name}`
         channelObject["name"] = `${receivingUser.id}`
 
-        console.log(channelObject)
-
         this.props.createChannel(channelObject)
         //     .then(payload => {
         //     this.props.createMembership({

@@ -465,6 +465,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_membership_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/membership_actions */ "./frontend/actions/membership_actions.js");
+/* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -493,6 +495,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var BoardHeader = /*#__PURE__*/function (_React$Component) {
   _inherits(BoardHeader, _React$Component);
 
@@ -504,7 +508,12 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, BoardHeader);
 
     _this = _super.call(this, props);
+    _this.state = {
+      'userMatches': null,
+      'channelMatches': null
+    };
     _this.displayMatches = _this.displayMatches.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -515,30 +524,117 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
       this.props.fetchChannels();
     }
   }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var value = e.currentTarget.value;
+      var identifier = e.currentTarget.dataset.classify;
+      var inputEle = document.querySelector('.search-input');
+      var channelObject = {
+        admin_id: this.props.currentUser.id,
+        name: e.currentTarget.value,
+        is_private: false,
+        is_dm: true
+      };
+      var membershipObject = {
+        user_id: this.props.currentUser.id,
+        channel_id: e.currentTarget.value
+      };
+      var channelChecker = (0,_util_functions__WEBPACK_IMPORTED_MODULE_6__.channelCheck)(this.props.memberships, value, this.props.allChannels, identifier);
+
+      if (e.currentTarget.dataset.classify === "user") {
+        if (!channelChecker) {
+          debugger;
+          this.props.createChannel(channelObject);
+        } else {
+          debugger;
+          this.props.history.push("/client/".concat(channelChecker));
+        }
+      } else if (e.currentTarget.dataset.classify === "channel") {
+        if (!channelChecker) {
+          this.props.createMembership(membershipObject);
+        } else {
+          this.props.history.push("/client/".concat(channelChecker));
+        }
+      }
+
+      inputEle.value = '';
+      this.setState({
+        'userMatches': null,
+        'channelMatches': null
+      });
+    }
+  }, {
     key: "findMatches",
     value: function findMatches(wordToMatch, channels, users) {
-      // console.log("channels" + channels)
-      return Object.values(channels).filter(function (channel) {
+      var matches = {
+        "users": [],
+        "channels": []
+      };
+      if (wordToMatch === '') return matches;
+      matches["users"] = Object.values(users).filter(function (user) {
         // here we need to figure out if the city or state matches what was searched
-        var regex = new RegExp(wordToMatch, 'gi');
-        return channel.name.match(regex);
+        var regex = new RegExp(wordToMatch, 'gi'); // debugger
+
+        return user.username.match(regex) || user.email.match(regex);
       });
+      matches["channels"] = Object.values(channels).filter(function (channel) {
+        // here we need to figure out if the city or state matches what was searched
+        var regex = new RegExp(wordToMatch, 'gi'); // debugger
+
+        return channel.name.match(regex);
+      }); // debugger
+
+      return matches;
     }
   }, {
     key: "displayMatches",
     value: function displayMatches(e) {
-      if (Object.keys(this.props.allChannels).length !== 0) {
-        var suggestions = document.querySelector('.suggestions');
-        var matchArray = this.findMatches(e.currentTarget.value, this.props.allChannels);
-        var html = matchArray.map(function (channel) {
+      var _this2 = this;
+
+      if (Object.keys(this.props.allUsers).length !== 0) {
+        var suggestions = document.querySelector('.dm-user-search-items');
+        var matchArray = this.findMatches(e.currentTarget.value, this.props.allChannels, this.props.allUsers);
+        var userMatches = matchArray.users.length > 0 ? matchArray.users.map(function (user) {
           var regex = new RegExp(e.currentTarget.value, 'gi');
-          var channelName = channel.name.replace(regex, "<span class=\"hl\">".concat(e.currentTarget.value, "</span>")); // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+          var userName = user.username;
+          var userEmail = user.email; // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
+          // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
 
-          return "\n            <li>\n                <span class=\"name\">".concat(channelName, "</span>\n            </li>\n            ");
-        }).join(''); // console.log("html" + html)
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
+            key: user.id,
+            value: user.id,
+            "data-classify": "user",
+            onClick: _this2.handleSubmit,
+            className: "header-search-li users"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", {
+            className: "header-search-item"
+          }, userName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, userEmail));
+        }) : null;
+        var channelMatches = matchArray.channels.length > 0 ? matchArray.channels.map(function (channel) {
+          var regex = new RegExp(e.currentTarget.value, 'gi');
+          var userName = channel.name; // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
+          // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
+            key: channel.id,
+            value: channel.id,
+            "data-classify": "channel",
+            onClick: _this2.handleSubmit,
+            className: "header-search-li channels"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", {
+            className: "header-search-item"
+          }, userName));
+        }) : null; // .join('');
+        // debugger
+        // console.log("html" + html)
         // console.log("suggestions" + suggestions)
+        // suggestions.innerHTML = html;
 
-        suggestions.innerHTML = html;
+        this.setState({
+          'userMatches': userMatches,
+          'channelMatches': channelMatches
+        });
       }
     }
   }, {
@@ -554,20 +650,25 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
         type: "text",
         placeholder: "Search users and channels"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("ul", {
-        className: "suggestions"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "boardheader-search-items"
+      }, this.state.userMatches, this.state.channelMatches)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "user-status-image"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "icon")));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+        src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_6__.getUserPic)(this.props.currentUser.formal_name),
+        alt: ""
+      })));
     }
   }]);
 
   return BoardHeader;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component);
 
-var mapStateToProps = function mapStateToProps(state) {
+var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     allUsers: state.entities.users,
-    allChannels: state.entities.channels
+    allChannels: state.entities.channels,
+    currentUser: state.entities.users[state.session.id],
+    memberships: state.entities.memberships
   };
 };
 
@@ -581,6 +682,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     logout: function logout() {
       return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_4__.logout)());
+    },
+    createChannel: function createChannel(channel) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__.createChannel)(channel));
+    },
+    createMembership: function createMembership(membership) {
+      return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_5__.createMembership)(membership));
     }
   };
 };
@@ -775,10 +882,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var regenerator_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
 /* harmony import */ var regenerator_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _message_message_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../message/message_form */ "./frontend/components/message/message_form.jsx");
+/* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -800,6 +908,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -873,6 +982,12 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       return currentCh;
     }
   }, {
+    key: "channelMembers",
+    get: function get() {
+      var memberships = this.props.memberships;
+      var channel = this.props.currentChannel.id;
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this4 = this;
@@ -891,15 +1006,22 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
             minute: '2-digit',
             second: '2-digit'
           }).format(date);
+          var formalName = _this4.props.allUsers[message.user_id].formal_name;
+          var pic = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.getUserPic)(formalName);
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
+            className: "message-channel-show-contain",
             key: message.id
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+            className: "message-user-pic",
+            src: pic,
+            alt: ""
+          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "message-item-contain"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "message-sender-contain"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "message-sender-name"
-          }, _this4.props.allUsers[message.user_id].formal_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
+          }, formalName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
             className: "message-time-stamp"
           }, dateFormat)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
             className: "message-body-text"
@@ -944,7 +1066,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component);
 
 ;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.withRouter)(ChannelShow));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.withRouter)(ChannelShow));
 
 /***/ }),
 
@@ -1258,7 +1380,6 @@ var DirectMessageSearch = /*#__PURE__*/function (_React$Component) {
       var receivingUser = this.props.allUsers[e.currentTarget.value]; // channelObject["name"] = `${currentUser.formal_name}'*'${receivingUser.formal_name}`
 
       channelObject["name"] = "".concat(receivingUser.id);
-      console.log(channelObject);
       this.props.createChannel(channelObject); //     .then(payload => {
       //     this.props.createMembership({
       //         user_id: receivingUser.id,
@@ -1658,12 +1779,18 @@ var GreetingHeader = /*#__PURE__*/function (_React$Component) {
           className: "dropdown"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Past Projects"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "projects-dropdown-content"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, null, "MoneyWise"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, null, "Super Jelly Hero"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, null, "BallUp"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          to: ""
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+          to: "https://moneywise-crowdfunding.herokuapp.com/#/"
+        }, "MoneyWise"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+          to: "https://dkirkpatrick99.github.io/Super-Jelly-Hero/"
+        }, "Super Jelly Hero"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+          to: "https://ballup-app.herokuapp.com/#/"
+        }, "BallUp"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+          to: "https://github.com/dkirkpatrick99"
         }, "GitHub"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          to: ""
+          to: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184"
         }, "LinkedIn"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          to: ""
+          to: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
         }, "Portfolio")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "right-header-container"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
@@ -1753,7 +1880,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       user_id: parseInt(_this.props.currentUserId),
-      body: "",
+      body: '',
       channel_id: parseInt(_this.props.channelId)
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
@@ -1768,7 +1895,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
       return function (e) {
         var _this2$setState;
 
-        return _this2.setState((_this2$setState = {
+        _this2.setState((_this2$setState = {
           user_id: parseInt(_this2.props.currentUserId)
         }, _defineProperty(_this2$setState, field, e.currentTarget.value), _defineProperty(_this2$setState, "channel_id", parseInt(_this2.props.channelId)), _this2$setState));
       };
@@ -1776,21 +1903,32 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      e.preventDefault(); // const inputClear = document.querySelector('.message-to-send').value = ''
+      if (e) e.preventDefault(); // document.querySelector('.message-to-send').value = ''
 
       var message = Object.assign({}, this.state);
-      this.props.createMessage(message).then(document.querySelector('.message-to-send').value = '');
+      this.props.createMessage(message); // .then(document.querySelector('.message-to-send').value = "")
+      // debugger
+
+      document.querySelector('.message-to-send').value = '';
     }
   }, {
     key: "render",
     value: function render() {
-      var placeholder = "Send a message to ".concat(this.props.channelName);
+      var _this3 = this;
+
+      var placeholder = "Send a message to ".concat(this.props.channelName); // debugger
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         className: "message-tobe-sent-container",
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
         className: "message-to-send",
         onChange: this.update('body'),
+        onKeyDown: function onKeyDown(event) {
+          if (event.key === 'Enter') {
+            _this3.handleSubmit();
+          }
+        },
         value: this.state.body,
         type: "text",
         placeholder: placeholder
@@ -1888,7 +2026,9 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
     function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "client-main-container"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_boardHeader_boardHeader__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_boardHeader_boardHeader__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        history: this.props.history
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "flex-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_sideBar_sideBar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
         channelId: this.props.channelId
@@ -1904,7 +2044,8 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
 
 var mapSTP = function mapSTP(state, ownProps) {
   return {
-    channelId: ownProps.match.params
+    channelId: ownProps.match.params,
+    history: ownProps.history
   };
 };
 
@@ -2352,10 +2493,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _channel_channel_show_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../channel/channel_show_container */ "./frontend/components/channel/channel_show_container.js");
 /* harmony import */ var _channel_channel_create_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../channel/channel_create_form */ "./frontend/components/channel/channel_create_form.jsx");
+/* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2377,6 +2519,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -2444,6 +2587,15 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
       return threads;
     }
   }, {
+    key: "toggleElement",
+    value: function toggleElement() {
+      var dropdownToggle = document.querySelector('.dropdown');
+
+      if (dropdownToggle) {
+        dropdownToggle.classList.toggle('active');
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -2458,12 +2610,12 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
           return channelId === channel[0] ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
             className: "channel-list-item active",
             key: channel[0]
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.NavLink, {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
             to: "/client/".concat(channel[0])
           }, "# " + channel[1])) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
             className: "channel-list-item",
             key: channel[0]
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.NavLink, {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
             to: "/client/".concat(channel[0])
           }, "# " + channel[1]));
         }); // debugger
@@ -2472,16 +2624,17 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
           return channelId === dm[0] ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
             className: "channel-list-item active",
             key: dm[0]
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.NavLink, {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
             to: "/client/".concat(dm[0])
           }, dm[3])) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
             className: "channel-list-item",
             key: dm[0]
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.NavLink, {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
             to: "/client/".concat(dm[0])
           }, dm[3]));
         }) : null;
-      }
+      } // if(!dropdownToggle) return
+
 
       if (!!this.props.currentUser) {
         return (
@@ -2492,15 +2645,39 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
             className: "username-container"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            onClick: this.toggleElement,
             className: "dropdown"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.currentUser.username, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "dropdown-current-username"
+          }, this.props.currentUser.username, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
             src: "arrow.png",
             alt: ""
           })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
             className: "username-dropdown-content"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "pic"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.currentUser.username)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "username-img-flex-container"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_3__.getUserPic)(this.props.currentUser.formal_name),
+            alt: ""
+          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "dropdown-current-info-show"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "dropdown-current-email"
+          }, this.props.currentUser.email))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "sidebar-dropdown-links"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
             onClick: this.props.logout
-          }, "SignOut of ", this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Switch to Light Theme"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "h")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          }, "Log out of ", this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+            to: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
+          }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+            to: ""
+          }, "Switch to Light Theme")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            onClick: function onClick() {
+              return _this2.props.openModal('directMessageSearch');
+            },
+            src: "compose.png",
+            alt: ""
+          })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
             className: "channel-list-container"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
             className: "channel-img-contain"
@@ -2542,7 +2719,7 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
   return SideBar;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.withRouter)(SideBar));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.withRouter)(SideBar));
 
 /***/ }),
 
@@ -3082,6 +3259,60 @@ var deleteChannel = function deleteChannel(channelId) {
     url: "api/channels/".concat(channelId),
     method: 'DELETE'
   });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/functions.js":
+/*!************************************!*\
+  !*** ./frontend/util/functions.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getUserPic": () => (/* binding */ getUserPic),
+/* harmony export */   "channelCheck": () => (/* binding */ channelCheck)
+/* harmony export */ });
+var getUserPic = function getUserPic(userName) {
+  var first = userName.slice(0, 1).toLowerCase();
+
+  if (userName === 'stack_bot') {
+    return "slackbot.png";
+  } else if ('abcd'.includes(first)) {
+    return "profile1.png";
+  } else if ('efghi'.includes(first)) {
+    return "profile2.png";
+  } else if ('jklm'.includes(first)) {
+    return "profile3.png";
+  } else if ('nopqr'.includes(first)) {
+    return "profile4.png";
+  } else if ('stuv'.includes(first)) {
+    return "profile5.png";
+  } else {
+    return "profile6.png";
+  }
+};
+var channelCheck = function channelCheck(memberships, channelId, channels, identifier) {
+  var flag = false;
+  var redirectId;
+
+  if (identifier === 'user') {
+    var ch1 = Object.values(channels).find(function (channel) {
+      return channel.name === channelId.toString() && channel.is_dm === true || channel.admin_id === channelId && channel.is_dm === true;
+    }); // const mem = Object.values(memberships).some(membership => membership.channel_id === channelId)
+
+    if (ch1) flag = ch1.id;
+    debugger;
+  } else if (identifier === 'channel') {
+    var ch2 = Object.values(memberships).some(function (membership) {
+      return membership.channel_id === channelId;
+    });
+    if (ch2) flag = channelId;
+  }
+
+  return flag;
 };
 
 /***/ }),

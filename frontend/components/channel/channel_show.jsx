@@ -3,6 +3,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import regeneratorRuntime from "regenerator-runtime";
 import MessageFromContainer from '../message/message_form'
+import { getUserPic } from '../../util/functions'
 
 class ChannelShow extends React.Component {
 
@@ -48,6 +49,11 @@ class ChannelShow extends React.Component {
         return currentCh
     } 
 
+    get channelMembers() {
+        const memberships = this.props.memberships;
+        const channel = this.props.currentChannel.id
+    }
+
     render() {
         let currentMessages
         let channelName = "Loading Channel Name"
@@ -58,11 +64,14 @@ class ChannelShow extends React.Component {
                 Object.values(this.state.messages).map(message => {
                     let date = new Date(message.created_at)
                     let dateFormat = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(date);
+                    let formalName = this.props.allUsers[message.user_id].formal_name
+                    let pic = getUserPic(formalName)
                     return (
-                        <li key={message.id}>
+                        <li className="message-channel-show-contain" key={message.id}>
+                            <img className="message-user-pic" src={pic} alt=""/>
                             <div className='message-item-contain'>
                                 <div className='message-sender-contain'>
-                                    <div className='message-sender-name'>{this.props.allUsers[message.user_id].formal_name}</div>
+                                    <div className='message-sender-name'>{formalName}</div>
                                     <p className='message-time-stamp'>{dateFormat}</p>
                                 </div>
                                 <p className="message-body-text">{message.body}</p>

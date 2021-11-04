@@ -1,8 +1,9 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import  ChannelShowContainer from '../channel/channel_show_container'
 import ChannelCreateFrom from '../channel/channel_create_form'
+import { getUserPic } from "../../util/functions";
 
 class SideBar extends React.Component {
 
@@ -49,6 +50,13 @@ class SideBar extends React.Component {
         return threads
     }
 
+    toggleElement(){
+        const dropdownToggle = document.querySelector('.dropdown');
+        if(dropdownToggle){
+            dropdownToggle.classList.toggle('active')
+        }
+    }
+
     render () {
         const channelId = parseInt(this.props.match.params.channel_id);
         const threadHash = this.renderChannelsAndDms();
@@ -81,6 +89,7 @@ class SideBar extends React.Component {
             }) 
             : null
         }
+        // if(!dropdownToggle) return
 
         if(!!this.props.currentUser) {
             return (
@@ -88,19 +97,24 @@ class SideBar extends React.Component {
                 // <div className='flex-container'>
                     <div className='sidebar-main-container'> 
                         <div className="username-container">
-                            <div className="dropdown">
-                                <div>{this.props.currentUser.username} <img src="arrow.png" alt=""/></div>
+                            <div onClick={this.toggleElement} className="dropdown">
+                                <div className="dropdown-current-username">{this.props.currentUser.username} <img src="arrow.png" alt=""/></div>
                                 <div className="username-dropdown-content">
-                                    <div>
-                                        <div>pic</div>
-                                        <div>{this.props.currentUser.username}</div>
+                                    <div className='username-img-flex-container'>
+                                        <img src={getUserPic(this.props.currentUser.formal_name)} alt=""/>
+                                        <div className='dropdown-current-info-show'>
+                                            <div>{this.props.currentUser.username}</div>
+                                            <div className="dropdown-current-email">{this.props.currentUser.email}</div>
+                                        </div>
                                     </div>
-                                    <button onClick={this.props.logout}>SignOut of {this.props.currentUser.username}</button>
-                                    <button>Visit my portfolio</button>
-                                    <button>Switch to Light Theme</button>
+                                    <div className="sidebar-dropdown-links">
+                                        <Link onClick={this.props.logout}>Log out of {this.props.currentUser.username}</Link>
+                                        <Link to='https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/'>Visit my portfolio</Link>
+                                        <Link to=''>Switch to Light Theme</Link>
+                                    </div>
                                 </div>
                             </div>
-                            <div>h</div>
+                            <img onClick={() => this.props.openModal('directMessageSearch')} src="compose.png" alt=""/>
                         </div>
     
                         <div className="channel-list-container">

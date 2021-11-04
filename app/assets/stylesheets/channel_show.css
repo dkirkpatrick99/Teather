@@ -34,7 +34,7 @@
     justify-content: center;
     color: white;
     position: relative;
-    
+    margin-top: 9px;
 }
 
 .message-tobe-sent-container > textarea {
@@ -71,11 +71,27 @@
     height: 20px;
 } */
 
-.message-item-contain {
-    padding-left: 30px;
+.message-channel-show-contain {
+    display: flex;
+    padding-left: 15px;
     padding-right: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
+    border-bottom: 0.1em solid rgb(58,61,64)
+}
+
+.message-user-pic {
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.message-item-contain {
+    /* padding-left: 30px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px; */
 }
 
 .message-sender-contain {

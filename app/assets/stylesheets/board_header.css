@@ -10,21 +10,25 @@
 .search-input-container {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    width: 75%;
+    /* justify-content: center; */
+    width: 100%;
     color: white;
+    flex-direction: column;
+    position: relative;
 }
 
 .search-input {
     background-color: rgb(56, 55, 60);
     width: 60%;
-    height: 60%;
+    height: 75%;
     color: white;
     border-top-style: hidden;
     border-right-style: hidden;
     border-left-style: hidden;
-    border-bottom-style: groove;
+    border-bottom-style: hidden;
     border-radius: 5px;
+    position: absolute;
+    padding-left: 10px;
 }
 
 .search-input::placeholder {
@@ -37,25 +41,33 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 21%;
+    /* width: 24%; */
     color: white;
+    margin-right: 10px;
+}
+
+.user-status-image > img {
+  height: 30px;
+  width: 30px;
 }
 
 /* User Search CSS ************* */
-.dm-user-search-container {
+
+
+/* .search-input-container {
     height: 90%;
     color: rgb(209 210 211);
-}
+} */
 
-input.dm-user-search-input {
+input.search-input {
   margin: 0;
   /* text-align: center; */
   outline: 0;
   background-color: rgb(26, 29, 33);
   color: rgb(209 210 211);
   /* border: 10px solid #F7F7F7; */
-  width: 98%;
-  height: 8%;
+  /* width: 98%;
+  height: 8%; */
   /* left: -10%; */
   /* position: relative; */
   /* top: 10px; */
@@ -65,30 +77,41 @@ input.dm-user-search-input {
   /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.19); */
 }
 
-.dm-user-search-items {
+.boardheader-search-items {
   margin: 0;
   padding: 0;
-  /* position: relative; */
+  position: relative;
+  z-index: 7;
   /*perspective: 20px;*/
-  overflow-y: scroll;
-  height: 84%;
+  /* overflow-y: scroll; */
+  /* height: 84%; */
+  top: 40px;
+  width: 60%;
+  border-left: 1px solid rgb(58,61,64);
+  border-right: 1px solid rgb(58,61,64);
+  border-bottom: 1px solid rgb(58,61,64);
+  box-shadow: 0 0 10px rgba(244, 239, 239, 0.858);
+  /* max-height: 60%; */
+
+
 }
 
-.dm-user-search-items li {
+.boardheader-search-items li {
   background: rgb(26, 29, 33);
   list-style: none;
-  border-bottom: 1px solid #D8D8D8;
-
-  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.14); */
   margin: 0;
   padding: 20px;
-  transition: background 0.2s;
+  /* transition: background 0.2s; */
   display: flex;
   justify-content: space-between;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
-span.dm-username-item {
+.boardheader-search-items li:hover {
+  background-color: rgb(49, 49, 181);
+}
+
+span.header-search-item {
   font-size: 15px;
 }
 

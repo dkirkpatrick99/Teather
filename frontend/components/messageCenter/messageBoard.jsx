@@ -19,7 +19,7 @@ class MessageBoard extends React.Component {
     render(){
         return (
             <div className="client-main-container">
-                <BoardHeader />
+                <BoardHeader history={this.props.history} />
                 <div className="flex-container">
                 <SideBarContainer channelId={this.props.channelId}/>
                 <ChannelShowContainer channelId={this.props.channelId.channel_id}/>
@@ -38,7 +38,8 @@ class MessageBoard extends React.Component {
 
 const mapSTP = (state, ownProps) => {
     return {
-        channelId: ownProps.match.params
+        channelId: ownProps.match.params,
+        history: ownProps.history
     };
 };
 
