@@ -12,7 +12,8 @@ const mapStateToProps = (state, ownProps) => {
         userChannels: state.entities.channels,
         currentUser: state.entities.users[state.session.id],
         memberships: state.entities.memberships,
-        channelID: ownProps.channelId.channel_id
+        channelID: ownProps.channelId.channel_id,
+        allUsers: state.entities.users
     };
 };
 

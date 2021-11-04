@@ -25,7 +25,7 @@
 
 .channel-list-container {
     margin-top: 40px;
-    margin-left: 20px
+    /* margin-left: 20px */
 
 }
 
@@ -44,6 +44,13 @@
     height: 15px;
     filter:invert(100%);
     padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.channel-img-contain img:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    color: white;
 }
 
 .dm-img-contain img {
@@ -51,51 +58,75 @@
     height: 15px;
     filter:invert(100%);
     padding-right: 15px;
+    padding-bottom: 15px;
+
+}
+
+.dm-img-contain img:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    color: white;
 }
 
 .channel-name {
     font-size: 18px;
+    padding-left: 15px;
 }
 
 .channel-list {
     font-size: 14px;
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 
-.channel-list li {
-    padding-top: 10px;
+.channel-list-item {
+    /* padding: 5px; */
     list-style: none;
     color: #a3a3a6;
+}
+
+.channel-list-item.active {
+    background-color: rgb(49, 49, 181) !important;
+}
+
+.channel-list-item:hover {
+    background-color: rgb(35, 35, 36);
 }
 
 .channel-list a {
     color: #a3a3a6;
-
+    padding-left: 20px;
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .dm-list-container {
     margin-top: 40px;
-    margin-left: 20px
+    /* margin-left: 20px */
 }
 
 .dm-name {
     font-size: 18px;
+    padding-left: 15px;
 }
 
 .dm-list {
     font-size: 14px;
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 
-.dm-list li {
+/* .dm-list li {
     padding-top: 10px;
     list-style: none;
     color: #a3a3a6;
-}
+} */
 
 .dm-list a {
     color: #a3a3a6;
-
+    padding-left: 20px;
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 /* dropdown CSS ********** */

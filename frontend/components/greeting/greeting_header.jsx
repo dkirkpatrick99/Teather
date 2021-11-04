@@ -23,9 +23,9 @@ class GreetingHeader extends React.Component {
                         <div className="dropdown">
                             <div>Past Projects</div>
                             <div className="projects-dropdown-content">
-                                <button>MoneyWise</button>
-                                <button>Super Jelly Hero</button>
-                                <button>BallUp</button>
+                                <Link>MoneyWise</Link>
+                                <Link>Super Jelly Hero</Link>
+                                <Link>BallUp</Link>
                             </div>
                         </div>
 

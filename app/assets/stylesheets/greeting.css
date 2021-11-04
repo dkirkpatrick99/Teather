@@ -159,7 +159,8 @@
 
 .chat-desc-container a {
     display: flex;
-    margin: 20px;
+    /* margin-top: 40px; */
+    top: 40px;
     justify-content: center;
     align-items: center;
     width: 150px;
@@ -167,7 +168,18 @@
     color: #611f69;
     border-radius: 5px;
     background-color: white;
+    position: relative;
+    top: 40px;
+    transition: 0.3s;
+
 }
+
+.chat-desc-container a:hover {
+    background-color: #611f69;
+    color: white;
+    /* transform: scale(1.1); */
+    border: 1px solid white;
+} 
 
 .greeting-text-blocks-container {
     display: flex;

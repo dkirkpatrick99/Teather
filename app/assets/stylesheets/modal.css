@@ -1,5 +1,5 @@
 .modal-screen {
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
@@ -10,11 +10,12 @@
     background-color: #222629;
     border: 1px solid gray;
     border-radius: 5px;
-    /* top: 20%; */
-    bottom: 24%;
-    /* left: 20%; */
-    right: 20%;
+    top: 10%;
+    bottom: 35%;
+    left: 15%;
+    /* right: 79%; */
     z-index: 6;
-    /* position: absolute; */
+    position: absolute;
+    width: 492px;
     overflow: hidden;
 }

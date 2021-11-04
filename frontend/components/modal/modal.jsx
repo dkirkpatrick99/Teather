@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../../actions/modal_actions';
 import ChannelCreateForm from '../channel/channel_create_form';
-// import ChannelSearchContainer from '../search/channel_search_container';
-// import UserSearchContainer from '../search/user_search_container';
+import DirectMessageSearch from '../directMessage/direct_message_search'
 
 const Modal = ({ modal, closeModal }) => {
 
@@ -20,9 +19,9 @@ const Modal = ({ modal, closeModal }) => {
         case 'createChannel':
             component = <ChannelCreateForm />;
             break;
-        // case 'channelSearch':
-        //     component = <ChannelSearchContainer />;
-        //     break;
+        case 'directMessageSearch':
+            component = <DirectMessageSearch />;
+            break;
         // case 'userSearch':
         //     component = <UserSearchContainer />;
         //     break;

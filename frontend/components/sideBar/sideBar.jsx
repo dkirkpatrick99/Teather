@@ -8,6 +8,7 @@ class SideBar extends React.Component {
 
     constructor(props){
         super(props);
+        this.state;
     };
 
     componentDidMount(props) {
@@ -18,26 +19,33 @@ class SideBar extends React.Component {
         this.props.fetchChannels();
     };
 
+
+
     renderChannelsAndDms() {
         const that = this;
         const threads = {"dm":[], "channel":[]};
         const memberships = this.props.memberships;
-        if(Object.keys(this.props.userChannels) !== 0 && Object.keys(this.props.memberships) !== 0) {
+        
+        if (Object.keys(this.props.userChannels) !== 0 && Object.keys(this.props.memberships) !== 0 && Object.keys(this.props.allUsers).length > 1) {
             Object.values(memberships).forEach(membership => {
                 const channelId = membership.channel_id;
                 const channel = that.props.userChannels[channelId];
+                const dmName = that.props.currentUser.id === parseInt(channel.name) ? that.props.allUsers[channel.admin_id] : that.props.allUsers[channel.name]
+                // debugger
                 
                 if(!channel){
                     return;
                 };
+            
                 if(!channel.is_dm){
                     // channelArr.push([channel.id, channel.name]);
                     threads["channel"].push([channel.id, channel.name]);
                 } else if (channel.is_dm) {
-                    threads["dm"].push([channel.id, channel.name, channel.admin_id]);
+                    threads["dm"].push([channel.id, channel.name, channel.admin_id, dmName.formal_name]);
                 }
             })
         }
+        // this.setState(threads)
         return threads
     }
 
@@ -50,29 +58,30 @@ class SideBar extends React.Component {
             channelLinks = threadHash["channel"].map(channel => {
                 
                 return channelId === channel[0] ? 
-                    <li key={channel[0]}>
-                        <NavLink to={`/client/${channel[0]}`}>{"# " + channel[1] + "SELECTED"}</NavLink>
+                    <li className="channel-list-item active" key={channel[0]}>
+                        <NavLink to={`/client/${channel[0]}`}>{"# " + channel[1]}</NavLink>
                     </li>
                 :
-                    <li key={channel[0]}> 
+                    <li className="channel-list-item" key={channel[0]}> 
                         <NavLink to={`/client/${channel[0]}`}>{"# " + channel[1]}</NavLink>
                     </li>
                 }
             );
-            dmLinks = threadHash["dm"] ? threadHash["dm"].map(dm => {
+            // debugger
+            dmLinks = threadHash["dm"].length > 0 ? threadHash["dm"].map(dm => {
 
-            
                 return channelId === dm[0] ?
-                    <li key={dm[0]}> 
-                        <NavLink to={`/client/${dm[0]}`}>{dm[1]}SELECTED</NavLink>
+                    <li className="channel-list-item active" key={dm[0]}> 
+                        <NavLink to={`/client/${dm[0]}`}>{dm[3]}</NavLink>
                     </li>
                 :
-                    <li key={dm[0]}>
-                        <NavLink to={`/client/${dm[0]}`}>{dm[1]}</NavLink>
+                    <li className="channel-list-item" key={dm[0]}>
+                        <NavLink to={`/client/${dm[0]}`}>{dm[3]}</NavLink>
                     </li>
             }) 
             : null
         }
+
         if(!!this.props.currentUser) {
             return (
                 
@@ -97,7 +106,7 @@ class SideBar extends React.Component {
                         <div className="channel-list-container">
                             <div  className='channel-img-contain'>
 
-                                <div onClick={() => this.props.openModal('createChannel')} className="channel-name">Channels</div>
+                                <div className="channel-name">Channels</div>
                                 <img onClick={() => this.props.openModal('createChannel')} src="plus.png" alt=""/>
                             </div>
                             <ul className="channel-list">
@@ -108,7 +117,7 @@ class SideBar extends React.Component {
                         <div className="dm-list-container">
                             <div className='dm-img-contain'>
                                 <div className="dm-name">Direct Messages</div>
-                                <img src="plus.png" alt=""/>
+                            <img onClick={() => this.props.openModal('directMessageSearch')} src="plus.png" alt=""/>
 
                             </div>
                             <ul className="dm-list">

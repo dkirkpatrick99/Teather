@@ -7,7 +7,7 @@ class ChannelCreateForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            admin_id: '',
+            admin_id: this.props.currentUser.id,
             name: '',
             description: '',
             is_private: false,
@@ -17,11 +17,15 @@ class ChannelCreateForm extends React.Component {
     }
 
     update(field) {
-        return e => this.setState({ [field]: e.target.value, })
+        return e =>{
+            field === "is_private" ? this.setState({ [field]: e.target.checked, }) : this.setState({ [field]: e.target.value, })
+            // this.setState({ [field]: e.target.value, })
+        } 
     }
 
     handleSubmit(e) {
         e.preventDefault();
+        // debugger
         this.props.createChannel(this.state);
         this.setState({
             admin_id: "",
@@ -30,15 +34,19 @@ class ChannelCreateForm extends React.Component {
             is_private: false,
             is_dm: false
         });
+        this.props.closeModal();
     }
 
 
-
+debugger
 
     render() {
         return(
             // <div className='channel-create-container'>
                 <form className='channel-create-form' onSubmit={this.handleSubmit}>
+                    <div className='close-modal-x'>
+                        <img onClick={this.props.closeModal} className='close-modal-button' src="plus.png" alt=""/>
+                    </div>
                     <h1>Create a channel</h1>
                     <p>Channels are where your team communicates. They’re best when organized around a topic — #marketing, for example.</p>
                     <div className='channel-create-inputs'>
@@ -56,7 +64,7 @@ class ChannelCreateForm extends React.Component {
                         <input type="text"
                             value={this.state.email}
                             placeholder="What’s this channel about?"
-                            onChange={this.update('email')}
+                            onChange={this.update('description')}
                             className="channel-name-input"
                             rows='1'
                         />
@@ -69,7 +77,7 @@ class ChannelCreateForm extends React.Component {
                         </div>
                         
                         <label className="switch">
-                            <input type="checkbox"/>
+                            <input value={this.state.is_private} onChange={this.update('is_private')} type="checkbox"/>
                             <span className="slider round"></span>
                         </label>
                     </div>
@@ -84,14 +92,15 @@ class ChannelCreateForm extends React.Component {
 }
 
 
-// const mSTP = state => {
-//     return {
-
-//     }
-// }
+const mSTP = state => {
+    return {
+        currentUser: state.entities.users[state.session.id]
+    }
+}
 
 const mDTP = dispatch => ({
-    createChannel: channel => dispatch(createChannel(channel))
+    createChannel: channel => dispatch(createChannel(channel)),
+    closeModal: () => dispatch(closeModal())
 })
 
-export default connect(null, mDTP)(ChannelCreateForm);
+export default connect(mSTP, mDTP)(ChannelCreateForm);

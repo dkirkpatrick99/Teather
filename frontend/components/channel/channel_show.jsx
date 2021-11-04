@@ -51,7 +51,8 @@ class ChannelShow extends React.Component {
     render() {
         let currentMessages
         let channelName = "Loading Channel Name"
-        if(this.state) {
+
+        if (this.state && Object.keys(this.props.allUsers).length > 1) {
             currentMessages = Object.keys(this.state.messages).length !== 0 ? 
                 
                 Object.values(this.state.messages).map(message => {
@@ -72,8 +73,15 @@ class ChannelShow extends React.Component {
         // var elem = document.querySelector('.messages-main-container');
         // if(elem)elem.scrollTop = elem.scrollHeight;
 
-        if(this.props.currentChannel){
-            channelName = this.props.currentChannel.name
+        if(this.props.currentChannel && Object.keys(this.props.allUsers).length > 1){
+            const channel = this.props.currentChannel;
+            const dmName = this.props.currentUser.id === parseInt(channel.name) ? this.props.allUsers[channel.admin_id] : this.props.allUsers[channel.name]
+                // debugger
+            if(channel.is_dm) {
+                channelName = dmName.formal_name
+            } else {
+                channelName = this.props.currentChannel.name
+            }
         }
         
         return(

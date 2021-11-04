@@ -25,10 +25,6 @@ class BoardHeader extends React.Component{
     });
     }
 
-    // numberWithCommas(x) {
-    // return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    // }
-
     displayMatches(e) {
         if(Object.keys(this.props.allChannels).length !== 0){
             const suggestions = document.querySelector('.suggestions');
@@ -48,7 +44,6 @@ class BoardHeader extends React.Component{
             // console.log("suggestions" + suggestions)
         
             suggestions.innerHTML = html;
-
         }
     }
 

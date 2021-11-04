@@ -35,7 +35,6 @@ class Api::ChannelsController < ApplicationController
                                 channel_id: @channel.id
                                 })
             end
-debugger
             render 'api/channels/show'
         else
             render json: @channel.errors.full_messages, status: 422
