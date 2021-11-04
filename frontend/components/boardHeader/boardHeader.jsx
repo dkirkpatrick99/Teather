@@ -8,6 +8,7 @@ class BoardHeader extends React.Component{
 
     constructor(props) {
         super(props)
+        this.state;
         this.displayMatches = this.displayMatches.bind(this)
     }
 
@@ -17,33 +18,62 @@ class BoardHeader extends React.Component{
     }
 
     findMatches(wordToMatch, channels, users) {
-        // console.log("channels" + channels)
-    return Object.values(channels).filter(channel => {
-        // here we need to figure out if the city or state matches what was searched
-        const regex = new RegExp(wordToMatch, 'gi');
-        return channel.name.match(regex)
-    });
+        let matches = {"users" : [], "channels" : [] }
+        matches["users"] =  Object.values(users).filter(user => {
+            // here we need to figure out if the city or state matches what was searched
+            const regex = new RegExp(wordToMatch, 'gi');
+            // debugger
+            return user.username.match(regex)
+        });
+
+        matches["channels"] = Object.values(channels).filter(channel => {
+            // here we need to figure out if the city or state matches what was searched
+            const regex = new RegExp(wordToMatch, 'gi');
+            // debugger
+            return channel.name.match(regex)
+        });
+
+        return matches
     }
 
     displayMatches(e) {
-        if(Object.keys(this.props.allChannels).length !== 0){
-            const suggestions = document.querySelector('.suggestions');
-            const matchArray = this.findMatches(e.currentTarget.value, this.props.allChannels);
-            const html = matchArray.map(channel => {
+        if (Object.keys(this.props.allUsers).length !== 0) {
+
+            const suggestions = document.querySelector('.dm-user-search-items');
+            const matchArray = this.findMatches(e.currentTarget.value, this.props.allChannels, this.props.allUsers);
+            // debugger
+            const userMatches = matchArray.map(user => {
                 const regex = new RegExp(e.currentTarget.value, 'gi');
-                const channelName = channel.name.replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
+                const userName = user.username
+                // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
                 // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
-                return `
-            <li>
-                <span class="name">${channelName}</span>
-            </li>
-            `;
-            }).join('');
-        
+                return (
+                    <li key={user.id} value={user.id} onClick={this.handleSubmit} className='header-search-li'>
+                        <span className="header-search-item">{userName}</span>
+                    </li>
+                )
+            })
+
+            const channelMatches = matchArray.map(channel => {
+                const regex = new RegExp(e.currentTarget.value, 'gi');
+                const userName = channel.name
+                // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
+                // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+                return (
+                    <li key={channel.id} value={channel.id} onClick={this.handleSubmit} className='header-search-li'>
+                        <span className="header-search-item">{userName}</span>
+                    </li>
+                )
+            })
+            // .join('');
+            // debugger
             // console.log("html" + html)
             // console.log("suggestions" + suggestions)
-        
-            suggestions.innerHTML = html;
+            // suggestions.innerHTML = html;
+            this.setState({
+                'userMatches': userMatches,
+                'channelMatches': channelMatches
+            })
         }
     }
 
