@@ -389,7 +389,6 @@ var fetchUsers = function fetchUsers() {
     });
   };
 }; // export const fetchUsers = () => dispatch => {
-//     debugger
 //     return UserApiUtil.fetchUsers()
 //         .then(users => dispatch(receiveUsers(users)))
 // };
@@ -591,17 +590,14 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
       if (wordToMatch === '') return matches;
       matches["users"] = Object.values(users).filter(function (user) {
         // here we need to figure out if the city or state matches what was searched
-        var regex = new RegExp(wordToMatch, 'gi'); // debugger
-
+        var regex = new RegExp(wordToMatch, 'gi');
         return user.username.match(regex) || user.email.match(regex);
       });
       matches["channels"] = Object.values(channels).filter(function (channel) {
         // here we need to figure out if the city or state matches what was searched
-        var regex = new RegExp(wordToMatch, 'gi'); // debugger
-
+        var regex = new RegExp(wordToMatch, 'gi');
         return channel.name.match(regex);
-      }); // debugger
-
+      });
       return matches;
     }
   }, {
@@ -643,9 +639,6 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
             className: "header-search-item"
           }, userName));
         }) : null; // .join('');
-        // debugger
-        // console.log("html" + html)
-        // console.log("suggestions" + suggestions)
         // suggestions.innerHTML = html;
 
         this.setState({
@@ -730,6 +723,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -750,8 +745,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -768,9 +761,6 @@ var ChannelCreateForm = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ChannelCreateForm);
 
     _this = _super.call(this, props);
-
-    _defineProperty(_assertThisInitialized(_this), "debugger", void 0);
-
     _this.state = {
       admin_id: _this.props.currentUser.id,
       name: '',
@@ -794,8 +784,7 @@ var ChannelCreateForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      e.preventDefault(); // debugger
-
+      e.preventDefault();
       this.props.createChannel(this.state);
       this.setState({
         admin_id: "",
@@ -1095,7 +1084,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
 
       if (this.props.currentChannel && Object.keys(this.props.allUsers).length > 1) {
         var channel = this.props.currentChannel;
-        var dmName = this.props.currentUser.id === parseInt(channel.name) ? this.props.allUsers[channel.admin_id] : this.props.allUsers[channel.name]; // debugger
+        var dmName = this.props.currentUser.id === parseInt(channel.name) ? this.props.allUsers[channel.admin_id] : this.props.allUsers[channel.name];
 
         if (channel.is_dm) {
           channelName = dmName.formal_name;
@@ -1310,18 +1299,15 @@ var Listener = /*#__PURE__*/function (_React$Component) {
           channel: "ChatChannel",
           room: membership.channel_id
         }, {
-          connected: function connected() {
-            console.log("Connected to ".concat(membership.channel_id));
+          connected: function connected() {// console.log(`Connected to ${membership.channel_id}`);
           },
-          disconnected: function disconnected() {
-            console.log("Disconnected!");
+          disconnected: function disconnected() {// console.log("Disconnected!");
           },
           received: function received(data) {
             var payload = {
               messages: _defineProperty({}, data.message.id, data.message),
               user: _defineProperty({}, data.user.id, data.user)
             };
-            console.log(data);
 
             _this2.props.receiveMessage(payload);
           }
@@ -1487,11 +1473,9 @@ var DirectMessageSearch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "findMatches",
     value: function findMatches(wordToMatch, users) {
-      // console.log("channels" + channels)
       return Object.values(users).filter(function (user) {
         // here we need to figure out if the city or state matches what was searched
-        var regex = new RegExp(wordToMatch, 'gi'); // debugger
-
+        var regex = new RegExp(wordToMatch, 'gi');
         return user.username.match(regex);
       });
     }
@@ -1502,8 +1486,7 @@ var DirectMessageSearch = /*#__PURE__*/function (_React$Component) {
 
       if (Object.keys(this.props.allUsers).length !== 0) {
         var suggestions = document.querySelector('.dm-user-search-items');
-        var matchArray = this.findMatches(e.currentTarget.value, this.props.allUsers); // debugger
-
+        var matchArray = this.findMatches(e.currentTarget.value, this.props.allUsers);
         var html = matchArray.map(function (user) {
           var regex = new RegExp(e.currentTarget.value, 'gi');
           var userName = user.username; // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
@@ -1518,9 +1501,6 @@ var DirectMessageSearch = /*#__PURE__*/function (_React$Component) {
             className: "dm-username-item"
           }, userName));
         }); // .join('');
-        // debugger
-        // console.log("html" + html)
-        // console.log("suggestions" + suggestions)
         // suggestions.innerHTML = html;
 
         this.setState(this.state['html'] = html);
@@ -1531,7 +1511,6 @@ var DirectMessageSearch = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       // const items = Array.from(document.querySelectorAll('.dm-user-search-li'));
       // if(items) {
-      //     debugger
       //     items.forEach(item => item.addEventListener('click', this.handleSubmit));
       // }
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1995,7 +1974,6 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
 
       var message = Object.assign({}, this.state);
       this.props.createMessage(message); // .then(document.querySelector('.message-to-send').value = "")
-      // debugger
 
       document.querySelector('.message-to-send').value = '';
     }
@@ -2004,8 +1982,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var placeholder = "Send a message to ".concat(this.props.channelName); // debugger
-
+      var placeholder = "Send a message to ".concat(this.props.channelName);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         className: "message-tobe-sent-container",
         onSubmit: this.handleSubmit
@@ -2655,7 +2632,7 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
         Object.values(memberships).forEach(function (membership) {
           var channelId = membership.channel_id;
           var channel = that.props.userChannels[channelId];
-          var dmName = that.props.currentUser.id === parseInt(channel.name) ? that.props.allUsers[channel.admin_id] : that.props.allUsers[channel.name]; // debugger
+          var dmName = that.props.currentUser.id === parseInt(channel.name) ? that.props.allUsers[channel.admin_id] : that.props.allUsers[channel.name];
 
           if (!channel) {
             return;
@@ -2707,8 +2684,7 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
             to: "/client/".concat(channel[0])
           }, "# " + channel[1]));
-        }); // debugger
-
+        });
         dmLinks = threadHash["dm"].length > 0 ? threadHash["dm"].map(function (dm) {
           return channelId === dm[0] ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
             className: "channel-list-item active",
@@ -3400,7 +3376,6 @@ var channelCheck = function channelCheck(memberships, channelId, channels, ident
     }); // const ch1 = Object.values(channels).forEach(channel => {
     //     const chId = channel.id
     //     if (membershipChannelIds[chId] && ((channel.admin_id === channelId && channel.name === currentUserId.toString())) || ((channel.admin_id === parseInt(currentUserId) && channel.name === channelId.toString()))) {
-    //         debugger
     //         return channel.id
     //     }
     // })
@@ -3636,7 +3611,6 @@ var fetchUsers = function fetchUsers() {
     url: "/api/users"
   });
 }; // export const fetchUsers = () => {
-//     debugger
 //     return $.ajax({
 //         method: 'GET',
 //         url: `/api/users`
