@@ -25,7 +25,6 @@ class ChannelCreateForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // debugger
         this.props.createChannel(this.state);
         this.setState({
             admin_id: "",
@@ -38,7 +37,6 @@ class ChannelCreateForm extends React.Component {
     }
 
 
-debugger
 
     render() {
         return(

@@ -30,7 +30,6 @@ export const channelCheck = (memberships, channelId, channels, identifier, curre
         // const ch1 = Object.values(channels).forEach(channel => {
         //     const chId = channel.id
         //     if (membershipChannelIds[chId] && ((channel.admin_id === channelId && channel.name === currentUserId.toString())) || ((channel.admin_id === parseInt(currentUserId) && channel.name === channelId.toString()))) {
-        //         debugger
         //         return channel.id
         //     }
         // })

@@ -12,7 +12,6 @@ export const fetchUsers = () => dispatch => UserApiUtil.fetchUsers()
     .then(users => dispatch(receiveUsers(users)));
 
 // export const fetchUsers = () => dispatch => {
-//     debugger
 //     return UserApiUtil.fetchUsers()
 //         .then(users => dispatch(receiveUsers(users)))
 // };

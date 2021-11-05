@@ -31,13 +31,11 @@ class MessageForm extends React.Component {
         const message = Object.assign({}, this.state)
         this.props.createMessage(message)
         // .then(document.querySelector('.message-to-send').value = "")
-        // debugger
         document.querySelector('.message-to-send').value = ''
     }
 
     render() {
         const placeholder = `Send a message to ${this.props.channelName}`
-        // debugger
         return (
             <div >
                 <form className="message-tobe-sent-container" onSubmit={this.handleSubmit}>

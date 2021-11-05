@@ -67,17 +67,14 @@ class BoardHeader extends React.Component{
         matches["users"] =  Object.values(users).filter(user => {
             // here we need to figure out if the city or state matches what was searched
             const regex = new RegExp(wordToMatch, 'gi');
-            // debugger
             return user.username.match(regex) || user.email.match(regex)
         });
 
         matches["channels"] = Object.values(channels).filter(channel => {
             // here we need to figure out if the city or state matches what was searched
             const regex = new RegExp(wordToMatch, 'gi');
-            // debugger
             return channel.name.match(regex)
         });
-        // debugger
         return matches
     }
 
@@ -113,9 +110,6 @@ class BoardHeader extends React.Component{
                 )
             }) : null
             // .join('');
-            // debugger
-            // console.log("html" + html)
-            // console.log("suggestions" + suggestions)
             // suggestions.innerHTML = html;
             this.setState({
                 'userMatches': userMatches,

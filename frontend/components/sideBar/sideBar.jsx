@@ -32,7 +32,6 @@ class SideBar extends React.Component {
                 const channelId = membership.channel_id;
                 const channel = that.props.userChannels[channelId];
                 const dmName = that.props.currentUser.id === parseInt(channel.name) ? that.props.allUsers[channel.admin_id] : that.props.allUsers[channel.name]
-                // debugger
                 
                 if(!channel){
                     return;
@@ -75,7 +74,7 @@ class SideBar extends React.Component {
                     </li>
                 }
             );
-            // debugger
+
             dmLinks = threadHash["dm"].length > 0 ? threadHash["dm"].map(dm => {
 
                 return channelId === dm[0] ?

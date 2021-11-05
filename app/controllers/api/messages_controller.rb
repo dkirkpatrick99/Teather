@@ -4,14 +4,12 @@ class Api::MessagesController < ApplicationController
 
     def show
         @message = Message.includes(:user).find_by(id: params[:id])
-        debugger
         render 'api/messages/show'
     end
 
     def index
         @messages = Channel.find(params[:channelId]).messages
         # @messages = Message.all
-        debugger
         render "api/messages/index"
     end 
 

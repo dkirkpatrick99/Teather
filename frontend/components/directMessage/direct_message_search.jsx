@@ -57,11 +57,9 @@ class DirectMessageSearch extends React.Component {
     }
 
     findMatches(wordToMatch, users) {
-        // console.log("channels" + channels)
         return Object.values(users).filter(user => {
             // here we need to figure out if the city or state matches what was searched
             const regex = new RegExp(wordToMatch, 'gi');
-            // debugger
             return user.username.match(regex)
         });
     }
@@ -71,7 +69,6 @@ class DirectMessageSearch extends React.Component {
 
             const suggestions = document.querySelector('.dm-user-search-items');
             const matchArray = this.findMatches(e.currentTarget.value, this.props.allUsers);
-            // debugger
             const html = matchArray.map(user => {
                 const regex = new RegExp(e.currentTarget.value, 'gi');
                 const userName = user.username
@@ -85,9 +82,6 @@ class DirectMessageSearch extends React.Component {
                 )
                 })
                 // .join('');
-// debugger
-            // console.log("html" + html)
-            // console.log("suggestions" + suggestions)
             // suggestions.innerHTML = html;
             this.setState(this.state['html'] = html)
         }
@@ -98,7 +92,6 @@ class DirectMessageSearch extends React.Component {
 
         // const items = Array.from(document.querySelectorAll('.dm-user-search-li'));
         // if(items) {
-        //     debugger
         //     items.forEach(item => item.addEventListener('click', this.handleSubmit));
 
         // }

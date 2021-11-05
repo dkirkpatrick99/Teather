@@ -42,10 +42,10 @@ class Listener extends React.Component {
                 },
                 {
                     connected: () => {
-                        console.log(`Connected to ${membership.channel_id}`);
+                        // console.log(`Connected to ${membership.channel_id}`);
                     },
                     disconnected: () => {
-                        console.log("Disconnected!");
+                        // console.log("Disconnected!");
                     },
                     received: data => {
                         let payload = {
@@ -56,7 +56,6 @@ class Listener extends React.Component {
                                 [data.user.id]: data.user
                             }
                         }
-                        console.log(data)
                         this.props.receiveMessage(payload);
                     }
                 }
