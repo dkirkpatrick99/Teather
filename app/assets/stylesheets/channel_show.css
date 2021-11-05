@@ -18,6 +18,34 @@
     padding-right: 20px;
 }
 
+.history-buttons {
+    display: flex;
+}
+
+.history-buttons input {
+    width: 20px;
+    height: 20px;
+    filter:invert(100%);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.backward-history { 
+    margin-right: 20px;
+}
+
+.forward-history:hover {
+    transform: scale(1.3);
+    /* box-shadow: 0 0 20px rgba(244, 239, 239, 0.858); */
+
+}
+
+.backward-history:hover {
+    transform: scale(1.3);
+    /* box-shadow: 0 0 20px rgba(244, 239, 239, 0.858); */
+
+}
+
 .messages-main-container{
     /* border: 1px solid gray; */
     height: 80%;

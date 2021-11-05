@@ -12,3 +12,9 @@ export const deleteMembership = membershipId => (
         method: 'DELETE'
     })
 )
+
+export const fetchMemberships = () => (
+    $.ajax({
+        url: `api/memberships`
+    })
+);

@@ -14,6 +14,8 @@ class MessageBoard extends React.Component {
         super(props);
     };
 
+    
+
     // houses all of the main app components and is the only route rendered while 
     // a user is logged in
     render(){
@@ -22,7 +24,7 @@ class MessageBoard extends React.Component {
                 <BoardHeader history={this.props.history} />
                 <div className="flex-container">
                 <SideBarContainer channelId={this.props.channelId}/>
-                <ChannelShowContainer channelId={this.props.channelId.channel_id}/>
+                    <ChannelShowContainer channelId={this.props.channelId.channel_id} history={this.props.history}/>
                 </div>
                 <ListenerContainer />
                 <Modal />

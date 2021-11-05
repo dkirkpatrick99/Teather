@@ -18,7 +18,6 @@ class ChannelShow extends React.Component {
     componentDidMount(props) {
         this.props.fetchChannels();
         this.props.fetchUsers();
-        // debugger
         this.props.fetchChannel(this.props.channelId)
             .then(payload => {
                 this.setState({ channelId: Object.values(payload)[1].channel.id, messages: Object.values(payload)[1].messages})
@@ -38,6 +37,12 @@ class ChannelShow extends React.Component {
         }
         var elem = document.querySelector('.messages-main-container');
         if (elem) elem.scrollTop = elem.scrollHeight;
+        const currentChannel = parseInt(this.props.channelId);
+        if (Object.keys(this.props.memberships).length !== 0) {
+            const check = Object.values(this.props.memberships).find(membership => membership.channel_id === currentChannel)
+            if (!check) this.props.history.push(`/client/1`)
+        }
+
     }
 
     getCurrentChannel(props) {
@@ -49,10 +54,27 @@ class ChannelShow extends React.Component {
         return currentCh
     } 
 
-    get channelMembers() {
-        const memberships = this.props.memberships;
-        const channel = this.props.currentChannel.id
+    handleHistoryButtons(field) {
+        if(field === 'back') {
+            this.props.history.goBack()
+        } else if(field === 'forward'){
+            this.props.history.goForward()
+        }
     }
+
+    // historyCheck() {
+    //     const location = this.props.history.location.pathname;
+    //     const currentChannel = parseInt(this.props.channelId);
+    //     if (Object.keys(this.props.memberships) !== 0) {
+    //         const check = Object.values(this.props.memberships).find(membership => membership.channel_id === currentChannel)
+    //         if (!check) this.props.history.push(`/client/1`)
+    //         debugger
+    //     } 
+    //     // if (!this.props.memberships[currentChannel] && Object.values(this.props.memberships).length > 0) {
+    //     //     debugger
+    //     //     this.props.history.push(`/client/1`)
+    //     // }
+    // }
 
     render() {
         let currentMessages
@@ -97,7 +119,10 @@ class ChannelShow extends React.Component {
             <div className="channel-show-main">
                 <div className="name-of-channel-container">
                 <div className="name-of-channel"># {channelName}</div>
-                    <div className="number-of-members"># of members: 4</div>
+                    <div className="history-buttons">
+                        <input className='backward-history' onClick={() => this.handleHistoryButtons('back')} src='historyArrowBack.png' type="image" value='back'/>
+                        <input className="forward-history" onClick={() => this.handleHistoryButtons('forward')} src='historyArrow.png' type="image" value='forward'/>
+                    </div>
                 </div>
                 <div className="messages-main-container">
                     <ul className="messages-list">

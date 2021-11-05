@@ -105,13 +105,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "RECEIVE_MEMBERSHIP": () => (/* binding */ RECEIVE_MEMBERSHIP),
 /* harmony export */   "REMOVE_MEMBERSHIP": () => (/* binding */ REMOVE_MEMBERSHIP),
+/* harmony export */   "RECEIVE_MEMBERSHIPS": () => (/* binding */ RECEIVE_MEMBERSHIPS),
 /* harmony export */   "createMembership": () => (/* binding */ createMembership),
-/* harmony export */   "deleteMembership": () => (/* binding */ deleteMembership)
+/* harmony export */   "deleteMembership": () => (/* binding */ deleteMembership),
+/* harmony export */   "fetchMemberships": () => (/* binding */ fetchMemberships)
 /* harmony export */ });
 /* harmony import */ var _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/membership_api_util */ "./frontend/util/membership_api_util.js");
 
 var RECEIVE_MEMBERSHIP = 'RECEIVE_MEMBERSHIP';
 var REMOVE_MEMBERSHIP = 'REMOVE_MEMBERSHIP';
+var RECEIVE_MEMBERSHIPS = 'RECEIVE_MEMBERSHIPS';
 
 var receiveMembership = function receiveMembership(membership) {
   return {
@@ -127,6 +130,13 @@ var removeMembership = function removeMembership(membershipId) {
   };
 };
 
+var receiveMemberships = function receiveMemberships(memberships) {
+  return {
+    type: RECEIVE_MEMBERSHIPS,
+    memberships: memberships
+  };
+};
+
 var createMembership = function createMembership(membership) {
   return function (dispatch) {
     return _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__.createMembership(membership).then(function (membership) {
@@ -138,6 +148,15 @@ var deleteMembership = function deleteMembership(membershipId) {
   return function (dispatch) {
     return _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__.deleteMembership(membershipId).then(function (membership) {
       return dispatch(removeMembership(membership.id));
+    });
+  };
+};
+var fetchMemberships = function fetchMemberships() {
+  return function (dispatch) {
+    return _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchMemberships().then(function (memberships) {
+      return dispatch(receiveMemberships(memberships));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -938,8 +957,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchChannels();
-      this.props.fetchUsers(); // debugger
-
+      this.props.fetchUsers();
       this.props.fetchChannel(this.props.channelId).then(function (payload) {
         _this2.setState({
           channelId: Object.values(payload)[1].channel.id,
@@ -964,6 +982,14 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
 
       var elem = document.querySelector('.messages-main-container');
       if (elem) elem.scrollTop = elem.scrollHeight;
+      var currentChannel = parseInt(this.props.channelId);
+
+      if (Object.keys(this.props.memberships).length !== 0) {
+        var check = Object.values(this.props.memberships).find(function (membership) {
+          return membership.channel_id === currentChannel;
+        });
+        if (!check) this.props.history.push("/client/1");
+      }
     }
   }, {
     key: "getCurrentChannel",
@@ -980,11 +1006,27 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       return currentCh;
     }
   }, {
-    key: "channelMembers",
-    get: function get() {
-      var memberships = this.props.memberships;
-      var channel = this.props.currentChannel.id;
-    }
+    key: "handleHistoryButtons",
+    value: function handleHistoryButtons(field) {
+      if (field === 'back') {
+        this.props.history.goBack();
+      } else if (field === 'forward') {
+        this.props.history.goForward();
+      }
+    } // historyCheck() {
+    //     const location = this.props.history.location.pathname;
+    //     const currentChannel = parseInt(this.props.channelId);
+    //     if (Object.keys(this.props.memberships) !== 0) {
+    //         const check = Object.values(this.props.memberships).find(membership => membership.channel_id === currentChannel)
+    //         if (!check) this.props.history.push(`/client/1`)
+    //         debugger
+    //     } 
+    //     // if (!this.props.memberships[currentChannel] && Object.values(this.props.memberships).length > 0) {
+    //     //     debugger
+    //     //     this.props.history.push(`/client/1`)
+    //     // }
+    // }
+
   }, {
     key: "render",
     value: function render() {
@@ -1047,8 +1089,24 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "name-of-channel"
       }, "# ", channelName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-        className: "number-of-members"
-      }, "# of members: 4")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "history-buttons"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
+        className: "backward-history",
+        onClick: function onClick() {
+          return _this4.handleHistoryButtons('back');
+        },
+        src: "historyArrowBack.png",
+        type: "image",
+        value: "back"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
+        className: "forward-history",
+        onClick: function onClick() {
+          return _this4.handleHistoryButtons('forward');
+        },
+        src: "historyArrow.png",
+        type: "image",
+        value: "forward"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "messages-main-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("ul", {
         className: "messages-list"
@@ -1085,6 +1143,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
+/* harmony import */ var _actions_membership_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/membership_actions */ "./frontend/actions/membership_actions.js");
+
 
 
 
@@ -1122,6 +1182,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchUser: function fetchUser(userId) {
       return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__.fetchUser)(userId));
+    },
+    fetchMemberships: function fetchMemberships() {
+      return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_6__.fetchMemberships)());
     }
   };
 };
@@ -2031,7 +2094,8 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_sideBar_sideBar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
         channelId: this.props.channelId
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_show_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        channelId: this.props.channelId.channel_id
+        channelId: this.props.channelId.channel_id,
+        history: this.props.history
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_listener_container__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_7__["default"], null));
     }
   }]);
@@ -2927,6 +2991,11 @@ var membershipsReducer = function membershipsReducer() {
         return Object.assign({}, newState, _defineProperty({}, action.membership.id, action.membership));
       }
 
+    // case RECEIVE_MEMBERSHIPS:
+    //     if (!!action.memberships) {
+    //         return Object.assign({}, newState, action.memberships)
+    //     }
+
     case _actions_membership_actions__WEBPACK_IMPORTED_MODULE_1__.REMOVE_MEMBERSHIP:
       delete newState[action.membershipId];
       return newState;
@@ -3345,7 +3414,8 @@ var channelCheck = function channelCheck(memberships, channelId, channels, ident
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createMembership": () => (/* binding */ createMembership),
-/* harmony export */   "deleteMembership": () => (/* binding */ deleteMembership)
+/* harmony export */   "deleteMembership": () => (/* binding */ deleteMembership),
+/* harmony export */   "fetchMemberships": () => (/* binding */ fetchMemberships)
 /* harmony export */ });
 var createMembership = function createMembership(membership) {
   return $.ajax({
@@ -3360,6 +3430,11 @@ var deleteMembership = function deleteMembership(membershipId) {
   return $.ajax({
     url: "api/memberships/".concat(membershipId),
     method: 'DELETE'
+  });
+};
+var fetchMemberships = function fetchMemberships() {
+  return $.ajax({
+    url: "api/memberships"
   });
 };
 
