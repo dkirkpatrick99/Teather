@@ -18,6 +18,25 @@
     padding-right: 20px;
 }
 
+.name-of-channel {
+    margin-right: 10px;
+}
+
+.channel-show-options-flex {
+    display: flex;
+    align-items: flex-end;
+}
+
+.user-option-button {
+    font-size: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.user-option-button:hover {
+    color: royalblue;
+}
+
 .history-buttons {
     display: flex;
 }

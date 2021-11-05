@@ -1013,27 +1013,51 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       } else if (field === 'forward') {
         this.props.history.goForward();
       }
-    } // historyCheck() {
-    //     const location = this.props.history.location.pathname;
-    //     const currentChannel = parseInt(this.props.channelId);
-    //     if (Object.keys(this.props.memberships) !== 0) {
-    //         const check = Object.values(this.props.memberships).find(membership => membership.channel_id === currentChannel)
-    //         if (!check) this.props.history.push(`/client/1`)
-    //         debugger
-    //     } 
-    //     // if (!this.props.memberships[currentChannel] && Object.values(this.props.memberships).length > 0) {
-    //     //     debugger
-    //     //     this.props.history.push(`/client/1`)
-    //     // }
-    // }
+    }
+  }, {
+    key: "unsubscribe",
+    value: function unsubscribe() {
+      var _this4 = this;
 
+      var membership = Object.values(this.props.memberships).find(function (membership) {
+        return membership.channel_id === parseInt(_this4.props.channelId);
+      });
+
+      if (membership) {
+        this.props.deleteMembership(membership.id);
+      }
+    }
+  }, {
+    key: "deleteChannel",
+    value: function deleteChannel() {
+      this.props.deleteChannel(this.props.channelId);
+    }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       var currentMessages;
       var channelName = "Loading Channel Name";
+      var deleteChannelButton;
+      var deleteMembershipButton;
+      var showOption;
+
+      if (this.props.currentChannel) {
+        deleteChannelButton = this.props.currentChannel.admin_id === this.props.currentUser.id && this.props.currentChannel.name !== "Global" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          className: "user-option-button",
+          onClick: function onClick() {
+            return _this5.deleteChannel();
+          }
+        }, "Delete for everyone") : null;
+        deleteMembershipButton = this.props.currentChannel.name !== "Global" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          className: "user-option-button",
+          onClick: function onClick() {
+            return _this5.unsubscribe();
+          }
+        }, "Unsubscribe") : null;
+        showOption = deleteChannelButton ? deleteChannelButton : deleteMembershipButton;
+      }
 
       if (this.state && Object.keys(this.props.allUsers).length > 1) {
         currentMessages = Object.keys(this.state.messages).length !== 0 ? Object.values(this.state.messages).map(function (message) {
@@ -1046,7 +1070,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
             minute: '2-digit',
             second: '2-digit'
           }).format(date);
-          var formalName = _this4.props.allUsers[message.user_id].formal_name;
+          var formalName = _this5.props.allUsers[message.user_id].formal_name;
           var pic = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.getUserPic)(formalName);
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
             className: "message-channel-show-contain",
@@ -1067,9 +1091,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
             className: "message-body-text"
           }, message.body)));
         }) : "no messages";
-      } // var elem = document.querySelector('.messages-main-container');
-      // if(elem)elem.scrollTop = elem.scrollHeight;
-
+      }
 
       if (this.props.currentChannel && Object.keys(this.props.allUsers).length > 1) {
         var channel = this.props.currentChannel;
@@ -1087,13 +1109,15 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "name-of-channel-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "channel-show-options-flex"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "name-of-channel"
-      }, "# ", channelName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      }, "# ", channelName), showOption), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "history-buttons"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
         className: "backward-history",
         onClick: function onClick() {
-          return _this4.handleHistoryButtons('back');
+          return _this5.handleHistoryButtons('back');
         },
         src: "historyArrowBack.png",
         type: "image",
@@ -1101,7 +1125,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
         className: "forward-history",
         onClick: function onClick() {
-          return _this4.handleHistoryButtons('forward');
+          return _this5.handleHistoryButtons('forward');
         },
         src: "historyArrow.png",
         type: "image",
@@ -1183,8 +1207,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchUser: function fetchUser(userId) {
       return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__.fetchUser)(userId));
     },
-    fetchMemberships: function fetchMemberships() {
-      return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_6__.fetchMemberships)());
+    deleteMembership: function deleteMembership(membershipId) {
+      return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_6__.deleteMembership)(membershipId));
+    },
+    deleteChannel: function deleteChannel(channelId) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__.deleteChannel)(channelId));
     }
   };
 };

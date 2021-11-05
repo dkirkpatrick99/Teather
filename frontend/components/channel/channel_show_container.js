@@ -3,9 +3,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ChannelShow from './channel_show';
 import { fetchUsers , fetchUser } from '../../actions/user_actions'
-import { fetchChannels, fetchChannel } from "../../actions/channel_actions";
+import { fetchChannels, fetchChannel, deleteChannel } from "../../actions/channel_actions";
 import { fetchMessages } from '../../actions/message_actions'
-import { fetchMemberships } from '../../actions/membership_actions'
+import { fetchMemberships, deleteMembership } from '../../actions/membership_actions'
 
 const mapStateToProps = (state, ownProps) => {
     let currentChannel = state.entities.channels[ownProps.channelId]
@@ -29,7 +29,8 @@ const mapDispatchToProps = dispatch => {
         fetchMessages: () => dispatch(fetchMessages()),
         fetchChannel: (channelId) => dispatch(fetchChannel(channelId)),
         fetchUser: (userId) => dispatch(fetchUser(userId)),
-        fetchMemberships: () => dispatch(fetchMemberships())
+        deleteMembership: (membershipId) => dispatch(deleteMembership(membershipId)),
+        deleteChannel: (channelId) => dispatch(deleteChannel(channelId))
     };
 };
 

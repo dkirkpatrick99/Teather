@@ -62,23 +62,33 @@ class ChannelShow extends React.Component {
         }
     }
 
-    // historyCheck() {
-    //     const location = this.props.history.location.pathname;
-    //     const currentChannel = parseInt(this.props.channelId);
-    //     if (Object.keys(this.props.memberships) !== 0) {
-    //         const check = Object.values(this.props.memberships).find(membership => membership.channel_id === currentChannel)
-    //         if (!check) this.props.history.push(`/client/1`)
-    //         debugger
-    //     } 
-    //     // if (!this.props.memberships[currentChannel] && Object.values(this.props.memberships).length > 0) {
-    //     //     debugger
-    //     //     this.props.history.push(`/client/1`)
-    //     // }
-    // }
+    unsubscribe(){
+        const membership = Object.values(this.props.memberships).find(membership => membership.channel_id === parseInt(this.props.channelId))
+        if(membership) {
+            this.props.deleteMembership(membership.id)
+        }
+    }
+
+    deleteChannel() {
+        this.props.deleteChannel(this.props.channelId)
+    }
 
     render() {
         let currentMessages
         let channelName = "Loading Channel Name"
+        let deleteChannelButton;
+        let deleteMembershipButton;
+        let showOption;
+        if(this.props.currentChannel) {
+            deleteChannelButton = this.props.currentChannel.admin_id === this.props.currentUser.id && this.props.currentChannel.name !== "Global" ? 
+                    <div className='user-option-button' onClick={() => this.deleteChannel()}>Delete for everyone</div>
+                : null
+    
+            deleteMembershipButton = this.props.currentChannel.name !== "Global" ? 
+                <div className='user-option-button' onClick={() => this.unsubscribe()}>Unsubscribe</div>
+                : null
+            showOption = deleteChannelButton ? deleteChannelButton : deleteMembershipButton
+        }
 
         if (this.state && Object.keys(this.props.allUsers).length > 1) {
             currentMessages = Object.keys(this.state.messages).length !== 0 ? 
@@ -101,8 +111,6 @@ class ChannelShow extends React.Component {
                         </li>)
                 }) : "no messages"  
         }
-        // var elem = document.querySelector('.messages-main-container');
-        // if(elem)elem.scrollTop = elem.scrollHeight;
 
         if(this.props.currentChannel && Object.keys(this.props.allUsers).length > 1){
             const channel = this.props.currentChannel;
@@ -118,7 +126,10 @@ class ChannelShow extends React.Component {
         return(
             <div className="channel-show-main">
                 <div className="name-of-channel-container">
-                <div className="name-of-channel"># {channelName}</div>
+                    <div className='channel-show-options-flex'>
+                        <div className="name-of-channel"># {channelName}</div>
+                        {showOption}
+                    </div>
                     <div className="history-buttons">
                         <input className='backward-history' onClick={() => this.handleHistoryButtons('back')} src='historyArrowBack.png' type="image" value='back'/>
                         <input className="forward-history" onClick={() => this.handleHistoryButtons('forward')} src='historyArrow.png' type="image" value='forward'/>
