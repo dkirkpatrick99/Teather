@@ -57,6 +57,7 @@ test6 = Message.create({body: "This is Jenny",
 mem1 = Membership.create({user_id: bot.id, channel_id: global.id})
 mem2 = Membership.create({user_id: demo.id, channel_id: global.id})
 mem3 = Membership.create({user_id: me.id, channel_id: global.id})
+mem3 = Membership.create({user_id: jairo.id, channel_id: global.id})
 mem4 = Membership.create({user_id: bot.id, channel_id: geese.id})
 mem5 = Membership.create({user_id: demo.id, channel_id: geese.id})
 mem6 = Membership.create({user_id: me.id, channel_id: geese.id})

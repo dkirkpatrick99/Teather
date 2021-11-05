@@ -38,14 +38,12 @@ class BoardHeader extends React.Component{
             user_id: this.props.currentUser.id,
             channel_id: e.currentTarget.value
         }
-        const channelChecker = channelCheck(this.props.memberships, value, this.props.allChannels, identifier)
+        const channelChecker = channelCheck(this.props.memberships, value, this.props.allChannels, identifier, this.props.currentUser.id)
 
         if (e.currentTarget.dataset.classify === "user") {
             if(!channelChecker){
-                debugger
                 this.props.createChannel(channelObject)
             } else {
-                debugger
                 this.props.history.push(`/client/${channelChecker}`);
             }
         } else if (e.currentTarget.dataset.classify === "channel") {

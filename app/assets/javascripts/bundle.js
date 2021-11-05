@@ -540,14 +540,12 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
         user_id: this.props.currentUser.id,
         channel_id: e.currentTarget.value
       };
-      var channelChecker = (0,_util_functions__WEBPACK_IMPORTED_MODULE_6__.channelCheck)(this.props.memberships, value, this.props.allChannels, identifier);
+      var channelChecker = (0,_util_functions__WEBPACK_IMPORTED_MODULE_6__.channelCheck)(this.props.memberships, value, this.props.allChannels, identifier, this.props.currentUser.id);
 
       if (e.currentTarget.dataset.classify === "user") {
         if (!channelChecker) {
-          debugger;
           this.props.createChannel(channelObject);
         } else {
-          debugger;
           this.props.history.push("/client/".concat(channelChecker));
         }
       } else if (e.currentTarget.dataset.classify === "channel") {
@@ -3294,17 +3292,37 @@ var getUserPic = function getUserPic(userName) {
     return "profile6.png";
   }
 };
-var channelCheck = function channelCheck(memberships, channelId, channels, identifier) {
+var channelCheck = function channelCheck(memberships, channelId, channels, identifier, currentUserId) {
   var flag = false;
   var redirectId;
 
   if (identifier === 'user') {
+    // const ch1 = Object.values(channels).find(channel => (channel.name === channelId.toString() && channel.is_dm === true) || channel.admin_id === channelId && channel.is_dm === true)
+    var membershipChannelIds = {};
+    Object.values(memberships).forEach(function (membership) {
+      return membershipChannelIds[membership.channel_id] = membership.channel_id;
+    }); // const ch1 = Object.values(channels).forEach(channel => {
+    //     const chId = channel.id
+    //     if (membershipChannelIds[chId] && ((channel.admin_id === channelId && channel.name === currentUserId.toString())) || ((channel.admin_id === parseInt(currentUserId) && channel.name === channelId.toString()))) {
+    //         debugger
+    //         return channel.id
+    //     }
+    // })
+
     var ch1 = Object.values(channels).find(function (channel) {
-      return channel.name === channelId.toString() && channel.is_dm === true || channel.admin_id === channelId && channel.is_dm === true;
-    }); // const mem = Object.values(memberships).some(membership => membership.channel_id === channelId)
+      var chId = channel.id;
+
+      if (membershipChannelIds[chId] && channel.admin_id === channelId && channel.name === currentUserId.toString() || channel.admin_id === parseInt(currentUserId) && channel.name === channelId.toString()) {
+        return channel;
+      }
+    }); // const ch1 = Object.values(channels).forEach(channel => {
+    //     if((channel.name === channelId.toString() && channel.is_dm === true) || (channel.admin_id === channelId && channel.is_dm === true)) {
+    //         if(channel.name === currentUserId || channel.admin_id === currentUserId)
+    //         return channel
+    //     }
+    // })
 
     if (ch1) flag = ch1.id;
-    debugger;
   } else if (identifier === 'channel') {
     var ch2 = Object.values(memberships).some(function (membership) {
       return membership.channel_id === channelId;
@@ -3313,7 +3331,7 @@ var channelCheck = function channelCheck(memberships, channelId, channels, ident
   }
 
   return flag;
-};
+}; // const mem = Object.values(memberships).some(membership => membership.channel_id === channelId)
 
 /***/ }),
 
