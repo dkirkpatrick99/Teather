@@ -1,7 +1,7 @@
 .sidebar-main-container {
     border: 0.1em solid rgb(58,61,64);
     background-color: rgb(25,24,29);
-    height: 95vh;
+    height: 100vh;
     min-width: 220px;
     color: white;
     /* position: absolute; */

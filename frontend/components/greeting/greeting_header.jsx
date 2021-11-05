@@ -22,13 +22,19 @@ class GreetingHeader extends React.Component {
                         </div>
                         <div className="dropdown">
                             <div>Past Projects</div>
-                            <div className="projects-dropdown-content">
-                                <Link to='https://moneywise-crowdfunding.herokuapp.com/#/'>MoneyWise</Link>
-                                <Link to='https://dkirkpatrick99.github.io/Super-Jelly-Hero/'>Super Jelly Hero</Link>
-                                <Link to='https://ballup-app.herokuapp.com/#/'>BallUp</Link>
-                            </div>
+                            <ul className="projects-dropdown-content">
+                                <li>
+                                    <Link to='https://moneywise-crowdfunding.herokuapp.com/#/'>MoneyWise</Link>
+                                </li>
+                                <li>
+                                    <Link to='https://dkirkpatrick99.github.io/Super-Jelly-Hero/'>Super Jelly Hero</Link>
+                                </li>
+                                <li>
+                                    <Link to='https://ballup-app.herokuapp.com/#/'>BallUp</Link>
+                                </li>
+                            </ul>
                         </div>
-
+                        
                         <Link to="https://github.com/dkirkpatrick99">GitHub</Link>
                         <Link to="https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184">LinkedIn</Link>
                         <Link to="https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/">Portfolio</Link>
