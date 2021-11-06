@@ -953,33 +953,25 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
           messages: Object.values(payload)[1].messages
         });
       });
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
-      var prevMessages = Object.values(prevProps.messages);
-      var prevChannelId = prevProps.channelId;
-      var propChannelId = this.props.channelId;
+    } // componentDidUpdate(prevProps, prevState) {
+    //     let prevMessages = Object.values(prevProps.messages);
+    //     let prevChannelId = prevProps.channelId;
+    //     let propChannelId = this.props.channelId
+    //     if(prevChannelId && prevChannelId !== this.props.channelId) {
+    //         this.getCurrentChannel(this.props)
+    //     }
+    //     if(prevMessages.length < Object.values(this.props.messages).length) {
+    //         this.getCurrentChannel(this.props)
+    //     }
+    //     var elem = document.querySelector('.messages-main-container');
+    //     if (elem) elem.scrollTop = elem.scrollHeight;
+    //     const currentChannel = parseInt(this.props.channelId);
+    //     if (Object.keys(this.props.memberships).length !== 0) {
+    //         const check = Object.values(this.props.memberships).find(membership => membership.channel_id === currentChannel)
+    //         if (!check) this.props.history.push(`/client/1`)
+    //     }
+    // }
 
-      if (prevChannelId && prevChannelId !== this.props.channelId) {
-        this.getCurrentChannel(this.props);
-      }
-
-      if (prevMessages.length < Object.values(this.props.messages).length) {
-        this.getCurrentChannel(this.props);
-      }
-
-      var elem = document.querySelector('.messages-main-container');
-      if (elem) elem.scrollTop = elem.scrollHeight;
-      var currentChannel = parseInt(this.props.channelId);
-
-      if (Object.keys(this.props.memberships).length !== 0) {
-        var check = Object.values(this.props.memberships).find(function (membership) {
-          return membership.channel_id === currentChannel;
-        });
-        if (!check) this.props.history.push("/client/1");
-      }
-    }
   }, {
     key: "getCurrentChannel",
     value: function getCurrentChannel(props) {
@@ -3516,7 +3508,7 @@ var Auth = function Auth(_ref) {
     exact: exact,
     render: function render(props) {
       return !loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, props) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Redirect, {
-        to: "/client/1"
+        to: "/client/"
       });
     }
   });
