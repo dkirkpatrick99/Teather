@@ -7,7 +7,7 @@
     height: 440px;
     /* border: 1px solid red; */
     padding: 25px;
-    color: rgb(209 210 211);
+    color: rgb(209, 210, 211);
     background-color: rgb(26, 29, 33);
     border-radius: 10px;
 }
@@ -35,10 +35,10 @@
 .channel-create-inputs input {
     margin-bottom: 20px;
     background-color: rgb(26, 29, 33);
-    border: 0.1em solid rgb(209 210 211);
+    border: 0.1em solid rgb(209, 210, 211);
     resize: none;
     height: 35px;
-    color: rgb(209 210 211);
+    color: rgb(209, 210, 211);
     padding: 5px;
     font-size: 17px;
     padding-left: 10px;

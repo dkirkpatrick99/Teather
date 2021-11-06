@@ -20,7 +20,7 @@
 /* User Search CSS ************* */
 .dm-user-search-container {
     height: 90%;
-    color: rgb(209 210 211);
+    color: rgb(209, 210, 211);
 }
 
 input.dm-user-search-input {
@@ -28,7 +28,7 @@ input.dm-user-search-input {
   /* text-align: center; */
   outline: 0;
   background-color: rgb(26, 29, 33);
-  color: rgb(209 210 211);
+  color: rgb(209, 210, 211);
   /* border: 10px solid #F7F7F7; */
   width: 98%;
   height: 8%;
