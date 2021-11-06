@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module TeatherLite
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.assets.initialize_on_precompile = false
+    # config.assets.initialize_on_precompile = false
     config.load_defaults 5.2
 
     # Settings in config/environments/* take precedence over those specified here.
