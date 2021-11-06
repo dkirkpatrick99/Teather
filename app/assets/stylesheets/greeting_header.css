@@ -17,7 +17,6 @@
     z-index: 1;
     background-color: white;
     min-width: 796px;
-    /* box-shadow: 5px 2px rgb(62, 60, 60); */
 }
 
 .left-header-container {
@@ -100,7 +99,7 @@
   position: absolute;
   background-color: white;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
   z-index: 1;
   list-style-type: circle;
