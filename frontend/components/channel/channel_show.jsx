@@ -25,25 +25,25 @@ class ChannelShow extends React.Component {
 
     }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     let prevMessages = Object.values(prevProps.messages);
-    //     let prevChannelId = prevProps.channelId;
-    //     let propChannelId = this.props.channelId
-    //     if(prevChannelId && prevChannelId !== this.props.channelId) {
-    //         this.getCurrentChannel(this.props)
-    //     }
-    //     if(prevMessages.length < Object.values(this.props.messages).length) {
-    //         this.getCurrentChannel(this.props)
-    //     }
-    //     var elem = document.querySelector('.messages-main-container');
-    //     if (elem) elem.scrollTop = elem.scrollHeight;
-    //     const currentChannel = parseInt(this.props.channelId);
-    //     if (Object.keys(this.props.memberships).length !== 0) {
-    //         const check = Object.values(this.props.memberships).find(membership => membership.channel_id === currentChannel)
-    //         if (!check) this.props.history.push(`/client/1`)
-    //     }
+    componentDidUpdate(prevProps, prevState) {
+        let prevMessages = Object.values(prevProps.messages);
+        let prevChannelId = prevProps.channelId;
+        let propChannelId = this.props.channelId
+        if(prevChannelId && prevChannelId !== this.props.channelId) {
+            this.getCurrentChannel(this.props)
+        }
+        if(prevMessages.length < Object.values(this.props.messages).length) {
+            this.getCurrentChannel(this.props)
+        }
+        var elem = document.querySelector('.messages-main-container');
+        if (elem) elem.scrollTop = elem.scrollHeight;
+        const currentChannel = parseInt(this.props.channelId);
+        if (Object.keys(this.props.memberships).length !== 0) {
+            const check = Object.values(this.props.memberships).find(membership => membership.channel_id === currentChannel)
+            if (!check) this.props.history.push(`/client/1`)
+        }
 
-    // }
+    }
 
     getCurrentChannel(props) {
         // let channelId = parseInt(props.channelID);
