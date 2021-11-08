@@ -148,6 +148,7 @@
 .message-sender-name {
     margin-right: 10px;
     font-size: 20px;
+    color: orange;
 }
 
 .message-time-stamp {

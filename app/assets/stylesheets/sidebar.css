@@ -138,10 +138,12 @@
     /* padding: 5px; */
     list-style: none;
     color: #a3a3a6;
+    transition: 0.5s;
 }
 
 .channel-list-item.active {
     background-color: rgb(49, 49, 181) !important;
+    border-radius: 18px;
 }
 
 .channel-list-item:hover {
