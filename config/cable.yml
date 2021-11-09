@@ -6,5 +6,7 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  url: redis://redistogo:f6b31ce299b902e094cfdd91cb790972@scat.redistogo.com:10258/
   channel_prefix: TeatherLite_production
+# <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  # redis://redistogo:f6b31ce299b902e094cfdd91cb790972@scat.redistogo.com:10258/
