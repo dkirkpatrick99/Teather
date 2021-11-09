@@ -23,15 +23,16 @@ class Greeting extends React.Component{
                     <GreetingHeader />
 
                     <div className="top-greeting-container">
+                        <div className='greeting-video-fill'></div>
 
-                            <video
-                                autoPlay
-                                loop
-                                muted
-                                src="https://a.slack-edge.com/085e3/marketing/img/homepage/video/brand-campaign_hero-video.mp4"
-                                type="video/mp4"
-                                id="rollingball-gif"
-                            />
+                        <video
+                            autoPlay
+                            loop
+                            muted
+                            src="https://a.slack-edge.com/085e3/marketing/img/homepage/video/brand-campaign_hero-video.mp4"
+                            type="video/mp4"
+                            id="rollingball-gif"
+                        />
 
                         <div className="greeting-main-text">
                             <h1>Teather is where the future works</h1>

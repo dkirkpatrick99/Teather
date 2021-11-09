@@ -317,3 +317,9 @@
     clip-path: ellipse(104% 100% at center top);
 
 }
+
+.greeting-video-fill {
+    width: 100%;
+    height: 50px;
+    background-color: #eae5e1;
+}

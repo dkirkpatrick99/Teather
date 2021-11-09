@@ -1668,7 +1668,9 @@ var Greeting = /*#__PURE__*/function (_React$Component) {
         className: "greeting-main-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_header__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "top-greeting-container"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("video", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "greeting-video-fill"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("video", {
         autoPlay: true,
         loop: true,
         muted: true,
