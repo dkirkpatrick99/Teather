@@ -2528,7 +2528,7 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
         }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "session-form-change"
         }, "Don't have an account yet? ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-          to: "/signin"
+          to: "/signup"
         }, "Sign up"))));
       }
     }

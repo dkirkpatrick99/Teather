@@ -191,7 +191,7 @@
 }
 
 .greeting-text-blocks-container div:hover {
-    transform: scale(1.5);
+    transform: scale(1.2);
 }
 
 .greeting-text-blocks-container div {
