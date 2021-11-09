@@ -4,6 +4,7 @@ import { fetchUsers } from '../../actions/user_actions';
 import { closeModal } from '../../actions/modal_actions';
 import { createChannel } from '../../actions/channel_actions';
 import { createMembership } from '../../actions/membership_actions'
+import { channelCheck } from '../../util/functions'
 
 class DirectMessageSearch extends React.Component {
 
@@ -34,17 +35,18 @@ class DirectMessageSearch extends React.Component {
         const channelObject = this.state.channel;
         const currentUser = this.props.currentUser;
         const receivingUser = this.props.allUsers[e.currentTarget.value];
- 
-        // channelObject["name"] = `${currentUser.formal_name}'*'${receivingUser.formal_name}`
         channelObject["name"] = `${receivingUser.id}`
 
-        this.props.createChannel(channelObject)
-        //     .then(payload => {
-        //     this.props.createMembership({
-        //         user_id: receivingUser.id,
-        //         channel_id: payload.channel.channel.id
-        //     })
-        // })
+        const channelChecker = channelCheck(this.props.memberships, receivingUser.id, this.props.allChannels, 'user', this.props.currentUser.id)
+        if (!channelChecker) {
+            this.props.createChannel(channelObject)
+        } else {
+            this.props.history.push(`/client/${channelChecker}`);
+        }
+        
+
+        // this.props.createChannel(channelObject)
+
 
         this.setState({
             admin_id: "",
@@ -118,7 +120,9 @@ class DirectMessageSearch extends React.Component {
 const mSTP = state => {
     return {
         allUsers: state.entities.users,
-        currentUser: state.entities.users[state.session.id]
+        currentUser: state.entities.users[state.session.id],
+        memberships: state.entities.memberships,
+        allChannels: state.entities.channels
     }
 }
 

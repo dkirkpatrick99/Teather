@@ -66,3 +66,5 @@ class Api::ChannelsController < ApplicationController
     end
 
 end
+
+

@@ -480,6 +480,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
@@ -506,6 +507,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -653,6 +655,23 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "board-header-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "boardheader-personal-icons"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+        to: "https://github.com/dkirkpatrick99"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+        src: "github.png",
+        alt: ""
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+        to: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+        src: "linkedin.png",
+        alt: ""
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+        to: "https://angel.co/u/dalton-kirkpatrick"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+        src: "angellist.png",
+        alt: ""
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "search-input-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
         onChange: this.displayMatches,
@@ -1019,12 +1038,22 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteChannel",
     value: function deleteChannel() {
-      this.props.deleteChannel(this.props.channelId);
+      var _this5 = this;
+
+      var membership = Object.values(this.props.memberships).find(function (membership) {
+        return membership.channel_id === parseInt(_this5.props.channelId);
+      });
+
+      if (membership) {
+        this.props.deleteMembership(membership.id);
+      }
+
+      this.props.deleteChannel(parseInt(this.props.channelId));
     }
   }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this6 = this;
 
       var currentMessages;
       var channelName = "Loading Channel Name";
@@ -1036,13 +1065,13 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
         deleteChannelButton = this.props.currentChannel.admin_id === this.props.currentUser.id && this.props.currentChannel.name !== "Global" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "user-option-button",
           onClick: function onClick() {
-            return _this5.deleteChannel();
+            return _this6.deleteChannel();
           }
         }, "Delete for everyone") : null;
         deleteMembershipButton = this.props.currentChannel.name !== "Global" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "user-option-button",
           onClick: function onClick() {
-            return _this5.unsubscribe();
+            return _this6.unsubscribe();
           }
         }, "Unsubscribe") : null;
         showOption = deleteChannelButton ? deleteChannelButton : deleteMembershipButton;
@@ -1059,7 +1088,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
             minute: '2-digit',
             second: '2-digit'
           }).format(date);
-          var formalName = _this5.props.allUsers[message.user_id].formal_name;
+          var formalName = _this6.props.allUsers[message.user_id].formal_name;
           var pic = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.getUserPic)(formalName);
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
             className: "message-channel-show-contain",
@@ -1106,7 +1135,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
         className: "backward-history",
         onClick: function onClick() {
-          return _this5.handleHistoryButtons('back');
+          return _this6.handleHistoryButtons('back');
         },
         src: "historyArrowBack.png",
         type: "image",
@@ -1114,7 +1143,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
         className: "forward-history",
         onClick: function onClick() {
-          return _this5.handleHistoryButtons('forward');
+          return _this6.handleHistoryButtons('forward');
         },
         src: "historyArrow.png",
         type: "image",
@@ -1384,6 +1413,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _actions_membership_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/membership_actions */ "./frontend/actions/membership_actions.js");
+/* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1405,6 +1435,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -1451,15 +1482,16 @@ var DirectMessageSearch = /*#__PURE__*/function (_React$Component) {
       e.preventDefault();
       var channelObject = this.state.channel;
       var currentUser = this.props.currentUser;
-      var receivingUser = this.props.allUsers[e.currentTarget.value]; // channelObject["name"] = `${currentUser.formal_name}'*'${receivingUser.formal_name}`
-
+      var receivingUser = this.props.allUsers[e.currentTarget.value];
       channelObject["name"] = "".concat(receivingUser.id);
-      this.props.createChannel(channelObject); //     .then(payload => {
-      //     this.props.createMembership({
-      //         user_id: receivingUser.id,
-      //         channel_id: payload.channel.channel.id
-      //     })
-      // })
+      var channelChecker = (0,_util_functions__WEBPACK_IMPORTED_MODULE_6__.channelCheck)(this.props.memberships, receivingUser.id, this.props.allChannels, 'user', this.props.currentUser.id);
+
+      if (!channelChecker) {
+        this.props.createChannel(channelObject);
+      } else {
+        this.props.history.push("/client/".concat(channelChecker));
+      } // this.props.createChannel(channelObject)
+
 
       this.setState({
         admin_id: "",
@@ -1543,7 +1575,9 @@ var DirectMessageSearch = /*#__PURE__*/function (_React$Component) {
 var mSTP = function mSTP(state) {
   return {
     allUsers: state.entities.users,
-    currentUser: state.entities.users[state.session.id]
+    currentUser: state.entities.users[state.session.id],
+    memberships: state.entities.memberships,
+    allChannels: state.entities.channels
   };
 };
 
@@ -2100,7 +2134,9 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_show_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
         channelId: this.props.channelId.channel_id,
         history: this.props.history
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_listener_container__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_7__["default"], null));
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_listener_container__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        history: this.props.history
+      }));
     }
   }]);
 
@@ -2151,7 +2187,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var Modal = function Modal(_ref) {
   var modal = _ref.modal,
-      closeModal = _ref.closeModal;
+      closeModal = _ref.closeModal,
+      history = _ref.history;
 
   if (!modal) {
     return null;
@@ -2168,7 +2205,9 @@ var Modal = function Modal(_ref) {
       break;
 
     case 'directMessageSearch':
-      component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_directMessage_direct_message_search__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+      component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_directMessage_direct_message_search__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        history: history
+      });
       break;
     // case 'userSearch':
     //     component = <UserSearchContainer />;
@@ -2620,7 +2659,9 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "renderChannelsAndDms",
-    value: function renderChannelsAndDms() {
+    value: // componentDidUpdate(prevProps, prevState) {
+    // }
+    function renderChannelsAndDms() {
       var that = this;
       var threads = {
         "dm": [],
@@ -2691,12 +2732,18 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
             key: dm[0]
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
             to: "/client/".concat(dm[0])
-          }, dm[3])) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_3__.getUserPic)(dm[3]),
+            alt: ""
+          }), dm[3])) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
             className: "channel-list-item",
             key: dm[0]
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
             to: "/client/".concat(dm[0])
-          }, dm[3]));
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_3__.getUserPic)(dm[3]),
+            alt: ""
+          }), dm[3]));
         }) : null;
       } // if(!dropdownToggle) return
 
@@ -3373,26 +3420,14 @@ var channelCheck = function channelCheck(memberships, channelId, channels, ident
     var membershipChannelIds = {};
     Object.values(memberships).forEach(function (membership) {
       return membershipChannelIds[membership.channel_id] = membership.channel_id;
-    }); // const ch1 = Object.values(channels).forEach(channel => {
-    //     const chId = channel.id
-    //     if (membershipChannelIds[chId] && ((channel.admin_id === channelId && channel.name === currentUserId.toString())) || ((channel.admin_id === parseInt(currentUserId) && channel.name === channelId.toString()))) {
-    //         return channel.id
-    //     }
-    // })
-
+    });
     var ch1 = Object.values(channels).find(function (channel) {
       var chId = channel.id;
 
       if (membershipChannelIds[chId] && channel.admin_id === channelId && channel.name === currentUserId.toString() || channel.admin_id === parseInt(currentUserId) && channel.name === channelId.toString()) {
         return channel;
       }
-    }); // const ch1 = Object.values(channels).forEach(channel => {
-    //     if((channel.name === channelId.toString() && channel.is_dm === true) || (channel.admin_id === channelId && channel.is_dm === true)) {
-    //         if(channel.name === currentUserId || channel.admin_id === currentUserId)
-    //         return channel
-    //     }
-    // })
-
+    });
     if (ch1) flag = ch1.id;
   } else if (identifier === 'channel') {
     var ch2 = Object.values(memberships).some(function (membership) {

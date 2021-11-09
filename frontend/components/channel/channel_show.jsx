@@ -29,14 +29,17 @@ class ChannelShow extends React.Component {
         let prevMessages = Object.values(prevProps.messages);
         let prevChannelId = prevProps.channelId;
         let propChannelId = this.props.channelId
+        
         if(prevChannelId && prevChannelId !== this.props.channelId) {
             this.getCurrentChannel(this.props)
         }
         if(prevMessages.length < Object.values(this.props.messages).length) {
             this.getCurrentChannel(this.props)
         }
+
         var elem = document.querySelector('.messages-main-container');
         if (elem) elem.scrollTop = elem.scrollHeight;
+
         const currentChannel = parseInt(this.props.channelId);
         if (Object.keys(this.props.memberships).length !== 0) {
             const check = Object.values(this.props.memberships).find(membership => membership.channel_id === currentChannel)
@@ -70,7 +73,11 @@ class ChannelShow extends React.Component {
     }
 
     deleteChannel() {
-        this.props.deleteChannel(this.props.channelId)
+        const membership = Object.values(this.props.memberships).find(membership => membership.channel_id === parseInt(this.props.channelId))
+        if (membership) {
+            this.props.deleteMembership(membership.id)
+        }
+        this.props.deleteChannel(parseInt(this.props.channelId))
     }
 
     render() {

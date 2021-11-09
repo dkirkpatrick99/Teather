@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import { fetchUsers } from '../../actions/user_actions';
 import { fetchChannels, createChannel } from  '../../actions/channel_actions'
 import { logout } from '../../actions/session_actions'
@@ -123,6 +124,17 @@ class BoardHeader extends React.Component{
 
         return (
             <div className="board-header-container">
+                <div className='boardheader-personal-icons'>
+                    <Link to='https://github.com/dkirkpatrick99'>
+                        <img src="github.png" alt=""/>
+                    </Link>
+                    <Link to='https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/'>
+                        <img src="linkedin.png" alt=""/>
+                    </Link>
+                    <Link to='https://angel.co/u/dalton-kirkpatrick'>
+                        <img src="angellist.png" alt=""/>
+                    </Link>
+                </div>
                 <div className="search-input-container">
                     <input onChange={this.displayMatches} className="search-input" type="text" placeholder="Search users and channels"/>
                     <ul className="boardheader-search-items">

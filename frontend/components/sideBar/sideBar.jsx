@@ -20,7 +20,8 @@ class SideBar extends React.Component {
         this.props.fetchChannels();
     };
 
-
+    // componentDidUpdate(prevProps, prevState) {
+    // }
 
     renderChannelsAndDms() {
         const that = this;
@@ -79,11 +80,17 @@ class SideBar extends React.Component {
 
                 return channelId === dm[0] ?
                     <li className="channel-list-item active" key={dm[0]}> 
-                        <NavLink to={`/client/${dm[0]}`}>{dm[3]}</NavLink>
+                        <NavLink to={`/client/${dm[0]}`}>
+                            <img src={getUserPic(dm[3])} alt="" />
+                            {dm[3]}
+                            </NavLink>
                     </li>
                 :
                     <li className="channel-list-item" key={dm[0]}>
-                        <NavLink to={`/client/${dm[0]}`}>{dm[3]}</NavLink>
+                        <NavLink to={`/client/${dm[0]}`}>
+                            <img src={getUserPic(dm[3])} alt="" />
+                            {dm[3]}
+                            </NavLink>
                     </li>
             }) 
             : null

@@ -18,7 +18,6 @@ class Api::MembershipsController < ApplicationController
 
     def destroy
         @membership = Membership.find_by(id: params[:id])
-
         if @membership
             @membership.delete
             render 'api/memberships/show'

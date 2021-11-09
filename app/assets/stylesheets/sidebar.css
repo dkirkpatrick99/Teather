@@ -141,6 +141,13 @@
     transition: 0.5s;
 }
 
+.channel-list-item img {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
 .channel-list-item.active {
     background-color: rgb(49, 49, 181) !important;
     border-radius: 18px;
@@ -185,6 +192,8 @@
     display: block;
     padding-top: 10px;
     padding-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
 
 /* dropdown CSS ********** */

@@ -27,7 +27,7 @@ class MessageBoard extends React.Component {
                     <ChannelShowContainer channelId={this.props.channelId.channel_id} history={this.props.history}/>
                 </div>
                 <ListenerContainer />
-                <Modal />
+                <Modal history={this.props.history}/>
                 
             </div>
 

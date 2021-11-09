@@ -4,7 +4,7 @@ import { closeModal } from '../../actions/modal_actions';
 import ChannelCreateForm from '../channel/channel_create_form';
 import DirectMessageSearch from '../directMessage/direct_message_search'
 
-const Modal = ({ modal, closeModal }) => {
+const Modal = ({ modal, closeModal, history }) => {
 
     if (!modal) {
         return null;
@@ -14,13 +14,12 @@ const Modal = ({ modal, closeModal }) => {
     // if info needs to be passed later I can refactor to send a pojo with a type: key
     // and a data: key
     let component;
-    
     switch (modal) {
         case 'createChannel':
             component = <ChannelCreateForm />;
             break;
         case 'directMessageSearch':
-            component = <DirectMessageSearch />;
+            component = <DirectMessageSearch history={history}/>;
             break;
         // case 'userSearch':
         //     component = <UserSearchContainer />;
