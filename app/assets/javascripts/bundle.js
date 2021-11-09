@@ -2479,7 +2479,11 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
           className: "greeting-signup-button",
           type: "submit",
           value: submitName
-        })))))));
+        }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "session-form-change"
+        }, "Already have an account? ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+          to: "/login"
+        }, "Sign In"))));
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "login-form-container-main"
@@ -2519,7 +2523,11 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
           className: "greeting-signup-button",
           type: "submit",
           value: submitName
-        })))))));
+        }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "session-form-change"
+        }, "Don't have an account yet? ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+          to: "/signin"
+        }, "Sign up"))));
       }
     }
   }]);

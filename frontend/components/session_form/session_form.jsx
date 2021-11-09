@@ -104,6 +104,7 @@ class SessionForm extends React.Component {
                                 
                             </div>
                        </div>
+                       <div className="session-form-change">Already have an account? <Link to='/login'>Sign In</Link></div>
                     </form>
                 </div>
             );
@@ -150,6 +151,7 @@ class SessionForm extends React.Component {
 
                             </div>
                         </div>
+                        <div className="session-form-change">Don't have an account yet? <Link to='/signin'>Sign up</Link></div>
                     </form>
                 </div>
             )

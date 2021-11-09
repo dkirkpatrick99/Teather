@@ -76,3 +76,17 @@
     display: flex;
     justify-content: center;
 }
+
+.session-form-change {
+    text-align: center;
+}
+
+.session-form-change a {
+    color: blue;
+    transition: 0.3s;
+}
+
+.session-form-change a:hover {
+    transform: scale(1.1);
+    text-decoration: underline;
+}

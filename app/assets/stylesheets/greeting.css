@@ -16,7 +16,8 @@
 
 .top-greeting-container {
     position: relative;
-    max-width: 1400px;
+    max-width: 1500px;
+    bottom: 71px;
 }
 
 /* .video-container {
@@ -45,7 +46,7 @@
     align-items: center;
     padding-left: 40px;
     position: absolute;
-    bottom: 15%;
+    bottom: 8%;
 }
 
 .greeting-main-text > h1 {
@@ -185,7 +186,7 @@
 .greeting-text-blocks-container {
     display: flex;
     margin-top: 40px;
-    margin-bottom: 70px;
+    margin-bottom: 18px;
     justify-content: space-around;
 }
 
