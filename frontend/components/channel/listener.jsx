@@ -56,6 +56,7 @@ class Listener extends React.Component {
                                 [data.user.id]: data.user
                             }
                         }
+                        debugger
                         this.props.receiveMessage(payload);
                     }
                 }

@@ -1337,6 +1337,7 @@ var Listener = /*#__PURE__*/function (_React$Component) {
               messages: _defineProperty({}, data.message.id, data.message),
               user: _defineProperty({}, data.user.id, data.user)
             };
+            debugger;
 
             _this2.props.receiveMessage(payload);
           }
@@ -2872,6 +2873,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
+  debugger;
   return {
     userChannels: state.entities.channels,
     currentUser: state.entities.users[state.session.id],
