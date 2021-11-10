@@ -8,7 +8,7 @@ import { openModal } from '../../actions/modal_actions';
 
 
 const mapStateToProps = (state, ownProps) => {
-    debugger
+    // debugger
     return {
         userChannels: state.entities.channels,
         currentUser: state.entities.users[state.session.id],

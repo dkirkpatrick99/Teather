@@ -2873,7 +2873,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  debugger;
+  // debugger
   return {
     userChannels: state.entities.channels,
     currentUser: state.entities.users[state.session.id],
