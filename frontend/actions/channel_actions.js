@@ -1,42 +1,68 @@
-import * as ChannelApiUtil from '../util/channel_api_util';
+import * as ChannelApiUtil from "../util/channel_api_util";
 
-export const RECEIVE_CHANNEL = 'RECEIVE_CHANNEL';
-export const RECEIVE_CHANNELS = 'RECEIVE_CHANNELS';
-export const REMOVE_CHANNEL = 'REMOVE_CHANNEL';
-export const RECEIVE_CHANNEL_ERRORS = 'RECEIVE_CHANNEL_ERRORS';
+export const RECEIVE_ALL_CHANNELS = "RECEIVE_ALL_CHANNELS";
+export const RECEIVE_CHANNEL = "RECEIVE_CHANNEL";
+export const REMOVE_CHANNEL = "REMOVE_CHANNEL";
+export const RECEIVE_CHANNEL_ERRORS = "RECEIVE_CHANNEL_ERRORS";
+export const CLEAR_CHANNEL_ERRORS = "CLEAR_CHANNEL_ERRORS";
 
-const receiveChannels = channels => ({
-    type: RECEIVE_CHANNELS,
-    channels
-})
+export const fetchAllChannels = () => dispatch => {
+    return ChannelApiUtil.fetchAllChannels().then(channels =>
+        dispatch(receiveChannels(channels))
+    );
+};
+export const fetchChannel = id => dispatch => {
+    return ChannelApiUtil.fetchChannel(id).then(channel => {
+        dispatch(receiveChannel(channel));
+    });
+};
+export const createChannel = channel => dispatch => {
+    return ChannelApiUtil.createChannel(channel).then(
+        channel => dispatch(receiveChannel(channel)),
+        err => dispatch(receiveErrors(err.responseJSON))
+    );
+};
+export const destroyChannel = id => dispatch => {
+    return ChannelApiUtil.destroyChannel(id).then(channel =>
+        dispatch(removeChannel(channel))
+    );
+};
+export const updateChannel = channel => dispatch => {
+    return ChannelApiUtil.updateChannel(channel).then(channel =>
+        dispatch(receiveChannel(channel))
+    );
+};
 
-export const receiveChannel = channel => ({
-    type: RECEIVE_CHANNEL,
-    channel
-});
+export const clearChannelErrors = () => {
+    return {
+        type: CLEAR_CHANNEL_ERRORS
+    };
+};
 
-const removeChannel = channelId => ({
-    type: REMOVE_CHANNEL,
-    channelId
-})
+export const receiveErrors = errors => {
+    return {
+        type: RECEIVE_CHANNEL_ERRORS,
+        errors
+    };
+};
 
-const receiveErrors = errors => ({
-    type: RECEIVE_CHANNEL_ERRORS,
-    errors
-});
+const receiveChannels = channels => {
+    return {
+        type: RECEIVE_ALL_CHANNELS,
+        channels
+    };
+};
 
-export const fetchChannels = () => dispatch => ChannelApiUtil.fetchChannels()
-    .then(channels => dispatch(receiveChannels(channels)),
-        errors => dispatch(receiveErrors(errors.responseJSON)));
+const receiveChannel = channel => {
+    return {
+        type: RECEIVE_CHANNEL,
+        channel
+    };
+};
 
-export const fetchChannel = channelId => dispatch => ChannelApiUtil.fetchChannel(channelId)
-    .then(channel => dispatch(receiveChannel(channel)),
-        errors => dispatch(receiveErrors(errors.responseJSON)));
-
-export const createChannel = channel => dispatch => ChannelApiUtil.createChannel(channel)
-    .then(channel => dispatch(receiveChannel(channel)),
-        errors => dispatch(receiveErrors(errors.responseJSON)));
-
-export const deleteChannel = channelId => dispatch => ChannelApiUtil.deleteChannel(channelId)
-    .then(() => dispatch(removeChannel(channelId)),
-        errors => dispatch(receiveErrors(errors.responseJSON)));
+const removeChannel = channel => {
+    return {
+        type: REMOVE_CHANNEL,
+        channelId: channel.id
+    };
+};

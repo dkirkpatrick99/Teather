@@ -1,27 +1,45 @@
-export const fetchMessage = messageId => (
-    $.ajax({
-        url: `api/messages/${messageId}`
-    })
-);
-
-export const createMessage = message => (
-    $.ajax({
-        url: 'api/messages',
-        method: 'POST',
+export const createMessage = message => {
+    return $.ajax({
+        method: "POST",
+        url: "api/messages",
         data: { message }
-    })
-);
+    });
+};
 
-export const updateMessage = message => (
-    $.ajax({
-        url: 'api/messages',
-        method: 'PATCH',
+export const updateMessage = message => {
+    return $.ajax({
+        method: "PATCH",
+        url: `api/messages/${message.id}`,
         data: { message }
-    })
-);
+    });
+};
 
-export const fetchMessages = () => (
-    $.ajax({
+export const fetchMessage = id => {
+    return $.ajax({
+        method: "GET",
+        url: `api/messages/${id}`
+    });
+};
+
+export const fetchAllMessages = () => {
+    return $.ajax({
+        method: "GET",
         url: `api/messages`
-    })
-);
+    });
+};
+
+export const fetchChannelMessages = channelId => {
+    return $.ajax({
+        method: "GET",
+        url: `api/messages`,
+        data: { channelId }
+    });
+};
+
+export const fetchDirectMessages = directId => {
+    return $.ajax({
+        method: "GET",
+        url: `api/messages`,
+        data: { directId }
+    });
+};

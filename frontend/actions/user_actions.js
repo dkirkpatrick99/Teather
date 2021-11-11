@@ -1,20 +1,30 @@
-import { receiveCurrentUser } from './session_actions';
-import * as UserApiUtil from '../util/user_api_util';
+import * as UserApiUtil from "../util/user_api_util";
 
-export const RECEIVE_USERS = 'RECEIVE_USERS';
+export const RECEIVE_ALL_USERS = "RECEIVE_ALL_USERS";
+export const RECEIVE_USER = "RECEIVE_USER";
 
-const receiveUsers = users => ({
-    type: RECEIVE_USERS,
-    users
-});
+export const fetchAllUsers = () => dispatch => {
+    return UserApiUtil.fetchAllUsers().then(users =>
+        dispatch(receiveUsers(users))
+    );
+};
 
-export const fetchUsers = () => dispatch => UserApiUtil.fetchUsers()
-    .then(users => dispatch(receiveUsers(users)));
+export const fetchUser = userId => dispatch => {
+    return UserApiUtil.fetchUser(userId).then(user =>
+        dispatch(receiveUser(user))
+    );
+};
 
-// export const fetchUsers = () => dispatch => {
-//     return UserApiUtil.fetchUsers()
-//         .then(users => dispatch(receiveUsers(users)))
-// };
+const receiveUsers = users => {
+    return {
+        type: RECEIVE_ALL_USERS,
+        users
+    };
+};
 
-export const fetchUser = userId => dispatch => UserApiUtil.fetchUser(userId)
-    .then(user => dispatch(receiveCurrentUser(user)));
+const receiveUser = user => {
+    return {
+        type: RECEIVE_USER,
+        user
+    };
+};

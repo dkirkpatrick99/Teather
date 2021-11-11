@@ -1,36 +1,54 @@
-import * as MessageApiUtil from '../util/message_api_util';
-export const RECEIVE_MESSAGES = 'RECEIVE_MESSAGES';
-export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
-export const RECEIVE_NEW_MESSAGE = 'RECEIVE_NEW_MESSAGE';
-export const RECEIVE_MESSAGE_ERRORS = 'RECEIVE_MESSAGE_ERRORS';
+import * as MessageApiUtil from "../util/message_api_util";
 
-export const receiveMessages = messages => ({
-    type: RECEIVE_MESSAGES,
-    payload
-})
+export const RECEIVE_ALL_MESSAGES = "RECEIVE_ALL_MESSAGES";
+export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
 
-export const receiveMessage = payload => ({
-    type: RECEIVE_MESSAGE,
-    payload
-})
+export const fetchAllMessages = () => dispatch => {
+    return MessageApiUtil.fetchAllMessages().then(messages =>
+        dispatch(receiveMessages(messages))
+    );
+};
+export const fetchChannelMessages = channelId => dispatch => {
+    return MessageApiUtil.fetchChannelMessages(channelId).then(messages =>
+        dispatch(receiveMessages(messages))
+    );
+};
 
-const receiveErrors = errors => ({
-    type: RECEIVE_MESSAGE_ERRORS,
-    errors
-});
+export const fetchDirectMessages = directId => dispatch => {
+    return MessageApiUtil.fetchDirectMessages(directId).then(messages =>
+        dispatch(receiveMessages(messages))
+    );
+};
 
-export const fetchMessages = () => dispatch => MessageApiUtil.fetchMessages()
-    .then(messages => dispatch(receiveMessages(messages)),
-        errors => dispatch(receiveErrors(errors.responseJSON)));
+export const fetchMessage = id => dispatch => {
+    return MessageApiUtil.fetchMessage(id).then(message =>
+        dispatch(receiveMessage(message))
+    );
+};
+export const createMessage = message => dispatch => {
+    return MessageApiUtil.createMessage(message).then(message =>
+        dispatch(receiveMessage(message))
+    );
+};
 
-export const fetchMessage = messageId => dispatch => MessageApiUtil.fetchMessage(messageId)
-    .then(message => dispatch(receiveMessage(message)),
-        errors => dispatch(receiveErrors(errors.responseJSON)));
+export const updateMessage = message => dispatch => {
+    return MessageApiUtil.updateMessage(message).then(message =>
+        dispatch(receiveMessage(message))
+    );
+};
 
-export const createMessage = message => dispatch => MessageApiUtil.createMessage(message);
+const receiveMessages = messages => {
+    return {
+        type: RECEIVE_ALL_MESSAGES,
+        messages
+    };
+};
 
-export const updateMessage = message => dispatch => MessageApiUtil.updateMessage(message)
-    .then(message => dispatch(receiveMessage(message)),
-        errors => dispatch(receiveErrors(errors.responseJSON)));
+export const receiveMessage = message => {
+    return {
+        type: RECEIVE_MESSAGE,
+        message
+    };
+};
 
 

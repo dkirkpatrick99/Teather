@@ -1,20 +1,36 @@
-export const createMembership = membership => (
-    $.ajax({
-        url: 'api/memberships',
-        method: 'POST',
+export const createMembership = membership => {
+    return $.ajax({
+        method: "POST",
+        url: "api/memberships",
         data: { membership }
-    })
-);
+    });
+};
 
-export const deleteMembership = membershipId => (
-    $.ajax({
-        url: `api/memberships/${membershipId}`,
-        method: 'DELETE'
-    })
-)
+export const destroyMembership = id => {
+    return $.ajax({
+        method: "DELETE",
+        url: `api/memberships/${id}`
+    });
+};
 
-export const fetchMemberships = () => (
-    $.ajax({
+export const fetchMembership = id => {
+    return $.ajax({
+        method: "GET",
+        url: `api/memberships/${id}`
+    });
+};
+
+export const fetchMemberships = () => {
+    return $.ajax({
+        method: "GET",
         url: `api/memberships`
-    })
-);
+    });
+};
+
+export const fetchChannelMemberships = channelId => {
+    return $.ajax({
+        method: "GET",
+        url: `api/memberships`,
+        data: { channelId }
+    });
+};

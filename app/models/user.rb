@@ -18,24 +18,30 @@ class User < ApplicationRecord
     validates :password, length: { minimum: 6} , allow_nil: true
     validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  after_initialize :ensure_session_token
+    has_many :memberships
+    has_many :messages
+    has_many :channels, through: :memberships, source: :memberable, source_type: 'Channel'
 
-    has_many :messages,
-    foreign_key: :user_id,
-    class_name: :Message
+    has_many :directs, through: :memberships, source: :memberable, source_type: 'Direct'
     
-    has_many :memberships,
-    foreign_key: :user_id,
-    class_name: :Membership
+    # has_many :messages,
+    # foreign_key: :user_id,
+    # class_name: :Message
+    
+    # has_many :memberships,
+    # foreign_key: :user_id,
+    # class_name: :Membership
     # :dependant => :delete_all
     
-    has_many :started_channels,
-    foreign_key: :admin_id,
-    class_name: :Channel
+    # has_many :started_channels,
+    # foreign_key: :admin_id,
+    # class_name: :Channel
     
-    has_many :channels,
-        through: :memberships,
-        source: :channel
+    # has_many :channels,
+    # through: :memberships,
+    # source: :channel
+    
+    after_initialize :ensure_session_token
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)

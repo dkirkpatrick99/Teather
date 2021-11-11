@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_152334) do
+ActiveRecord::Schema.define(version: 2021_11_10_192610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,22 +26,33 @@ ActiveRecord::Schema.define(version: 2021_11_02_152334) do
     t.index ["admin_id"], name: "index_channels_on_admin_id"
   end
 
-  create_table "memberships", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "channel_id", null: false
+  create_table "directs", force: :cascade do |t|
+    t.integer "admin_id"
+    t.integer "reciever_id"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["channel_id"], name: "index_memberships_on_channel_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "memberable_id", null: false
+    t.string "memberable_type", null: false
+    t.index ["user_id", "memberable_id"], name: "index_memberships_on_user_id_and_memberable_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "parent_id"
     t.text "body"
-    t.integer "channel_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "messageable_id", null: false
+    t.string "messageable_type", null: false
+    t.index ["messageable_id"], name: "index_messages_on_messageable_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -52,6 +63,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_152334) do
     t.datetime "updated_at", null: false
     t.string "formal_name", null: false
     t.string "email", null: false
+    t.boolean "online", default: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["session_token"], name: "index_users_on_session_token"
     t.index ["username"], name: "index_users_on_username", unique: true

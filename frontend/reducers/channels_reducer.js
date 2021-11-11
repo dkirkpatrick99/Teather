@@ -1,25 +1,24 @@
-import { RECEIVE_CHANNELS, REMOVE_CHANNEL, RECEIVE_CHANNEL } from '../actions/channel_actions';
-import { RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER } from '../actions/session_actions';
+import {
+    RECEIVE_ALL_CHANNELS,
+    RECEIVE_CHANNEL,
+    REMOVE_CHANNEL
+} from "../actions/channel_actions";
 
-const channelsReducer = (state = {}, action) => {
+import merge from "lodash/merge";
+
+export default (state = {}, action) => {
     Object.freeze(state);
-    const newState = Object.assign({}, state);
-    
+    let newState;
     switch (action.type) {
-        case RECEIVE_CURRENT_USER:
-            return action.currentUser.channels;
-        case RECEIVE_CHANNELS:
-            return action.channels;
+        case RECEIVE_ALL_CHANNELS:
+            return merge({}, action.channels);
         case RECEIVE_CHANNEL:
-            return Object.assign({}, newState, { [action.channel.channel.id]: action.channel.channel })
+            return merge({}, state, { [action.channel.id]: action.channel });
         case REMOVE_CHANNEL:
-            delete newState[action.channel_id];
+            newState = merge({}, state);
+            delete newState[action.channelId];
             return newState;
-        case LOGOUT_CURRENT_USER:
-            return {};
         default:
             return state;
     }
-}
-
-export default channelsReducer;
+};

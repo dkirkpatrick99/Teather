@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import MessageBoard from './messageBoard';
 import SideBarContainer from '../sideBar/sideBar_container'
-import BoardHeader from '../boardHeader/boardHeader'
-import ChannelShowContainer from '../channel/channel_show_container'
+// import BoardHeader from '../boardHeader/boardHeader'
+// import ChannelShowContainer from '../channel/channel_show_container'
 import { logout } from '../../actions/session_actions'
-import ListenerContainer from '../channel/listener_container';
-import Modal from '../modal/modal';
+// import ListenerContainer from '../channel/listener_container';
+// import Modal from '../modal/modal';
 
 class MessageBoard extends React.Component {
 
@@ -21,13 +21,13 @@ class MessageBoard extends React.Component {
     render(){
         return (
             <div className="client-main-container">
-                <BoardHeader history={this.props.history} />
-                <div className="flex-container">
+                {/* <BoardHeader history={this.props.history} /> */}
+                {/* <div className="flex-container"> */}
                 <SideBarContainer channelId={this.props.channelId}/>
-                    <ChannelShowContainer channelId={this.props.channelId.channel_id} history={this.props.history}/>
-                </div>
-                <ListenerContainer />
-                <Modal history={this.props.history}/>
+                    {/* <ChannelShowContainer channelId={this.props.channelId.channel_id} history={this.props.history}/> */}
+                {/* </div> */}
+                {/* <ListenerContainer /> */}
+                {/* <Modal history={this.props.history}/> */}
                 
             </div>
 
@@ -40,7 +40,8 @@ class MessageBoard extends React.Component {
 
 const mapSTP = (state, ownProps) => {
     return {
-        channelId: ownProps.match.params,
+        // channelId: ownProps.match.params,
+        channelId: 1,
         history: ownProps.history
     };
 };
