@@ -5,8 +5,8 @@ class Api::DirectsController < ApplicationController
     if @direct.save
       params[:direct][:invitedUsersIds].each do |userId|
         @membership = Membership.create(user_id: userId.to_i, memberable_id: @direct.id, memberable_type: Direct)
-        # broadcastNewMembership(@membership)
-        # broadcastNewDirect(@direct, @membership.user_id)
+        broadcastNewMembership(@membership)
+        broadcastNewDirect(@direct, @membership.user_id)
       end
       render :show
     else
@@ -18,7 +18,6 @@ class Api::DirectsController < ApplicationController
       @directs = Direct.all
       render :index
     else
-      debugger
       @directs = User.find(params[:id]).directs
       render :index
     end

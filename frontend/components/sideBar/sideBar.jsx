@@ -18,35 +18,32 @@ class SideBar extends React.Component {
         // }
         this.props.fetchAllUsers();
         this.props.fetchAllChannels();
-        // this.props.fetchUserDirects();
+        this.props.fetchMemberships();
+        if(this.props.currentUser){
+            this.props.fetchUserDirects(this.props.currentUser.id);
+        }
+
     };
 
-    // renderChannelsAndDms() {
-    //     const that = this;
-    //     const threads = {"dm":[], "channel":[]};
-    //     const memberships = this.props.memberships;
+    renderChannels() {
+        const that = this;
+        const userChannels = [];
+        const memberships = this.props.memberships;
+        let userMemberships = [];
         
-    //     if (Object.keys(this.props.userChannels) !== 0 && Object.keys(this.props.memberships) !== 0 && Object.keys(this.props.allUsers).length > 1) {
-    //         Object.values(memberships).forEach(membership => {
-    //             const channelId = membership.channel_id;
-    //             const channel = that.props.userChannels[channelId];
-    //             const dmName = that.props.currentUser.id === parseInt(channel.name) ? that.props.allUsers[channel.admin_id] : that.props.allUsers[channel.name]
-                
-    //             if(!channel){
-    //                 return;
-    //             };
-            
-    //             if(!channel.is_dm){
-    //                 // channelArr.push([channel.id, channel.name]);
-    //                 threads["channel"].push([channel.id, channel.name]);
-    //             } else if (channel.is_dm) {
-    //                 threads["dm"].push([channel.id, channel.name, channel.admin_id, dmName.formal_name]);
-    //             }
-    //         })
-    //     }
-    //     // this.setState(threads)
-    //     return threads
-    // }
+        if (Object.keys(this.props.allChannels).length !== 0 && Object.keys(this.props.memberships).length !== 0 && Object.keys(this.props.allUsers).length > 1) {
+            Object.values(memberships).forEach(membership => {
+                const channelId = membership.memberable_type === 'Channel' && membership.user_id === that.props.currentUser.id ? membership.memberable_id : null;
+                const channel = that.props.allChannels[channelId];  
+                if(!channel){
+                    return;
+                } else {
+                    userChannels.push(channel);
+                }
+            })
+        }
+        return userChannels
+    }
 
     toggleElement(){
         const dropdownToggle = document.querySelector('.dropdown');
@@ -56,43 +53,42 @@ class SideBar extends React.Component {
     }
 
     render () {
-        // const channelId = parseInt(this.props.match.params.channel_id);
-        // const threadHash = this.renderChannelsAndDms();
-        // let dmLinks
-        // let channelLinks
-        // if(threadHash !== null){
-        //     channelLinks = threadHash["channel"].map(channel => {
-                
-        //         return channelId === channel[0] ? 
-        //             <li className="channel-list-item active" key={channel[0]}>
-        //                 <NavLink to={`/client/${channel[0]}`}>{"# " + channel[1]}</NavLink>
-        //             </li>
-        //         :
-        //             <li className="channel-list-item" key={channel[0]}> 
-        //                 <NavLink to={`/client/${channel[0]}`}>{"# " + channel[1]}</NavLink>
-        //             </li>
-        //         }
-        //     );
+        const typeId = parseInt(this.props.typeId);
+        const channels = this.renderChannels();
+        let dmLinks
+        let channelLinks
 
-        //     dmLinks = threadHash["dm"].length > 0 ? threadHash["dm"].map(dm => {
+        dmLinks = Object.values(this.props.userDirects).length > 0 ? Object.values(this.props.userDirects).map(dm => {
+            return typeId === dm.id && this.props.type === 'direct' ?
+                <li className="channel-list-item active" key={dm.id}>
+                    <NavLink to={`/client/direct/${dm.d}`}>
+                        <img src={getUserPic(dm.name)} alt="" />
+                        {dm.name}
+                    </NavLink>
+                </li>
+                :
+                <li className="channel-list-item" key={dm.id}>
+                    <NavLink to={`/client/direct/${dm.id}`}>
+                        <img src={getUserPic(dm.name)} alt="" />
+                        {dm.name}
+                    </NavLink>
+                </li>
+        })
+            : null
+        if(channels.length !== 0 ){
+            channelLinks = channels.map(channel => {
+                return typeId === channel.id && this.props.type === 'channel' ? 
+                    <li className="channel-list-item active" key={channel.id}>
+                        <NavLink to={`/client/channel/${channel.id}`}>{"# " + channel.name}</NavLink>
+                    </li>
+                :
+                    <li className="channel-list-item" key={channel.id}> 
+                        <NavLink to={`/client/channel/${channel.id}`}>{"# " + channel.name}</NavLink>
+                    </li>
+                }
+            );
+        }
 
-        //         return channelId === dm[0] ?
-        //             <li className="channel-list-item active" key={dm[0]}> 
-        //                 <NavLink to={`/client/${dm[0]}`}>
-        //                     <img src={getUserPic(dm[3])} alt="" />
-        //                     {dm[3]}
-        //                     </NavLink>
-        //             </li>
-        //         :
-        //             <li className="channel-list-item" key={dm[0]}>
-        //                 <NavLink to={`/client/${dm[0]}`}>
-        //                     <img src={getUserPic(dm[3])} alt="" />
-        //                     {dm[3]}
-        //                     </NavLink>
-        //             </li>
-        //     }) 
-        //     : null
-        // }
         // if(!dropdownToggle) return
 
         if(!!this.props.currentUser) {
@@ -118,28 +114,28 @@ class SideBar extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {/* <img onClick={() => this.props.openModal('directMessageSearch')} src="compose.png" alt=""/> */}
+                            <img onClick={() => this.props.openModal('directMessageSearch')} src="compose.png" alt=""/>
                         </div>
     
                         <div className="channel-list-container">
                             <div  className='channel-img-contain'>
 
                                 <div className="channel-name">Channels</div>
-                                {/* <img onClick={() => this.props.openModal('createChannel')} src="plus.png" alt=""/> */}
+                                <img onClick={() => this.props.openModal('createChannel')} src="plus.png" alt=""/>
                             </div>
                             <ul className="channel-list">
-                                {/* {channelLinks} */}
+                                {channelLinks}
                             </ul>
                         </div>
     
                         <div className="dm-list-container">
                             <div className='dm-img-contain'>
                                 <div className="dm-name">Direct Messages</div>
-                            {/* <img onClick={() => this.props.openModal('directMessageSearch')} src="plus.png" alt=""/> */}
+                            <img onClick={() => this.props.openModal('directMessageSearch')} src="plus.png" alt=""/>
 
                             </div>
                             <ul className="dm-list">
-                                {/* {dmLinks} */}
+                                {dmLinks}
                             </ul>
                         </div>
                     </div>

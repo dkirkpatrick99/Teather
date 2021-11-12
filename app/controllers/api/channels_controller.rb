@@ -4,10 +4,10 @@ class Api::ChannelsController < ApplicationController
     @channel = Channel.new(channel_params)
     @channel.admin_id = current_user.id
     if @channel.save
-    #   broadcastNewChannelAll(@channel)
+      broadcastNewChannelAll(@channel)
       params[:channel][:invitedUsersIds].each do |userId|
         @membership = Membership.create(user_id: userId.to_i, memberable_id: @channel.id, memberable_type: Channel)
-        # broadcastNewMembership(@membership)
+        broadcastNewMembership(@membership)
       end
       render :show
     else

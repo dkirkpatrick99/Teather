@@ -6,17 +6,17 @@ import { fetchAllUsers, fetchUser } from '../../actions/user_actions'
 import { logout } from '../../actions/session_actions'
 import { openModal } from '../../actions/modal_actions';
 import { fetchUserDirects } from '../../actions/direct_actions'
+import { fetchMemberships } from '../../actions/membership_actions'
 
 
 const mapStateToProps = (state, ownProps) => {
-    debugger
     return {
-        userChannels: state.entities.channels,
+        allChannels: state.entities.channels,
         currentUser: state.entities.users[state.session.id],
         memberships: state.entities.memberships,
-        channelID: ownProps.channelId.channel_id,
+        channelID: ownProps.typeId,
         allUsers: state.entities.users,
-        userDirects: state.entities.directs
+        userDirects: state.entities.directs,
     };
 };
 
@@ -28,7 +28,8 @@ const mapDispatchToProps = dispatch => {
         createChannel: (channel) => dispatch(createChannel(channel)),
         logout: () => dispatch(logout()),
         openModal: modal => dispatch(openModal(modal)),
-        fetchUserDirects: () => dispatch(fetchUserDirects(id))
+        fetchUserDirects: (id) => dispatch(fetchUserDirects(id)),
+        fetchMemberships: () => dispatch(fetchMemberships())
 
 
     };

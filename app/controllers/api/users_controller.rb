@@ -3,11 +3,10 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      debugger
       # Membership.create(user_id: @user.id, memberable_id: Channel.first.id, memberable_type: Channel)
       # Membership.create(user_id: @user.id, memberable_id: Channel.second.id, memberable_type: Channel)
       login(@user)
-    #   broadcastNewUserAll(@user)
+      broadcastNewUserAll(@user)
       render :show
     else
       render json: @user.errors.full_messages, status: 422

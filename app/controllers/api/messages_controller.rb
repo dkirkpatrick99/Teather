@@ -3,8 +3,14 @@ class Api::MessagesController < ApplicationController
         before_action :require_logged_in
 
     def index
-        @messages = Message.all
-        render :index
+        if params[:channelId]
+            @messages = Channel.find_by(id: params[:channelId]).messages
+            render :index
+        else 
+            @messages = Direct.find_by(id: params[:directId]).messages
+            render :index
+        end
+
     end
 
     def show
@@ -13,8 +19,15 @@ class Api::MessagesController < ApplicationController
     end
 
     def create
-        # THIS METHOD INTENTIONALLY LEFT BLANK
-        # Messages created via Action Cable websocket
+        # @message = Message.new(data["message"])
+        # debugger
+        # direct = Direct.find(message.messageable_id)
+        # if(message.save)
+        #     socket = {message: format(message), type: 'message'}
+        #     ChatDirect.broadcast_to(direct.id, socket)
+        # else
+        #     ChatDirect.broadcast_to(direct.id, {message: "db save failed", id: Time.now, type: 'message'})
+        # end
     end
 
     # def update
@@ -32,25 +45,5 @@ class Api::MessagesController < ApplicationController
     def message_params
         params.require(:message).permit(:body, :messageable_id, :messageable_type, :user_id)
     end
-    # TO DO CLEARN
-    # def broadcastEdit(message)
-    #     # TO DO CHAT VS DM
-    #   ChatChannel.update(message)
-    # end
-
-    # def formatEdit(message)
-    #     formattedMessage = {
-    #         body: message.body,
-    #         id: message.id,
-    #         user_id: message.user_id,
-    #         messageable_id: message.messageable_id,
-    #         messageable_type: message.messageable_type,
-    #         created_at: message.created_at,
-    #         updated_at: message.updated_at,
-    #         username: message.user.username,
-    #         image_url: message.user.image_url
-
-    #     }
-    # end
 
 end

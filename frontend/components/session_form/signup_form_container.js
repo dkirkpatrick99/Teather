@@ -7,7 +7,7 @@ import { fetchAllUsers } from '../../actions/user_actions'
 import { fetchAllChannels } from "../../actions/channel_actions";
 
 const mapStateToProps = (state) => {
-    debugger
+    // debugger
     return {
         errors: state.errors.sessionErrors,
         formType: 'Sign Up for',

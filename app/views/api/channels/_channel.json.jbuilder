@@ -1,4 +1,4 @@
-json.extract! channel, :name, :description, :is_private, :id, :created_at
+json.extract! channel, :admin_id, :name, :description, :is_private, :id, :created_at
 json.admin channel.user.username
 messages = []
 channel.messages.each do |message|
