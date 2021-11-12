@@ -3,12 +3,12 @@ class NotificationsChannel < ApplicationCable::Channel
     user = User.find(params[:currentUserId])
     stream_from "notifications_#{user.id}"
     stream_from "notifications_all"
-    user.online = true
+    user.update({online: true})
     ActionCable.server.broadcast "notifications_all", {userId: user.id, type: 'userAdd'}
   end
   def unsubscribed
     user = User.find(params[:currentUserId])
-    user.online = false
+    user.update({online: false})
     ActionCable.server.broadcast "notifications_all", {userId: user.id, type: 'userAdd'}
   end
 end

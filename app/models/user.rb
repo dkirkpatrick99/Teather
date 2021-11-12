@@ -81,4 +81,12 @@ class User < ApplicationRecord
     end
     self.session_token
   end
+
+  def is_online
+    self.update({online: true})
+  end
+
+  def is_offline
+    self.update({online: false})
+  end
 end

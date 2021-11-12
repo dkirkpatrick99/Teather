@@ -8,8 +8,8 @@ end
 users = []
 usernames = []
 direct.users.each do |user|
-  users.push(user.id)
   if user != current_user
+    users.push({user_id: user.id, onlineStatus: user.online})
     usernames.push(user.username)
   end
 end

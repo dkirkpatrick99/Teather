@@ -763,6 +763,11 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var onlineIndicator = !this.props.currentUser.online ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "boardheader-online-indicator offline"
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "boardheader-online-indicator online"
+      });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "board-header-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
@@ -793,7 +798,7 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
         className: "boardheader-search-items"
       }, this.state.userMatches, this.state.channelMatches)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "user-status-image"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+      }, onlineIndicator, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
         src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_6__.getUserPic)(this.props.currentUser.formal_name),
         alt: ""
       })));
@@ -2998,6 +3003,11 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
       var dmLinks;
       var channelLinks;
       dmLinks = Object.values(this.props.userDirects).length > 0 ? Object.values(this.props.userDirects).map(function (dm) {
+        var onlineIndicator = !dm.user_ids[0].online ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "sidebar-online-indicator offline"
+        }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "sidebar-online-indicator online"
+        });
         return typeId === dm.id && _this2.props.type === 'direct' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
           className: "channel-list-item active",
           key: dm.id
@@ -3006,7 +3016,7 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
           src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_1__.getUserPic)(dm.name),
           alt: ""
-        }), dm.name)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+        }), onlineIndicator, dm.name)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
           className: "channel-list-item",
           key: dm.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
@@ -3014,7 +3024,7 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
           src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_1__.getUserPic)(dm.name),
           alt: ""
-        }), dm.name));
+        }), onlineIndicator, dm.name));
       }) : null;
 
       if (channels.length !== 0) {

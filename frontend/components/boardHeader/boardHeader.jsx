@@ -122,6 +122,10 @@ class BoardHeader extends React.Component{
 
     
     render () {
+        const onlineIndicator = !this.props.currentUser.online ? 
+            <div className='boardheader-online-indicator offline'></div>
+            :
+            <div className='boardheader-online-indicator online'></div>
 
         return (
             <div className="board-header-container">
@@ -144,7 +148,8 @@ class BoardHeader extends React.Component{
                     </ul>
                 </div>
                 <div className="user-status-image">
-                    <img src={getUserPic(this.props.currentUser.formal_name)} alt=""/>
+                    {onlineIndicator}
+                    <img src={getUserPic(this.props.currentUser.formal_name)} alt=""/> 
                 </div>
 
             </div>

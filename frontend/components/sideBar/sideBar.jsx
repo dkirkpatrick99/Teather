@@ -59,10 +59,16 @@ class SideBar extends React.Component {
         let channelLinks
 
         dmLinks = Object.values(this.props.userDirects).length > 0 ? Object.values(this.props.userDirects).map(dm => {
+            const onlineIndicator = !dm.user_ids[0].online ? 
+                <div className='sidebar-online-indicator offline'></div>
+                :
+                <div className='sidebar-online-indicator online'></div>
+
             return typeId === dm.id && this.props.type === 'direct' ?
                 <li className="channel-list-item active" key={dm.id}>
                     <NavLink to={`/client/direct/${dm.d}`}>
-                        <img src={getUserPic(dm.name)} alt="" />
+                        <img src={getUserPic(dm.name)} alt="" ></img>
+                        {onlineIndicator}
                         {dm.name}
                     </NavLink>
                 </li>
@@ -70,6 +76,7 @@ class SideBar extends React.Component {
                 <li className="channel-list-item" key={dm.id}>
                     <NavLink to={`/client/direct/${dm.id}`}>
                         <img src={getUserPic(dm.name)} alt="" />
+                        {onlineIndicator}
                         {dm.name}
                     </NavLink>
                 </li>

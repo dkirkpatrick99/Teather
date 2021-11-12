@@ -196,6 +196,22 @@
     align-items: center;
 }
 
+.sidebar-online-indicator.online{
+    background-color: green;
+    height: 6px;
+    width: 6px;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.sidebar-online-indicator.offline{
+    background-color: black;
+    height: 6px;
+    width: 6px;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
 /* dropdown CSS ********** */
 
 .dropdown {
