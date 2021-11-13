@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { fetchAllUsers } from '../../actions/user_actions';
-import { fetchAllChannels, createChannel } from  '../../actions/channel_actions'
+import { fetchUsers } from '../../actions/user_actions';
+import { fetchChannels, createChannel } from  '../../actions/channel_actions'
 import { logout } from '../../actions/session_actions'
-import { createMembership, fetchMemberships } from '../../actions/membership_actions'
-import { fetchUserDirects, createDirect } from '../../actions/direct_actions'
+import { createMembership } from '../../actions/membership_actions'
 import { getUserPic, channelCheck } from '../../util/functions'
 
 class BoardHeader extends React.Component{
@@ -21,30 +20,30 @@ class BoardHeader extends React.Component{
     }
 
     componentDidMount(props) {
-        this.props.fetchAllUsers();
-        this.props.fetchAllChannels();
-        this.props.fetchMemberships();
-        this.props.fetchUserDirects(this.props.currentUser.id)
+        this.props.fetchUsers();
+        this.props.fetchChannels();
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        const identifier = e.currentTarget.dataset.classify;
         const value = e.currentTarget.value
+        const identifier = e.currentTarget.dataset.classify;
         const inputEle = document.querySelector('.search-input')
-        const directObject = {
+        const channelObject = {
+            admin_id: this.props.currentUser.id,
             name: e.currentTarget.value,
-            invitedUsersIds: [this.props.currentUser.id, value]
+            is_private: false,
+            is_dm: true
         };
         const membershipObject = {
             user_id: this.props.currentUser.id,
-            memberable_id: value,
-            memberable_type: "Channel"
+            channel_id: e.currentTarget.value
         }
-        const channelChecker = channelCheck(this.props.userDirects, identifier, this.props.currentUser.id, value, this.props.allMemberships, this.props.allChannels)
-        if (e.currentTarget.dataset.classify === "direct") {
+        const channelChecker = channelCheck(this.props.memberships, value, this.props.allChannels, identifier, this.props.currentUser.id)
+
+        if (e.currentTarget.dataset.classify === "user") {
             if(!channelChecker){
-                this.props.createDirect(directObject)
+                this.props.createChannel(channelObject)
             } else {
                 this.props.history.push(`/client/${channelChecker}`);
             }
@@ -61,14 +60,6 @@ class BoardHeader extends React.Component{
             'userMatches': null,
             'channelMatches': null
         })
-    }
-
-    handleHistoryButtons(field) {
-        if (field === 'back') {
-            this.props.history.goBack()
-        } else if (field === 'forward') {
-            this.props.history.goForward()
-        }
     }
 
     findMatches(wordToMatch, channels, users) {
@@ -101,7 +92,7 @@ class BoardHeader extends React.Component{
                 // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
                 // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
                 return (
-                    <li key={user.id} value={user.id} data-classify='direct' onClick={this.handleSubmit} className='header-search-li users'>
+                    <li key={user.id} value={user.id} data-classify='user' onClick={this.handleSubmit} className='header-search-li users'>
                         <span className="header-search-item">{userName}</span>
                         <span>{userEmail}</span>
                     </li>
@@ -110,12 +101,12 @@ class BoardHeader extends React.Component{
 
             const channelMatches = matchArray.channels.length > 0 ? matchArray.channels.map(channel => {
                 const regex = new RegExp(e.currentTarget.value, 'gi');
-                const channelName = channel.name
+                const userName = channel.name
                 // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
                 // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
                 return (
                     <li key={channel.id} value={channel.id} data-classify='channel' onClick={this.handleSubmit} className='header-search-li channels'>
-                        <span className="header-search-item">{channelName}</span>
+                        <span className="header-search-item">{userName}</span>
                     </li>
                 )
             }) : null
@@ -130,30 +121,20 @@ class BoardHeader extends React.Component{
 
     
     render () {
-        const onlineIndicator = !this.props.currentUser ? 
-            <div className='boarderheader-online-wrapper'>
-                <div className='boardheader-online-indicator offline'></div>
-            </div>
-            :
-            <div className='boarderheader-online-wrapper'>
-                <div className='boardheader-online-indicator online'></div>
-            </div>
-
-        if(!this.props.currentUser){
-            return (
-                <div></div>
-            )
-        }
 
         return (
             <div className="board-header-container">
-
-
-                <div className="history-buttons">
-                    <input className='backward-history' onClick={() => this.handleHistoryButtons('back')} src='historyArrowBack.png' type="image" value='back' />
-                    <input className="forward-history" onClick={() => this.handleHistoryButtons('forward')} src='historyArrow.png' type="image" value='forward' />
+                <div className='boardheader-personal-icons'>
+                    <Link to='https://github.com/dkirkpatrick99'>
+                        <img src="github.png" alt=""/>
+                    </Link>
+                    <Link to='https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/'>
+                        <img src="linkedin.png" alt=""/>
+                    </Link>
+                    <Link to='https://angel.co/u/dalton-kirkpatrick'>
+                        <img src="angellist.png" alt=""/>
+                    </Link>
                 </div>
-                
                 <div className="search-input-container">
                     <input onChange={this.displayMatches} className="search-input" type="text" placeholder="Search users and channels"/>
                     <ul className="boardheader-search-items">
@@ -161,15 +142,8 @@ class BoardHeader extends React.Component{
                             {this.state.channelMatches}
                     </ul>
                 </div>
-                <div className="user-profile-dropdown-container">
-                    <div className="user-status-image">
-                        {onlineIndicator}
-                        <img src={getUserPic(this.props.currentUser.formal_name)} alt=""/> 
-                    </div>
-                    <div className="user-profile-dropdown-content">
-                        <div>hello</div>
-                    </div>
-
+                <div className="user-status-image">
+                    <img src={getUserPic(this.props.currentUser.formal_name)} alt=""/>
                 </div>
 
             </div>
@@ -181,26 +155,21 @@ class BoardHeader extends React.Component{
 
 
 const mapStateToProps = (state, ownProps) => {
-    const currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id
-
     return {
         allUsers: state.entities.users,
         allChannels: state.entities.channels,
-        currentUser: state.entities.users[currentUserId],
-        allMemberships: state.entities.memberships,
-        userDirects: state.entities.directs
+        currentUser: state.entities.users[state.session.id],
+        memberships: state.entities.memberships
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllUsers: () => dispatch(fetchAllUsers()),
-        fetchAllChannels: () => dispatch(fetchAllChannels()),
+        fetchUsers: () => dispatch(fetchUsers()),
+        fetchChannels: () => dispatch(fetchChannels()),
         logout: () => dispatch(logout()),
-        createDirect: direct => dispatch(createDirect(direct)),
-        createMembership: membership => dispatch(createMembership(membership)),
-        fetchMemberships: () => dispatch(fetchMemberships()),
-        fetchUserDirects: (id) => dispatch(fetchUserDirects(id))
+        createChannel: channel => dispatch(createChannel(channel)),
+        createMembership: membership => dispatch(createMembership(membership))
     };
 };
 
