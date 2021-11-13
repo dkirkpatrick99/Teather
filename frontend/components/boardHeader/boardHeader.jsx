@@ -120,6 +120,7 @@ class BoardHeader extends React.Component{
                 )
             }) : null
             // .join('');
+            
             // suggestions.innerHTML = html;
             this.setState({
                 'userMatches': userMatches,
