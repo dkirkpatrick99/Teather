@@ -3,4 +3,10 @@ channels = []
 json.channels user.channels do |channel|
   channels.push(channel.id)
 end
-json.channel_ids = channels
+
+memberships = []
+json.memberships user.memberships do |membership|
+  memberships.push(membership)
+end
+json.channel_ids channels
+json.user_memberships memberships

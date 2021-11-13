@@ -3,6 +3,7 @@ class Api::ChannelsController < ApplicationController
   def create
     @channel = Channel.new(channel_params)
     @channel.admin_id = current_user.id
+    
     if @channel.save
       broadcastNewChannelAll(@channel)
       params[:channel][:invitedUsersIds].each do |userId|
@@ -41,8 +42,10 @@ class Api::ChannelsController < ApplicationController
   end
 
   def destroy
-    @channel = Channel.find(params[:id])
-    @channel.destroy
+    channel = Channel.find(params[:id])
+    channel.destroy
+    @channel = Channel.find_by(name: "Global")
+    broadcastNewChannelAll(@channel)
     render :show
   end
 
@@ -58,6 +61,10 @@ class Api::ChannelsController < ApplicationController
   # end
   def broadcastNewChannelAll(channel)
     ActionCable.server.broadcast "notifications_all", {channelId: channel.id, type: 'channelAdd'}
+  end
+
+  def broadcastNewUserAll(user)
+    ActionCable.server.broadcast "notifications_all", {userId: user.id, type: 'userAdd'}
   end
 
 end

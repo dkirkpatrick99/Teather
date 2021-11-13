@@ -53,23 +53,35 @@ class SideBar extends React.Component {
     }
 
     render () {
+        if (!this.props.currentUser) {
+            return (
+                <div></div>
+            )
+        }
         const typeId = parseInt(this.props.typeId);
         const channels = this.renderChannels();
         let dmLinks
         let channelLinks
 
         dmLinks = Object.values(this.props.userDirects).length > 0 ? Object.values(this.props.userDirects).map(dm => {
-            const onlineIndicator = !dm.user_ids[0].online ? 
-                <div className='sidebar-online-indicator offline'></div>
+            const dmName = dm.name
+            const notCurrentUserCheck = dm.user_ids[0].user_id === this.props.currentUser.id ? dm.user_ids[1].onlineStatus : dm.user_ids[0].onlineStatus
+            const onlineIndicator = notCurrentUserCheck ? 
+                <div className='sidebar-online-wrapper'>
+                    <div className='sidebar-online-indicator online'></div>
+                </div>
                 :
-                <div className='sidebar-online-indicator online'></div>
+                <div className='sidebar-online-wrapper'>
+                    <div className='sidebar-online-indicator offline'></div>
+                </div>
+
 
             return typeId === dm.id && this.props.type === 'direct' ?
                 <li className="channel-list-item active" key={dm.id}>
-                    <NavLink to={`/client/direct/${dm.d}`}>
+                    <NavLink to={`/client/direct/${dm.id}`}>
                         <img src={getUserPic(dm.name)} alt="" ></img>
                         {onlineIndicator}
-                        {dm.name}
+                        {dmName}
                     </NavLink>
                 </li>
                 :
@@ -77,7 +89,7 @@ class SideBar extends React.Component {
                     <NavLink to={`/client/direct/${dm.id}`}>
                         <img src={getUserPic(dm.name)} alt="" />
                         {onlineIndicator}
-                        {dm.name}
+                        {dmName}
                     </NavLink>
                 </li>
         })
@@ -116,36 +128,51 @@ class SideBar extends React.Component {
                                     </div>
                                     <div className="sidebar-dropdown-links">
                                         <Link onClick={this.props.logout}>Log out of {this.props.currentUser.username}</Link>
-                                        <Link to='https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/'>Visit my portfolio</Link>
-                                        <Link to=''>Switch to Light Theme</Link>
+                                        <a href='https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/'>Visit my portfolio</a>
+                                        <a href=''>Switch to Light Theme</a>
                                     </div>
                                 </div>
                             </div>
                             <img onClick={() => this.props.openModal('directMessageSearch')} src="compose.png" alt=""/>
                         </div>
-    
-                        <div className="channel-list-container">
-                            <div  className='channel-img-contain'>
+                        <div className="sidebar-list-items-container">
+                            <div className="channel-list-container">
+                                <div  className='channel-img-contain'>
+                                    <div className="channel-name">Channels</div>
+                                    <img onClick={() => this.props.openModal('createChannel')} src="plus.png" alt=""/>
+                                </div>
 
-                                <div className="channel-name">Channels</div>
-                                <img onClick={() => this.props.openModal('createChannel')} src="plus.png" alt=""/>
+                                <ul className="channel-list">
+                                    {channelLinks}
+                                </ul>
                             </div>
-                            <ul className="channel-list">
-                                {channelLinks}
-                            </ul>
+        
+                            <div className="dm-list-container">
+                                <div className='dm-img-contain'>
+                                    <div className="dm-name">Direct Messages</div>
+                                <img onClick={() => this.props.openModal('directMessageSearch')} src="plus.png" alt=""/>
+                                </div>
+
+                                <ul className="dm-list">
+                                    {dmLinks}
+                                </ul>
+                            </div>
+
                         </div>
-    
-                        <div className="dm-list-container">
-                            <div className='dm-img-contain'>
-                                <div className="dm-name">Direct Messages</div>
-                            <img onClick={() => this.props.openModal('directMessageSearch')} src="plus.png" alt=""/>
 
-                            </div>
-                            <ul className="dm-list">
-                                {dmLinks}
-                            </ul>
+                        <div className='sidebar-personal-icons'>
+                            <Link to='https://github.com/dkirkpatrick99'>
+                                <img src="github.png" alt="" />
+                            </Link>
+                            <Link to='https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/'>
+                                <img src="linkedin.png" alt="" />
+                            </Link>
+                            <Link to='https://angel.co/u/dalton-kirkpatrick'>
+                                <img src="angellist.png" alt="" />
+                            </Link>
                         </div>
                     </div>
+                    
                         {/* < ChannelShowContainer channelID={this.props.channelID} currentUserId={this.props.currentUser.id} />  */}
                 </div>
     

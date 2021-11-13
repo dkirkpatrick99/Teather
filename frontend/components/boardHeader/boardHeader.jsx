@@ -5,6 +5,7 @@ import { fetchAllUsers } from '../../actions/user_actions';
 import { fetchAllChannels, createChannel } from  '../../actions/channel_actions'
 import { logout } from '../../actions/session_actions'
 import { createMembership, fetchMemberships } from '../../actions/membership_actions'
+import { fetchUserDirects, createDirect } from '../../actions/direct_actions'
 import { getUserPic, channelCheck } from '../../util/functions'
 
 class BoardHeader extends React.Component{
@@ -23,14 +24,15 @@ class BoardHeader extends React.Component{
         this.props.fetchAllUsers();
         this.props.fetchAllChannels();
         this.props.fetchMemberships();
+        this.props.fetchUserDirects(this.props.currentUser.id)
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        // const value = e.currentTarget.value
-        // const identifier = e.currentTarget.dataset.classify;
-        // const inputEle = document.querySelector('.search-input')
-        // const channelObject = {
+        const identifier = e.currentTarget.dataset.classify;
+        const value = e.currentTarget.value
+        const inputEle = document.querySelector('.search-input')
+        // const directObject = {
         //     admin_id: this.props.currentUser.id,
         //     name: e.currentTarget.value,
         //     is_private: false,
@@ -40,11 +42,10 @@ class BoardHeader extends React.Component{
         //     user_id: this.props.currentUser.id,
         //     channel_id: e.currentTarget.value
         // }
-        // const channelChecker = channelCheck(this.props.memberships, value, this.props.allChannels, identifier, this.props.currentUser.id)
-
+        // const channelChecker = channelCheck(this.props.userDirects, identifier, this.props.currentUser.id, value, this.props.allMemberships, this.props.allChannels)
         // if (e.currentTarget.dataset.classify === "user") {
         //     if(!channelChecker){
-        //         this.props.createChannel(channelObject)
+        //         this.props.createDirect(channelObject)
         //     } else {
         //         this.props.history.push(`/client/${channelChecker}`);
         //     }
@@ -61,6 +62,14 @@ class BoardHeader extends React.Component{
         //     'userMatches': null,
         //     'channelMatches': null
         // })
+    }
+
+    handleHistoryButtons(field) {
+        if (field === 'back') {
+            this.props.history.goBack()
+        } else if (field === 'forward') {
+            this.props.history.goForward()
+        }
     }
 
     findMatches(wordToMatch, channels, users) {
@@ -122,24 +131,30 @@ class BoardHeader extends React.Component{
 
     
     render () {
-        const onlineIndicator = !this.props.currentUser.online ? 
-            <div className='boardheader-online-indicator offline'></div>
+        const onlineIndicator = !this.props.currentUser ? 
+            <div className='boarderheader-online-wrapper'>
+                <div className='boardheader-online-indicator offline'></div>
+            </div>
             :
-            <div className='boardheader-online-indicator online'></div>
+            <div className='boarderheader-online-wrapper'>
+                <div className='boardheader-online-indicator online'></div>
+            </div>
+
+        if(!this.props.currentUser){
+            return (
+                <div></div>
+            )
+        }
 
         return (
             <div className="board-header-container">
-                <div className='boardheader-personal-icons'>
-                    <Link to='https://github.com/dkirkpatrick99'>
-                        <img src="github.png" alt=""/>
-                    </Link>
-                    <Link to='https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/'>
-                        <img src="linkedin.png" alt=""/>
-                    </Link>
-                    <Link to='https://angel.co/u/dalton-kirkpatrick'>
-                        <img src="angellist.png" alt=""/>
-                    </Link>
+
+
+                <div className="history-buttons">
+                    <input className='backward-history' onClick={() => this.handleHistoryButtons('back')} src='historyArrowBack.png' type="image" value='back' />
+                    <input className="forward-history" onClick={() => this.handleHistoryButtons('forward')} src='historyArrow.png' type="image" value='forward' />
                 </div>
+                
                 <div className="search-input-container">
                     <input onChange={this.displayMatches} className="search-input" type="text" placeholder="Search users and channels"/>
                     <ul className="boardheader-search-items">
@@ -161,11 +176,14 @@ class BoardHeader extends React.Component{
 
 
 const mapStateToProps = (state, ownProps) => {
+    const currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id
+
     return {
         allUsers: state.entities.users,
         allChannels: state.entities.channels,
-        currentUser: state.entities.users[state.session.id],
-        allMemberships: state.entities.memberships
+        currentUser: state.entities.users[currentUserId],
+        allMemberships: state.entities.memberships,
+        userDirects: state.entities.directs
     };
 };
 
@@ -174,9 +192,10 @@ const mapDispatchToProps = dispatch => {
         fetchAllUsers: () => dispatch(fetchAllUsers()),
         fetchAllChannels: () => dispatch(fetchAllChannels()),
         logout: () => dispatch(logout()),
-        createChannel: channel => dispatch(createChannel(channel)),
+        createDirect: direct => dispatch(createDirect(direct)),
         createMembership: membership => dispatch(createMembership(membership)),
-        fetchMemberships: () => dispatch(fetchMemberships())
+        fetchMemberships: () => dispatch(fetchMemberships()),
+        fetchUserDirects: (id) => dispatch(fetchUserDirects(id))
     };
 };
 

@@ -3,16 +3,13 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import regeneratorRuntime from "regenerator-runtime";
 import MessageFromContainer from '../message/message_form'
-import { getUserPic } from '../../util/functions'
+import { getUserPic, userChannels } from '../../util/functions'
 
 class ChannelShow extends React.Component {
 
     constructor(props) {
         super(props);
-        // this.state = {
-        //     channelId: this.props.channelId,
-        //     messages: this.props.messages
-        // }
+        this.state;
     };
 
     componentDidMount(props) {
@@ -57,9 +54,20 @@ class ChannelShow extends React.Component {
         let prevMessages = Object.values(prevProps.messages);
         let prevTypeId = prevProps.typeId;
         let propTypeId = this.props.typeId
+        let propsType = this.props.type
+        let check = false;
         if(prevTypeId && prevTypeId !== this.props.typeId || prevProps.type !== this.props.type) {
             this.getCurrentChannel(this.props)
             this.configChat()
+            let userNavables = userChannels(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects)
+            if (this.props.type === 'channel') {
+                check = userNavables.channels.includes(parseInt(propTypeId)) ? check = true : check = false
+                if (!check) this.props.history.push(`/client/channel/1`)
+            }  
+            if (this.props.type === 'direct') {
+                check = userNavables.directs.includes(parseInt(propTypeId)) ? check = true : check = false
+                if (!check) this.props.history.push(`/client/channel/1`)
+            }
         }
         // if(prevMessages.length < Object.values(this.props.messages).length) {
         //     this.getCurrentChannel(this.props)
@@ -67,12 +75,6 @@ class ChannelShow extends React.Component {
 
         var elem = document.querySelector('.messages-main-container');
         if (elem) elem.scrollTop = elem.scrollHeight;
-
-        // const currentChannel = parseInt(this.props.channelId);
-        // if (Object.keys(this.props.memberships).length !== 0) {
-        //     const check = Object.values(this.props.memberships).find(membership => membership.channel_id === currentChannel)
-        //     if (!check) this.props.history.push(`/client/1`)
-        // }
 
     }
 
@@ -109,10 +111,6 @@ class ChannelShow extends React.Component {
         } else if( this.props.type === 'direct') {
             props.fetchDirectMessages(props.typeId)
         }
-            // .then(payload => {
-            //     this.setState({ channelId: Object.values(payload)[1].channel.id, messages: Object.values(payload)[1].messages })
-            // });
-        // // return currentCh
     } 
 
     handleHistoryButtons(field) {
@@ -135,17 +133,29 @@ class ChannelShow extends React.Component {
         // if (membership) {
         //     this.props.deleteMembership(membership.id)
         // }
-        this.props.destroyChannel(this.props.typeId)
+        if(this.props.type === 'channel'){
+            this.props.destroyChannel(this.props.typeId)
+        } else if(this.props.type === 'direct') {
+            this.props.destroyDirect(this.props.typeId)
+        }
+        this.props.history.push(`/client/channel/1`)
     }
 
     render() {
+
+        if (!this.props.currentUser) {
+            return(
+                <div></div>
+            )
+        }
+
         let currentMessages
         let channelName = "Loading Channel Name"
         let deleteChannelButton;
         let deleteMembershipButton;
         let showOption;
-        if(this.props.currentChannel) {
-            deleteChannelButton = this.props.currentChannel.admin_id === this.props.currentUser.id && this.props.currentChannel.name !== "Global" ? 
+        if(this.props.currentUser && this.props.currentChannel) {
+            deleteChannelButton = this.props.type === 'direct' || (this.props.currentChannel.admin_id === this.props.currentUser.id && this.props.currentChannel.name !== "Global") ? 
                     <div className='user-option-button' onClick={() => this.deleteChannel()}>Delete for everyone</div>
                 : null
     
@@ -176,10 +186,9 @@ class ChannelShow extends React.Component {
                 }) : "no messages"  
         // }
 
-        // if(this.props.currentChannel ){
-        //     debugger
-        //     channelName = this.props.type === "channel" ? this.props.currentChannel.name : this.props.userDirects[this.props.typeId].name
-        // }
+        if(this.props.currentChannel && this.props.userDirects){
+            channelName = this.props.type === "channel" ? this.props.currentChannel.name : this.props.userDirects[this.props.typeId].name
+        }
         
         return(
             <div className="channel-show-main">
@@ -188,10 +197,9 @@ class ChannelShow extends React.Component {
                         <div className="name-of-channel"># {channelName}</div>
                         {showOption}
                     </div>
-                    <div className="history-buttons">
-                        <input className='backward-history' onClick={() => this.handleHistoryButtons('back')} src='historyArrowBack.png' type="image" value='back'/>
-                        <input className="forward-history" onClick={() => this.handleHistoryButtons('forward')} src='historyArrow.png' type="image" value='forward'/>
-                    </div>
+
+
+
                 </div>
                 <div className="messages-main-container">
                     <ul className="messages-list">

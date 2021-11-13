@@ -36,3 +36,10 @@ export const updateDirect = direct => {
         data: { direct }
     });
 };
+
+export const destroyDirect = id => {
+    return $.ajax({
+        method: "DELETE",
+        url: `api/directs/${id}`
+    });
+};

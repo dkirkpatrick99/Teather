@@ -93,8 +93,10 @@ class ChannelCreateForm extends React.Component {
 
 
 const mSTP = state => {
+    const currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id
+
     return {
-        currentUser: state.entities.users[state.session.id]
+        currentUser: state.entities.users[currentUserId]
     }
 }
 

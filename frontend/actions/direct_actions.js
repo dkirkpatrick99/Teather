@@ -4,6 +4,8 @@ export const RECEIVE_ALL_DIRECTS = "RECEIVE_ALL_DIRECTS";
 export const RECEIVE_DIRECT = "RECEIVE_DIRECT";
 export const RECEIVE_DIRECT_ERRORS = "RECEIVE_DIRECT_ERRORS";
 export const CLEAR_DIRECT_ERRORS = "CLEAR_DIRECT_ERRORS";
+export const REMOVE_DIRECT = "REMOVE_DIRECT";
+
 
 export const fetchAllDirects = () => dispatch => {
     return DirectApiUtil.fetchAllDirects().then(directs =>
@@ -26,6 +28,12 @@ export const createDirect = direct => dispatch => {
     return DirectApiUtil.createDirect(direct).then(
         direct => dispatch(receiveDirect(direct)),
         err => dispatch(receiveErrors(err.responseJSON))
+    );
+};
+
+export const destroyDirect = id => dispatch => {
+    return DirectApiUtil.destroyDirect(id).then(direct =>
+        dispatch(removeDirect(direct))
     );
 };
 
@@ -61,3 +69,10 @@ export const receiveDirect = direct => {
         direct
     };
 };
+
+const removeDirect = direct => {
+    return {
+        type: REMOVE_DIRECT,
+        directId: direct.id
+    };
+}

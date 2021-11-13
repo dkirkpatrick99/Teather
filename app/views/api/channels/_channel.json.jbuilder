@@ -8,5 +8,5 @@ users = []
 channel.users.each do |user|
   users.push(user.id)
 end
-json.message_ids = messages
-json.user_ids = users
+json.message_ids messages
+json.user_ids users

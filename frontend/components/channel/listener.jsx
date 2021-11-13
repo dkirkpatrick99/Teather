@@ -83,7 +83,8 @@ class Listener extends React.Component {
         super(props);
     }
     componentDidMount() {
-        // this.props.fetchAllUsers().then(
+        this.props.fetchAllUsers()
+        // then(
         //     () => {
         //         this.props.fetchAllChannels();
         //         this.props.fetchAllDirects();

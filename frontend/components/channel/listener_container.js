@@ -25,8 +25,10 @@ import { fetchAllDirects, fetchDirect } from "../../actions/direct_actions";
 import { fetchAllMessages } from "../../actions/message_actions";
 
 const mapState = state => {
+    const currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id
+
     return {
-        currentUser: state.session.id,
+        currentUser: currentUserId
     };
 };
 

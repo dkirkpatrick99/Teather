@@ -27,6 +27,12 @@ class Api::DirectsController < ApplicationController
     render :show
   end
 
+  def destroy
+    @direct = Direct.find(params[:id])
+    @direct.destroy
+    render :show
+  end
+
   private 
   def direct_params
     params.require(:direct).permit(:invitedUsers)
