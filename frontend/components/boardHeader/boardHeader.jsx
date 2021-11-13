@@ -24,7 +24,9 @@ class BoardHeader extends React.Component{
         this.props.fetchAllUsers();
         this.props.fetchAllChannels();
         this.props.fetchMemberships();
-        this.props.fetchUserDirects(this.props.currentUser.id)
+        if(this.props.currentUser){
+            this.props.fetchUserDirects(this.props.currentUser.id)
+        }
     }
 
     handleSubmit(e) {
@@ -185,12 +187,12 @@ class BoardHeader extends React.Component{
                             </div>
                         </div>
                         <div className='dropdown-user-links-container'>
-                            <a href="">Visit my portfolio</a>
-                            <a href="">Visit my GitHub</a>
-                            <a href="">Contact Me!</a>
+                            <a href="https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/">Visit my portfolio</a>
+                            <a href="https://github.com/dkirkpatrick99">Visit my GitHub</a>
+                            <a href="https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184">Contact Me!</a>
                         </div>
                         <div className='dropdown-user-logout-container'>
-                            <a href="">Log out of {this.props.currentUser.username}</a>
+                            <a onClick={() => this.props.logout()}>Log out of {this.props.currentUser.username}</a>
 
                         </div>
                     </div>

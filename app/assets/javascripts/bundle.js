@@ -674,7 +674,10 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
       this.props.fetchAllUsers();
       this.props.fetchAllChannels();
       this.props.fetchMemberships();
-      this.props.fetchUserDirects(this.props.currentUser.id);
+
+      if (this.props.currentUser) {
+        this.props.fetchUserDirects(this.props.currentUser.id);
+      }
     }
   }, {
     key: "handleSubmit",
@@ -875,15 +878,17 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
       }, "Active")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "dropdown-user-links-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
-        href: ""
+        href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
       }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
-        href: ""
+        href: "https://github.com/dkirkpatrick99"
       }, "Visit my GitHub"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
-        href: ""
+        href: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184"
       }, "Contact Me!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "dropdown-user-logout-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
-        href: ""
+        onClick: function onClick() {
+          return _this3.props.logout();
+        }
       }, "Log out of ", this.props.currentUser.username)))));
     }
   }]);

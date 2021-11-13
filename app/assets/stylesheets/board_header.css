@@ -44,6 +44,7 @@
     /* width: 24%; */
     color: white;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .user-status-image > img {

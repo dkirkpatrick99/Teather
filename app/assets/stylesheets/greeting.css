@@ -196,7 +196,7 @@
 
 .greeting-text-blocks-container div {
     width: 25%;
-      transition: 0.3s;
+    transition: 0.3s;
 }
 
 .greeting-text-blocks-container h2 {
@@ -263,6 +263,14 @@
     color: white;
     border-radius: 5px;
     margin: 20px;
+    transition: 0.3s;
+}
+
+.greeting-signup-white:hover {
+    background-color: #611f69;
+    color: white;
+    transform: scale(1.1);
+    border: 3px solid black;
 }
 
 .mid2-greeting-container {
