@@ -10,7 +10,8 @@ class MessageForm extends React.Component {
         this.state = {
             user_id: parseInt(this.props.currentUserId),
             body: '',
-            channel_id: parseInt(this.props.channelId)
+            messageable_id: this.props.typeId,
+            messageable_type: 'Direct'
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     };
@@ -19,23 +20,34 @@ class MessageForm extends React.Component {
         return e =>{
                 this.setState({
                 user_id: parseInt(this.props.currentUserId),
-                [field]: e.currentTarget.value, 
-                channel_id: parseInt(this.props.channelId)
+                [field]: e.currentTarget.value,
+                messageable_id: parseInt(this.props.typeId),
+                messageable_type: 'Direct'
             })
         } 
     }
 
     handleSubmit(e) {
         if(e) e.preventDefault();
-        // document.querySelector('.message-to-send').value = ''
+        const chatType = this.props.type === "channel" ? "Channel" : "Direct"
+
         const message = Object.assign({}, this.state)
-        this.props.createMessage(message)
-        // .then(document.querySelector('.message-to-send').value = "")
+        App.channel.speak({
+            message: {
+                ...this.state,
+                messageable_type: chatType
+            }
+        });
+        this.setState({
+            body: ""
+        });
+        // this.props.createMessage(message)
+
         document.querySelector('.message-to-send').value = ''
     }
 
     render() {
-        const placeholder = `Send a message to ${this.props.channelName}`
+        const placeholder = `Send a message to ${this.props.typeName}`
         return (
             <div >
                 <form className="message-tobe-sent-container" onSubmit={this.handleSubmit}>

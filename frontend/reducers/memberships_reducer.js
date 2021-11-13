@@ -1,31 +1,24 @@
-import { RECEIVE_CURRENT_USER } from '../actions/session_actions';
-import { REMOVE_MEMBERSHIP, RECEIVE_MEMBERSHIP, RECEIVE_MEMBERSHIPS } from '../actions/membership_actions';
-import { RECEIVE_CHANNEL } from '../actions/channel_actions';
+import {
+    RECEIVE_MEMBERSHIPS,
+    RECEIVE_MEMBERSHIP,
+    REMOVE_MEMBERSHIP
+} from "../actions/membership_actions";
 
-const membershipsReducer = (state = {}, action) => {
+import merge from "lodash/merge";
+
+export default (state = {}, action) => {
     Object.freeze(state);
-    let newState = Object.assign({}, state);
+    let newState;
     switch (action.type) {
-        case RECEIVE_CURRENT_USER:
-            return action.currentUser.memberships;
-        case RECEIVE_CHANNEL:
-            if (!!action.channel.membership) {
-                return Object.assign({}, newState, { [action.channel.membership.id]: action.channel.membership })
-            }
+        case RECEIVE_MEMBERSHIPS:
+            return merge({}, action.memberships);
         case RECEIVE_MEMBERSHIP:
-            if (!!action.membership) {
-                return Object.assign({}, newState, { [action.membership.id]: action.membership })
-            }
-        // case RECEIVE_MEMBERSHIPS:
-        //     if (!!action.memberships) {
-        //         return Object.assign({}, newState, action.memberships)
-        //     }
+            return merge({}, state, { [action.membership.id]: action.membership });
         case REMOVE_MEMBERSHIP:
+            newState = merge({}, state);
             delete newState[action.membershipId];
             return newState;
         default:
             return state;
     }
-}
-
-export default membershipsReducer;
+};

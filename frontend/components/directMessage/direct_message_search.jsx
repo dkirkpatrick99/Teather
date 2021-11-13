@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchUsers } from '../../actions/user_actions';
+import { fetchAllUsers } from '../../actions/user_actions';
 import { closeModal } from '../../actions/modal_actions';
-import { createChannel } from '../../actions/channel_actions';
+import { createDirect, fetchUserDirects } from '../../actions/direct_actions';
 import { createMembership } from '../../actions/membership_actions'
 import { channelCheck } from '../../util/functions'
 
@@ -11,12 +11,9 @@ class DirectMessageSearch extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            'channel': {
-            admin_id: this.props.currentUser.id,
+            'direct': {
             name: '',
-            description: '',
-            is_private: true,
-            is_dm: true
+            invitedUsersIds: [this.props.currentUser.id],
         },
             'html': ""}
         this.displayMatches = this.displayMatches.bind(this);
@@ -26,34 +23,30 @@ class DirectMessageSearch extends React.Component {
 
 
     componentDidMount(props) {
-        this.props.fetchUsers();
+        this.props.fetchAllUsers();
+        this.props.fetchUserDirects(this.props.currentUser.id)
     }
 
 
     handleSubmit(e) {
         e.preventDefault();
-        const channelObject = this.state.channel;
+        const directObject = this.state.direct;
         const currentUser = this.props.currentUser;
-        const receivingUser = this.props.allUsers[e.currentTarget.value];
-        channelObject["name"] = `${receivingUser.id}`
-
-        const channelChecker = channelCheck(this.props.memberships, receivingUser.id, this.props.allChannels, 'user', this.props.currentUser.id)
+        const receivingUserId = this.props.allUsers[e.currentTarget.value];
+        this.state.direct.invitedUsersIds.push(e.currentTarget.value)
+        const channelChecker = channelCheck(this.props.userDirects, 'direct', currentUser.id, receivingUserId.id)
         if (!channelChecker) {
-            this.props.createChannel(channelObject)
+            this.props.createDirect(directObject)
         } else {
             this.props.history.push(`/client/${channelChecker}`);
         }
         
-
-        // this.props.createChannel(channelObject)
+        // this.props.createDirect(directObject)
 
 
         this.setState({
-            admin_id: "",
             name: "",
-            description: "",
-            is_private: false,
-            is_dm: false
+            invitedUsersIds: [this.props.currentUser.id]
         });
         this.props.closeModal();
     }
@@ -92,12 +85,6 @@ class DirectMessageSearch extends React.Component {
 
     render() {
 
-        // const items = Array.from(document.querySelectorAll('.dm-user-search-li'));
-        // if(items) {
-        //     items.forEach(item => item.addEventListener('click', this.handleSubmit));
-
-        // }
-
         return(
             <div className='user-search-container'>
                 <div className='close-modal-x'>
@@ -118,19 +105,22 @@ class DirectMessageSearch extends React.Component {
 }
 
 const mSTP = state => {
+    const currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id
     return {
         allUsers: state.entities.users,
-        currentUser: state.entities.users[state.session.id],
+        currentUser: state.entities.users[currentUserId],
         memberships: state.entities.memberships,
-        allChannels: state.entities.channels
+        allChannels: state.entities.channels,
+        userDirects: state.entities.directs
     }
 }
 
 const mDTP = dispatch => ({
-    fetchUsers: () => dispatch(fetchUsers()),
+    fetchAllUsers: () => dispatch(fetchAllUsers()),
     closeModal: () => dispatch(closeModal()),
-    createChannel: (channel) => dispatch(createChannel(channel)),
-    createMembership: (membership) => dispatch(createMembership(membership))
+    createDirect: (direct) => dispatch(createDirect(direct)),
+    createMembership: (membership) => dispatch(createMembership(membership)),
+    fetchUserDirects: (userId) => {dispatch(fetchUserDirects(userId))}
 })
 
 export default connect(mSTP, mDTP)(DirectMessageSearch)

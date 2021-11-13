@@ -7,9 +7,10 @@ class ChannelCreateForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            admin_id: this.props.currentUser.id,
+            admin_id: '',
             name: '',
             description: '',
+            invitedUsersIds: [this.props.currentUser.id],
             is_private: false,
             is_dm: false
         }
@@ -30,6 +31,7 @@ class ChannelCreateForm extends React.Component {
             admin_id: "",
             name: "",
             description: "",
+            invitedUsersIds: [this.props.currentUser.id],
             is_private: false,
             is_dm: false
         });
@@ -91,8 +93,10 @@ class ChannelCreateForm extends React.Component {
 
 
 const mSTP = state => {
+    const currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id
+
     return {
-        currentUser: state.entities.users[state.session.id]
+        currentUser: state.entities.users[currentUserId]
     }
 }
 

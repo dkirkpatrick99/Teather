@@ -24,20 +24,20 @@ class GreetingHeader extends React.Component {
                             <div>Past Projects</div>
                             <ul className="projects-dropdown-content">
                                 <li>
-                                    <Link to='https://moneywise-crowdfunding.herokuapp.com/#/'>MoneyWise</Link>
+                                    <a href='https://moneywise-crowdfunding.herokuapp.com/#/'>MoneyWise</a>
                                 </li>
                                 <li>
-                                    <Link to='https://dkirkpatrick99.github.io/Super-Jelly-Hero/'>Super Jelly Hero</Link>
+                                    <a href='https://dkirkpatrick99.github.io/Super-Jelly-Hero/'>Super Jelly Hero</a>
                                 </li>
                                 <li>
-                                    <Link to='https://ballup-app.herokuapp.com/#/'>BallUp</Link>
+                                    <a href='https://ballup-app.herokuapp.com/#/'>BallUp</a>
                                 </li>
                             </ul>
                         </div>
                         
-                        <Link to="https://github.com/dkirkpatrick99">GitHub</Link>
-                        <Link to="https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184">LinkedIn</Link>
-                        <Link to="https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/">Portfolio</Link>
+                        <a href="https://github.com/dkirkpatrick99">GitHub</a>
+                        <a href="https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184">LinkedIn</a>
+                        <a href="https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/">Portfolio</a>
                     
                     </div>
 

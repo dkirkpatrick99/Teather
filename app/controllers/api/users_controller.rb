@@ -1,54 +1,39 @@
 class Api::UsersController < ApplicationController
 
-    def create
-        @user = User.new(user_params)
-        global_id = Channel.find_by(name: "Global").id
-        
-        if @user.save
-            Membership.create({user_id: @user.id, channel_id: global_id})
-            login(@user)
-            # render the user's show page
-            render '/api/users/show'
-        else
-            render json: @user.errors.full_messages, status: 422
-            # render errors and sign up form
-        end
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      # Membership.create(user_id: @user.id, memberable_id: Channel.first.id, memberable_type: Channel)
+      # Membership.create(user_id: @user.id, memberable_id: Channel.second.id, memberable_type: Channel)
+      login(@user)
+      broadcastNewUserAll(@user)
+      render :show
+    else
+      render json: @user.errors.full_messages, status: 422
     end
+  end
 
-    def index
-        @users = User.all
-        render 'api/users/index'
-    end
+  def index
+    @users = User.all 
+    render :index
+  end
 
-    def show
-        @user = User.find_by(id: params[:id])
-        render 'api/users/show'
-    end
+  def destroy
+  end
 
-    def update
-        @user = User.find_by(id: params[:id])
+  def show
+    @user = User.find(params[:id])
+    render :show
+  end
 
-        if @user
-            @user.update(user_params)
-            #render user's show page
-        else
-            #render errors and edit profile form
-            render json: @user.errors.full_messages, status: 422
-        end
+  def patch
+  end
 
-    end
-
-    def destroy
-        if current_user.delete
-            #render splash page 
-        else
-            #render errors and user's show page
-        end
-    end
-
-    private
-    
-    def user_params
-        params.require(:user).permit(:username, :email, :formal_name, :password)
-    end
+  private
+  def user_params
+    params.require(:user).permit(:email, :username, :formal_name, :password)
+  end
+  def broadcastNewUserAll(user)
+    ActionCable.server.broadcast "notifications_all", {userId: user.id, type: 'userAdd'}
+  end
 end

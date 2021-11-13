@@ -3,8 +3,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { login } from '../../actions/session_actions';
 import SessionForm from './session_form';
-import { fetchUsers } from '../../actions/user_actions'
-import { fetchChannels } from "../../actions/channel_actions";
+import { fetchAllUsers } from '../../actions/user_actions'
+import { fetchAllChannels } from "../../actions/channel_actions";
 
 const mapStateToProps = (state) => {
     return {
@@ -17,8 +17,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         processForm: (user) => dispatch(login(user)),
-        fetchUsers: () => dispatch(fetchUsers()),
-        fetchChannels: () => dispatch(fetchChannels())
+        fetchAllUsers: () => dispatch(fetchAllUsers()),
+        fetchAllChannels: () => dispatch(fetchAllChannels())
     };
 };
 

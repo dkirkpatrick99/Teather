@@ -10,26 +10,78 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RECEIVE_ALL_CHANNELS": () => (/* binding */ RECEIVE_ALL_CHANNELS),
 /* harmony export */   "RECEIVE_CHANNEL": () => (/* binding */ RECEIVE_CHANNEL),
-/* harmony export */   "RECEIVE_CHANNELS": () => (/* binding */ RECEIVE_CHANNELS),
 /* harmony export */   "REMOVE_CHANNEL": () => (/* binding */ REMOVE_CHANNEL),
 /* harmony export */   "RECEIVE_CHANNEL_ERRORS": () => (/* binding */ RECEIVE_CHANNEL_ERRORS),
-/* harmony export */   "receiveChannel": () => (/* binding */ receiveChannel),
-/* harmony export */   "fetchChannels": () => (/* binding */ fetchChannels),
+/* harmony export */   "CLEAR_CHANNEL_ERRORS": () => (/* binding */ CLEAR_CHANNEL_ERRORS),
+/* harmony export */   "fetchAllChannels": () => (/* binding */ fetchAllChannels),
 /* harmony export */   "fetchChannel": () => (/* binding */ fetchChannel),
 /* harmony export */   "createChannel": () => (/* binding */ createChannel),
-/* harmony export */   "deleteChannel": () => (/* binding */ deleteChannel)
+/* harmony export */   "destroyChannel": () => (/* binding */ destroyChannel),
+/* harmony export */   "updateChannel": () => (/* binding */ updateChannel),
+/* harmony export */   "clearChannelErrors": () => (/* binding */ clearChannelErrors),
+/* harmony export */   "receiveErrors": () => (/* binding */ receiveErrors)
 /* harmony export */ });
 /* harmony import */ var _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/channel_api_util */ "./frontend/util/channel_api_util.js");
 
-var RECEIVE_CHANNEL = 'RECEIVE_CHANNEL';
-var RECEIVE_CHANNELS = 'RECEIVE_CHANNELS';
-var REMOVE_CHANNEL = 'REMOVE_CHANNEL';
-var RECEIVE_CHANNEL_ERRORS = 'RECEIVE_CHANNEL_ERRORS';
+var RECEIVE_ALL_CHANNELS = "RECEIVE_ALL_CHANNELS";
+var RECEIVE_CHANNEL = "RECEIVE_CHANNEL";
+var REMOVE_CHANNEL = "REMOVE_CHANNEL";
+var RECEIVE_CHANNEL_ERRORS = "RECEIVE_CHANNEL_ERRORS";
+var CLEAR_CHANNEL_ERRORS = "CLEAR_CHANNEL_ERRORS";
+var fetchAllChannels = function fetchAllChannels() {
+  return function (dispatch) {
+    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchAllChannels().then(function (channels) {
+      return dispatch(receiveChannels(channels));
+    });
+  };
+};
+var fetchChannel = function fetchChannel(id) {
+  return function (dispatch) {
+    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchChannel(id).then(function (channel) {
+      dispatch(receiveChannel(channel));
+    });
+  };
+};
+var createChannel = function createChannel(channel) {
+  return function (dispatch) {
+    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__.createChannel(channel).then(function (channel) {
+      return dispatch(receiveChannel(channel));
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
+    });
+  };
+};
+var destroyChannel = function destroyChannel(id) {
+  return function (dispatch) {
+    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__.destroyChannel(id).then(function (channel) {
+      return dispatch(removeChannel(channel));
+    });
+  };
+};
+var updateChannel = function updateChannel(channel) {
+  return function (dispatch) {
+    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__.updateChannel(channel).then(function (channel) {
+      return dispatch(receiveChannel(channel));
+    });
+  };
+};
+var clearChannelErrors = function clearChannelErrors() {
+  return {
+    type: CLEAR_CHANNEL_ERRORS
+  };
+};
+var receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_CHANNEL_ERRORS,
+    errors: errors
+  };
+};
 
 var receiveChannels = function receiveChannels(channels) {
   return {
-    type: RECEIVE_CHANNELS,
+    type: RECEIVE_ALL_CHANNELS,
     channels: channels
   };
 };
@@ -41,54 +93,120 @@ var receiveChannel = function receiveChannel(channel) {
   };
 };
 
-var removeChannel = function removeChannel(channelId) {
+var removeChannel = function removeChannel(channel) {
   return {
     type: REMOVE_CHANNEL,
-    channelId: channelId
+    channelId: channel.id
   };
 };
 
+/***/ }),
+
+/***/ "./frontend/actions/direct_actions.js":
+/*!********************************************!*\
+  !*** ./frontend/actions/direct_actions.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RECEIVE_ALL_DIRECTS": () => (/* binding */ RECEIVE_ALL_DIRECTS),
+/* harmony export */   "RECEIVE_DIRECT": () => (/* binding */ RECEIVE_DIRECT),
+/* harmony export */   "RECEIVE_DIRECT_ERRORS": () => (/* binding */ RECEIVE_DIRECT_ERRORS),
+/* harmony export */   "CLEAR_DIRECT_ERRORS": () => (/* binding */ CLEAR_DIRECT_ERRORS),
+/* harmony export */   "REMOVE_DIRECT": () => (/* binding */ REMOVE_DIRECT),
+/* harmony export */   "fetchAllDirects": () => (/* binding */ fetchAllDirects),
+/* harmony export */   "fetchUserDirects": () => (/* binding */ fetchUserDirects),
+/* harmony export */   "fetchDirect": () => (/* binding */ fetchDirect),
+/* harmony export */   "createDirect": () => (/* binding */ createDirect),
+/* harmony export */   "destroyDirect": () => (/* binding */ destroyDirect),
+/* harmony export */   "updateDirect": () => (/* binding */ updateDirect),
+/* harmony export */   "clearDirectErrors": () => (/* binding */ clearDirectErrors),
+/* harmony export */   "receiveErrors": () => (/* binding */ receiveErrors),
+/* harmony export */   "receiveDirect": () => (/* binding */ receiveDirect)
+/* harmony export */ });
+/* harmony import */ var _util_direct_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/direct_api_util */ "./frontend/util/direct_api_util.js");
+
+var RECEIVE_ALL_DIRECTS = "RECEIVE_ALL_DIRECTS";
+var RECEIVE_DIRECT = "RECEIVE_DIRECT";
+var RECEIVE_DIRECT_ERRORS = "RECEIVE_DIRECT_ERRORS";
+var CLEAR_DIRECT_ERRORS = "CLEAR_DIRECT_ERRORS";
+var REMOVE_DIRECT = "REMOVE_DIRECT";
+var fetchAllDirects = function fetchAllDirects() {
+  return function (dispatch) {
+    return _util_direct_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchAllDirects().then(function (directs) {
+      return dispatch(receiveDirects(directs));
+    });
+  };
+};
+var fetchUserDirects = function fetchUserDirects(id) {
+  return function (dispatch) {
+    return _util_direct_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchUserDirects(id).then(function (directs) {
+      return dispatch(receiveDirects(directs));
+    });
+  };
+};
+var fetchDirect = function fetchDirect(id) {
+  return function (dispatch) {
+    return _util_direct_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchDirect(id).then(function (direct) {
+      dispatch(receiveDirect(direct));
+    });
+  };
+};
+var createDirect = function createDirect(direct) {
+  return function (dispatch) {
+    return _util_direct_api_util__WEBPACK_IMPORTED_MODULE_0__.createDirect(direct).then(function (direct) {
+      return dispatch(receiveDirect(direct));
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
+    });
+  };
+};
+var destroyDirect = function destroyDirect(id) {
+  return function (dispatch) {
+    return _util_direct_api_util__WEBPACK_IMPORTED_MODULE_0__.destroyDirect(id).then(function (direct) {
+      return dispatch(removeDirect(direct));
+    });
+  };
+};
+var updateDirect = function updateDirect(direct) {
+  return function (dispatch) {
+    return _util_direct_api_util__WEBPACK_IMPORTED_MODULE_0__.updateDirect(direct).then(function (direct) {
+      return dispatch(receiveDirect(direct));
+    });
+  };
+};
+var clearDirectErrors = function clearDirectErrors() {
+  return {
+    type: CLEAR_DIRECT_ERRORS
+  };
+};
 var receiveErrors = function receiveErrors(errors) {
   return {
-    type: RECEIVE_CHANNEL_ERRORS,
+    type: RECEIVE_DIRECT_ERRORS,
     errors: errors
   };
 };
 
-var fetchChannels = function fetchChannels() {
-  return function (dispatch) {
-    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchChannels().then(function (channels) {
-      return dispatch(receiveChannels(channels));
-    }, function (errors) {
-      return dispatch(receiveErrors(errors.responseJSON));
-    });
+var receiveDirects = function receiveDirects(directs) {
+  return {
+    type: RECEIVE_ALL_DIRECTS,
+    directs: directs
   };
 };
-var fetchChannel = function fetchChannel(channelId) {
-  return function (dispatch) {
-    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchChannel(channelId).then(function (channel) {
-      return dispatch(receiveChannel(channel));
-    }, function (errors) {
-      return dispatch(receiveErrors(errors.responseJSON));
-    });
+
+var receiveDirect = function receiveDirect(direct) {
+  return {
+    type: RECEIVE_DIRECT,
+    direct: direct
   };
 };
-var createChannel = function createChannel(channel) {
-  return function (dispatch) {
-    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__.createChannel(channel).then(function (channel) {
-      return dispatch(receiveChannel(channel));
-    }, function (errors) {
-      return dispatch(receiveErrors(errors.responseJSON));
-    });
-  };
-};
-var deleteChannel = function deleteChannel(channelId) {
-  return function (dispatch) {
-    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__.deleteChannel(channelId).then(function () {
-      return dispatch(removeChannel(channelId));
-    }, function (errors) {
-      return dispatch(receiveErrors(errors.responseJSON));
-    });
+
+var removeDirect = function removeDirect(direct) {
+  return {
+    type: REMOVE_DIRECT,
+    directId: direct.id
   };
 };
 
@@ -103,19 +221,63 @@ var deleteChannel = function deleteChannel(channelId) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RECEIVE_MEMBERSHIPS": () => (/* binding */ RECEIVE_MEMBERSHIPS),
 /* harmony export */   "RECEIVE_MEMBERSHIP": () => (/* binding */ RECEIVE_MEMBERSHIP),
 /* harmony export */   "REMOVE_MEMBERSHIP": () => (/* binding */ REMOVE_MEMBERSHIP),
-/* harmony export */   "RECEIVE_MEMBERSHIPS": () => (/* binding */ RECEIVE_MEMBERSHIPS),
+/* harmony export */   "fetchMemberships": () => (/* binding */ fetchMemberships),
+/* harmony export */   "fetchMembership": () => (/* binding */ fetchMembership),
 /* harmony export */   "createMembership": () => (/* binding */ createMembership),
-/* harmony export */   "deleteMembership": () => (/* binding */ deleteMembership),
-/* harmony export */   "fetchMemberships": () => (/* binding */ fetchMemberships)
+/* harmony export */   "destroyMembership": () => (/* binding */ destroyMembership),
+/* harmony export */   "fetchChannelMembers": () => (/* binding */ fetchChannelMembers),
+/* harmony export */   "receiveMemberships": () => (/* binding */ receiveMemberships),
+/* harmony export */   "receiveMembership": () => (/* binding */ receiveMembership)
 /* harmony export */ });
 /* harmony import */ var _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/membership_api_util */ "./frontend/util/membership_api_util.js");
 
-var RECEIVE_MEMBERSHIP = 'RECEIVE_MEMBERSHIP';
-var REMOVE_MEMBERSHIP = 'REMOVE_MEMBERSHIP';
-var RECEIVE_MEMBERSHIPS = 'RECEIVE_MEMBERSHIPS';
-
+var RECEIVE_MEMBERSHIPS = "RECEIVE_MEMBERSHIPS";
+var RECEIVE_MEMBERSHIP = "RECEIVE_MEMBERSHIP";
+var REMOVE_MEMBERSHIP = "REMOVE_MEMBERSHIP";
+var fetchMemberships = function fetchMemberships() {
+  return function (dispatch) {
+    return _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchMemberships().then(function (memberships) {
+      return dispatch(receiveMemberships(memberships));
+    });
+  };
+};
+var fetchMembership = function fetchMembership(id) {
+  return function (dispatch) {
+    return _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchMembership(id).then(function (membership) {
+      return dispatch(receiveMembership(membership));
+    });
+  };
+};
+var createMembership = function createMembership(membership) {
+  return function (dispatch) {
+    return _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__.createMembership(membership).then(function (membership) {
+      return dispatch(receiveMembership(membership));
+    });
+  };
+};
+var destroyMembership = function destroyMembership(membershipId) {
+  return function (dispatch) {
+    return _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__.destroyMembership(membershipId).then(function (membership) {
+      return dispatch(removeMembership(membershipId));
+    });
+  };
+};
+var fetchChannelMembers = function fetchChannelMembers(channelId) {
+  return function (dispatch) {
+    return _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchChannelMemberships(channelId).then(function (memberships) {
+      return dispatch(receiveMemberships(memberships));
+    });
+  };
+};
+var receiveMemberships = function receiveMemberships(memberships) {
+  return {
+    type: RECEIVE_MEMBERSHIPS,
+    memberships: memberships
+  };
+};
 var receiveMembership = function receiveMembership(membership) {
   return {
     type: RECEIVE_MEMBERSHIP,
@@ -130,37 +292,6 @@ var removeMembership = function removeMembership(membershipId) {
   };
 };
 
-var receiveMemberships = function receiveMemberships(memberships) {
-  return {
-    type: RECEIVE_MEMBERSHIPS,
-    memberships: memberships
-  };
-};
-
-var createMembership = function createMembership(membership) {
-  return function (dispatch) {
-    return _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__.createMembership(membership).then(function (membership) {
-      return dispatch(receiveMembership(membership));
-    });
-  };
-};
-var deleteMembership = function deleteMembership(membershipId) {
-  return function (dispatch) {
-    return _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__.deleteMembership(membershipId).then(function (membership) {
-      return dispatch(removeMembership(membership.id));
-    });
-  };
-};
-var fetchMemberships = function fetchMemberships() {
-  return function (dispatch) {
-    return _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchMemberships().then(function (memberships) {
-      return dispatch(receiveMemberships(memberships));
-    }, function (errors) {
-      return dispatch(receiveErrors(errors.responseJSON));
-    });
-  };
-};
-
 /***/ }),
 
 /***/ "./frontend/actions/message_actions.js":
@@ -172,73 +303,74 @@ var fetchMemberships = function fetchMemberships() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RECEIVE_MESSAGES": () => (/* binding */ RECEIVE_MESSAGES),
+/* harmony export */   "RECEIVE_ALL_MESSAGES": () => (/* binding */ RECEIVE_ALL_MESSAGES),
 /* harmony export */   "RECEIVE_MESSAGE": () => (/* binding */ RECEIVE_MESSAGE),
-/* harmony export */   "RECEIVE_NEW_MESSAGE": () => (/* binding */ RECEIVE_NEW_MESSAGE),
-/* harmony export */   "RECEIVE_MESSAGE_ERRORS": () => (/* binding */ RECEIVE_MESSAGE_ERRORS),
-/* harmony export */   "receiveMessages": () => (/* binding */ receiveMessages),
-/* harmony export */   "receiveMessage": () => (/* binding */ receiveMessage),
-/* harmony export */   "fetchMessages": () => (/* binding */ fetchMessages),
+/* harmony export */   "fetchAllMessages": () => (/* binding */ fetchAllMessages),
+/* harmony export */   "fetchChannelMessages": () => (/* binding */ fetchChannelMessages),
+/* harmony export */   "fetchDirectMessages": () => (/* binding */ fetchDirectMessages),
 /* harmony export */   "fetchMessage": () => (/* binding */ fetchMessage),
 /* harmony export */   "createMessage": () => (/* binding */ createMessage),
-/* harmony export */   "updateMessage": () => (/* binding */ updateMessage)
+/* harmony export */   "updateMessage": () => (/* binding */ updateMessage),
+/* harmony export */   "receiveMessage": () => (/* binding */ receiveMessage)
 /* harmony export */ });
 /* harmony import */ var _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/message_api_util */ "./frontend/util/message_api_util.js");
 
-var RECEIVE_MESSAGES = 'RECEIVE_MESSAGES';
-var RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
-var RECEIVE_NEW_MESSAGE = 'RECEIVE_NEW_MESSAGE';
-var RECEIVE_MESSAGE_ERRORS = 'RECEIVE_MESSAGE_ERRORS';
-var receiveMessages = function receiveMessages(messages) {
-  return {
-    type: RECEIVE_MESSAGES,
-    payload: payload
-  };
-};
-var receiveMessage = function receiveMessage(payload) {
-  return {
-    type: RECEIVE_MESSAGE,
-    payload: payload
-  };
-};
-
-var receiveErrors = function receiveErrors(errors) {
-  return {
-    type: RECEIVE_MESSAGE_ERRORS,
-    errors: errors
-  };
-};
-
-var fetchMessages = function fetchMessages() {
+var RECEIVE_ALL_MESSAGES = "RECEIVE_ALL_MESSAGES";
+var RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
+var fetchAllMessages = function fetchAllMessages() {
   return function (dispatch) {
-    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchMessages().then(function (messages) {
+    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchAllMessages().then(function (messages) {
       return dispatch(receiveMessages(messages));
-    }, function (errors) {
-      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
-var fetchMessage = function fetchMessage(messageId) {
+var fetchChannelMessages = function fetchChannelMessages(channelId) {
   return function (dispatch) {
-    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchMessage(messageId).then(function (message) {
+    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchChannelMessages(channelId).then(function (messages) {
+      return dispatch(receiveMessages(messages));
+    });
+  };
+};
+var fetchDirectMessages = function fetchDirectMessages(directId) {
+  return function (dispatch) {
+    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchDirectMessages(directId).then(function (messages) {
+      return dispatch(receiveMessages(messages));
+    });
+  };
+};
+var fetchMessage = function fetchMessage(id) {
+  return function (dispatch) {
+    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchMessage(id).then(function (message) {
       return dispatch(receiveMessage(message));
-    }, function (errors) {
-      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
 var createMessage = function createMessage(message) {
   return function (dispatch) {
-    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.createMessage(message);
+    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.createMessage(message).then(function (message) {
+      return dispatch(receiveMessage(message));
+    });
   };
 };
 var updateMessage = function updateMessage(message) {
   return function (dispatch) {
     return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.updateMessage(message).then(function (message) {
       return dispatch(receiveMessage(message));
-    }, function (errors) {
-      return dispatch(receiveErrors(errors.responseJSON));
     });
+  };
+};
+
+var receiveMessages = function receiveMessages(messages) {
+  return {
+    type: RECEIVE_ALL_MESSAGES,
+    messages: messages
+  };
+};
+
+var receiveMessage = function receiveMessage(message) {
+  return {
+    type: RECEIVE_MESSAGE,
+    message: message
   };
 };
 
@@ -365,39 +497,41 @@ var logout = function logout() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RECEIVE_USERS": () => (/* binding */ RECEIVE_USERS),
-/* harmony export */   "fetchUsers": () => (/* binding */ fetchUsers),
+/* harmony export */   "RECEIVE_ALL_USERS": () => (/* binding */ RECEIVE_ALL_USERS),
+/* harmony export */   "RECEIVE_USER": () => (/* binding */ RECEIVE_USER),
+/* harmony export */   "fetchAllUsers": () => (/* binding */ fetchAllUsers),
 /* harmony export */   "fetchUser": () => (/* binding */ fetchUser)
 /* harmony export */ });
-/* harmony import */ var _session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
+/* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
-
-var RECEIVE_USERS = 'RECEIVE_USERS';
+var RECEIVE_ALL_USERS = "RECEIVE_ALL_USERS";
+var RECEIVE_USER = "RECEIVE_USER";
+var fetchAllUsers = function fetchAllUsers() {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchAllUsers().then(function (users) {
+      return dispatch(receiveUsers(users));
+    });
+  };
+};
+var fetchUser = function fetchUser(userId) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchUser(userId).then(function (user) {
+      return dispatch(receiveUser(user));
+    });
+  };
+};
 
 var receiveUsers = function receiveUsers(users) {
   return {
-    type: RECEIVE_USERS,
+    type: RECEIVE_ALL_USERS,
     users: users
   };
 };
 
-var fetchUsers = function fetchUsers() {
-  return function (dispatch) {
-    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_1__.fetchUsers().then(function (users) {
-      return dispatch(receiveUsers(users));
-    });
-  };
-}; // export const fetchUsers = () => dispatch => {
-//     return UserApiUtil.fetchUsers()
-//         .then(users => dispatch(receiveUsers(users)))
-// };
-
-var fetchUser = function fetchUser(userId) {
-  return function (dispatch) {
-    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_1__.fetchUser(userId).then(function (user) {
-      return dispatch((0,_session_actions__WEBPACK_IMPORTED_MODULE_0__.receiveCurrentUser)(user));
-    });
+var receiveUser = function receiveUser(user) {
+  return {
+    type: RECEIVE_USER,
+    user: user
   };
 };
 
@@ -450,12 +584,8 @@ var App = function App() {
     component: _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__.ProtectedRoute, {
     exact: true,
-    path: "/client/:channel_id",
+    path: "/client/:type/:type_id",
     component: _messageCenter_messageBoard__WEBPACK_IMPORTED_MODULE_7__["default"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__.ProtectedRoute, {
-    exact: true,
-    path: "/dm",
-    component: _directMessage_direct_message_search__WEBPACK_IMPORTED_MODULE_10__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__.AuthRoute, {
     exact: true,
     path: "/",
@@ -480,12 +610,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_membership_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/membership_actions */ "./frontend/actions/membership_actions.js");
-/* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
+/* harmony import */ var _actions_direct_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/direct_actions */ "./frontend/actions/direct_actions.js");
+/* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -507,6 +637,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -540,31 +671,32 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
   _createClass(BoardHeader, [{
     key: "componentDidMount",
     value: function componentDidMount(props) {
-      this.props.fetchUsers();
-      this.props.fetchChannels();
+      this.props.fetchAllUsers();
+      this.props.fetchAllChannels();
+      this.props.fetchMemberships();
+      this.props.fetchUserDirects(this.props.currentUser.id);
     }
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      var value = e.currentTarget.value;
       var identifier = e.currentTarget.dataset.classify;
+      var value = e.currentTarget.value;
       var inputEle = document.querySelector('.search-input');
-      var channelObject = {
-        admin_id: this.props.currentUser.id,
+      var directObject = {
         name: e.currentTarget.value,
-        is_private: false,
-        is_dm: true
+        invitedUsersIds: [this.props.currentUser.id, value]
       };
       var membershipObject = {
         user_id: this.props.currentUser.id,
-        channel_id: e.currentTarget.value
+        memberable_id: value,
+        memberable_type: "Channel"
       };
-      var channelChecker = (0,_util_functions__WEBPACK_IMPORTED_MODULE_6__.channelCheck)(this.props.memberships, value, this.props.allChannels, identifier, this.props.currentUser.id);
+      var channelChecker = (0,_util_functions__WEBPACK_IMPORTED_MODULE_7__.channelCheck)(this.props.userDirects, identifier, this.props.currentUser.id, value, this.props.allMemberships, this.props.allChannels);
 
-      if (e.currentTarget.dataset.classify === "user") {
+      if (e.currentTarget.dataset.classify === "direct") {
         if (!channelChecker) {
-          this.props.createChannel(channelObject);
+          this.props.createDirect(directObject);
         } else {
           this.props.history.push("/client/".concat(channelChecker));
         }
@@ -581,6 +713,15 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
         'userMatches': null,
         'channelMatches': null
       });
+    }
+  }, {
+    key: "handleHistoryButtons",
+    value: function handleHistoryButtons(field) {
+      if (field === 'back') {
+        this.props.history.goBack();
+      } else if (field === 'forward') {
+        this.props.history.goForward();
+      }
     }
   }, {
     key: "findMatches",
@@ -619,7 +760,7 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
             key: user.id,
             value: user.id,
-            "data-classify": "user",
+            "data-classify": "direct",
             onClick: _this2.handleSubmit,
             className: "header-search-li users"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", {
@@ -628,7 +769,7 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
         }) : null;
         var channelMatches = matchArray.channels.length > 0 ? matchArray.channels.map(function (channel) {
           var regex = new RegExp(e.currentTarget.value, 'gi');
-          var userName = channel.name; // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
+          var channelName = channel.name; // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
           // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
 
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
@@ -639,7 +780,7 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
             className: "header-search-li channels"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", {
             className: "header-search-item"
-          }, userName));
+          }, channelName));
         }) : null; // .join('');
         // suggestions.innerHTML = html;
 
@@ -652,26 +793,43 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
+      var onlineIndicator = !this.props.currentUser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "boarderheader-online-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "boardheader-online-indicator offline"
+      })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "boarderheader-online-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "boardheader-online-indicator online"
+      }));
+
+      if (!this.props.currentUser) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null);
+      }
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "board-header-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-        className: "boardheader-personal-icons"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
-        to: "https://github.com/dkirkpatrick99"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
-        src: "github.png",
-        alt: ""
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
-        to: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
-        src: "linkedin.png",
-        alt: ""
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
-        to: "https://angel.co/u/dalton-kirkpatrick"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
-        src: "angellist.png",
-        alt: ""
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "history-buttons"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
+        className: "backward-history",
+        onClick: function onClick() {
+          return _this3.handleHistoryButtons('back');
+        },
+        src: "historyArrowBack.png",
+        type: "image",
+        value: "back"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
+        className: "forward-history",
+        onClick: function onClick() {
+          return _this3.handleHistoryButtons('forward');
+        },
+        src: "historyArrow.png",
+        type: "image",
+        value: "forward"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "search-input-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
         onChange: this.displayMatches,
@@ -681,11 +839,15 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("ul", {
         className: "boardheader-search-items"
       }, this.state.userMatches, this.state.channelMatches)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "user-profile-dropdown-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "user-status-image"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
-        src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_6__.getUserPic)(this.props.currentUser.formal_name),
+      }, onlineIndicator, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+        src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_7__.getUserPic)(this.props.currentUser.formal_name),
         alt: ""
-      })));
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "user-profile-dropdown-content"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "hello"))));
     }
   }]);
 
@@ -693,30 +855,38 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component);
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
+  var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   return {
     allUsers: state.entities.users,
     allChannels: state.entities.channels,
-    currentUser: state.entities.users[state.session.id],
-    memberships: state.entities.memberships
+    currentUser: state.entities.users[currentUserId],
+    allMemberships: state.entities.memberships,
+    userDirects: state.entities.directs
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    fetchUsers: function fetchUsers() {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.fetchUsers)());
+    fetchAllUsers: function fetchAllUsers() {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.fetchAllUsers)());
     },
-    fetchChannels: function fetchChannels() {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__.fetchChannels)());
+    fetchAllChannels: function fetchAllChannels() {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__.fetchAllChannels)());
     },
     logout: function logout() {
       return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_4__.logout)());
     },
-    createChannel: function createChannel(channel) {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__.createChannel)(channel));
+    createDirect: function createDirect(direct) {
+      return dispatch((0,_actions_direct_actions__WEBPACK_IMPORTED_MODULE_6__.createDirect)(direct));
     },
     createMembership: function createMembership(membership) {
       return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_5__.createMembership)(membership));
+    },
+    fetchMemberships: function fetchMemberships() {
+      return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_5__.fetchMemberships)());
+    },
+    fetchUserDirects: function fetchUserDirects(id) {
+      return dispatch((0,_actions_direct_actions__WEBPACK_IMPORTED_MODULE_6__.fetchUserDirects)(id));
     }
   };
 };
@@ -781,9 +951,10 @@ var ChannelCreateForm = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      admin_id: _this.props.currentUser.id,
+      admin_id: '',
       name: '',
       description: '',
+      invitedUsersIds: [_this.props.currentUser.id],
       is_private: false,
       is_dm: false
     };
@@ -809,6 +980,7 @@ var ChannelCreateForm = /*#__PURE__*/function (_React$Component) {
         admin_id: "",
         name: "",
         description: "",
+        invitedUsersIds: [this.props.currentUser.id],
         is_private: false,
         is_dm: false
       });
@@ -874,8 +1046,9 @@ var ChannelCreateForm = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_3__.Component);
 
 var mSTP = function mSTP(state) {
+  var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   return {
-    currentUser: state.entities.users[state.session.id]
+    currentUser: state.entities.users[currentUserId]
   };
 };
 
@@ -952,66 +1125,131 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ChannelShow);
 
     _this = _super.call(this, props);
-    _this.state = {
-      channelId: _this.props.channelId,
-      messages: _this.props.messages
-    };
+    _this.state;
     return _this;
   }
 
   _createClass(ChannelShow, [{
     key: "componentDidMount",
     value: function componentDidMount(props) {
-      var _this2 = this;
+      this.props.fetchAllChannels();
+      this.props.fetchAllUsers();
+      this.props.fetchMemberships();
 
-      this.props.fetchChannels();
-      this.props.fetchUsers();
-      this.props.fetchChannel(this.props.channelId).then(function (payload) {
-        _this2.setState({
-          channelId: Object.values(payload)[1].channel.id,
-          messages: Object.values(payload)[1].messages
-        });
+      if (this.props.currentUser) {
+        this.props.fetchUserDirects(this.props.currentUser.id);
+      }
+
+      if (this.props.type === 'channel') {
+        this.props.fetchChannelMessages(this.props.typeId);
+      } else if (this.props.type === 'direct') {
+        this.props.fetchDirectMessages(this.props.typeId);
+      }
+
+      var _this$props = this.props,
+          typeId = _this$props.typeId,
+          receiveMessage = _this$props.receiveMessage,
+          type = _this$props.type;
+      var chatType = type === "channel" ? "ChatChannel" : "ChatDirect";
+      App.channel = App.cable.subscriptions.create({
+        channel: chatType,
+        id: typeId
+      }, //slip data inside object and include id there history push
+      {
+        received: function received(data) {
+          var incomingMessage = JSON.parse(data.message);
+
+          switch (data.type) {
+            case "message":
+              receiveMessage(incomingMessage);
+              break;
+
+            case "edit":
+              receiveMessage(incomingMessage);
+              break;
+          }
+        },
+        speak: function speak(message) {
+          return this.perform("speak", message);
+        },
+        load: function load() {
+          return this.perform("load");
+        }
       });
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
       var prevMessages = Object.values(prevProps.messages);
-      var prevChannelId = prevProps.channelId;
-      var propChannelId = this.props.channelId;
+      var prevTypeId = prevProps.typeId;
+      var propTypeId = this.props.typeId;
+      var propsType = this.props.type;
+      var check = false;
 
-      if (prevChannelId && prevChannelId !== this.props.channelId) {
+      if (prevTypeId && prevTypeId !== this.props.typeId || prevProps.type !== this.props.type) {
         this.getCurrentChannel(this.props);
-      }
+        this.configChat();
+        var userNavables = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.userChannels)(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects);
 
-      if (prevMessages.length < Object.values(this.props.messages).length) {
-        this.getCurrentChannel(this.props);
-      }
+        if (this.props.type === 'channel') {
+          check = userNavables.channels.includes(parseInt(propTypeId)) ? check = true : check = false;
+          if (!check) this.props.history.push("/client/channel/1");
+        }
+
+        if (this.props.type === 'direct') {
+          check = userNavables.directs.includes(parseInt(propTypeId)) ? check = true : check = false;
+          if (!check) this.props.history.push("/client/channel/1");
+        }
+      } // if(prevMessages.length < Object.values(this.props.messages).length) {
+      //     this.getCurrentChannel(this.props)
+      // }
+      // this.props.fetchAllUsers()
+
 
       var elem = document.querySelector('.messages-main-container');
       if (elem) elem.scrollTop = elem.scrollHeight;
-      var currentChannel = parseInt(this.props.channelId);
+    }
+  }, {
+    key: "configChat",
+    value: function configChat() {
+      var _this$props2 = this.props,
+          type = _this$props2.type,
+          receiveMessage = _this$props2.receiveMessage;
+      var chatType = type === "channel" ? "ChatChannel" : "ChatDirect";
+      App.channel = App.cable.subscriptions.create({
+        channel: chatType,
+        id: this.props.typeId
+      }, //slip data inside object and include id there history push
+      {
+        received: function received(data) {
+          var incomingMessage = JSON.parse(data.message);
 
-      if (Object.keys(this.props.memberships).length !== 0) {
-        var check = Object.values(this.props.memberships).find(function (membership) {
-          return membership.channel_id === currentChannel;
-        });
-        if (!check) this.props.history.push("/client/1");
-      }
+          switch (data.type) {
+            case "message":
+              receiveMessage(incomingMessage);
+              break;
+
+            case "edit":
+              receiveMessage(incomingMessage);
+              break;
+          }
+        },
+        speak: function speak(message) {
+          return this.perform("speak", message);
+        },
+        load: function load() {
+          return this.perform("load");
+        }
+      });
     }
   }, {
     key: "getCurrentChannel",
     value: function getCurrentChannel(props) {
-      var _this3 = this;
-
-      // let channelId = parseInt(props.channelID);
-      var currentCh = props.fetchChannel(props.channelId).then(function (payload) {
-        _this3.setState({
-          channelId: Object.values(payload)[1].channel.id,
-          messages: Object.values(payload)[1].messages
-        });
-      });
-      return currentCh;
+      if (this.props.type === 'channel') {
+        props.fetchChannelMessages(props.typeId);
+      } else if (this.props.type === 'direct') {
+        props.fetchDirectMessages(props.typeId);
+      }
     }
   }, {
     key: "handleHistoryButtons",
@@ -1025,35 +1263,39 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "unsubscribe",
     value: function unsubscribe() {
-      var _this4 = this;
+      var _this2 = this;
 
       var membership = Object.values(this.props.memberships).find(function (membership) {
-        return membership.channel_id === parseInt(_this4.props.channelId);
+        return membership.memberable_id === _this2.props.currentChannel.id && membership.user_id === _this2.props.currentUser.id;
       });
 
       if (membership) {
-        this.props.deleteMembership(membership.id);
+        this.props.destroyMembership(membership.id);
       }
     }
   }, {
     key: "deleteChannel",
     value: function deleteChannel() {
-      var _this5 = this;
-
-      var membership = Object.values(this.props.memberships).find(function (membership) {
-        return membership.channel_id === parseInt(_this5.props.channelId);
-      });
-
-      if (membership) {
-        this.props.deleteMembership(membership.id);
+      // const membership = Object.values(this.props.memberships).find(membership => membership.channel_id === parseInt(this.props.channelId))
+      // if (membership) {
+      //     this.props.deleteMembership(membership.id)
+      // }
+      if (this.props.type === 'channel') {
+        this.props.destroyChannel(this.props.typeId);
+      } else if (this.props.type === 'direct') {
+        this.props.destroyDirect(this.props.typeId);
       }
 
-      this.props.deleteChannel(parseInt(this.props.channelId));
+      this.props.history.push("/client/channel/1");
     }
   }, {
     key: "render",
     value: function render() {
-      var _this6 = this;
+      var _this3 = this;
+
+      if (!this.props.currentUser) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null);
+      }
 
       var currentMessages;
       var channelName = "Loading Channel Name";
@@ -1061,65 +1303,57 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       var deleteMembershipButton;
       var showOption;
 
-      if (this.props.currentChannel) {
-        deleteChannelButton = this.props.currentChannel.admin_id === this.props.currentUser.id && this.props.currentChannel.name !== "Global" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      if (this.props.currentUser && this.props.currentChannel) {
+        deleteChannelButton = this.props.type === 'direct' || this.props.currentChannel.admin_id === this.props.currentUser.id && this.props.currentChannel.name !== "Global" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "user-option-button",
           onClick: function onClick() {
-            return _this6.deleteChannel();
+            return _this3.deleteChannel();
           }
         }, "Delete for everyone") : null;
         deleteMembershipButton = this.props.currentChannel.name !== "Global" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "user-option-button",
           onClick: function onClick() {
-            return _this6.unsubscribe();
+            return _this3.unsubscribe();
           }
         }, "Unsubscribe") : null;
         showOption = deleteChannelButton ? deleteChannelButton : deleteMembershipButton;
-      }
+      } // if (this.state && Object.keys(this.props.allUsers).length > 1) {
 
-      if (this.state && Object.keys(this.props.allUsers).length > 1) {
-        currentMessages = Object.keys(this.state.messages).length !== 0 ? Object.values(this.state.messages).map(function (message) {
-          var date = new Date(message.created_at);
-          var dateFormat = new Intl.DateTimeFormat('en-US', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-          }).format(date);
-          var formalName = _this6.props.allUsers[message.user_id].formal_name;
-          var pic = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.getUserPic)(formalName);
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
-            className: "message-channel-show-contain",
-            key: message.id
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
-            className: "message-user-pic",
-            src: pic,
-            alt: ""
-          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-            className: "message-item-contain"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-            className: "message-sender-contain"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-            className: "message-sender-name"
-          }, formalName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
-            className: "message-time-stamp"
-          }, dateFormat)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
-            className: "message-body-text"
-          }, message.body)));
-        }) : "no messages";
-      }
 
-      if (this.props.currentChannel && Object.keys(this.props.allUsers).length > 1) {
-        var channel = this.props.currentChannel;
-        var dmName = this.props.currentUser.id === parseInt(channel.name) ? this.props.allUsers[channel.admin_id] : this.props.allUsers[channel.name];
+      currentMessages = Object.keys(this.props.messages).length !== 0 ? Object.values(this.props.messages).map(function (message) {
+        var date = new Date(message.created_at);
+        var dateFormat = new Intl.DateTimeFormat('en-US', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        }).format(date);
+        var formalName = message.formal_name;
+        var pic = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.getUserPic)(formalName);
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
+          className: "message-channel-show-contain",
+          key: message.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+          className: "message-user-pic",
+          src: pic,
+          alt: ""
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          className: "message-item-contain"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          className: "message-sender-contain"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          className: "message-sender-name"
+        }, formalName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
+          className: "message-time-stamp"
+        }, dateFormat)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
+          className: "message-body-text"
+        }, message.body)));
+      }) : "no messages"; // }
 
-        if (channel.is_dm) {
-          channelName = dmName.formal_name;
-        } else {
-          channelName = this.props.currentChannel.name;
-        }
+      if (this.props.currentChannel && this.props.userDirects) {
+        channelName = this.props.type === "channel" ? this.props.currentChannel.name : this.props.userDirects[this.props.typeId].name;
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
@@ -1130,31 +1364,14 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
         className: "channel-show-options-flex"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "name-of-channel"
-      }, "# ", channelName), showOption), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-        className: "history-buttons"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
-        className: "backward-history",
-        onClick: function onClick() {
-          return _this6.handleHistoryButtons('back');
-        },
-        src: "historyArrowBack.png",
-        type: "image",
-        value: "back"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
-        className: "forward-history",
-        onClick: function onClick() {
-          return _this6.handleHistoryButtons('forward');
-        },
-        src: "historyArrow.png",
-        type: "image",
-        value: "forward"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      }, "# ", channelName), showOption)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "messages-main-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("ul", {
         className: "messages-list"
       }, currentMessages)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_message_message_form__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        channelName: channelName,
-        channelId: this.state.channelId,
+        type: this.props.type,
+        typeName: channelName,
+        typeId: this.props.typeId,
         currentUserId: this.props.currentUser.id
       }));
     }
@@ -1186,6 +1403,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
 /* harmony import */ var _actions_membership_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/membership_actions */ "./frontend/actions/membership_actions.js");
+/* harmony import */ var _actions_direct_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/direct_actions */ "./frontend/actions/direct_actions.js");
+
 
 
 
@@ -1196,28 +1415,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  var currentChannel = state.entities.channels[ownProps.channelId];
+  var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
+  var currentChannel = ownProps.type === "channel" ? state.entities.channels[ownProps.typeId] : state.entities.directs[ownProps.typeId];
   return {
-    channels: state.entities.channels,
+    allChannels: state.entities.channels,
     memberships: state.entities.memberships,
     messages: state.entities.messages,
     currentChannel: currentChannel,
-    currentUser: state.entities.users[state.session.id],
-    // channelId: ownProps.channelID,
-    allUsers: state.entities.users
+    currentUser: state.entities.users[currentUserId],
+    allUsers: state.entities.users,
+    userDirects: state.entities.directs
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    fetchUsers: function fetchUsers() {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__.fetchUsers)());
+    fetchAllUsers: function fetchAllUsers() {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__.fetchAllUsers)());
     },
-    fetchChannels: function fetchChannels() {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__.fetchChannels)());
+    fetchAllChannels: function fetchAllChannels() {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__.fetchAllChannels)());
     },
-    fetchMessages: function fetchMessages() {
-      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_5__.fetchMessages)());
+    fetchChannelMessages: function fetchChannelMessages(channelId) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_5__.fetchChannelMessages)(channelId));
+    },
+    fetchDirectMessages: function fetchDirectMessages(directId) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_5__.fetchDirectMessages)(directId));
     },
     fetchChannel: function fetchChannel(channelId) {
       return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__.fetchChannel)(channelId));
@@ -1225,175 +1448,31 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchUser: function fetchUser(userId) {
       return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__.fetchUser)(userId));
     },
-    deleteMembership: function deleteMembership(membershipId) {
-      return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_6__.deleteMembership)(membershipId));
+    fetchMemberships: function fetchMemberships() {
+      return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_6__.fetchMemberships)());
     },
-    deleteChannel: function deleteChannel(channelId) {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__.deleteChannel)(channelId));
+    destroyMembership: function destroyMembership(membershipId) {
+      return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_6__.destroyMembership)(membershipId));
+    },
+    destroyChannel: function destroyChannel(channelId) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__.destroyChannel)(channelId));
+    },
+    destroyDirect: function destroyDirect(directId) {
+      return dispatch((0,_actions_direct_actions__WEBPACK_IMPORTED_MODULE_7__.destroyDirect)(directId));
+    },
+    fetchUserDirects: function fetchUserDirects(id) {
+      return dispatch((0,_actions_direct_actions__WEBPACK_IMPORTED_MODULE_7__.fetchUserDirects)(id));
+    },
+    receiveMessage: function receiveMessage(message) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_5__.receiveMessage)(message));
+    },
+    fetchDirect: function fetchDirect(directId) {
+      return dispatch((0,_actions_direct_actions__WEBPACK_IMPORTED_MODULE_7__.fetchDirect)(directId));
     }
   };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_channel_show__WEBPACK_IMPORTED_MODULE_2__["default"]));
-
-/***/ }),
-
-/***/ "./frontend/components/channel/listener.jsx":
-/*!**************************************************!*\
-  !*** ./frontend/components/channel/listener.jsx ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-var Listener = /*#__PURE__*/function (_React$Component) {
-  _inherits(Listener, _React$Component);
-
-  var _super = _createSuper(Listener);
-
-  function Listener(props) {
-    var _this;
-
-    _classCallCheck(this, Listener);
-
-    _this = _super.call(this, props);
-    _this.createSubscriptions = _this.createSubscriptions.bind(_assertThisInitialized(_this));
-    return _this;
-  } // calls create subscriptions once the client page is rendered
-
-
-  _createClass(Listener, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      if (this.props.currentUser) {
-        this.createSubscriptions();
-      }
-    } // calls createSubscriptions if a channel re render is needed but won't recreate
-    // already existing Action Cable subscriptions
-
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      //DO NOT REMOVE THIS IF CHECK!
-      if (prevProps && prevProps.currentChannel !== this.props.currentChannel) {
-        this.createSubscriptions();
-      }
-    } // iterates through and deletes Action Cable subscriptions on logout
-
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this.chats.forEach(function (channel) {
-        channel.unsubscribe();
-      });
-    }
-  }, {
-    key: "createSubscriptions",
-    value: function createSubscriptions() {
-      var _this2 = this;
-
-      var memberships = this.props.memberships;
-      this.chats = memberships.map(function (membership) {
-        return App.cable.subscriptions.create({
-          channel: "ChatChannel",
-          room: membership.channel_id
-        }, {
-          connected: function connected() {// console.log(`Connected to ${membership.channel_id}`);
-          },
-          disconnected: function disconnected() {// console.log("Disconnected!");
-          },
-          received: function received(data) {
-            var payload = {
-              messages: _defineProperty({}, data.message.id, data.message),
-              user: _defineProperty({}, data.user.id, data.user)
-            };
-            debugger;
-
-            _this2.props.receiveMessage(payload);
-          }
-        });
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      if (!this.props.currentUser) return null;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
-    }
-  }]);
-
-  return Listener;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Listener);
-
-/***/ }),
-
-/***/ "./frontend/components/channel/listener_container.js":
-/*!***********************************************************!*\
-  !*** ./frontend/components/channel/listener_container.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _listener__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./listener */ "./frontend/components/channel/listener.jsx");
-/* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
-
-
-
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    currentUser: state.session.id,
-    currentChannel: state.session.currentChannel,
-    memberships: Object.values(state.entities.memberships)
-  };
-};
-
-var mapDispatchTopProps = function mapDispatchTopProps(dispatch) {
-  return {
-    receiveMessage: function receiveMessage(payload) {
-      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_2__.receiveMessage)(payload));
-    }
-  };
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchTopProps)(_listener__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -1412,7 +1491,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_direct_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/direct_actions */ "./frontend/actions/direct_actions.js");
 /* harmony import */ var _actions_membership_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/membership_actions */ "./frontend/actions/membership_actions.js");
 /* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -1457,12 +1536,9 @@ var DirectMessageSearch = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      'channel': {
-        admin_id: _this.props.currentUser.id,
+      'direct': {
         name: '',
-        description: '',
-        is_private: true,
-        is_dm: true
+        invitedUsersIds: [_this.props.currentUser.id]
       },
       'html': ""
     };
@@ -1475,31 +1551,29 @@ var DirectMessageSearch = /*#__PURE__*/function (_React$Component) {
   _createClass(DirectMessageSearch, [{
     key: "componentDidMount",
     value: function componentDidMount(props) {
-      this.props.fetchUsers();
+      this.props.fetchAllUsers();
+      this.props.fetchUserDirects(this.props.currentUser.id);
     }
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      var channelObject = this.state.channel;
+      var directObject = this.state.direct;
       var currentUser = this.props.currentUser;
-      var receivingUser = this.props.allUsers[e.currentTarget.value];
-      channelObject["name"] = "".concat(receivingUser.id);
-      var channelChecker = (0,_util_functions__WEBPACK_IMPORTED_MODULE_6__.channelCheck)(this.props.memberships, receivingUser.id, this.props.allChannels, 'user', this.props.currentUser.id);
+      var receivingUserId = this.props.allUsers[e.currentTarget.value];
+      this.state.direct.invitedUsersIds.push(e.currentTarget.value);
+      var channelChecker = (0,_util_functions__WEBPACK_IMPORTED_MODULE_6__.channelCheck)(this.props.userDirects, 'direct', currentUser.id, receivingUserId.id);
 
       if (!channelChecker) {
-        this.props.createChannel(channelObject);
+        this.props.createDirect(directObject);
       } else {
         this.props.history.push("/client/".concat(channelChecker));
-      } // this.props.createChannel(channelObject)
+      } // this.props.createDirect(directObject)
 
 
       this.setState({
-        admin_id: "",
         name: "",
-        description: "",
-        is_private: false,
-        is_dm: false
+        invitedUsersIds: [this.props.currentUser.id]
       });
       this.props.closeModal();
     }
@@ -1542,10 +1616,6 @@ var DirectMessageSearch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      // const items = Array.from(document.querySelectorAll('.dm-user-search-li'));
-      // if(items) {
-      //     items.forEach(item => item.addEventListener('click', this.handleSubmit));
-      // }
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "user-search-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1574,27 +1644,32 @@ var DirectMessageSearch = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 var mSTP = function mSTP(state) {
+  var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   return {
     allUsers: state.entities.users,
-    currentUser: state.entities.users[state.session.id],
+    currentUser: state.entities.users[currentUserId],
     memberships: state.entities.memberships,
-    allChannels: state.entities.channels
+    allChannels: state.entities.channels,
+    userDirects: state.entities.directs
   };
 };
 
 var mDTP = function mDTP(dispatch) {
   return {
-    fetchUsers: function fetchUsers() {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.fetchUsers)());
+    fetchAllUsers: function fetchAllUsers() {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.fetchAllUsers)());
     },
     closeModal: function closeModal() {
       return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__.closeModal)());
     },
-    createChannel: function createChannel(channel) {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__.createChannel)(channel));
+    createDirect: function createDirect(direct) {
+      return dispatch((0,_actions_direct_actions__WEBPACK_IMPORTED_MODULE_4__.createDirect)(direct));
     },
     createMembership: function createMembership(membership) {
       return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_5__.createMembership)(membership));
+    },
+    fetchUserDirects: function fetchUserDirects(userId) {
+      dispatch((0,_actions_direct_actions__WEBPACK_IMPORTED_MODULE_4__.fetchUserDirects)(userId));
     }
   };
 };
@@ -1757,9 +1832,9 @@ var Greeting = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
         className: "greeting-signup-white",
         to: "/signup"
-      }, "TRY TEATHER"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+      }, "TRY TEATHER"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
         className: "greeting-login-button",
-        to: "/"
+        href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
       }, "CONTACT ME")))))));
     }
   }]);
@@ -1883,18 +1958,18 @@ var GreetingHeader = /*#__PURE__*/function (_React$Component) {
           className: "dropdown"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Past Projects"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
           className: "projects-dropdown-content"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          to: "https://moneywise-crowdfunding.herokuapp.com/#/"
-        }, "MoneyWise")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          to: "https://dkirkpatrick99.github.io/Super-Jelly-Hero/"
-        }, "Super Jelly Hero")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          to: "https://ballup-app.herokuapp.com/#/"
-        }, "BallUp")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          to: "https://github.com/dkirkpatrick99"
-        }, "GitHub"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          to: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184"
-        }, "LinkedIn"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          to: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+          href: "https://moneywise-crowdfunding.herokuapp.com/#/"
+        }, "MoneyWise")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+          href: "https://dkirkpatrick99.github.io/Super-Jelly-Hero/"
+        }, "Super Jelly Hero")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+          href: "https://ballup-app.herokuapp.com/#/"
+        }, "BallUp")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+          href: "https://github.com/dkirkpatrick99"
+        }, "GitHub"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+          href: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184"
+        }, "LinkedIn"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+          href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
         }, "Portfolio")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "right-header-container"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
@@ -1944,6 +2019,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1985,7 +2064,8 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       user_id: parseInt(_this.props.currentUserId),
       body: '',
-      channel_id: parseInt(_this.props.channelId)
+      messageable_id: _this.props.typeId,
+      messageable_type: 'Direct'
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
@@ -2001,16 +2081,23 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
 
         _this2.setState((_this2$setState = {
           user_id: parseInt(_this2.props.currentUserId)
-        }, _defineProperty(_this2$setState, field, e.currentTarget.value), _defineProperty(_this2$setState, "channel_id", parseInt(_this2.props.channelId)), _this2$setState));
+        }, _defineProperty(_this2$setState, field, e.currentTarget.value), _defineProperty(_this2$setState, "messageable_id", parseInt(_this2.props.typeId)), _defineProperty(_this2$setState, "messageable_type", 'Direct'), _this2$setState));
       };
     }
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      if (e) e.preventDefault(); // document.querySelector('.message-to-send').value = ''
-
+      if (e) e.preventDefault();
+      var chatType = this.props.type === "channel" ? "Channel" : "Direct";
       var message = Object.assign({}, this.state);
-      this.props.createMessage(message); // .then(document.querySelector('.message-to-send').value = "")
+      App.channel.speak({
+        message: _objectSpread(_objectSpread({}, this.state), {}, {
+          messageable_type: chatType
+        })
+      });
+      this.setState({
+        body: ""
+      }); // this.props.createMessage(message)
 
       document.querySelector('.message-to-send').value = '';
     }
@@ -2019,7 +2106,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var placeholder = "Send a message to ".concat(this.props.channelName);
+      var placeholder = "Send a message to ".concat(this.props.typeName);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         className: "message-tobe-sent-container",
         onSubmit: this.handleSubmit
@@ -2076,8 +2163,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _boardHeader_boardHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../boardHeader/boardHeader */ "./frontend/components/boardHeader/boardHeader.jsx");
 /* harmony import */ var _channel_channel_show_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../channel/channel_show_container */ "./frontend/components/channel/channel_show_container.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var _channel_listener_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../channel/listener_container */ "./frontend/components/channel/listener_container.js");
-/* harmony import */ var _modal_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../modal/modal */ "./frontend/components/modal/modal.jsx");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _actions_membership_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/membership_actions */ "./frontend/actions/membership_actions.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_direct_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/direct_actions */ "./frontend/actions/direct_actions.js");
+/* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
+/* harmony import */ var _modal_modal__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../modal/modal */ "./frontend/components/modal/modal.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2110,6 +2201,11 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+ // import ListenerContainer from '../channel/listener_container';
+
+
+
 var MessageBoard = /*#__PURE__*/function (_React$Component) {
   _inherits(MessageBoard, _React$Component);
 
@@ -2122,10 +2218,63 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(MessageBoard, [{
-    key: "render",
-    value: // houses all of the main app components and is the only route rendered while 
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this = this;
+
+      this.props.fetchAllUsers(); // .then(
+      // () => {
+      //     this.props.fetchAllChannels();
+      //     this.props.fetchAllDirects();
+      //     this.props.fetchMemberships();
+      //     this.props.fetchAllMessages();
+      // }
+      // )
+
+      App.NotificationsChannel = App.cable.subscriptions.create({
+        channel: "NotificationsChannel",
+        currentUserId: this.props.currentUser
+      }, {
+        received: function received(data) {
+          switch (data.type) {
+            case "membershipAdd":
+              _this.props.receiveMembership(data.membership);
+
+              break;
+
+            case "directAdd":
+              _this.props.fetchDirect(data.directId);
+
+              break;
+
+            case "channelAdd":
+              _this.props.fetchChannel(data.channelId);
+
+              break;
+
+            case "userAdd":
+              _this.props.fetchUserDirects(_this.props.currentUser);
+
+              _this.props.fetchUser(data.userId);
+
+              break;
+          }
+        }
+      });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {}
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      App.NotificationsChannel.unsubscribe();
+    } // houses all of the main app components and is the only route rendered while 
     // a user is logged in
-    function render() {
+
+  }, {
+    key: "render",
+    value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "client-main-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_boardHeader_boardHeader__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -2133,11 +2282,13 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "flex-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_sideBar_sideBar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        channelId: this.props.channelId
+        type: this.props.type,
+        typeId: this.props.typeId
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_show_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        channelId: this.props.channelId.channel_id,
+        type: this.props.type,
+        typeId: this.props.typeId,
         history: this.props.history
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_listener_container__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_11__["default"], {
         history: this.props.history
       }));
     }
@@ -2148,8 +2299,12 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
 
 
 var mapSTP = function mapSTP(state, ownProps) {
+  var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   return {
-    channelId: ownProps.match.params,
+    // channelId: ownProps.match.params,
+    currentUser: currentUserId,
+    type: ownProps.match.params.type,
+    typeId: ownProps.match.params.type_id,
     history: ownProps.history
   };
 };
@@ -2158,6 +2313,36 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     logout: function logout() {
       return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_5__.logout)());
+    },
+    fetchAllUsers: function fetchAllUsers() {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_6__.fetchAllUsers)());
+    },
+    fetchAllChannels: function fetchAllChannels() {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_8__.fetchAllChannels)());
+    },
+    fetchAllDirects: function fetchAllDirects() {
+      return dispatch((0,_actions_direct_actions__WEBPACK_IMPORTED_MODULE_9__.fetchAllDirects)());
+    },
+    fetchChannel: function fetchChannel(id) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_8__.fetchChannel)(id));
+    },
+    fetchUser: function fetchUser(id) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_6__.fetchUser)(id));
+    },
+    fetchMemberships: function fetchMemberships() {
+      return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_7__.fetchMemberships)());
+    },
+    fetchAllMessages: function fetchAllMessages() {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_10__.fetchAllMessages)());
+    },
+    receiveMembership: function receiveMembership(membership) {
+      return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_7__.receiveMembership)(membership));
+    },
+    fetchDirect: function fetchDirect(id) {
+      return dispatch((0,_actions_direct_actions__WEBPACK_IMPORTED_MODULE_9__.fetchDirect)(id));
+    },
+    fetchUserDirects: function fetchUserDirects(userId) {
+      return dispatch((0,_actions_direct_actions__WEBPACK_IMPORTED_MODULE_9__.fetchUserDirects)(userId));
     }
   };
 };
@@ -2321,11 +2506,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     processForm: function processForm(user) {
       return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__.login)(user));
     },
-    fetchUsers: function fetchUsers() {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__.fetchUsers)());
+    fetchAllUsers: function fetchAllUsers() {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__.fetchAllUsers)());
     },
-    fetchChannels: function fetchChannels() {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_5__.fetchChannels)());
+    fetchAllChannels: function fetchAllChannels() {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_5__.fetchAllChannels)());
     }
   };
 };
@@ -2398,8 +2583,8 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
   _createClass(SessionForm, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchUsers();
-      this.props.fetchChannels();
+      this.props.fetchAllUsers();
+      this.props.fetchAllChannels();
     }
   }, {
     key: "update",
@@ -2568,10 +2753,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mapStateToProps = function mapStateToProps(_ref) {
-  var errors = _ref.errors;
+var mapStateToProps = function mapStateToProps(state) {
+  // debugger
   return {
-    errors: errors.sessionErrors,
+    errors: state.errors.sessionErrors,
     formType: 'Sign Up for',
     navLink: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
       to: "/login"
@@ -2584,11 +2769,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     processForm: function processForm(user) {
       return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__.signup)(user));
     },
-    fetchUsers: function fetchUsers() {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__.fetchUsers)());
+    fetchAllUsers: function fetchAllUsers() {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__.fetchAllUsers)());
     },
-    fetchChannels: function fetchChannels() {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_5__.fetchChannels)());
+    fetchAllChannels: function fetchAllChannels() {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_5__.fetchAllChannels)());
     }
   };
 };
@@ -2609,11 +2794,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _channel_channel_show_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../channel/channel_show_container */ "./frontend/components/channel/channel_show_container.js");
-/* harmony import */ var _channel_channel_create_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../channel/channel_create_form */ "./frontend/components/channel/channel_create_form.jsx");
-/* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2638,8 +2821,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
-
+ // import  ChannelShowContainer from '../channel/channel_show_container'
+// import ChannelCreateFrom from '../channel/channel_create_form'
 
 
 
@@ -2661,48 +2844,43 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
   _createClass(SideBar, [{
     key: "componentDidMount",
     value: function componentDidMount(props) {
-      if (this.props.currentUser) {
-        this.props.fetchUser(this.props.currentUser.id);
-      }
+      // if (this.props.currentUser) {
+      //     this.props.fetchUser(this.props.currentUser.id);
+      // }
+      this.props.fetchAllUsers();
+      this.props.fetchAllChannels();
+      this.props.fetchMemberships();
 
-      this.props.fetchUsers();
-      this.props.fetchChannels();
+      if (this.props.currentUser) {
+        this.props.fetchUserDirects(this.props.currentUser.id);
+      }
     }
   }, {
-    key: "renderChannelsAndDms",
-    value: // componentDidUpdate(prevProps, prevState) {
-    // }
-    function renderChannelsAndDms() {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {// this.props.fetchAllUsers();
+    }
+  }, {
+    key: "renderChannels",
+    value: function renderChannels() {
       var that = this;
-      var threads = {
-        "dm": [],
-        "channel": []
-      };
+      var userChannels = [];
       var memberships = this.props.memberships;
+      var userMemberships = [];
 
-      if (Object.keys(this.props.userChannels) !== 0 && Object.keys(this.props.memberships) !== 0 && Object.keys(this.props.allUsers).length > 1) {
+      if (Object.keys(this.props.allChannels).length !== 0 && Object.keys(this.props.memberships).length !== 0 && Object.keys(this.props.allUsers).length > 1) {
         Object.values(memberships).forEach(function (membership) {
-          var channelId = membership.channel_id;
-          var channel = that.props.userChannels[channelId];
-          var dmName = that.props.currentUser.id === parseInt(channel.name) ? that.props.allUsers[channel.admin_id] : that.props.allUsers[channel.name];
+          var channelId = membership.memberable_type === 'Channel' && membership.user_id === that.props.currentUser.id ? membership.memberable_id : null;
+          var channel = that.props.allChannels[channelId];
 
           if (!channel) {
             return;
-          }
-
-          ;
-
-          if (!channel.is_dm) {
-            // channelArr.push([channel.id, channel.name]);
-            threads["channel"].push([channel.id, channel.name]);
-          } else if (channel.is_dm) {
-            threads["dm"].push([channel.id, channel.name, channel.admin_id, dmName.formal_name]);
+          } else {
+            userChannels.push(channel);
           }
         });
-      } // this.setState(threads)
+      }
 
-
-      return threads;
+      return userChannels;
     }
   }, {
     key: "toggleElement",
@@ -2718,123 +2896,152 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var channelId = parseInt(this.props.match.params.channel_id);
-      var threadHash = this.renderChannelsAndDms();
+      if (!this.props.currentUser) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
+      }
+
+      var typeId = parseInt(this.props.typeId);
+      var channels = this.renderChannels();
       var dmLinks;
       var channelLinks;
+      dmLinks = Object.values(this.props.userDirects).length > 0 ? Object.values(this.props.userDirects).map(function (dm) {
+        var dmName = dm.name;
+        var notCurrentUserCheck = dm.user_ids[0].user_id === _this2.props.currentUser.id ? dm.user_ids[1].onlineStatus : dm.user_ids[0].onlineStatus;
+        var onlineIndicator = notCurrentUserCheck ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "sidebar-online-wrapper"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "sidebar-online-indicator online"
+        })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "sidebar-online-wrapper"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "sidebar-online-indicator offline"
+        }));
+        return typeId === dm.id && _this2.props.type === 'direct' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+          className: "channel-list-item active",
+          key: dm.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+          to: "/client/direct/".concat(dm.id)
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_1__.getUserPic)(dm.name),
+          alt: ""
+        }), onlineIndicator, dmName)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+          className: "channel-list-item",
+          key: dm.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+          to: "/client/direct/".concat(dm.id)
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_1__.getUserPic)(dm.name),
+          alt: ""
+        }), onlineIndicator, dmName));
+      }) : null;
 
-      if (threadHash !== null) {
-        channelLinks = threadHash["channel"].map(function (channel) {
-          return channelId === channel[0] ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+      if (channels.length !== 0) {
+        channelLinks = channels.map(function (channel) {
+          return typeId === channel.id && _this2.props.type === 'channel' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
             className: "channel-list-item active",
-            key: channel[0]
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
-            to: "/client/".concat(channel[0])
-          }, "# " + channel[1])) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+            key: channel.id
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+            to: "/client/channel/".concat(channel.id)
+          }, "# " + channel.name)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
             className: "channel-list-item",
-            key: channel[0]
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
-            to: "/client/".concat(channel[0])
-          }, "# " + channel[1]));
+            key: channel.id
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+            to: "/client/channel/".concat(channel.id)
+          }, "# " + channel.name));
         });
-        dmLinks = threadHash["dm"].length > 0 ? threadHash["dm"].map(function (dm) {
-          return channelId === dm[0] ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-            className: "channel-list-item active",
-            key: dm[0]
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
-            to: "/client/".concat(dm[0])
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-            src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_3__.getUserPic)(dm[3]),
-            alt: ""
-          }), dm[3])) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-            className: "channel-list-item",
-            key: dm[0]
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
-            to: "/client/".concat(dm[0])
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-            src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_3__.getUserPic)(dm[3]),
-            alt: ""
-          }), dm[3]));
-        }) : null;
       } // if(!dropdownToggle) return
 
 
       if (!!this.props.currentUser) {
-        return (
-          /*#__PURE__*/
-          // <div className='flex-container'>
-          react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "sidebar-main-container"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "username-container"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            onClick: this.toggleElement,
-            className: "dropdown"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "dropdown-current-username"
-          }, this.props.currentUser.username, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-            src: "arrow.png",
-            alt: ""
-          })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "username-dropdown-content"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "username-img-flex-container"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-            src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_3__.getUserPic)(this.props.currentUser.formal_name),
-            alt: ""
-          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "dropdown-current-info-show"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "dropdown-current-email"
-          }, this.props.currentUser.email))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "sidebar-dropdown-links"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-            onClick: this.props.logout
-          }, "Log out of ", this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-            to: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
-          }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-            to: ""
-          }, "Switch to Light Theme")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-            onClick: function onClick() {
-              return _this2.props.openModal('directMessageSearch');
-            },
-            src: "compose.png",
-            alt: ""
-          })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "channel-list-container"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "channel-img-contain"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "channel-name"
-          }, "Channels"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-            onClick: function onClick() {
-              return _this2.props.openModal('createChannel');
-            },
-            src: "plus.png",
-            alt: ""
-          })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-            className: "channel-list"
-          }, channelLinks)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "dm-list-container"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "dm-img-contain"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "dm-name"
-          }, "Direct Messages"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-            onClick: function onClick() {
-              return _this2.props.openModal('directMessageSearch');
-            },
-            src: "plus.png",
-            alt: ""
-          })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-            className: "dm-list"
-          }, dmLinks)))
-          /* < ChannelShowContainer channelID={this.props.channelID} currentUserId={this.props.currentUser.id} /> */
-          // </div>
-
-        );
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "flex-container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "sidebar-main-container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "username-container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          onClick: this.toggleElement,
+          className: "dropdown"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "dropdown-current-username"
+        }, this.props.currentUser.username, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          src: "arrow.png",
+          alt: ""
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "username-dropdown-content"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "username-img-flex-container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_1__.getUserPic)(this.props.currentUser.formal_name),
+          alt: ""
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "dropdown-current-info-show"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "dropdown-current-email"
+        }, this.props.currentUser.email))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "sidebar-dropdown-links"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+          onClick: this.props.logout
+        }, "Log out of ", this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+          href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
+        }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+          href: ""
+        }, "Switch to Light Theme")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          onClick: function onClick() {
+            return _this2.props.openModal('directMessageSearch');
+          },
+          src: "compose.png",
+          alt: ""
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "sidebar-list-items-container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "channel-list-container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "channel-img-contain"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "channel-name"
+        }, "Channels"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          onClick: function onClick() {
+            return _this2.props.openModal('createChannel');
+          },
+          src: "plus.png",
+          alt: ""
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+          className: "channel-list"
+        }, channelLinks)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "dm-list-container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "dm-img-contain"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "dm-name"
+        }, "Direct Messages"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          onClick: function onClick() {
+            return _this2.props.openModal('directMessageSearch');
+          },
+          src: "plus.png",
+          alt: ""
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+          className: "dm-list"
+        }, dmLinks))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "sidebar-personal-icons"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+          to: "https://github.com/dkirkpatrick99"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          src: "github.png",
+          alt: ""
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+          to: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          src: "linkedin.png",
+          alt: ""
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+          to: "https://angel.co/u/dalton-kirkpatrick"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          src: "angellist.png",
+          alt: ""
+        })))));
       } else {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "hello");
       }
     }
   }]);
@@ -2842,7 +3049,7 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
   return SideBar;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.withRouter)(SideBar));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.withRouter)(SideBar));
 
 /***/ }),
 
@@ -2864,6 +3071,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_direct_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/direct_actions */ "./frontend/actions/direct_actions.js");
+/* harmony import */ var _actions_membership_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/membership_actions */ "./frontend/actions/membership_actions.js");
+
+
 
 
 
@@ -2873,26 +3084,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  // debugger
+  var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   return {
-    userChannels: state.entities.channels,
-    currentUser: state.entities.users[state.session.id],
+    allChannels: state.entities.channels,
+    currentUser: state.entities.users[currentUserId],
     memberships: state.entities.memberships,
-    channelID: ownProps.channelId.channel_id,
-    allUsers: state.entities.users
+    channelID: ownProps.typeId,
+    allUsers: state.entities.users,
+    userDirects: state.entities.directs
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    fetchUsers: function fetchUsers() {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__.fetchUsers)());
+    fetchAllUsers: function fetchAllUsers() {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__.fetchAllUsers)());
     },
     fetchUser: function fetchUser(userId) {
       return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__.fetchUser)(userId));
     },
-    fetchChannels: function fetchChannels() {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__.fetchChannels)());
+    fetchAllChannels: function fetchAllChannels() {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__.fetchAllChannels)());
     },
     createChannel: function createChannel(channel) {
       return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__.createChannel)(channel));
@@ -2902,6 +3114,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     openModal: function openModal(modal) {
       return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_6__.openModal)(modal));
+    },
+    fetchUserDirects: function fetchUserDirects(id) {
+      return dispatch((0,_actions_direct_actions__WEBPACK_IMPORTED_MODULE_7__.fetchUserDirects)(id));
+    },
+    fetchMemberships: function fetchMemberships() {
+      return dispatch((0,_actions_membership_actions__WEBPACK_IMPORTED_MODULE_8__.fetchMemberships)());
     }
   };
 };
@@ -2922,41 +3140,77 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_1__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
-
-var channelsReducer = function channelsReducer() {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
-  var newState = Object.assign({}, state);
+  var newState;
 
   switch (action.type) {
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_CURRENT_USER:
-      return action.currentUser.channels;
-
-    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CHANNELS:
-      return action.channels;
+    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_ALL_CHANNELS:
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, action.channels);
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CHANNEL:
-      return Object.assign({}, newState, _defineProperty({}, action.channel.channel.id, action.channel.channel));
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _defineProperty({}, action.channel.id, action.channel));
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_CHANNEL:
-      delete newState[action.channel_id];
+      newState = lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state);
+      delete newState[action.channelId];
       return newState;
-
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__.LOGOUT_CURRENT_USER:
-      return {};
 
     default:
       return state;
   }
-};
+});
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (channelsReducer);
+/***/ }),
+
+/***/ "./frontend/reducers/directs_reducer.js":
+/*!**********************************************!*\
+  !*** ./frontend/reducers/directs_reducer.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_direct_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/direct_actions */ "./frontend/actions/direct_actions.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_1__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var newState;
+
+  switch (action.type) {
+    case _actions_direct_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_ALL_DIRECTS:
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, action.directs);
+
+    case _actions_direct_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_DIRECT:
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _defineProperty({}, action.direct.id, action.direct));
+
+    case _actions_direct_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_DIRECT:
+      newState = lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state);
+      delete newState[action.directId];
+      return newState;
+
+    default:
+      return state;
+  }
+});
 
 /***/ }),
 
@@ -2971,21 +3225,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
 /* harmony import */ var _channels_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./channels_reducer */ "./frontend/reducers/channels_reducer.js");
 /* harmony import */ var _memberships_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./memberships_reducer */ "./frontend/reducers/memberships_reducer.js");
 /* harmony import */ var _messages_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./messages_reducer */ "./frontend/reducers/messages_reducer.js");
+/* harmony import */ var _directs_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./directs_reducer */ "./frontend/reducers/directs_reducer.js");
 
 
 
 
 
-var entitiesReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
+
+var entitiesReducer = (0,redux__WEBPACK_IMPORTED_MODULE_5__.combineReducers)({
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_0__["default"],
   channels: _channels_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   messages: _messages_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
-  memberships: _memberships_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  memberships: _memberships_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  directs: _directs_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (entitiesReducer);
 
@@ -3024,50 +3281,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var _actions_membership_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/membership_actions */ "./frontend/actions/membership_actions.js");
-/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_membership_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/membership_actions */ "./frontend/actions/membership_actions.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_1__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
-
-
-var membershipsReducer = function membershipsReducer() {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
-  var newState = Object.assign({}, state);
+  var newState;
 
   switch (action.type) {
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CURRENT_USER:
-      return action.currentUser.memberships;
+    case _actions_membership_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MEMBERSHIPS:
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, action.memberships);
 
-    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__.RECEIVE_CHANNEL:
-      if (!!action.channel.membership) {
-        return Object.assign({}, newState, _defineProperty({}, action.channel.membership.id, action.channel.membership));
-      }
+    case _actions_membership_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MEMBERSHIP:
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _defineProperty({}, action.membership.id, action.membership));
 
-    case _actions_membership_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_MEMBERSHIP:
-      if (!!action.membership) {
-        return Object.assign({}, newState, _defineProperty({}, action.membership.id, action.membership));
-      }
-
-    // case RECEIVE_MEMBERSHIPS:
-    //     if (!!action.memberships) {
-    //         return Object.assign({}, newState, action.memberships)
-    //     }
-
-    case _actions_membership_actions__WEBPACK_IMPORTED_MODULE_1__.REMOVE_MEMBERSHIP:
+    case _actions_membership_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_MEMBERSHIP:
+      newState = lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state);
       delete newState[action.membershipId];
       return newState;
 
     default:
       return state;
   }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (membershipsReducer);
+});
 
 /***/ }),
 
@@ -3082,32 +3324,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
-/* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/message_actions */ "./frontend/actions/message_actions.js");
+/* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/message_actions */ "./frontend/actions/message_actions.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_1__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
-var messagesReducer = function messagesReducer() {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
+  var newState;
 
   switch (action.type) {
-    case _actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_MESSAGES:
-      return Object.assign({}, state, action.payload);
+    case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_ALL_MESSAGES:
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, action.messages);
 
-    case _actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_MESSAGE:
-      return Object.assign({}, state, action.payload.messages);
-
-    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CHANNEL:
-      return action.channel.messages;
+    case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MESSAGE:
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _defineProperty({}, action.message.id, action.message));
 
     default:
       return state;
   }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (messagesReducer);
+});
 
 /***/ }),
 
@@ -3239,17 +3479,12 @@ var _nullUser = Object.freeze({
 var sessionReducer = function sessionReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _nullUser;
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  Object.freeze(state);
+  Object.freeze(state); // debugger
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CURRENT_USER:
       return Object.assign({}, state, {
-        id: action.currentUser.id
-      });
-
-    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_CHANNEL:
-      return Object.assign({}, state, {
-        currentChannel: action.channel.channel.id
+        id: action.currentUser
       });
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__.LOGOUT_CURRENT_USER:
@@ -3308,7 +3543,7 @@ var usersReducer = function usersReducer() {
   Object.freeze(state);
 
   switch (action.type) {
-    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_USERS:
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_ALL_USERS:
       return Object.assign({}, state, action.users);
 
     default:
@@ -3359,34 +3594,113 @@ var configureStore = function configureStore() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fetchChannels": () => (/* binding */ fetchChannels),
-/* harmony export */   "fetchChannel": () => (/* binding */ fetchChannel),
 /* harmony export */   "createChannel": () => (/* binding */ createChannel),
-/* harmony export */   "deleteChannel": () => (/* binding */ deleteChannel)
+/* harmony export */   "destroyChannel": () => (/* binding */ destroyChannel),
+/* harmony export */   "updateChannel": () => (/* binding */ updateChannel),
+/* harmony export */   "fetchChannel": () => (/* binding */ fetchChannel),
+/* harmony export */   "fetchAllChannels": () => (/* binding */ fetchAllChannels)
 /* harmony export */ });
-var fetchChannels = function fetchChannels() {
-  return $.ajax({
-    url: "api/channels"
-  });
-};
-var fetchChannel = function fetchChannel(channelId) {
-  return $.ajax({
-    url: "api/channels/".concat(channelId)
-  });
-};
 var createChannel = function createChannel(channel) {
   return $.ajax({
-    url: 'api/channels',
-    method: 'POST',
+    method: "POST",
+    url: "api/channels",
     data: {
       channel: channel
     }
   });
 };
-var deleteChannel = function deleteChannel(channelId) {
+var destroyChannel = function destroyChannel(id) {
   return $.ajax({
-    url: "api/channels/".concat(channelId),
-    method: 'DELETE'
+    method: "DELETE",
+    url: "api/channels/".concat(id)
+  });
+};
+var updateChannel = function updateChannel(channel) {
+  return $.ajax({
+    method: "PATCH",
+    url: "api/channels/".concat(channel.id),
+    data: {
+      channel: channel
+    }
+  });
+};
+var fetchChannel = function fetchChannel(id) {
+  return $.ajax({
+    method: "GET",
+    url: "api/channels/".concat(id)
+  });
+};
+var fetchAllChannels = function fetchAllChannels() {
+  return $.ajax({
+    method: "GET",
+    url: "api/channels"
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/direct_api_util.js":
+/*!******************************************!*\
+  !*** ./frontend/util/direct_api_util.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createDirect": () => (/* binding */ createDirect),
+/* harmony export */   "fetchDirect": () => (/* binding */ fetchDirect),
+/* harmony export */   "fetchAllDirects": () => (/* binding */ fetchAllDirects),
+/* harmony export */   "fetchUserDirects": () => (/* binding */ fetchUserDirects),
+/* harmony export */   "updateDirect": () => (/* binding */ updateDirect),
+/* harmony export */   "destroyDirect": () => (/* binding */ destroyDirect)
+/* harmony export */ });
+var createDirect = function createDirect(direct) {
+  return $.ajax({
+    method: "POST",
+    url: "api/directs",
+    data: {
+      direct: direct
+    }
+  });
+};
+var fetchDirect = function fetchDirect(id) {
+  return $.ajax({
+    method: "GET",
+    url: "api/directs/".concat(id)
+  });
+};
+var fetchAllDirects = function fetchAllDirects() {
+  return $.ajax({
+    method: "GET",
+    url: "api/directs",
+    data: {
+      id: "all"
+    }
+  });
+};
+var fetchUserDirects = function fetchUserDirects(id) {
+  return $.ajax({
+    method: "GET",
+    url: "api/directs",
+    data: {
+      id: id
+    }
+  });
+};
+var updateDirect = function updateDirect(direct) {
+  return $.ajax({
+    method: "PATCH",
+    url: "api/directs/".concat(direct.id),
+    data: {
+      direct: direct
+    }
+  });
+};
+var destroyDirect = function destroyDirect(id) {
+  return $.ajax({
+    method: "DELETE",
+    url: "api/directs/".concat(id)
   });
 };
 
@@ -3402,7 +3716,8 @@ var deleteChannel = function deleteChannel(channelId) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getUserPic": () => (/* binding */ getUserPic),
-/* harmony export */   "channelCheck": () => (/* binding */ channelCheck)
+/* harmony export */   "channelCheck": () => (/* binding */ channelCheck),
+/* harmony export */   "userChannels": () => (/* binding */ userChannels)
 /* harmony export */ });
 var getUserPic = function getUserPic(userName) {
   var first = userName.slice(0, 1).toLowerCase();
@@ -3423,32 +3738,44 @@ var getUserPic = function getUserPic(userName) {
     return "profile6.png";
   }
 };
-var channelCheck = function channelCheck(memberships, channelId, channels, identifier, currentUserId) {
+var channelCheck = function channelCheck(userDirects, identifier, currentUserId, typeId, allMemberships, allChannels) {
   var flag = false;
-  var redirectId;
 
-  if (identifier === 'user') {
-    // const ch1 = Object.values(channels).find(channel => (channel.name === channelId.toString() && channel.is_dm === true) || channel.admin_id === channelId && channel.is_dm === true)
-    var membershipChannelIds = {};
-    Object.values(memberships).forEach(function (membership) {
-      return membershipChannelIds[membership.channel_id] = membership.channel_id;
-    });
-    var ch1 = Object.values(channels).find(function (channel) {
-      var chId = channel.id;
-
-      if (membershipChannelIds[chId] && channel.admin_id === channelId && channel.name === currentUserId.toString() || channel.admin_id === parseInt(currentUserId) && channel.name === channelId.toString()) {
-        return channel;
+  if (identifier === 'direct') {
+    var directFinder = Object.values(userDirects).find(function (direct) {
+      if (direct.user_ids[0].user_id === currentUserId && direct.user_ids[1].user_id === typeId || direct.user_ids[1].user_id === currentUserId && direct.user_ids[0].user_id === typeId) {
+        return direct;
       }
     });
-    if (ch1) flag = ch1.id;
+    if (directFinder) flag = "direct/".concat(directFinder.id);
   } else if (identifier === 'channel') {
-    var ch2 = Object.values(memberships).some(function (membership) {
-      return membership.channel_id === channelId;
-    });
-    if (ch2) flag = channelId;
+    var userNavables = userChannels(allMemberships, currentUserId, allChannels, userDirects);
+
+    if (userNavables.channels.includes(parseInt(typeId))) {
+      flag = "channel/".concat(typeId);
+    }
   }
 
   return flag;
+};
+var userChannels = function userChannels(allMemberships, currentUserId, allChannels, userDirects) {
+  var userNavables = {
+    directs: [],
+    channels: []
+  };
+  Object.values(allMemberships).forEach(function (membership) {
+    var channelId = membership.memberable_type === 'Channel' && membership.user_id === currentUserId ? membership.memberable_id : null;
+    var directId = membership.memberable_type === 'Direct' && membership.user_id === currentUserId ? membership.memberable_id : null;
+    var channel = allChannels[channelId];
+    var direct = userDirects[directId];
+
+    if (channel || direct) {
+      channel ? userNavables["channels"].push(channel.id) : userNavables["directs"].push(direct.id);
+    } else {
+      return;
+    }
+  });
+  return userNavables;
 }; // const mem = Object.values(memberships).some(membership => membership.channel_id === channelId)
 
 /***/ }),
@@ -3463,27 +3790,45 @@ var channelCheck = function channelCheck(memberships, channelId, channels, ident
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createMembership": () => (/* binding */ createMembership),
-/* harmony export */   "deleteMembership": () => (/* binding */ deleteMembership),
-/* harmony export */   "fetchMemberships": () => (/* binding */ fetchMemberships)
+/* harmony export */   "destroyMembership": () => (/* binding */ destroyMembership),
+/* harmony export */   "fetchMembership": () => (/* binding */ fetchMembership),
+/* harmony export */   "fetchMemberships": () => (/* binding */ fetchMemberships),
+/* harmony export */   "fetchChannelMemberships": () => (/* binding */ fetchChannelMemberships)
 /* harmony export */ });
 var createMembership = function createMembership(membership) {
   return $.ajax({
-    url: 'api/memberships',
-    method: 'POST',
+    method: "POST",
+    url: "api/memberships",
     data: {
       membership: membership
     }
   });
 };
-var deleteMembership = function deleteMembership(membershipId) {
+var destroyMembership = function destroyMembership(id) {
   return $.ajax({
-    url: "api/memberships/".concat(membershipId),
-    method: 'DELETE'
+    method: "DELETE",
+    url: "api/memberships/".concat(id)
+  });
+};
+var fetchMembership = function fetchMembership(id) {
+  return $.ajax({
+    method: "GET",
+    url: "api/memberships/".concat(id)
   });
 };
 var fetchMemberships = function fetchMemberships() {
   return $.ajax({
+    method: "GET",
     url: "api/memberships"
+  });
+};
+var fetchChannelMemberships = function fetchChannelMemberships(channelId) {
+  return $.ajax({
+    method: "GET",
+    url: "api/memberships",
+    data: {
+      channelId: channelId
+    }
   });
 };
 
@@ -3498,20 +3843,17 @@ var fetchMemberships = function fetchMemberships() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fetchMessage": () => (/* binding */ fetchMessage),
 /* harmony export */   "createMessage": () => (/* binding */ createMessage),
 /* harmony export */   "updateMessage": () => (/* binding */ updateMessage),
-/* harmony export */   "fetchMessages": () => (/* binding */ fetchMessages)
+/* harmony export */   "fetchMessage": () => (/* binding */ fetchMessage),
+/* harmony export */   "fetchAllMessages": () => (/* binding */ fetchAllMessages),
+/* harmony export */   "fetchChannelMessages": () => (/* binding */ fetchChannelMessages),
+/* harmony export */   "fetchDirectMessages": () => (/* binding */ fetchDirectMessages)
 /* harmony export */ });
-var fetchMessage = function fetchMessage(messageId) {
-  return $.ajax({
-    url: "api/messages/".concat(messageId)
-  });
-};
 var createMessage = function createMessage(message) {
   return $.ajax({
-    url: 'api/messages',
-    method: 'POST',
+    method: "POST",
+    url: "api/messages",
     data: {
       message: message
     }
@@ -3519,16 +3861,41 @@ var createMessage = function createMessage(message) {
 };
 var updateMessage = function updateMessage(message) {
   return $.ajax({
-    url: 'api/messages',
-    method: 'PATCH',
+    method: "PATCH",
+    url: "api/messages/".concat(message.id),
     data: {
       message: message
     }
   });
 };
-var fetchMessages = function fetchMessages() {
+var fetchMessage = function fetchMessage(id) {
   return $.ajax({
+    method: "GET",
+    url: "api/messages/".concat(id)
+  });
+};
+var fetchAllMessages = function fetchAllMessages() {
+  return $.ajax({
+    method: "GET",
     url: "api/messages"
+  });
+};
+var fetchChannelMessages = function fetchChannelMessages(channelId) {
+  return $.ajax({
+    method: "GET",
+    url: "api/messages",
+    data: {
+      channelId: channelId
+    }
+  });
+};
+var fetchDirectMessages = function fetchDirectMessages(directId) {
+  return $.ajax({
+    method: "GET",
+    url: "api/messages",
+    data: {
+      directId: directId
+    }
   });
 };
 
@@ -3563,7 +3930,7 @@ var Auth = function Auth(_ref) {
     exact: exact,
     render: function render(props) {
       return !loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, props) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Redirect, {
-        to: "/client/1"
+        to: "/client/channel/1"
       });
     }
   });
@@ -3645,24 +4012,21 @@ var logout = function logout() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fetchUser": () => (/* binding */ fetchUser),
-/* harmony export */   "fetchUsers": () => (/* binding */ fetchUsers)
+/* harmony export */   "fetchAllUsers": () => (/* binding */ fetchAllUsers),
+/* harmony export */   "fetchUser": () => (/* binding */ fetchUser)
 /* harmony export */ });
-var fetchUser = function fetchUser(userId) {
+var fetchAllUsers = function fetchAllUsers() {
   return $.ajax({
-    url: "/api/users/".concat(userId)
-  });
-};
-var fetchUsers = function fetchUsers() {
-  return $.ajax({
+    method: "GET",
     url: "/api/users"
   });
-}; // export const fetchUsers = () => {
-//     return $.ajax({
-//         method: 'GET',
-//         url: `/api/users`
-//     })
-// };
+};
+var fetchUser = function fetchUser(id) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users/".concat(id)
+  });
+};
 
 /***/ }),
 
@@ -4734,6 +5098,3385 @@ module.exports = hoistNonReactStatics;
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Hash.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/_Hash.js ***!
+  \**************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var hashClear = __webpack_require__(/*! ./_hashClear */ "./node_modules/lodash/_hashClear.js"),
+    hashDelete = __webpack_require__(/*! ./_hashDelete */ "./node_modules/lodash/_hashDelete.js"),
+    hashGet = __webpack_require__(/*! ./_hashGet */ "./node_modules/lodash/_hashGet.js"),
+    hashHas = __webpack_require__(/*! ./_hashHas */ "./node_modules/lodash/_hashHas.js"),
+    hashSet = __webpack_require__(/*! ./_hashSet */ "./node_modules/lodash/_hashSet.js");
+
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Hash(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `Hash`.
+Hash.prototype.clear = hashClear;
+Hash.prototype['delete'] = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+
+module.exports = Hash;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_ListCache.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_ListCache.js ***!
+  \*******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var listCacheClear = __webpack_require__(/*! ./_listCacheClear */ "./node_modules/lodash/_listCacheClear.js"),
+    listCacheDelete = __webpack_require__(/*! ./_listCacheDelete */ "./node_modules/lodash/_listCacheDelete.js"),
+    listCacheGet = __webpack_require__(/*! ./_listCacheGet */ "./node_modules/lodash/_listCacheGet.js"),
+    listCacheHas = __webpack_require__(/*! ./_listCacheHas */ "./node_modules/lodash/_listCacheHas.js"),
+    listCacheSet = __webpack_require__(/*! ./_listCacheSet */ "./node_modules/lodash/_listCacheSet.js");
+
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function ListCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `ListCache`.
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype['delete'] = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+
+module.exports = ListCache;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Map.js":
+/*!*************************************!*\
+  !*** ./node_modules/lodash/_Map.js ***!
+  \*************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/* Built-in method references that are verified to be native. */
+var Map = getNative(root, 'Map');
+
+module.exports = Map;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_MapCache.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_MapCache.js ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var mapCacheClear = __webpack_require__(/*! ./_mapCacheClear */ "./node_modules/lodash/_mapCacheClear.js"),
+    mapCacheDelete = __webpack_require__(/*! ./_mapCacheDelete */ "./node_modules/lodash/_mapCacheDelete.js"),
+    mapCacheGet = __webpack_require__(/*! ./_mapCacheGet */ "./node_modules/lodash/_mapCacheGet.js"),
+    mapCacheHas = __webpack_require__(/*! ./_mapCacheHas */ "./node_modules/lodash/_mapCacheHas.js"),
+    mapCacheSet = __webpack_require__(/*! ./_mapCacheSet */ "./node_modules/lodash/_mapCacheSet.js");
+
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function MapCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `MapCache`.
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype['delete'] = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+
+module.exports = MapCache;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Stack.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/_Stack.js ***!
+  \***************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
+    stackClear = __webpack_require__(/*! ./_stackClear */ "./node_modules/lodash/_stackClear.js"),
+    stackDelete = __webpack_require__(/*! ./_stackDelete */ "./node_modules/lodash/_stackDelete.js"),
+    stackGet = __webpack_require__(/*! ./_stackGet */ "./node_modules/lodash/_stackGet.js"),
+    stackHas = __webpack_require__(/*! ./_stackHas */ "./node_modules/lodash/_stackHas.js"),
+    stackSet = __webpack_require__(/*! ./_stackSet */ "./node_modules/lodash/_stackSet.js");
+
+/**
+ * Creates a stack cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Stack(entries) {
+  var data = this.__data__ = new ListCache(entries);
+  this.size = data.size;
+}
+
+// Add methods to `Stack`.
+Stack.prototype.clear = stackClear;
+Stack.prototype['delete'] = stackDelete;
+Stack.prototype.get = stackGet;
+Stack.prototype.has = stackHas;
+Stack.prototype.set = stackSet;
+
+module.exports = Stack;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Symbol.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/_Symbol.js ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/** Built-in value references. */
+var Symbol = root.Symbol;
+
+module.exports = Symbol;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Uint8Array.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_Uint8Array.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/** Built-in value references. */
+var Uint8Array = root.Uint8Array;
+
+module.exports = Uint8Array;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_apply.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/_apply.js ***!
+  \***************************************/
+/***/ ((module) => {
+
+/**
+ * A faster alternative to `Function#apply`, this function invokes `func`
+ * with the `this` binding of `thisArg` and the arguments of `args`.
+ *
+ * @private
+ * @param {Function} func The function to invoke.
+ * @param {*} thisArg The `this` binding of `func`.
+ * @param {Array} args The arguments to invoke `func` with.
+ * @returns {*} Returns the result of `func`.
+ */
+function apply(func, thisArg, args) {
+  switch (args.length) {
+    case 0: return func.call(thisArg);
+    case 1: return func.call(thisArg, args[0]);
+    case 2: return func.call(thisArg, args[0], args[1]);
+    case 3: return func.call(thisArg, args[0], args[1], args[2]);
+  }
+  return func.apply(thisArg, args);
+}
+
+module.exports = apply;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_arrayLikeKeys.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_arrayLikeKeys.js ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseTimes = __webpack_require__(/*! ./_baseTimes */ "./node_modules/lodash/_baseTimes.js"),
+    isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
+    isIndex = __webpack_require__(/*! ./_isIndex */ "./node_modules/lodash/_isIndex.js"),
+    isTypedArray = __webpack_require__(/*! ./isTypedArray */ "./node_modules/lodash/isTypedArray.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  var isArr = isArray(value),
+      isArg = !isArr && isArguments(value),
+      isBuff = !isArr && !isArg && isBuffer(value),
+      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? baseTimes(value.length, String) : [],
+      length = result.length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty.call(value, key)) &&
+        !(skipIndexes && (
+           // Safari 9 has enumerable `arguments.length` in strict mode.
+           key == 'length' ||
+           // Node.js 0.10 has enumerable non-index properties on buffers.
+           (isBuff && (key == 'offset' || key == 'parent')) ||
+           // PhantomJS 2 has enumerable non-index properties on typed arrays.
+           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+           // Skip index properties.
+           isIndex(key, length)
+        ))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+module.exports = arrayLikeKeys;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_assignMergeValue.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/_assignMergeValue.js ***!
+  \**************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
+    eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js");
+
+/**
+ * This function is like `assignValue` except that it doesn't assign
+ * `undefined` values.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignMergeValue(object, key, value) {
+  if ((value !== undefined && !eq(object[key], value)) ||
+      (value === undefined && !(key in object))) {
+    baseAssignValue(object, key, value);
+  }
+}
+
+module.exports = assignMergeValue;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_assignValue.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_assignValue.js ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
+    eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Assigns `value` to `key` of `object` if the existing value is not equivalent
+ * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * for equality comparisons.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignValue(object, key, value) {
+  var objValue = object[key];
+  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
+      (value === undefined && !(key in object))) {
+    baseAssignValue(object, key, value);
+  }
+}
+
+module.exports = assignValue;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_assocIndexOf.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_assocIndexOf.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js");
+
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+
+module.exports = assocIndexOf;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseAssignValue.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseAssignValue.js ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var defineProperty = __webpack_require__(/*! ./_defineProperty */ "./node_modules/lodash/_defineProperty.js");
+
+/**
+ * The base implementation of `assignValue` and `assignMergeValue` without
+ * value checks.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function baseAssignValue(object, key, value) {
+  if (key == '__proto__' && defineProperty) {
+    defineProperty(object, key, {
+      'configurable': true,
+      'enumerable': true,
+      'value': value,
+      'writable': true
+    });
+  } else {
+    object[key] = value;
+  }
+}
+
+module.exports = baseAssignValue;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseCreate.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseCreate.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+
+/** Built-in value references. */
+var objectCreate = Object.create;
+
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} proto The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+var baseCreate = (function() {
+  function object() {}
+  return function(proto) {
+    if (!isObject(proto)) {
+      return {};
+    }
+    if (objectCreate) {
+      return objectCreate(proto);
+    }
+    object.prototype = proto;
+    var result = new object;
+    object.prototype = undefined;
+    return result;
+  };
+}());
+
+module.exports = baseCreate;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseFor.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_baseFor.js ***!
+  \*****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var createBaseFor = __webpack_require__(/*! ./_createBaseFor */ "./node_modules/lodash/_createBaseFor.js");
+
+/**
+ * The base implementation of `baseForOwn` which iterates over `object`
+ * properties returned by `keysFunc` and invokes `iteratee` for each property.
+ * Iteratee functions may exit iteration early by explicitly returning `false`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @returns {Object} Returns `object`.
+ */
+var baseFor = createBaseFor();
+
+module.exports = baseFor;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseGetTag.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseGetTag.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
+    getRawTag = __webpack_require__(/*! ./_getRawTag */ "./node_modules/lodash/_getRawTag.js"),
+    objectToString = __webpack_require__(/*! ./_objectToString */ "./node_modules/lodash/_objectToString.js");
+
+/** `Object#toString` result references. */
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag && symToStringTag in Object(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+module.exports = baseGetTag;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsArguments.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseIsArguments.js ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]';
+
+/**
+ * The base implementation of `_.isArguments`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ */
+function baseIsArguments(value) {
+  return isObjectLike(value) && baseGetTag(value) == argsTag;
+}
+
+module.exports = baseIsArguments;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsNative.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_baseIsNative.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
+    isMasked = __webpack_require__(/*! ./_isMasked */ "./node_modules/lodash/_isMasked.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    toSource = __webpack_require__(/*! ./_toSource */ "./node_modules/lodash/_toSource.js");
+
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+
+/** Used to detect host constructors (Safari). */
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to detect if a method is native. */
+var reIsNative = RegExp('^' +
+  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+);
+
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+
+module.exports = baseIsNative;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsTypedArray.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/_baseIsTypedArray.js ***!
+  \**************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag = '[object Function]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    objectTag = '[object Object]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    weakMapTag = '[object WeakMap]';
+
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+
+/** Used to identify `toStringTag` values of typed arrays. */
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+typedArrayTags[setTag] = typedArrayTags[stringTag] =
+typedArrayTags[weakMapTag] = false;
+
+/**
+ * The base implementation of `_.isTypedArray` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ */
+function baseIsTypedArray(value) {
+  return isObjectLike(value) &&
+    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+}
+
+module.exports = baseIsTypedArray;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseKeysIn.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseKeysIn.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js"),
+    nativeKeysIn = __webpack_require__(/*! ./_nativeKeysIn */ "./node_modules/lodash/_nativeKeysIn.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function baseKeysIn(object) {
+  if (!isObject(object)) {
+    return nativeKeysIn(object);
+  }
+  var isProto = isPrototype(object),
+      result = [];
+
+  for (var key in object) {
+    if (!(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+module.exports = baseKeysIn;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseMerge.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseMerge.js ***!
+  \*******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var Stack = __webpack_require__(/*! ./_Stack */ "./node_modules/lodash/_Stack.js"),
+    assignMergeValue = __webpack_require__(/*! ./_assignMergeValue */ "./node_modules/lodash/_assignMergeValue.js"),
+    baseFor = __webpack_require__(/*! ./_baseFor */ "./node_modules/lodash/_baseFor.js"),
+    baseMergeDeep = __webpack_require__(/*! ./_baseMergeDeep */ "./node_modules/lodash/_baseMergeDeep.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    keysIn = __webpack_require__(/*! ./keysIn */ "./node_modules/lodash/keysIn.js"),
+    safeGet = __webpack_require__(/*! ./_safeGet */ "./node_modules/lodash/_safeGet.js");
+
+/**
+ * The base implementation of `_.merge` without support for multiple sources.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} [customizer] The function to customize merged values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMerge(object, source, srcIndex, customizer, stack) {
+  if (object === source) {
+    return;
+  }
+  baseFor(source, function(srcValue, key) {
+    stack || (stack = new Stack);
+    if (isObject(srcValue)) {
+      baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
+    }
+    else {
+      var newValue = customizer
+        ? customizer(safeGet(object, key), srcValue, (key + ''), object, source, stack)
+        : undefined;
+
+      if (newValue === undefined) {
+        newValue = srcValue;
+      }
+      assignMergeValue(object, key, newValue);
+    }
+  }, keysIn);
+}
+
+module.exports = baseMerge;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseMergeDeep.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_baseMergeDeep.js ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var assignMergeValue = __webpack_require__(/*! ./_assignMergeValue */ "./node_modules/lodash/_assignMergeValue.js"),
+    cloneBuffer = __webpack_require__(/*! ./_cloneBuffer */ "./node_modules/lodash/_cloneBuffer.js"),
+    cloneTypedArray = __webpack_require__(/*! ./_cloneTypedArray */ "./node_modules/lodash/_cloneTypedArray.js"),
+    copyArray = __webpack_require__(/*! ./_copyArray */ "./node_modules/lodash/_copyArray.js"),
+    initCloneObject = __webpack_require__(/*! ./_initCloneObject */ "./node_modules/lodash/_initCloneObject.js"),
+    isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    isArrayLikeObject = __webpack_require__(/*! ./isArrayLikeObject */ "./node_modules/lodash/isArrayLikeObject.js"),
+    isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
+    isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    isPlainObject = __webpack_require__(/*! ./isPlainObject */ "./node_modules/lodash/isPlainObject.js"),
+    isTypedArray = __webpack_require__(/*! ./isTypedArray */ "./node_modules/lodash/isTypedArray.js"),
+    safeGet = __webpack_require__(/*! ./_safeGet */ "./node_modules/lodash/_safeGet.js"),
+    toPlainObject = __webpack_require__(/*! ./toPlainObject */ "./node_modules/lodash/toPlainObject.js");
+
+/**
+ * A specialized version of `baseMerge` for arrays and objects which performs
+ * deep merges and tracks traversed objects enabling objects with circular
+ * references to be merged.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {string} key The key of the value to merge.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} mergeFunc The function to merge values.
+ * @param {Function} [customizer] The function to customize assigned values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
+  var objValue = safeGet(object, key),
+      srcValue = safeGet(source, key),
+      stacked = stack.get(srcValue);
+
+  if (stacked) {
+    assignMergeValue(object, key, stacked);
+    return;
+  }
+  var newValue = customizer
+    ? customizer(objValue, srcValue, (key + ''), object, source, stack)
+    : undefined;
+
+  var isCommon = newValue === undefined;
+
+  if (isCommon) {
+    var isArr = isArray(srcValue),
+        isBuff = !isArr && isBuffer(srcValue),
+        isTyped = !isArr && !isBuff && isTypedArray(srcValue);
+
+    newValue = srcValue;
+    if (isArr || isBuff || isTyped) {
+      if (isArray(objValue)) {
+        newValue = objValue;
+      }
+      else if (isArrayLikeObject(objValue)) {
+        newValue = copyArray(objValue);
+      }
+      else if (isBuff) {
+        isCommon = false;
+        newValue = cloneBuffer(srcValue, true);
+      }
+      else if (isTyped) {
+        isCommon = false;
+        newValue = cloneTypedArray(srcValue, true);
+      }
+      else {
+        newValue = [];
+      }
+    }
+    else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+      newValue = objValue;
+      if (isArguments(objValue)) {
+        newValue = toPlainObject(objValue);
+      }
+      else if (!isObject(objValue) || isFunction(objValue)) {
+        newValue = initCloneObject(srcValue);
+      }
+    }
+    else {
+      isCommon = false;
+    }
+  }
+  if (isCommon) {
+    // Recursively merge objects and arrays (susceptible to call stack limits).
+    stack.set(srcValue, newValue);
+    mergeFunc(newValue, srcValue, srcIndex, customizer, stack);
+    stack['delete'](srcValue);
+  }
+  assignMergeValue(object, key, newValue);
+}
+
+module.exports = baseMergeDeep;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseRest.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_baseRest.js ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js"),
+    overRest = __webpack_require__(/*! ./_overRest */ "./node_modules/lodash/_overRest.js"),
+    setToString = __webpack_require__(/*! ./_setToString */ "./node_modules/lodash/_setToString.js");
+
+/**
+ * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @returns {Function} Returns the new function.
+ */
+function baseRest(func, start) {
+  return setToString(overRest(func, start, identity), func + '');
+}
+
+module.exports = baseRest;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseSetToString.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseSetToString.js ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var constant = __webpack_require__(/*! ./constant */ "./node_modules/lodash/constant.js"),
+    defineProperty = __webpack_require__(/*! ./_defineProperty */ "./node_modules/lodash/_defineProperty.js"),
+    identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js");
+
+/**
+ * The base implementation of `setToString` without support for hot loop shorting.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var baseSetToString = !defineProperty ? identity : function(func, string) {
+  return defineProperty(func, 'toString', {
+    'configurable': true,
+    'enumerable': false,
+    'value': constant(string),
+    'writable': true
+  });
+};
+
+module.exports = baseSetToString;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseTimes.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseTimes.js ***!
+  \*******************************************/
+/***/ ((module) => {
+
+/**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+
+module.exports = baseTimes;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseUnary.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseUnary.js ***!
+  \*******************************************/
+/***/ ((module) => {
+
+/**
+ * The base implementation of `_.unary` without support for storing metadata.
+ *
+ * @private
+ * @param {Function} func The function to cap arguments for.
+ * @returns {Function} Returns the new capped function.
+ */
+function baseUnary(func) {
+  return function(value) {
+    return func(value);
+  };
+}
+
+module.exports = baseUnary;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneArrayBuffer.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/_cloneArrayBuffer.js ***!
+  \**************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var Uint8Array = __webpack_require__(/*! ./_Uint8Array */ "./node_modules/lodash/_Uint8Array.js");
+
+/**
+ * Creates a clone of `arrayBuffer`.
+ *
+ * @private
+ * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
+ * @returns {ArrayBuffer} Returns the cloned array buffer.
+ */
+function cloneArrayBuffer(arrayBuffer) {
+  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
+  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
+  return result;
+}
+
+module.exports = cloneArrayBuffer;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneBuffer.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_cloneBuffer.js ***!
+  \*********************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+/* module decorator */ module = __webpack_require__.nmd(module);
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/** Detect free variable `exports`. */
+var freeExports =  true && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && "object" == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Built-in value references. */
+var Buffer = moduleExports ? root.Buffer : undefined,
+    allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined;
+
+/**
+ * Creates a clone of  `buffer`.
+ *
+ * @private
+ * @param {Buffer} buffer The buffer to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Buffer} Returns the cloned buffer.
+ */
+function cloneBuffer(buffer, isDeep) {
+  if (isDeep) {
+    return buffer.slice();
+  }
+  var length = buffer.length,
+      result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
+
+  buffer.copy(result);
+  return result;
+}
+
+module.exports = cloneBuffer;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneTypedArray.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_cloneTypedArray.js ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var cloneArrayBuffer = __webpack_require__(/*! ./_cloneArrayBuffer */ "./node_modules/lodash/_cloneArrayBuffer.js");
+
+/**
+ * Creates a clone of `typedArray`.
+ *
+ * @private
+ * @param {Object} typedArray The typed array to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the cloned typed array.
+ */
+function cloneTypedArray(typedArray, isDeep) {
+  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
+}
+
+module.exports = cloneTypedArray;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_copyArray.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_copyArray.js ***!
+  \*******************************************/
+/***/ ((module) => {
+
+/**
+ * Copies the values of `source` to `array`.
+ *
+ * @private
+ * @param {Array} source The array to copy values from.
+ * @param {Array} [array=[]] The array to copy values to.
+ * @returns {Array} Returns `array`.
+ */
+function copyArray(source, array) {
+  var index = -1,
+      length = source.length;
+
+  array || (array = Array(length));
+  while (++index < length) {
+    array[index] = source[index];
+  }
+  return array;
+}
+
+module.exports = copyArray;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_copyObject.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_copyObject.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var assignValue = __webpack_require__(/*! ./_assignValue */ "./node_modules/lodash/_assignValue.js"),
+    baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js");
+
+/**
+ * Copies properties of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy properties from.
+ * @param {Array} props The property identifiers to copy.
+ * @param {Object} [object={}] The object to copy properties to.
+ * @param {Function} [customizer] The function to customize copied values.
+ * @returns {Object} Returns `object`.
+ */
+function copyObject(source, props, object, customizer) {
+  var isNew = !object;
+  object || (object = {});
+
+  var index = -1,
+      length = props.length;
+
+  while (++index < length) {
+    var key = props[index];
+
+    var newValue = customizer
+      ? customizer(object[key], source[key], key, object, source)
+      : undefined;
+
+    if (newValue === undefined) {
+      newValue = source[key];
+    }
+    if (isNew) {
+      baseAssignValue(object, key, newValue);
+    } else {
+      assignValue(object, key, newValue);
+    }
+  }
+  return object;
+}
+
+module.exports = copyObject;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_coreJsData.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_coreJsData.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/** Used to detect overreaching core-js shims. */
+var coreJsData = root['__core-js_shared__'];
+
+module.exports = coreJsData;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_createAssigner.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_createAssigner.js ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseRest = __webpack_require__(/*! ./_baseRest */ "./node_modules/lodash/_baseRest.js"),
+    isIterateeCall = __webpack_require__(/*! ./_isIterateeCall */ "./node_modules/lodash/_isIterateeCall.js");
+
+/**
+ * Creates a function like `_.assign`.
+ *
+ * @private
+ * @param {Function} assigner The function to assign values.
+ * @returns {Function} Returns the new assigner function.
+ */
+function createAssigner(assigner) {
+  return baseRest(function(object, sources) {
+    var index = -1,
+        length = sources.length,
+        customizer = length > 1 ? sources[length - 1] : undefined,
+        guard = length > 2 ? sources[2] : undefined;
+
+    customizer = (assigner.length > 3 && typeof customizer == 'function')
+      ? (length--, customizer)
+      : undefined;
+
+    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+      customizer = length < 3 ? undefined : customizer;
+      length = 1;
+    }
+    object = Object(object);
+    while (++index < length) {
+      var source = sources[index];
+      if (source) {
+        assigner(object, source, index, customizer);
+      }
+    }
+    return object;
+  });
+}
+
+module.exports = createAssigner;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_createBaseFor.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_createBaseFor.js ***!
+  \***********************************************/
+/***/ ((module) => {
+
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseFor(fromRight) {
+  return function(object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+
+module.exports = createBaseFor;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_defineProperty.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_defineProperty.js ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js");
+
+var defineProperty = (function() {
+  try {
+    var func = getNative(Object, 'defineProperty');
+    func({}, '', {});
+    return func;
+  } catch (e) {}
+}());
+
+module.exports = defineProperty;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_freeGlobal.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_freeGlobal.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
+
+module.exports = freeGlobal;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getMapData.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_getMapData.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isKeyable = __webpack_require__(/*! ./_isKeyable */ "./node_modules/lodash/_isKeyable.js");
+
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+function getMapData(map, key) {
+  var data = map.__data__;
+  return isKeyable(key)
+    ? data[typeof key == 'string' ? 'string' : 'hash']
+    : data.map;
+}
+
+module.exports = getMapData;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getNative.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_getNative.js ***!
+  \*******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseIsNative = __webpack_require__(/*! ./_baseIsNative */ "./node_modules/lodash/_baseIsNative.js"),
+    getValue = __webpack_require__(/*! ./_getValue */ "./node_modules/lodash/_getValue.js");
+
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+module.exports = getNative;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getPrototype.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_getPrototype.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var overArg = __webpack_require__(/*! ./_overArg */ "./node_modules/lodash/_overArg.js");
+
+/** Built-in value references. */
+var getPrototype = overArg(Object.getPrototypeOf, Object);
+
+module.exports = getPrototype;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getRawTag.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_getRawTag.js ***!
+  \*******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  try {
+    value[symToStringTag] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+
+  var result = nativeObjectToString.call(value);
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+  return result;
+}
+
+module.exports = getRawTag;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getValue.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_getValue.js ***!
+  \******************************************/
+/***/ ((module) => {
+
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+
+module.exports = getValue;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashClear.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_hashClear.js ***!
+  \*******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+  this.size = 0;
+}
+
+module.exports = hashClear;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashDelete.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_hashDelete.js ***!
+  \********************************************/
+/***/ ((module) => {
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  var result = this.has(key) && delete this.__data__[key];
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+module.exports = hashDelete;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashGet.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_hashGet.js ***!
+  \*****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function hashGet(key) {
+  var data = this.__data__;
+  if (nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+
+module.exports = hashGet;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashHas.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_hashHas.js ***!
+  \*****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
+}
+
+module.exports = hashHas;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashSet.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_hashSet.js ***!
+  \*****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+function hashSet(key, value) {
+  var data = this.__data__;
+  this.size += this.has(key) ? 0 : 1;
+  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+  return this;
+}
+
+module.exports = hashSet;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_initCloneObject.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_initCloneObject.js ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseCreate = __webpack_require__(/*! ./_baseCreate */ "./node_modules/lodash/_baseCreate.js"),
+    getPrototype = __webpack_require__(/*! ./_getPrototype */ "./node_modules/lodash/_getPrototype.js"),
+    isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js");
+
+/**
+ * Initializes an object clone.
+ *
+ * @private
+ * @param {Object} object The object to clone.
+ * @returns {Object} Returns the initialized clone.
+ */
+function initCloneObject(object) {
+  return (typeof object.constructor == 'function' && !isPrototype(object))
+    ? baseCreate(getPrototype(object))
+    : {};
+}
+
+module.exports = initCloneObject;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isIndex.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_isIndex.js ***!
+  \*****************************************/
+/***/ ((module) => {
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER : length;
+
+  return !!length &&
+    (type == 'number' ||
+      (type != 'symbol' && reIsUint.test(value))) &&
+        (value > -1 && value % 1 == 0 && value < length);
+}
+
+module.exports = isIndex;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isIterateeCall.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_isIterateeCall.js ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js"),
+    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js"),
+    isIndex = __webpack_require__(/*! ./_isIndex */ "./node_modules/lodash/_isIndex.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+
+/**
+ * Checks if the given arguments are from an iteratee call.
+ *
+ * @private
+ * @param {*} value The potential iteratee value argument.
+ * @param {*} index The potential iteratee index or key argument.
+ * @param {*} object The potential iteratee object argument.
+ * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+ *  else `false`.
+ */
+function isIterateeCall(value, index, object) {
+  if (!isObject(object)) {
+    return false;
+  }
+  var type = typeof index;
+  if (type == 'number'
+        ? (isArrayLike(object) && isIndex(index, object.length))
+        : (type == 'string' && index in object)
+      ) {
+    return eq(object[index], value);
+  }
+  return false;
+}
+
+module.exports = isIterateeCall;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isKeyable.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_isKeyable.js ***!
+  \*******************************************/
+/***/ ((module) => {
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+    ? (value !== '__proto__')
+    : (value === null);
+}
+
+module.exports = isKeyable;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isMasked.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_isMasked.js ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var coreJsData = __webpack_require__(/*! ./_coreJsData */ "./node_modules/lodash/_coreJsData.js");
+
+/** Used to detect methods masquerading as native. */
+var maskSrcKey = (function() {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? ('Symbol(src)_1.' + uid) : '';
+}());
+
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+function isMasked(func) {
+  return !!maskSrcKey && (maskSrcKey in func);
+}
+
+module.exports = isMasked;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isPrototype.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_isPrototype.js ***!
+  \*********************************************/
+/***/ ((module) => {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+
+  return value === proto;
+}
+
+module.exports = isPrototype;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheClear.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_listCacheClear.js ***!
+  \************************************************/
+/***/ ((module) => {
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+
+module.exports = listCacheClear;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheDelete.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_listCacheDelete.js ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+
+/** Used for built-in method references. */
+var arrayProto = Array.prototype;
+
+/** Built-in value references. */
+var splice = arrayProto.splice;
+
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  --this.size;
+  return true;
+}
+
+module.exports = listCacheDelete;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheGet.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_listCacheGet.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  return index < 0 ? undefined : data[index][1];
+}
+
+module.exports = listCacheGet;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheHas.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_listCacheHas.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+
+module.exports = listCacheHas;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheSet.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_listCacheSet.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    ++this.size;
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+
+module.exports = listCacheSet;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheClear.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheClear.js ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var Hash = __webpack_require__(/*! ./_Hash */ "./node_modules/lodash/_Hash.js"),
+    ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
+    Map = __webpack_require__(/*! ./_Map */ "./node_modules/lodash/_Map.js");
+
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+function mapCacheClear() {
+  this.size = 0;
+  this.__data__ = {
+    'hash': new Hash,
+    'map': new (Map || ListCache),
+    'string': new Hash
+  };
+}
+
+module.exports = mapCacheClear;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheDelete.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_mapCacheDelete.js ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function mapCacheDelete(key) {
+  var result = getMapData(this, key)['delete'](key);
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+module.exports = mapCacheDelete;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheGet.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheGet.js ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+
+module.exports = mapCacheGet;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheHas.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheHas.js ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+
+module.exports = mapCacheHas;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheSet.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheSet.js ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+function mapCacheSet(key, value) {
+  var data = getMapData(this, key),
+      size = data.size;
+
+  data.set(key, value);
+  this.size += data.size == size ? 0 : 1;
+  return this;
+}
+
+module.exports = mapCacheSet;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nativeCreate.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_nativeCreate.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js");
+
+/* Built-in method references that are verified to be native. */
+var nativeCreate = getNative(Object, 'create');
+
+module.exports = nativeCreate;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nativeKeysIn.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_nativeKeysIn.js ***!
+  \**********************************************/
+/***/ ((module) => {
+
+/**
+ * This function is like
+ * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * except that it includes inherited enumerable properties.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function nativeKeysIn(object) {
+  var result = [];
+  if (object != null) {
+    for (var key in Object(object)) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+module.exports = nativeKeysIn;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nodeUtil.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_nodeUtil.js ***!
+  \******************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+/* module decorator */ module = __webpack_require__.nmd(module);
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
+
+/** Detect free variable `exports`. */
+var freeExports =  true && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && "object" == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Detect free variable `process` from Node.js. */
+var freeProcess = moduleExports && freeGlobal.process;
+
+/** Used to access faster Node.js helpers. */
+var nodeUtil = (function() {
+  try {
+    // Use `util.types` for Node.js 10+.
+    var types = freeModule && freeModule.require && freeModule.require('util').types;
+
+    if (types) {
+      return types;
+    }
+
+    // Legacy `process.binding('util')` for Node.js < 10.
+    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+  } catch (e) {}
+}());
+
+module.exports = nodeUtil;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_objectToString.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_objectToString.js ***!
+  \************************************************/
+/***/ ((module) => {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+function objectToString(value) {
+  return nativeObjectToString.call(value);
+}
+
+module.exports = objectToString;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_overArg.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_overArg.js ***!
+  \*****************************************/
+/***/ ((module) => {
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+
+module.exports = overArg;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_overRest.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_overRest.js ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var apply = __webpack_require__(/*! ./_apply */ "./node_modules/lodash/_apply.js");
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * A specialized version of `baseRest` which transforms the rest array.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @param {Function} transform The rest array transform.
+ * @returns {Function} Returns the new function.
+ */
+function overRest(func, start, transform) {
+  start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
+  return function() {
+    var args = arguments,
+        index = -1,
+        length = nativeMax(args.length - start, 0),
+        array = Array(length);
+
+    while (++index < length) {
+      array[index] = args[start + index];
+    }
+    index = -1;
+    var otherArgs = Array(start + 1);
+    while (++index < start) {
+      otherArgs[index] = args[index];
+    }
+    otherArgs[start] = transform(array);
+    return apply(func, this, otherArgs);
+  };
+}
+
+module.exports = overRest;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_root.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/_root.js ***!
+  \**************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+module.exports = root;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_safeGet.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_safeGet.js ***!
+  \*****************************************/
+/***/ ((module) => {
+
+/**
+ * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function safeGet(object, key) {
+  if (key === 'constructor' && typeof object[key] === 'function') {
+    return;
+  }
+
+  if (key == '__proto__') {
+    return;
+  }
+
+  return object[key];
+}
+
+module.exports = safeGet;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_setToString.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_setToString.js ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseSetToString = __webpack_require__(/*! ./_baseSetToString */ "./node_modules/lodash/_baseSetToString.js"),
+    shortOut = __webpack_require__(/*! ./_shortOut */ "./node_modules/lodash/_shortOut.js");
+
+/**
+ * Sets the `toString` method of `func` to return `string`.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var setToString = shortOut(baseSetToString);
+
+module.exports = setToString;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_shortOut.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_shortOut.js ***!
+  \******************************************/
+/***/ ((module) => {
+
+/** Used to detect hot functions by number of calls within a span of milliseconds. */
+var HOT_COUNT = 800,
+    HOT_SPAN = 16;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeNow = Date.now;
+
+/**
+ * Creates a function that'll short out and invoke `identity` instead
+ * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
+ * milliseconds.
+ *
+ * @private
+ * @param {Function} func The function to restrict.
+ * @returns {Function} Returns the new shortable function.
+ */
+function shortOut(func) {
+  var count = 0,
+      lastCalled = 0;
+
+  return function() {
+    var stamp = nativeNow(),
+        remaining = HOT_SPAN - (stamp - lastCalled);
+
+    lastCalled = stamp;
+    if (remaining > 0) {
+      if (++count >= HOT_COUNT) {
+        return arguments[0];
+      }
+    } else {
+      count = 0;
+    }
+    return func.apply(undefined, arguments);
+  };
+}
+
+module.exports = shortOut;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackClear.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_stackClear.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js");
+
+/**
+ * Removes all key-value entries from the stack.
+ *
+ * @private
+ * @name clear
+ * @memberOf Stack
+ */
+function stackClear() {
+  this.__data__ = new ListCache;
+  this.size = 0;
+}
+
+module.exports = stackClear;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackDelete.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_stackDelete.js ***!
+  \*********************************************/
+/***/ ((module) => {
+
+/**
+ * Removes `key` and its value from the stack.
+ *
+ * @private
+ * @name delete
+ * @memberOf Stack
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function stackDelete(key) {
+  var data = this.__data__,
+      result = data['delete'](key);
+
+  this.size = data.size;
+  return result;
+}
+
+module.exports = stackDelete;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackGet.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_stackGet.js ***!
+  \******************************************/
+/***/ ((module) => {
+
+/**
+ * Gets the stack value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Stack
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function stackGet(key) {
+  return this.__data__.get(key);
+}
+
+module.exports = stackGet;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackHas.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_stackHas.js ***!
+  \******************************************/
+/***/ ((module) => {
+
+/**
+ * Checks if a stack value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Stack
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function stackHas(key) {
+  return this.__data__.has(key);
+}
+
+module.exports = stackHas;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackSet.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_stackSet.js ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
+    Map = __webpack_require__(/*! ./_Map */ "./node_modules/lodash/_Map.js"),
+    MapCache = __webpack_require__(/*! ./_MapCache */ "./node_modules/lodash/_MapCache.js");
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/**
+ * Sets the stack `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Stack
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the stack cache instance.
+ */
+function stackSet(key, value) {
+  var data = this.__data__;
+  if (data instanceof ListCache) {
+    var pairs = data.__data__;
+    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+      pairs.push([key, value]);
+      this.size = ++data.size;
+      return this;
+    }
+    data = this.__data__ = new MapCache(pairs);
+  }
+  data.set(key, value);
+  this.size = data.size;
+  return this;
+}
+
+module.exports = stackSet;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_toSource.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_toSource.js ***!
+  \******************************************/
+/***/ ((module) => {
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to convert.
+ * @returns {string} Returns the source code.
+ */
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+    try {
+      return (func + '');
+    } catch (e) {}
+  }
+  return '';
+}
+
+module.exports = toSource;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/constant.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/constant.js ***!
+  \*****************************************/
+/***/ ((module) => {
+
+/**
+ * Creates a function that returns `value`.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {*} value The value to return from the new function.
+ * @returns {Function} Returns the new constant function.
+ * @example
+ *
+ * var objects = _.times(2, _.constant({ 'a': 1 }));
+ *
+ * console.log(objects);
+ * // => [{ 'a': 1 }, { 'a': 1 }]
+ *
+ * console.log(objects[0] === objects[1]);
+ * // => true
+ */
+function constant(value) {
+  return function() {
+    return value;
+  };
+}
+
+module.exports = constant;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/eq.js":
+/*!***********************************!*\
+  !*** ./node_modules/lodash/eq.js ***!
+  \***********************************/
+/***/ ((module) => {
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
+module.exports = eq;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/identity.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/identity.js ***!
+  \*****************************************/
+/***/ ((module) => {
+
+/**
+ * This method returns the first argument it receives.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ *
+ * console.log(_.identity(object) === object);
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+
+module.exports = identity;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArguments.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/isArguments.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseIsArguments = __webpack_require__(/*! ./_baseIsArguments */ "./node_modules/lodash/_baseIsArguments.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Built-in value references. */
+var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
+  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
+    !propertyIsEnumerable.call(value, 'callee');
+};
+
+module.exports = isArguments;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArray.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/isArray.js ***!
+  \****************************************/
+/***/ ((module) => {
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+module.exports = isArray;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArrayLike.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/isArrayLike.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
+    isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js");
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+module.exports = isArrayLike;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArrayLikeObject.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/isArrayLikeObject.js ***!
+  \**************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/**
+ * This method is like `_.isArrayLike` except that it also checks if `value`
+ * is an object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array-like object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArrayLikeObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLikeObject(document.body.children);
+ * // => true
+ *
+ * _.isArrayLikeObject('abc');
+ * // => false
+ *
+ * _.isArrayLikeObject(_.noop);
+ * // => false
+ */
+function isArrayLikeObject(value) {
+  return isObjectLike(value) && isArrayLike(value);
+}
+
+module.exports = isArrayLikeObject;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isBuffer.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isBuffer.js ***!
+  \*****************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+/* module decorator */ module = __webpack_require__.nmd(module);
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js"),
+    stubFalse = __webpack_require__(/*! ./stubFalse */ "./node_modules/lodash/stubFalse.js");
+
+/** Detect free variable `exports`. */
+var freeExports =  true && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && "object" == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Built-in value references. */
+var Buffer = moduleExports ? root.Buffer : undefined;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
+
+/**
+ * Checks if `value` is a buffer.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+ * @example
+ *
+ * _.isBuffer(new Buffer(2));
+ * // => true
+ *
+ * _.isBuffer(new Uint8Array(2));
+ * // => false
+ */
+var isBuffer = nativeIsBuffer || stubFalse;
+
+module.exports = isBuffer;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isFunction.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/isFunction.js ***!
+  \*******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+
+/** `Object#toString` result references. */
+var asyncTag = '[object AsyncFunction]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    proxyTag = '[object Proxy]';
+
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+function isFunction(value) {
+  if (!isObject(value)) {
+    return false;
+  }
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+  var tag = baseGetTag(value);
+  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+}
+
+module.exports = isFunction;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isLength.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isLength.js ***!
+  \*****************************************/
+/***/ ((module) => {
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+function isLength(value) {
+  return typeof value == 'number' &&
+    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+module.exports = isLength;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObject.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isObject.js ***!
+  \*****************************************/
+/***/ ((module) => {
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+module.exports = isObject;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObjectLike.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/isObjectLike.js ***!
+  \*********************************************/
+/***/ ((module) => {
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+module.exports = isObjectLike;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isPlainObject.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/isPlainObject.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    getPrototype = __webpack_require__(/*! ./_getPrototype */ "./node_modules/lodash/_getPrototype.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var objectTag = '[object Object]';
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to infer the `Object` constructor. */
+var objectCtorString = funcToString.call(Object);
+
+/**
+ * Checks if `value` is a plain object, that is, an object created by the
+ * `Object` constructor or one with a `[[Prototype]]` of `null`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.8.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);
+ * // => false
+ *
+ * _.isPlainObject([1, 2, 3]);
+ * // => false
+ *
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
+ * // => true
+ *
+ * _.isPlainObject(Object.create(null));
+ * // => true
+ */
+function isPlainObject(value) {
+  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+    return false;
+  }
+  var proto = getPrototype(value);
+  if (proto === null) {
+    return true;
+  }
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
+    funcToString.call(Ctor) == objectCtorString;
+}
+
+module.exports = isPlainObject;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isTypedArray.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/isTypedArray.js ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseIsTypedArray = __webpack_require__(/*! ./_baseIsTypedArray */ "./node_modules/lodash/_baseIsTypedArray.js"),
+    baseUnary = __webpack_require__(/*! ./_baseUnary */ "./node_modules/lodash/_baseUnary.js"),
+    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ "./node_modules/lodash/_nodeUtil.js");
+
+/* Node.js helper references. */
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+
+/**
+ * Checks if `value` is classified as a typed array.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ * @example
+ *
+ * _.isTypedArray(new Uint8Array);
+ * // => true
+ *
+ * _.isTypedArray([]);
+ * // => false
+ */
+var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+
+module.exports = isTypedArray;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/keysIn.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/keysIn.js ***!
+  \***************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var arrayLikeKeys = __webpack_require__(/*! ./_arrayLikeKeys */ "./node_modules/lodash/_arrayLikeKeys.js"),
+    baseKeysIn = __webpack_require__(/*! ./_baseKeysIn */ "./node_modules/lodash/_baseKeysIn.js"),
+    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
+
+/**
+ * Creates an array of the own and inherited enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keysIn(new Foo);
+ * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+ */
+function keysIn(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
+}
+
+module.exports = keysIn;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/merge.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/merge.js ***!
+  \**************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseMerge = __webpack_require__(/*! ./_baseMerge */ "./node_modules/lodash/_baseMerge.js"),
+    createAssigner = __webpack_require__(/*! ./_createAssigner */ "./node_modules/lodash/_createAssigner.js");
+
+/**
+ * This method is like `_.assign` except that it recursively merges own and
+ * inherited enumerable string keyed properties of source objects into the
+ * destination object. Source properties that resolve to `undefined` are
+ * skipped if a destination value exists. Array and plain object properties
+ * are merged recursively. Other objects and value types are overridden by
+ * assignment. Source objects are applied from left to right. Subsequent
+ * sources overwrite property assignments of previous sources.
+ *
+ * **Note:** This method mutates `object`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.5.0
+ * @category Object
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * var object = {
+ *   'a': [{ 'b': 2 }, { 'd': 4 }]
+ * };
+ *
+ * var other = {
+ *   'a': [{ 'c': 3 }, { 'e': 5 }]
+ * };
+ *
+ * _.merge(object, other);
+ * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
+ */
+var merge = createAssigner(function(object, source, srcIndex) {
+  baseMerge(object, source, srcIndex);
+});
+
+module.exports = merge;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/stubFalse.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/stubFalse.js ***!
+  \******************************************/
+/***/ ((module) => {
+
+/**
+ * This method returns `false`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {boolean} Returns `false`.
+ * @example
+ *
+ * _.times(2, _.stubFalse);
+ * // => [false, false]
+ */
+function stubFalse() {
+  return false;
+}
+
+module.exports = stubFalse;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/toPlainObject.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/toPlainObject.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var copyObject = __webpack_require__(/*! ./_copyObject */ "./node_modules/lodash/_copyObject.js"),
+    keysIn = __webpack_require__(/*! ./keysIn */ "./node_modules/lodash/keysIn.js");
+
+/**
+ * Converts `value` to a plain object flattening inherited enumerable string
+ * keyed properties of `value` to own properties of the plain object.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {Object} Returns the converted plain object.
+ * @example
+ *
+ * function Foo() {
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.assign({ 'a': 1 }, new Foo);
+ * // => { 'a': 1, 'b': 2 }
+ *
+ * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
+ * // => { 'a': 1, 'b': 2, 'c': 3 }
+ */
+function toPlainObject(value) {
+  return copyObject(value, keysIn(value));
+}
+
+module.exports = toPlainObject;
 
 
 /***/ }),
@@ -40975,13 +44718,16 @@ function _setPrototypeOf(o, p) {
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
+/******/ 			id: moduleId,
+/******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -41037,6 +44783,15 @@ function _setPrototypeOf(o, p) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/node module decorator */
+/******/ 	(() => {
+/******/ 		__webpack_require__.nmd = (module) => {
+/******/ 			module.paths = [];
+/******/ 			if (!module.children) module.children = [];
+/******/ 			return module;
 /******/ 		};
 /******/ 	})();
 /******/ 	

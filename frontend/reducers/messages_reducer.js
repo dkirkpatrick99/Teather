@@ -1,18 +1,19 @@
-import { RECEIVE_CHANNEL } from '../actions/channel_actions';
-import { RECEIVE_MESSAGE, RECEIVE_NEW_MESSAGE, RECEIVE_MESSAGES } from '../actions/message_actions';
+import {
+    RECEIVE_ALL_MESSAGES,
+    RECEIVE_MESSAGE
+} from "../actions/message_actions";
 
-const messagesReducer = (state = {}, action) => {
+import merge from "lodash/merge";
+
+export default (state = {}, action) => {
     Object.freeze(state);
+    let newState;
     switch (action.type) {
-        case RECEIVE_MESSAGES:
-            return Object.assign({}, state, action.payload)
+        case RECEIVE_ALL_MESSAGES:
+            return merge({}, action.messages);
         case RECEIVE_MESSAGE:
-            return Object.assign({}, state, action.payload.messages)
-        case RECEIVE_CHANNEL:
-            return action.channel.messages;
+            return merge({}, state, { [action.message.id]: action.message });
         default:
             return state;
     }
 };
-
-export default messagesReducer;

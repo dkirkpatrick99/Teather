@@ -17,29 +17,42 @@ export const getUserPic = userName => {
     }
 };
 
-export const channelCheck = (memberships, channelId, channels, identifier, currentUserId) => {
+export const channelCheck = (userDirects, identifier, currentUserId, typeId, allMemberships, allChannels) => {
     let flag = false;
-    let redirectId;
 
-
-    if(identifier === 'user') {
-        // const ch1 = Object.values(channels).find(channel => (channel.name === channelId.toString() && channel.is_dm === true) || channel.admin_id === channelId && channel.is_dm === true)
-        const membershipChannelIds = {}
-        Object.values(memberships).forEach(membership => membershipChannelIds[membership.channel_id] = membership.channel_id)
-
-
-        const ch1 = Object.values(channels).find(channel => {
-            const chId = channel.id
-            if (membershipChannelIds[chId] && ((channel.admin_id === channelId && channel.name === currentUserId.toString())) || ((channel.admin_id === parseInt(currentUserId) && channel.name === channelId.toString()))) {
-                return channel
+    if(identifier === 'direct') {
+        const directFinder = Object.values(userDirects).find(direct => {
+            if ((direct.user_ids[0].user_id === currentUserId && direct.user_ids[1].user_id === typeId) 
+                ||
+                (direct.user_ids[1].user_id === currentUserId && direct.user_ids[0].user_id === typeId) ) {
+                return direct
             }
         })
-        if(ch1) flag = ch1.id;
+        if(directFinder) flag = `direct/${directFinder.id}`;
 
     } else if (identifier === 'channel') {
-        const ch2 = Object.values(memberships).some(membership => membership.channel_id === channelId)
-        if(ch2) flag = channelId;
+        const userNavables = userChannels(allMemberships, currentUserId, allChannels, userDirects)
+        if(userNavables.channels.includes(parseInt(typeId))) {
+            flag = `channel/${typeId}`
+        }
     }
     return flag;
+}
+
+
+export const userChannels = (allMemberships, currentUserId, allChannels, userDirects) => {
+    let userNavables = {directs: [], channels: []};
+    Object.values(allMemberships).forEach(membership => {
+        const channelId = membership.memberable_type === 'Channel' && membership.user_id === currentUserId ? membership.memberable_id : null;
+        const directId = membership.memberable_type === 'Direct' && membership.user_id === currentUserId ? membership.memberable_id : null;
+        const channel = allChannels[channelId];
+        const direct = userDirects[directId]
+        if (channel || direct) {
+            channel ? userNavables["channels"].push(channel.id) : userNavables["directs"].push(direct.id)
+        } else {
+            return;
+        }
+    })    
+    return userNavables
 }
 // const mem = Object.values(memberships).some(membership => membership.channel_id === channelId)

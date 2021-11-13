@@ -2,56 +2,41 @@ class Api::MessagesController < ApplicationController
 
         before_action :require_logged_in
 
-    def show
-        @message = Message.includes(:user).find_by(id: params[:id])
-        render 'api/messages/show'
+    def index
+        if params[:channelId]
+            @messages = Channel.find_by(id: params[:channelId]).messages
+            render :index
+        else 
+            @messages = Direct.find_by(id: params[:directId]).messages
+            render :index
+        end
+
     end
 
-    def index
-        @messages = Channel.find(params[:channelId]).messages
-        # @messages = Message.all
-        render "api/messages/index"
-    end 
+    def show
+        @message = Message.find(params[:id])
+        render :show
+    end
 
     def create
-        @message = Message.new(message_params)
-        @message.user_id ||= current_user.id
-        if @message.save
-            ActionCable
-                .server
-                .broadcast("room-#{@message.channel_id}:messages",
-                message: {
-                    id: @message.id,
-                    body: @message.body,
-                    userId: @message.user_id,
-                    channelId: @message.channel_id,
-                    createdAt: @message.created_at,
-                },
-                user: {
-                    id: current_user.id,
-                    username: current_user.username
-                }
-            );
-            # render "api/messagess/show"
-        else
-            render json: @message.errors.full_messages, status: 422
-        end
+        # THIS METHOD INTENTIONALLY LEFT BLANK
+        # Messages created via Action Cable websocket
     end
 
-    def update
-        @message = Message.find_by(id: params[:id])
+    # def update
+    #     @message = Message.find(params[:id])
+    #     if @message.update_attributes(message_params)
+    #         broadcastEdit(formatEdit(@message))
+    #         render :show
+    #         # broadcastEdit(@message) # If you use this method, you'll need to pass the Message by id instead of jsut teh edits you made?
+    #     else
+    #         render json: ['Sorry, your update did not work.'], status: 400
+    #     end
+    # end
 
-        if @message.update(message_params)
-            render 'api/messages/show'
-        else
-            render json: @message.errors.full_messages
-        end
-    end
-
-    private
-
+    private 
     def message_params
-        params.require(:message).permit(:body, :channel_id, :parent_id, :user_id)
+        params.require(:message).permit(:body, :messageable_id, :messageable_type, :user_id)
     end
 
 end

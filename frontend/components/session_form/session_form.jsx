@@ -14,8 +14,8 @@ class SessionForm extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchUsers();
-        this.props.fetchChannels();
+        this.props.fetchAllUsers();
+        this.props.fetchAllChannels();
     }
 
     update(field) {

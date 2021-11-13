@@ -5,7 +5,12 @@ import SideBarContainer from '../sideBar/sideBar_container'
 import BoardHeader from '../boardHeader/boardHeader'
 import ChannelShowContainer from '../channel/channel_show_container'
 import { logout } from '../../actions/session_actions'
-import ListenerContainer from '../channel/listener_container';
+import { fetchAllUsers, fetchUser } from "../../actions/user_actions";
+import { fetchMemberships, receiveMembership } from "../../actions/membership_actions";
+import { fetchChannel, fetchAllChannels } from "../../actions/channel_actions";
+import { fetchAllDirects, fetchDirect, fetchUserDirects } from "../../actions/direct_actions";
+import { fetchAllMessages } from "../../actions/message_actions";
+// import ListenerContainer from '../channel/listener_container';
 import Modal from '../modal/modal';
 
 class MessageBoard extends React.Component {
@@ -13,6 +18,51 @@ class MessageBoard extends React.Component {
     constructor(props) {
         super(props);
     };
+
+    componentDidMount() {
+        this.props.fetchAllUsers()
+            // .then(
+            // () => {
+            //     this.props.fetchAllChannels();
+            //     this.props.fetchAllDirects();
+            //     this.props.fetchMemberships();
+            //     this.props.fetchAllMessages();
+            // }
+        // )
+        App.NotificationsChannel = App.cable.subscriptions.create(
+            { channel: "NotificationsChannel", currentUserId: this.props.currentUser },
+            {
+                received: data => {
+                    switch (data.type) {
+
+                        case "membershipAdd":
+                            this.props
+                                .receiveMembership(data.membership);
+                            break;
+                        case "directAdd":
+                            this.props
+                                .fetchDirect(data.directId);
+                            break;
+                        case "channelAdd":
+                            this.props
+                                .fetchChannel(data.channelId);
+                            break;
+                        case "userAdd":
+                            this.props.fetchUserDirects(this.props.currentUser);
+                            this.props
+                                .fetchUser(data.userId);
+
+                            break;
+                    }
+                }
+            }
+        );
+    }
+    componentDidUpdate() { }
+
+    componentWillUnmount() {
+        App.NotificationsChannel.unsubscribe();
+    }
 
     
 
@@ -23,10 +73,10 @@ class MessageBoard extends React.Component {
             <div className="client-main-container">
                 <BoardHeader history={this.props.history} />
                 <div className="flex-container">
-                <SideBarContainer channelId={this.props.channelId}/>
-                    <ChannelShowContainer channelId={this.props.channelId.channel_id} history={this.props.history}/>
+                    <SideBarContainer type={this.props.type} typeId={this.props.typeId}/>
+                    <ChannelShowContainer type={this.props.type} typeId={this.props.typeId} history={this.props.history}/>
                 </div>
-                <ListenerContainer />
+                {/* <ListenerContainer type={this.props.type} typeId={this.props.typeId}/> */}
                 <Modal history={this.props.history}/>
                 
             </div>
@@ -39,15 +89,29 @@ class MessageBoard extends React.Component {
 // export default MessageBoard
 
 const mapSTP = (state, ownProps) => {
+    const currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id
     return {
-        channelId: ownProps.match.params,
+        // channelId: ownProps.match.params,
+        currentUser: currentUserId,
+        type: ownProps.match.params.type,
+        typeId: ownProps.match.params.type_id,
         history: ownProps.history
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        logout: () => dispatch(logout())
+        logout: () => dispatch(logout()),
+        fetchAllUsers: () => dispatch(fetchAllUsers()),
+        fetchAllChannels: () => dispatch(fetchAllChannels()),
+        fetchAllDirects: () => dispatch(fetchAllDirects()),
+        fetchChannel: id => dispatch(fetchChannel(id)),
+        fetchUser: id => dispatch(fetchUser(id)),
+        fetchMemberships: () => dispatch(fetchMemberships()),
+        fetchAllMessages: () => dispatch(fetchAllMessages()),
+        receiveMembership: membership => dispatch(receiveMembership(membership)),
+        fetchDirect: id => dispatch(fetchDirect(id)),
+        fetchUserDirects: (userId) => dispatch(fetchUserDirects(userId))
     };
 };
 

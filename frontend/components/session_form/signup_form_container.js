@@ -3,12 +3,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { signup } from '../../actions/session_actions';
 import SessionForm from './session_form';
-import { fetchUsers } from '../../actions/user_actions'
-import { fetchChannels } from "../../actions/channel_actions";
+import { fetchAllUsers } from '../../actions/user_actions'
+import { fetchAllChannels } from "../../actions/channel_actions";
 
-const mapStateToProps = ({ errors }) => {
+const mapStateToProps = (state) => {
+    // debugger
     return {
-        errors: errors.sessionErrors,
+        errors: state.errors.sessionErrors,
         formType: 'Sign Up for',
         navLink: <Link to="/login">log in instead</Link>,
     };
@@ -17,8 +18,8 @@ const mapStateToProps = ({ errors }) => {
 const mapDispatchToProps = dispatch => {
     return {
         processForm: (user) => dispatch(signup(user)),
-        fetchUsers: () => dispatch(fetchUsers()),
-        fetchChannels: () => dispatch(fetchChannels())
+        fetchAllUsers: () => dispatch(fetchAllUsers()),
+        fetchAllChannels: () => dispatch(fetchAllChannels())
     };
 };
 

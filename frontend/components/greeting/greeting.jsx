@@ -121,7 +121,7 @@ class Greeting extends React.Component{
                                     </div>
                                     <div className='greeting-button-container'>
                                         <Link className='greeting-signup-white' to='/signup'>TRY TEATHER</Link>
-                                        <Link className='greeting-login-button' to='/'>CONTACT ME</Link>
+                                    <a className='greeting-login-button' href="https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/">CONTACT ME</a>
                                     </div>
                                 </div>
 

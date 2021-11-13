@@ -4,7 +4,6 @@ class Api::SessionsController < ApplicationController
             params[:user][:email],
             params[:user][:password]
         )
-        
         if @user
             login(@user)
             #render user's show page
@@ -17,7 +16,6 @@ class Api::SessionsController < ApplicationController
 
     def destroy
         @user = current_user
-
         if @user
             logout
             #render splash page
