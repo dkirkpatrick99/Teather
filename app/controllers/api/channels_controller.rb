@@ -3,13 +3,15 @@ class Api::ChannelsController < ApplicationController
   def create
     @channel = Channel.new(channel_params)
     @channel.admin_id = current_user.id
-    
+    stack_bot = User.find_by(username: "stack_bot")
     if @channel.save
       broadcastNewChannelAll(@channel)
       params[:channel][:invitedUsersIds].each do |userId|
         @membership = Membership.create(user_id: userId.to_i, memberable_id: @channel.id, memberable_type: Channel)
         broadcastNewMembership(@membership)
       end
+    Message.create(user_id: stack_bot.id, body: "Channel messages have started", messageable_id: @channel.id, messageable_type: Channel)
+
       render :show
     else
       render json: @channel.errors.full_messages, status: 422
@@ -42,10 +44,10 @@ class Api::ChannelsController < ApplicationController
   end
 
   def destroy
-    channel = Channel.find(params[:id])
-    channel.destroy
-    @channel = Channel.find_by(name: "Global")
-    broadcastNewChannelAll(@channel)
+    @channel = Channel.find(params[:id])
+    @channel.destroy
+    # @channel = Channel.find_by(name: "Global")
+    # broadcastNewChannelAll(@channel)
     render :show
   end
 

@@ -21,14 +21,13 @@ class MessageBoard extends React.Component {
 
     componentDidMount() {
         this.props.fetchAllUsers()
-            // .then(
-            // () => {
-            //     this.props.fetchAllChannels();
+            .then(() => {
+                this.props.fetchAllChannels();
             //     this.props.fetchAllDirects();
             //     this.props.fetchMemberships();
             //     this.props.fetchAllMessages();
-            // }
-        // )
+            }
+        )
         App.NotificationsChannel = App.cable.subscriptions.create(
             { channel: "NotificationsChannel", currentUserId: this.props.currentUser },
             {

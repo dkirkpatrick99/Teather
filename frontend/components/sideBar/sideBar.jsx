@@ -68,7 +68,7 @@ class SideBar extends React.Component {
         let dmLinks
         let channelLinks
         dmLinks = Object.values(this.props.userDirects).length > 0 ? Object.values(this.props.userDirects).map(dm => {
-            const dmName = dm.name
+            const dmName = dm.name === "" ? "Me" : dm.name
             const notCurrentUserCheck = dm.user_ids[0].user_id === this.props.currentUser.id ? dm.user_ids[1].onlineStatus : dm.user_ids[0].onlineStatus
             const onlineIndicator = notCurrentUserCheck ? 
                 <div className='sidebar-online-wrapper'>

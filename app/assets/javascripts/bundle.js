@@ -2267,15 +2267,12 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this = this;
 
-      this.props.fetchAllUsers(); // .then(
-      // () => {
-      //     this.props.fetchAllChannels();
-      //     this.props.fetchAllDirects();
-      //     this.props.fetchMemberships();
-      //     this.props.fetchAllMessages();
-      // }
-      // )
+      this.props.fetchAllUsers().then(function () {
+        _this.props.fetchAllChannels(); //     this.props.fetchAllDirects();
+        //     this.props.fetchMemberships();
+        //     this.props.fetchAllMessages();
 
+      });
       App.NotificationsChannel = App.cable.subscriptions.create({
         channel: "NotificationsChannel",
         currentUserId: this.props.currentUser
@@ -2950,7 +2947,7 @@ var SideBar = /*#__PURE__*/function (_React$Component) {
       var dmLinks;
       var channelLinks;
       dmLinks = Object.values(this.props.userDirects).length > 0 ? Object.values(this.props.userDirects).map(function (dm) {
-        var dmName = dm.name;
+        var dmName = dm.name === "" ? "Me" : dm.name;
         var notCurrentUserCheck = dm.user_ids[0].user_id === _this2.props.currentUser.id ? dm.user_ids[1].onlineStatus : dm.user_ids[0].onlineStatus;
         var onlineIndicator = notCurrentUserCheck ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "sidebar-online-wrapper"
@@ -3767,7 +3764,7 @@ __webpack_require__.r(__webpack_exports__);
 var getUserPic = function getUserPic(userName) {
   var first = userName.slice(0, 1).toLowerCase();
 
-  if (userName === 'stack_bot') {
+  if (userName === 'Stack Bot') {
     return "slackbot.png";
   } else if ('abcd'.includes(first)) {
     return "profile1.png";

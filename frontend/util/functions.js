@@ -1,6 +1,6 @@
 export const getUserPic = userName => {
     let first = userName.slice(0, 1).toLowerCase();
-    if (userName === 'stack_bot') {
+    if (userName === 'Stack Bot') {
         return "slackbot.png";
     } else if ('abcd'.includes(first)) {
         return "profile1.png";

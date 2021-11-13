@@ -30,9 +30,6 @@ geese = Channel.create({name: "Goose Talk",
 cheese = Channel.create({name: "Cheese", 
                             description: "share cool code snippets",
                             admin_id: bot.id})
-testing = Channel.create({name: "Test Channel", 
-                            description: "this is a test channel for testing",
-                            admin_id: bot.id})
 
 # Directs seed
 

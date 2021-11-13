@@ -2,12 +2,15 @@ class Api::DirectsController < ApplicationController
   def create
     @direct = Direct.new(direct_params)
     @direct.name = "Direct Message";
+    stack_bot = User.find_by(username: "stack_bot")
     if @direct.save
       params[:direct][:invitedUsersIds].each do |userId|
         @membership = Membership.create(user_id: userId.to_i, memberable_id: @direct.id, memberable_type: Direct)
         broadcastNewMembership(@membership)
         broadcastNewDirect(@direct, @membership.user_id)
       end
+      # Membership.create(user_id: stack_bot.id, memberable_id: @direct.id, memberable_type: Direct)
+      Message.create(user_id: stack_bot.id, body: "Direct messages have started", messageable_id: @direct.id, messageable_type: Direct)
       render :show
     else
       render json: @direct.errors.full_messages, status: 422
