@@ -11,6 +11,7 @@ import { fetchMemberships } from '../../actions/membership_actions'
 
 const mapStateToProps = (state, ownProps) => {
     const currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id
+
     return {
         allChannels: state.entities.channels,
         currentUser: state.entities.users[currentUserId],

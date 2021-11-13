@@ -30,6 +30,8 @@ class Api::DirectsController < ApplicationController
   def destroy
     @direct = Direct.find(params[:id])
     @direct.destroy
+
+    # broadcastNewDirect(Direct.first, current_user.id)
     render :show
   end
 

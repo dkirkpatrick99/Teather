@@ -19,15 +19,8 @@ class Api::MessagesController < ApplicationController
     end
 
     def create
-        # @message = Message.new(data["message"])
-        # debugger
-        # direct = Direct.find(message.messageable_id)
-        # if(message.save)
-        #     socket = {message: format(message), type: 'message'}
-        #     ChatDirect.broadcast_to(direct.id, socket)
-        # else
-        #     ChatDirect.broadcast_to(direct.id, {message: "db save failed", id: Time.now, type: 'message'})
-        # end
+        # THIS METHOD INTENTIONALLY LEFT BLANK
+        # Messages created via Action Cable websocket
     end
 
     # def update

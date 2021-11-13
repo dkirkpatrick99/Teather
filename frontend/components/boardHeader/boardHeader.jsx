@@ -32,36 +32,35 @@ class BoardHeader extends React.Component{
         const identifier = e.currentTarget.dataset.classify;
         const value = e.currentTarget.value
         const inputEle = document.querySelector('.search-input')
-        // const directObject = {
-        //     admin_id: this.props.currentUser.id,
-        //     name: e.currentTarget.value,
-        //     is_private: false,
-        //     is_dm: true
-        // };
-        // const membershipObject = {
-        //     user_id: this.props.currentUser.id,
-        //     channel_id: e.currentTarget.value
-        // }
-        // const channelChecker = channelCheck(this.props.userDirects, identifier, this.props.currentUser.id, value, this.props.allMemberships, this.props.allChannels)
-        // if (e.currentTarget.dataset.classify === "user") {
-        //     if(!channelChecker){
-        //         this.props.createDirect(channelObject)
-        //     } else {
-        //         this.props.history.push(`/client/${channelChecker}`);
-        //     }
-        // } else if (e.currentTarget.dataset.classify === "channel") {
-        //     if(!channelChecker){
-        //         this.props.createMembership(membershipObject)
-        //     } else {
-        //         this.props.history.push(`/client/${channelChecker}`);
-        //     }
-        // }
+        const directObject = {
+            name: e.currentTarget.value,
+            invitedUsersIds: [this.props.currentUser.id, value]
+        };
+        const membershipObject = {
+            user_id: this.props.currentUser.id,
+            memberable_id: value,
+            memberable_type: "Channel"
+        }
+        const channelChecker = channelCheck(this.props.userDirects, identifier, this.props.currentUser.id, value, this.props.allMemberships, this.props.allChannels)
+        if (e.currentTarget.dataset.classify === "direct") {
+            if(!channelChecker){
+                this.props.createDirect(directObject)
+            } else {
+                this.props.history.push(`/client/${channelChecker}`);
+            }
+        } else if (e.currentTarget.dataset.classify === "channel") {
+            if(!channelChecker){
+                this.props.createMembership(membershipObject)
+            } else {
+                this.props.history.push(`/client/${channelChecker}`);
+            }
+        }
 
-        // inputEle.value = ''
-        // this.setState({
-        //     'userMatches': null,
-        //     'channelMatches': null
-        // })
+        inputEle.value = ''
+        this.setState({
+            'userMatches': null,
+            'channelMatches': null
+        })
     }
 
     handleHistoryButtons(field) {
@@ -102,7 +101,7 @@ class BoardHeader extends React.Component{
                 // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
                 // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
                 return (
-                    <li key={user.id} value={user.id} data-classify='user' onClick={this.handleSubmit} className='header-search-li users'>
+                    <li key={user.id} value={user.id} data-classify='direct' onClick={this.handleSubmit} className='header-search-li users'>
                         <span className="header-search-item">{userName}</span>
                         <span>{userEmail}</span>
                     </li>

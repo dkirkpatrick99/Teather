@@ -25,6 +25,11 @@ class SideBar extends React.Component {
 
     };
 
+    componentDidUpdate(prevProps, prevState) {
+        // this.props.fetchAllUsers();
+    }
+
+
     renderChannels() {
         const that = this;
         const userChannels = [];
@@ -62,7 +67,6 @@ class SideBar extends React.Component {
         const channels = this.renderChannels();
         let dmLinks
         let channelLinks
-
         dmLinks = Object.values(this.props.userDirects).length > 0 ? Object.values(this.props.userDirects).map(dm => {
             const dmName = dm.name
             const notCurrentUserCheck = dm.user_ids[0].user_id === this.props.currentUser.id ? dm.user_ids[1].onlineStatus : dm.user_ids[0].onlineStatus
@@ -74,7 +78,6 @@ class SideBar extends React.Component {
                 <div className='sidebar-online-wrapper'>
                     <div className='sidebar-online-indicator offline'></div>
                 </div>
-
 
             return typeId === dm.id && this.props.type === 'direct' ?
                 <li className="channel-list-item active" key={dm.id}>
