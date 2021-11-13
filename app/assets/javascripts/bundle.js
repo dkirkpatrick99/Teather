@@ -839,11 +839,15 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("ul", {
         className: "boardheader-search-items"
       }, this.state.userMatches, this.state.channelMatches)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "user-profile-dropdown-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "user-status-image"
       }, onlineIndicator, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
         src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_7__.getUserPic)(this.props.currentUser.formal_name),
         alt: ""
-      })));
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "user-profile-dropdown-content"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "hello"))));
     }
   }]);
 
@@ -2232,8 +2236,6 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
         currentUserId: this.props.currentUser
       }, {
         received: function received(data) {
-          debugger;
-
           switch (data.type) {
             case "membershipAdd":
               _this.props.receiveMembership(data.membership);

@@ -33,7 +33,6 @@ class MessageBoard extends React.Component {
             { channel: "NotificationsChannel", currentUserId: this.props.currentUser },
             {
                 received: data => {
-                    debugger
                     switch (data.type) {
 
                         case "membershipAdd":

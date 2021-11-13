@@ -161,9 +161,15 @@ class BoardHeader extends React.Component{
                             {this.state.channelMatches}
                     </ul>
                 </div>
-                <div className="user-status-image">
-                    {onlineIndicator}
-                    <img src={getUserPic(this.props.currentUser.formal_name)} alt=""/> 
+                <div className="user-profile-dropdown-container">
+                    <div className="user-status-image">
+                        {onlineIndicator}
+                        <img src={getUserPic(this.props.currentUser.formal_name)} alt=""/> 
+                    </div>
+                    <div className="user-profile-dropdown-content">
+                        <div>hello</div>
+                    </div>
+
                 </div>
 
             </div>
