@@ -20,7 +20,6 @@
 
 //         //DO NOT REMOVE THIS IF CHECK!
 //         if (prevProps && prevProps.currentChannel !== this.props.currentChannel) {
-//             debugger
 //             this.createSubscriptions();
 //         }
 //     }
@@ -57,7 +56,7 @@
 //                                 [data.user.id]: data.user
 //                             }
 //                         }
-//                         debugger
+//                         
 //                         this.props.receiveMessage(payload);
 //                     }
 //                 }
