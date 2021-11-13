@@ -168,19 +168,97 @@ span.header-search-item {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  
 }
 
 .user-profile-dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: rgb(34, 37, 41);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 12px 16px;
   z-index: 1;
   top: 41px;
+  height: 234px;
+  width: 200px;
+  color: white;
+  border-radius: 5px;
+  margin-right: 10px;
+  border: 0.01em solid rgb(58, 61, 64);
 }
 
-.user-profile-dropdown-container:hover .user-profile-dropdown-content {
+.dropdown-user-top-container {
+  display: flex;
+  border-bottom: 0.01em solid white;
+  padding-bottom: 10px;
+}
+
+.dropdown-user-top-container img{
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+}
+
+.dropdown-user-name-container {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.dropdown-user-status-contain {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-user-status {
+  height: 10px;
+  width: 10px;
+  border-radius: 6px;
+  background-color: green;
+  margin-right: 8px;
+}
+
+.dropdown-user-name {
+  font-size: 20px;
+}
+
+.user-profile-dropdown-container.active .user-profile-dropdown-content {
   display: block;
+}
+
+.dropdown-user-links-container {
+  display: flex;
+  color: white;
+  flex-direction: column;
+  padding-bottom: 10px;
+  border-bottom: 1px solid;
+  margin-top: 10px;
+}
+
+.dropdown-user-links-container a {
+  color: white;
+  padding: 10px;
+  transition: 0.3s;
+  border-radius: 4px;
+}
+
+.dropdown-user-links-container a:hover {
+  background-color: rgb(42, 100, 163);
+}
+
+.dropdown-user-logout-container {
+  margin-top: 10px;
+  padding: 10px;
+  transition: 0.3s;
+  border-radius: 4px;
+}
+
+.dropdown-user-logout-container a {
+  color: white;
+}
+
+.dropdown-user-logout-container:hover {
+  background-color: red;
 }

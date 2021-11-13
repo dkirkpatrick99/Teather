@@ -71,6 +71,13 @@ class BoardHeader extends React.Component{
         }
     }
 
+    toggleElement() {
+        const dropdownToggle = document.querySelector('.user-profile-dropdown-container');
+        if (dropdownToggle) {
+            dropdownToggle.classList.toggle('active')
+        }
+    }
+
     findMatches(wordToMatch, channels, users) {
         let matches = {"users" : [], "channels" : [] }
         if(wordToMatch === '') return matches
@@ -161,13 +168,31 @@ class BoardHeader extends React.Component{
                             {this.state.channelMatches}
                     </ul>
                 </div>
-                <div className="user-profile-dropdown-container">
+                <div className="user-profile-dropdown-container" onClick={this.toggleElement}>
                     <div className="user-status-image">
                         {onlineIndicator}
                         <img src={getUserPic(this.props.currentUser.formal_name)} alt=""/> 
                     </div>
                     <div className="user-profile-dropdown-content">
-                        <div>hello</div>
+                        <div className='dropdown-user-top-container'>
+                            <img src={getUserPic(this.props.currentUser.formal_name)} alt=""/>
+                            <div className='dropdown-user-name-container'>
+                                <div className='dropdown-user-name'>{this.props.currentUser.username}</div>
+                                <div className='dropdown-user-status-contain'>
+                                    <div className='dropdown-user-status'></div>
+                                    <div className='dropdown-user-active'>Active</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='dropdown-user-links-container'>
+                            <a href="">Visit my portfolio</a>
+                            <a href="">Visit my GitHub</a>
+                            <a href="">Contact Me!</a>
+                        </div>
+                        <div className='dropdown-user-logout-container'>
+                            <a href="">Log out of {this.props.currentUser.username}</a>
+
+                        </div>
                     </div>
 
                 </div>

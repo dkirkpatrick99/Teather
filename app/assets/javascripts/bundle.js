@@ -724,6 +724,15 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
+    key: "toggleElement",
+    value: function toggleElement() {
+      var dropdownToggle = document.querySelector('.user-profile-dropdown-container');
+
+      if (dropdownToggle) {
+        dropdownToggle.classList.toggle('active');
+      }
+    }
+  }, {
     key: "findMatches",
     value: function findMatches(wordToMatch, channels, users) {
       var matches = {
@@ -839,7 +848,8 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("ul", {
         className: "boardheader-search-items"
       }, this.state.userMatches, this.state.channelMatches)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-        className: "user-profile-dropdown-container"
+        className: "user-profile-dropdown-container",
+        onClick: this.toggleElement
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "user-status-image"
       }, onlineIndicator, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
@@ -847,7 +857,34 @@ var BoardHeader = /*#__PURE__*/function (_React$Component) {
         alt: ""
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "user-profile-dropdown-content"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "hello"))));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "dropdown-user-top-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+        src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_7__.getUserPic)(this.props.currentUser.formal_name),
+        alt: ""
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "dropdown-user-name-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "dropdown-user-name"
+      }, this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "dropdown-user-status-contain"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "dropdown-user-status"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "dropdown-user-active"
+      }, "Active")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "dropdown-user-links-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
+        href: ""
+      }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
+        href: ""
+      }, "Visit my GitHub"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
+        href: ""
+      }, "Contact Me!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "dropdown-user-logout-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
+        href: ""
+      }, "Log out of ", this.props.currentUser.username)))));
     }
   }]);
 
@@ -1302,6 +1339,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       var deleteChannelButton;
       var deleteMembershipButton;
       var showOption;
+      var partySize = this.props.currentChannel ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "Party: ", this.props.currentChannel.user_ids.length) : null;
 
       if (this.props.currentUser && this.props.currentChannel) {
         deleteChannelButton = this.props.type === 'direct' || this.props.currentChannel.admin_id === this.props.currentUser.id && this.props.currentChannel.name !== "Global" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
@@ -1364,7 +1402,9 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
         className: "channel-show-options-flex"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "name-of-channel"
-      }, "# ", channelName), showOption)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      }, "# ", channelName), showOption), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "channel-show-users-container"
+      }, partySize)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "messages-main-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("ul", {
         className: "messages-list"

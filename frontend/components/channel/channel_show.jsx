@@ -155,6 +155,7 @@ class ChannelShow extends React.Component {
         let deleteChannelButton;
         let deleteMembershipButton;
         let showOption;
+        let partySize = this.props.currentChannel ? <div>Party: {this.props.currentChannel.user_ids.length}</div> : null
         if(this.props.currentUser && this.props.currentChannel) {
             deleteChannelButton = this.props.type === 'direct' || (this.props.currentChannel.admin_id === this.props.currentUser.id && this.props.currentChannel.name !== "Global") ? 
                     <div className='user-option-button' onClick={() => this.deleteChannel()}>Delete for everyone</div>
@@ -190,7 +191,6 @@ class ChannelShow extends React.Component {
         if(this.props.currentChannel && this.props.userDirects){
             channelName = this.props.type === "channel" ? this.props.currentChannel.name : this.props.userDirects[this.props.typeId].name
         }
-        
         return(
             <div className="channel-show-main">
                 <div className="name-of-channel-container">
@@ -198,10 +198,11 @@ class ChannelShow extends React.Component {
                         <div className="name-of-channel"># {channelName}</div>
                         {showOption}
                     </div>
-
-
-
+                    <div className='channel-show-users-container'>
+                        {partySize}
+                    </div>
                 </div>
+
                 <div className="messages-main-container">
                     <ul className="messages-list">
                         {currentMessages}
