@@ -35,13 +35,13 @@ class Greeting extends React.Component{
                         />
 
                         <div className="greeting-main-text">
-                            <h1>Tether is where the future works</h1>
+                            <h1>Teather is where the future works</h1>
                             <p>Transform the way you work with one place for everyone and everything you need to get stuff done.</p>
                             <div className='greeting-button-container'>
-                                <Link className='greeting-signup-button' to='/signup'>TRY TETHER</Link>
+                                <Link className='greeting-signup-button' to='/signup'>TRY TEATHER</Link>
                                 <Link className='greeting-login-button' to='/signup'>SEE THE DEMO</Link>
                             </div>
-                            <p>Already using Tether? <Link to='/login'>Sign In</Link>
+                            <p>Already using Teather? <Link to='/login'>Sign In</Link>
                             </p>
 
                         </div>
@@ -74,7 +74,7 @@ class Greeting extends React.Component{
                                 <img src="SlackChat4.gif" alt=""/>
                                 <div className="chat-desc-container">
                                     <h2>Move faster by organizing your work life</h2>
-                                    <p>The key to productivity in Tether is organized spaces called channels—a different one for everything you’re working on. With all the people, messages and files related to a topic in one place, you can move a whole lot faster.</p>
+                                    <p>The key to productivity in Teather is organized spaces called channels—a different one for everything you’re working on. With all the people, messages and files related to a topic in one place, you can move a whole lot faster.</p>
                                     <Link to='/signup'>Try For Free</Link>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@ class Greeting extends React.Component{
                                         <h2>Welcome to where the future works</h2>
                                     </div>
                                     <div className='greeting-button-container'>
-                                        <Link className='greeting-signup-white' to='/signup'>TRY TETHER</Link>
+                                        <Link className='greeting-signup-white' to='/signup'>TRY TEATHER</Link>
                                     <a className='greeting-login-button' href="https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/">CONTACT ME</a>
                                     </div>
                                 </div>

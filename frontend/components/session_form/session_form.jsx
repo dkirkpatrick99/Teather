@@ -80,7 +80,7 @@ class SessionForm extends React.Component {
     }
 
     render() {
-        const submitName = `${this.props.formType} Tether`
+        const submitName = `${this.props.formType} Teather`
         if(this.props.formType === 'Sign Up for') {
 
             return (
@@ -90,13 +90,13 @@ class SessionForm extends React.Component {
                        <div className='session-logo-name'>
                             <Link to='/'>
                                 
-                                <h1><img src="slack-icon-logo.png" alt="" /> Tether</h1>
+                                <h1><img src="slack-icon-logo.png" alt="" /> Teather</h1>
     
                             </Link>
                        </div>
                        <div className='login-form-container'>
                             <div className='session-form-welcome-text'>
-                                <h2>{this.props.formType} Tether</h2>
+                                <h2>{this.props.formType} Teather</h2>
                                 <p>We suggest using the email address you use at work.</p>
                             </div>
                             {this.renderErrors()}
@@ -155,13 +155,13 @@ class SessionForm extends React.Component {
                         <div className='session-logo-name'>
                             <Link to='/'>
 
-                                <h1><img src="slack-icon-logo.png" alt="" /> Tether</h1>
+                                <h1><img src="slack-icon-logo.png" alt="" /> Teather</h1>
 
                             </Link>
                         </div>
                         <div className='login-form-container'>
                             <div className='session-form-welcome-text'>
-                                <h2>{this.props.formType} Tether</h2>
+                                <h2>{this.props.formType} Teather</h2>
                                 <p>We suggest using the email address you use at work.</p>
                             </div>
                             {this.renderErrors()}
