@@ -54,10 +54,10 @@
 }
 
 .boarderheader-online-wrapper {
-  border: 2px solid black;
+  border: 3px solid black;
   border-radius: 10px;
   position: absolute;
-  right: 26px;
+  right: 28px;
   top: 22px;
 }
 

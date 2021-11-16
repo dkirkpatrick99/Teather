@@ -197,11 +197,11 @@
 }
 
 .sidebar-online-wrapper {
-  border: 2px solid black;
-  border-radius: 7px;
+  border: 3px solid black;
+  border-radius: 10px;
   position: absolute;
-  margin-top: 12px;
-  margin-left: 9px;
+  margin-top: 14px;
+  margin-left: 11px;
 }
 
 .sidebar-online-indicator.online{
@@ -209,7 +209,7 @@
     height: 6px;
     width: 6px;
     border: 1px solid white;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .sidebar-online-indicator.offline{
@@ -217,7 +217,7 @@
     height: 6px;
     width: 6px;
     border: 1px solid white;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .sidebar-list-items-container {
