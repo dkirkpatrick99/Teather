@@ -74,7 +74,7 @@ class Greeting extends React.Component{
                                 <img src="SlackChat4.gif" alt=""/>
                                 <div className="chat-desc-container">
                                     <h2>Move faster by organizing your work life</h2>
-                                    <p>The key to productivity in Slack is organized spaces called channels—a different one for everything you’re working on. With all the people, messages and files related to a topic in one place, you can move a whole lot faster.</p>
+                                    <p>The key to productivity in Tether is organized spaces called channels—a different one for everything you’re working on. With all the people, messages and files related to a topic in one place, you can move a whole lot faster.</p>
                                     <Link to='/signup'>Try For Free</Link>
                                 </div>
                             </div>
