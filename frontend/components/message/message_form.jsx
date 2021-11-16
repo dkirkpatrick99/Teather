@@ -16,6 +16,13 @@ class MessageForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     };
 
+    // componentDidUpdate(prevProps, prevState) {
+        
+    //     if (document.querySelector('.message-to-send').value === '\n') {
+    //         document.querySelector('.message-to-send').value = ''
+    //     }
+    // }
+
     update(field) {
         return e =>{
                 this.setState({
@@ -44,6 +51,8 @@ class MessageForm extends React.Component {
         // this.props.createMessage(message)
 
         document.querySelector('.message-to-send').value = ''
+        // document.querySelector(".message-tobe-sent-container")
+        // debugger
     }
 
     render() {
@@ -51,6 +60,7 @@ class MessageForm extends React.Component {
         return (
             <div >
                 <form className="message-tobe-sent-container" onSubmit={this.handleSubmit}>
+
                     <textarea 
                         className="message-to-send" 
                         onChange={this.update('body')}
@@ -61,7 +71,8 @@ class MessageForm extends React.Component {
                         }  
                         value={this.state.body} 
                         type="text" 
-                        placeholder={placeholder} />
+                        placeholder={placeholder}></textarea>
+
                     <div className='image-input-contain'>
                     <input type="image" src="send.png" alt="Submit"/>
 

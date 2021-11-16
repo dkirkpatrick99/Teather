@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import regeneratorRuntime from "regenerator-runtime";
 
 class SessionForm extends React.Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class SessionForm extends React.Component {
             password: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.demoLogin = this.demoLogin.bind(this);
     }
 
     componentDidMount() {
@@ -29,6 +31,41 @@ class SessionForm extends React.Component {
         const user = Object.assign({}, this.state);
         this.props.processForm(user);
     }
+
+    demoLogin(){
+        if (document.querySelector('.session-email')) {
+            const demoEmail = "demouser@gmail.com".split('')
+            const demoPassword = "pleasehireme".split('')
+            
+            const emailInterval = setInterval(() => {
+                const first = demoEmail.splice(0, 1);
+                
+                this.setState(
+                    { email: this.state.email + first[0] },
+                    () => {
+                        if (!demoEmail.length) {
+                            clearInterval(emailInterval);
+
+                            const passwordInterval = setInterval(() => {
+                                const first = demoPassword.splice(0, 1);
+                                this.setState(
+                                    { password: this.state.password + first[0] },
+                                    () => {
+                                        if (!demoPassword.length) {
+                                            clearInterval(passwordInterval)
+                                            this.props.processForm(this.state)
+                                        }
+                                    }
+                                )
+                            }, 100)
+                        }
+                    }
+                );
+            }, 100)
+
+        }
+    }
+
 
     renderErrors() {
         return (
@@ -134,7 +171,7 @@ class SessionForm extends React.Component {
                                         value={this.state.email}
                                         placeholder="FighterOfTheNightMan@ahahhh.com"
                                         onChange={this.update('email')}
-                                        className="login-input"
+                                        className="login-input session-email"
                                     />
 
                                     <label>Password:</label>
@@ -142,10 +179,12 @@ class SessionForm extends React.Component {
                                         value={this.state.password}
                                         placeholder="MilkSteak1"
                                         onChange={this.update('password')}
-                                        className="login-input"
+                                        className="login-input session-password"
                                     />
                                     <div className='submit-button-container'>
                                         <input className="greeting-signup-button" type="submit" value={submitName} />
+                                        <div>Or</div>
+                                        <input onClick={this.demoLogin} type="button" className="greeting-signup-button" value="Demo Login"/>
                                     </div>
                                 </div>
 
