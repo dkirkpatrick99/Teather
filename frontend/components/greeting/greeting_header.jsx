@@ -18,7 +18,7 @@ class GreetingHeader extends React.Component {
                     <div className="left-header-container">
                         <div className="app-name-logo">
                             <img src="slack-icon-logo.png" alt=""/>
-                            <h1>Teather</h1>
+                            <h1>Tether</h1>
                         </div>
                         <div className="dropdown">
                             <div>Past Projects</div>
