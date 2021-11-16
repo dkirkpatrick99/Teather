@@ -135,7 +135,9 @@ class SessionForm extends React.Component {
                                             className="login-input"
                                         />
                                     <div className='submit-button-container'>
-                                        <input className="greeting-signup-button" type="submit" value={submitName}/>
+                                        <input className="greeting-signup-button" type="submit" value={submitName} />
+                                        <div>Or</div>
+                                        <Link to='/login' className="greeting-signup-button">Demo Login</Link>
                                     </div>
                                 </div>
                                 
