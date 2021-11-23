@@ -990,14 +990,12 @@ var ChannelCreateForm = function ChannelCreateForm(props) {
 
   var update = function update(field) {
     return function (e) {
-      debugger;
       field === "is_private" ? setChannelForm(_objectSpread(_objectSpread({}, channelForm), {}, _defineProperty({}, field, e.target.checked))) : setChannelForm(_objectSpread(_objectSpread({}, channelForm), {}, _defineProperty({}, field, e.target.value)));
     };
   };
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    debugger;
     props.createChannel(channelForm);
     setChannelForm(initialState);
     props.closeModal();
@@ -1205,11 +1203,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
           check = userNavables.directs.includes(parseInt(propTypeId)) ? check = true : check = false;
           if (!check) this.props.history.push("/client/channel/1");
         }
-      } // if(prevMessages.length < Object.values(this.props.messages).length) {
-      //     this.getCurrentChannel(this.props)
-      // }
-      // this.props.fetchAllUsers()
-
+      }
 
       var elem = document.querySelector('.messages-main-container');
       if (elem) elem.scrollTop = elem.scrollHeight;
@@ -2718,28 +2712,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 
 
  // import  ChannelShowContainer from '../channel/channel_show_container'
@@ -2747,228 +2719,193 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var SideBar = /*#__PURE__*/function (_React$Component) {
-  _inherits(SideBar, _React$Component);
+var SideBar = function SideBar(props) {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    props.fetchAllUsers();
+    props.fetchAllChannels();
+    props.fetchMemberships();
 
-  var _super = _createSuper(SideBar);
+    if (props.currentUser) {
+      props.fetchUserDirects(props.currentUser.id);
+    }
+  }, []);
 
-  function SideBar(props) {
-    var _this;
+  var renderChannels = function renderChannels() {
+    var userChannels = [];
+    var memberships = props.memberships;
+    var userMemberships = [];
 
-    _classCallCheck(this, SideBar);
+    if (Object.keys(props.allChannels).length !== 0 && Object.keys(props.memberships).length !== 0 && Object.keys(props.allUsers).length > 1) {
+      Object.values(memberships).forEach(function (membership) {
+        var channelId = membership.memberable_type === 'Channel' && membership.user_id === props.currentUser.id ? membership.memberable_id : null;
+        var channel = props.allChannels[channelId];
 
-    _this = _super.call(this, props);
-    _this.state;
-    return _this;
+        if (!channel) {
+          return;
+        } else {
+          userChannels.push(channel);
+        }
+      });
+    }
+
+    return userChannels;
+  };
+
+  var toggleElement = function toggleElement() {
+    var dropdownToggle = document.querySelector('.dropdown');
+
+    if (dropdownToggle) {
+      dropdownToggle.classList.toggle('active');
+    }
+  };
+
+  if (!props.currentUser) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
   }
 
-  _createClass(SideBar, [{
-    key: "componentDidMount",
-    value: function componentDidMount(props) {
-      // if (this.props.currentUser) {
-      //     this.props.fetchUser(this.props.currentUser.id);
-      // }
-      this.props.fetchAllUsers();
-      this.props.fetchAllChannels();
-      this.props.fetchMemberships();
+  var typeId = parseInt(props.typeId);
+  var channels = renderChannels();
+  var dmLinks;
+  var channelLinks;
+  dmLinks = Object.values(props.userDirects).length > 0 ? Object.values(props.userDirects).map(function (dm) {
+    var dmName = dm.name === "" ? "Me" : dm.name;
+    var notCurrentUserCheck = dm.user_ids[0].user_id === props.currentUser.id ? dm.user_ids[1].onlineStatus : dm.user_ids[0].onlineStatus;
+    var onlineIndicator = notCurrentUserCheck ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "sidebar-online-wrapper"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "sidebar-online-indicator online"
+    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "sidebar-online-wrapper"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "sidebar-online-indicator offline"
+    }));
+    return typeId === dm.id && props.type === 'direct' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+      className: "channel-list-item active",
+      key: dm.id
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+      to: "/client/direct/".concat(dm.id)
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_1__.getUserPic)(dm.name),
+      alt: ""
+    }), onlineIndicator, dmName)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+      className: "channel-list-item",
+      key: dm.id
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+      to: "/client/direct/".concat(dm.id)
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_1__.getUserPic)(dm.name),
+      alt: ""
+    }), onlineIndicator, dmName));
+  }) : null;
 
-      if (this.props.currentUser) {
-        this.props.fetchUserDirects(this.props.currentUser.id);
-      }
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {// this.props.fetchAllUsers();
-    }
-  }, {
-    key: "renderChannels",
-    value: function renderChannels() {
-      var that = this;
-      var userChannels = [];
-      var memberships = this.props.memberships;
-      var userMemberships = [];
+  if (channels.length !== 0) {
+    channelLinks = channels.map(function (channel) {
+      return typeId === channel.id && props.type === 'channel' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+        className: "channel-list-item active",
+        key: channel.id
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+        to: "/client/channel/".concat(channel.id)
+      }, "# " + channel.name)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+        className: "channel-list-item",
+        key: channel.id
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+        to: "/client/channel/".concat(channel.id)
+      }, "# " + channel.name));
+    });
+  }
 
-      if (Object.keys(this.props.allChannels).length !== 0 && Object.keys(this.props.memberships).length !== 0 && Object.keys(this.props.allUsers).length > 1) {
-        Object.values(memberships).forEach(function (membership) {
-          var channelId = membership.memberable_type === 'Channel' && membership.user_id === that.props.currentUser.id ? membership.memberable_id : null;
-          var channel = that.props.allChannels[channelId];
-
-          if (!channel) {
-            return;
-          } else {
-            userChannels.push(channel);
-          }
-        });
-      }
-
-      return userChannels;
-    }
-  }, {
-    key: "toggleElement",
-    value: function toggleElement() {
-      var dropdownToggle = document.querySelector('.dropdown');
-
-      if (dropdownToggle) {
-        dropdownToggle.classList.toggle('active');
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      if (!this.props.currentUser) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
-      }
-
-      var typeId = parseInt(this.props.typeId);
-      var channels = this.renderChannels();
-      var dmLinks;
-      var channelLinks;
-      dmLinks = Object.values(this.props.userDirects).length > 0 ? Object.values(this.props.userDirects).map(function (dm) {
-        var dmName = dm.name === "" ? "Me" : dm.name;
-        var notCurrentUserCheck = dm.user_ids[0].user_id === _this2.props.currentUser.id ? dm.user_ids[1].onlineStatus : dm.user_ids[0].onlineStatus;
-        var onlineIndicator = notCurrentUserCheck ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "sidebar-online-wrapper"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "sidebar-online-indicator online"
-        })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "sidebar-online-wrapper"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "sidebar-online-indicator offline"
-        }));
-        return typeId === dm.id && _this2.props.type === 'direct' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-          className: "channel-list-item active",
-          key: dm.id
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
-          to: "/client/direct/".concat(dm.id)
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_1__.getUserPic)(dm.name),
-          alt: ""
-        }), onlineIndicator, dmName)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-          className: "channel-list-item",
-          key: dm.id
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
-          to: "/client/direct/".concat(dm.id)
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_1__.getUserPic)(dm.name),
-          alt: ""
-        }), onlineIndicator, dmName));
-      }) : null;
-
-      if (channels.length !== 0) {
-        channelLinks = channels.map(function (channel) {
-          return typeId === channel.id && _this2.props.type === 'channel' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-            className: "channel-list-item active",
-            key: channel.id
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
-            to: "/client/channel/".concat(channel.id)
-          }, "# " + channel.name)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-            className: "channel-list-item",
-            key: channel.id
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
-            to: "/client/channel/".concat(channel.id)
-          }, "# " + channel.name));
-        });
-      } // if(!dropdownToggle) return
-
-
-      if (!!this.props.currentUser) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "flex-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "sidebar-main-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "username-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          onClick: this.toggleElement,
-          className: "dropdown"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "dropdown-current-username"
-        }, this.props.currentUser.username, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          src: "arrow.png",
-          alt: ""
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "username-dropdown-content"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "username-img-flex-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_1__.getUserPic)(this.props.currentUser.formal_name),
-          alt: ""
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "dropdown-current-info-show"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "dropdown-current-email"
-        }, this.props.currentUser.email))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "sidebar-dropdown-links"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-          onClick: this.props.logout
-        }, "Log out of ", this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-          href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
-        }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-          href: ""
-        }, "Switch to Light Theme")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          onClick: function onClick() {
-            return _this2.props.openModal('directMessageSearch');
-          },
-          src: "compose.png",
-          alt: ""
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "sidebar-list-items-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "channel-list-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "channel-img-contain"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "channel-name"
-        }, "Channels"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          onClick: function onClick() {
-            return _this2.props.openModal('createChannel');
-          },
-          src: "plus.png",
-          alt: ""
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-          className: "channel-list"
-        }, channelLinks)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "dm-list-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "dm-img-contain"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "dm-name"
-        }, "Direct Messages"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          onClick: function onClick() {
-            return _this2.props.openModal('directMessageSearch');
-          },
-          src: "plus.png",
-          alt: ""
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-          className: "dm-list"
-        }, dmLinks))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "sidebar-personal-icons"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-          to: "https://github.com/dkirkpatrick99"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          src: "github.png",
-          alt: ""
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-          to: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          src: "linkedin.png",
-          alt: ""
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-          to: "https://angel.co/u/dalton-kirkpatrick"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          src: "angellist.png",
-          alt: ""
-        })))));
-      } else {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "hello");
-      }
-    }
-  }]);
-
-  return SideBar;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+  if (!!props.currentUser) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "flex-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "sidebar-main-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "username-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      onClick: toggleElement,
+      className: "dropdown"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "dropdown-current-username"
+    }, props.currentUser.username, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      src: "arrow.png",
+      alt: ""
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "username-dropdown-content"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "username-img-flex-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      src: (0,_util_functions__WEBPACK_IMPORTED_MODULE_1__.getUserPic)(props.currentUser.formal_name),
+      alt: ""
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "dropdown-current-info-show"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "dropdown-current-email"
+    }, props.currentUser.email))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "sidebar-dropdown-links"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+      onClick: props.logout
+    }, "Log out of ", props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+      href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
+    }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+      href: ""
+    }, "Switch to Light Theme")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      onClick: function onClick() {
+        return props.openModal('directMessageSearch');
+      },
+      src: "compose.png",
+      alt: ""
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "sidebar-list-items-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "channel-list-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "channel-img-contain"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "channel-name"
+    }, "Channels"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      onClick: function onClick() {
+        return props.openModal('createChannel');
+      },
+      src: "plus.png",
+      alt: ""
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+      className: "channel-list"
+    }, channelLinks)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "dm-list-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "dm-img-contain"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "dm-name"
+    }, "Direct Messages"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      onClick: function onClick() {
+        return props.openModal('directMessageSearch');
+      },
+      src: "plus.png",
+      alt: ""
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+      className: "dm-list"
+    }, dmLinks))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "sidebar-personal-icons"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+      to: "https://github.com/dkirkpatrick99"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      src: "github.png",
+      alt: ""
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+      to: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      src: "linkedin.png",
+      alt: ""
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+      to: "https://angel.co/u/dalton-kirkpatrick"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      src: "angellist.png",
+      alt: ""
+    })))));
+  } else {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "hello");
+  }
+};
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.withRouter)(SideBar));
 

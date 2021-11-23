@@ -17,14 +17,12 @@ const ChannelCreateForm = (props) => {
 
     const update = (field) => {
         return e =>{
-            debugger
             field === "is_private" ? setChannelForm({ ...channelForm, [field]: e.target.checked, }) : setChannelForm({ ...channelForm, [field]: e.target.value, })
         } 
     }
 
     const handleSubmit =(e) => {
         e.preventDefault();
-        debugger
         props.createChannel(channelForm);
         setChannelForm(initialState);
         props.closeModal();

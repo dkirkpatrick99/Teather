@@ -69,10 +69,6 @@ class ChannelShow extends React.Component {
                 if (!check) this.props.history.push(`/client/channel/1`)
             }
         }
-        // if(prevMessages.length < Object.values(this.props.messages).length) {
-        //     this.getCurrentChannel(this.props)
-        // }
-        // this.props.fetchAllUsers()
 
         var elem = document.querySelector('.messages-main-container');
         if (elem) elem.scrollTop = elem.scrollHeight;
