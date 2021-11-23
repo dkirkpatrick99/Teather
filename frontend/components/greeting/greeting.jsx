@@ -5,18 +5,8 @@ import GreetingHeader from './greeting_header'
 
 
 
-class Greeting extends React.Component{
-    constructor(props) {
-        super(props)
-    }
+const Greeting = (props) => {
 
-
-    changeElementHeight() {
-        const videoContainer = document.querySelector(".video-container")
-        const topContainer = document.querySelector('.top-greeting-container')
-    }
-
-    render() {
         return (
             <div className="greeting-main-container">
 
@@ -131,7 +121,6 @@ class Greeting extends React.Component{
                 
             </div>
         )
-    }
 }
 
 
