@@ -1,76 +1,78 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import regeneratorRuntime from "regenerator-runtime";
 
-class SessionForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+const SessionForm = (props) => {
+
+    const initialState = {
             formal_name: '',
             username: '',
             email: '',
             password: ''
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.demoLogin = this.demoLogin.bind(this);
-    }
 
-    componentDidMount() {
-        this.props.fetchAllUsers();
-        this.props.fetchAllChannels();
-    }
+    const [formData, setFormData] = useState(initialState)
+    const [demoEmail, setDemoEmail] = useState('')
+    const [demoPassword, setDemoPassword] = useState('')
+    const dEmail = useRef(null)
+    const dPassword = useRef(null)
+    
+    useEffect(() => {
+        props.fetchAllUsers();
+        props.fetchAllChannels()
+    }, [])
 
-    update(field) {
-        return e => this.setState({
-            [field]: e.currentTarget.value
+
+
+    const update = (field, value) => {
+        return e => setFormData({
+            ...formData, [field]: e.currentTarget.value
         });
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        const user = Object.assign({}, this.state);
-        this.props.processForm(user);
+    const handleSubmit = (e) => {
+        if(e) {
+            e.preventDefault();
+            const user = Object.assign({}, formData);
+            props.processForm(user);
+        } else {
+            const demo = { email: dEmail.current.value, password: dPassword.current.value}
+            props.processForm(demo);
+        }
     }
 
-    demoLogin(){
+    const demoLogin = () => {
+        setFormData(initialState)
         if (document.querySelector('.session-email')) {
             const demoEmail = "demouser@gmail.com".split('')
             const demoPassword = "pleasehireme".split('')
             
             const emailInterval = setInterval(() => {
                 const first = demoEmail.splice(0, 1);
-                
-                this.setState(
-                    { email: this.state.email + first[0] },
-                    () => {
-                        if (!demoEmail.length) {
-                            clearInterval(emailInterval);
+                setDemoEmail(demoEmail => demoEmail + first[0])
+                    
+                if (!demoEmail.length) {
+                    clearInterval(emailInterval);
 
-                            const passwordInterval = setInterval(() => {
-                                const first = demoPassword.splice(0, 1);
-                                this.setState(
-                                    { password: this.state.password + first[0] },
-                                    () => {
-                                        if (!demoPassword.length) {
-                                            clearInterval(passwordInterval)
-                                            this.props.processForm(this.state)
-                                        }
-                                    }
-                                )
-                            }, 100)
+                    const passwordInterval = setInterval(() => {
+                        const first = demoPassword.splice(0, 1);
+                        setDemoPassword(demoPassword => demoPassword + first[0] )
+                            
+                        if (!demoPassword.length) {
+                            clearInterval(passwordInterval)
+                            handleSubmit()
                         }
-                    }
-                );
+                    }, 100)
+                }
             }, 100)
-
         }
     }
 
 
-    renderErrors() {
+    const renderErrors = () => {
         return (
             <ul>
-                {this.props.errors.map((error, i) => (
+                {props.errors.map((error, i) => (
                     <li key={`error-${i}`}>
                         {error}
                     </li>
@@ -79,124 +81,122 @@ class SessionForm extends React.Component {
         );
     }
 
-    render() {
-        const submitName = `${this.props.formType} Teather`
-        if(this.props.formType === 'Sign Up for') {
+    const submitName = `${props.formType} Teather`
 
-            return (
-                <div className="login-form-container-main">
-                    <form onSubmit={this.handleSubmit} className="login-form-box">
-    
-                       <div className='session-logo-name'>
-                            <Link to='/'>
-                                
-                                <h1><img src="slack-icon-logo.png" alt="" /> Teather</h1>
-    
-                            </Link>
-                       </div>
-                       <div className='login-form-container'>
-                            <div className='session-form-welcome-text'>
-                                <h2>{this.props.formType} Teather</h2>
-                                <p>We suggest using the email address you use at work.</p>
-                            </div>
-                            {this.renderErrors()}
-                            <div className="login-form">
-                                <div className='login-input-flex'>
-    
-                                    <label>Display Name:</label>
-                                    <input type="text"
-                                        value={this.state.formal_name}
-                                        placeholder='Charlie Day'
-                                        onChange={this.update('formal_name')}
+    if(props.formType === 'Sign Up for') {
+        return (
+            <div className="login-form-container-main">
+                <form onSubmit={handleSubmit} className="login-form-box">
+                    <div className='session-logo-name'>
+                        <Link to='/'>
+                            <h1><img src="slack-icon-logo.png" alt="" /> Teather</h1>
+                        </Link>
+                    </div>
+
+                    <div className='login-form-container'>
+                        <div className='session-form-welcome-text'>
+                            <h2>{props.formType} Teather</h2>
+                            <p>We suggest using the email address you use at work.</p>
+                        </div>
+                        {renderErrors()}
+                        <div className="login-form">
+                            <div className='login-input-flex'>
+
+                                <label>Display Name:</label>
+                                <input type="text"
+                                    value={formData.formal_name}
+                                    placeholder='Charlie Day'
+                                    onChange={update('formal_name')}
+                                    className="login-input"
+                                />
+
+                                <label>Username:</label>
+                                <input type="text"
+                                        value={formData.username}
+                                        placeholder="DayMan456"
+                                        onChange={update('username')}
                                         className="login-input"
                                     />
-    
-                                    <label>Username:</label>
-                                    <input type="text"
-                                            value={this.state.username}
-                                            placeholder="DayMan456"
-                                            onChange={this.update('username')}
-                                            className="login-input"
-                                        />
-                                
-                                    <label>Email:</label>
-                                    <input type="text"
-                                            value={this.state.email}
-                                            placeholder="FighterOfTheNightMan@ahahhh.com"
-                                            onChange={this.update('email')}
-                                            className="login-input"
-                                        />
-                              
-                                    <label>Password:</label>
-                                    <input type="password"
-                                            value={this.state.password}
-                                            placeholder="MilkSteak1"
-                                            onChange={this.update('password')}
-                                            className="login-input"
-                                        />
-                                    <div className='submit-button-container'>
-                                        <input className="greeting-signup-button" type="submit" value={submitName} />
-                                        <div>Or</div>
-                                        <Link to='/login' className="greeting-signup-button">Demo Login</Link>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                       </div>
-                       <div className="session-form-change">Already have an account? <Link to='/login'>Sign In</Link></div>
-                    </form>
-                </div>
-            );
-        } else {
-            return(
-                <div className="login-form-container-main">
-                    <form onSubmit={this.handleSubmit} className="login-form-box">
-
-                        <div className='session-logo-name'>
-                            <Link to='/'>
-
-                                <h1><img src="slack-icon-logo.png" alt="" /> Teather</h1>
-
-                            </Link>
-                        </div>
-                        <div className='login-form-container'>
-                            <div className='session-form-welcome-text'>
-                                <h2>{this.props.formType} Teather</h2>
-                                <p>We suggest using the email address you use at work.</p>
-                            </div>
-                            {this.renderErrors()}
-                            <div className="login-form">
-                                <div className='login-input-flex'>
-
-                                    <label>Email:</label>
-                                    <input type="text"
-                                        value={this.state.email}
+                            
+                                <label>Email:</label>
+                                <input type="text"
+                                        value={formData.email}
                                         placeholder="FighterOfTheNightMan@ahahhh.com"
-                                        onChange={this.update('email')}
-                                        className="login-input session-email"
+                                        onChange={update('email')}
+                                        className="login-input"
                                     />
-
-                                    <label>Password:</label>
-                                    <input type="password"
-                                        value={this.state.password}
+                            
+                                <label>Password:</label>
+                                <input type="password"
+                                        value={formData.password}
                                         placeholder="MilkSteak1"
-                                        onChange={this.update('password')}
-                                        className="login-input session-password"
+                                        onChange={update('password')}
+                                        className="login-input"
                                     />
-                                    <div className='submit-button-container'>
-                                        <input className="greeting-signup-button" type="submit" value={submitName} />
-                                        <div>Or</div>
-                                        <input onClick={this.demoLogin} type="button" className="greeting-signup-button" value="Demo Login"/>
-                                    </div>
+                                <div className='submit-button-container'>
+                                    <input className="greeting-signup-button" type="submit" value={submitName} />
+                                    <div>Or</div>
+                                    <Link to='/login' className="greeting-signup-button">Demo Login</Link>
                                 </div>
-
                             </div>
+                            
                         </div>
-                        <div className="session-form-change">Don't have an account yet? <Link to='/signup'>Sign up</Link></div>
-                    </form>
-                </div>
-            )
-        }
+                    </div>
+                    <div className="session-form-change">Already have an account? <Link to='/login'>Sign In</Link></div>
+                </form>
+            </div>
+        );
+    } else {
+        return(
+            <div className="login-form-container-main">
+                <form onSubmit={handleSubmit} className="login-form-box">
+
+                    <div className='session-logo-name'>
+                        <Link to='/'>
+
+                            <h1><img src="slack-icon-logo.png" alt="" /> Teather</h1>
+
+                        </Link>
+                    </div>
+                    <div className='login-form-container'>
+                        <div className='session-form-welcome-text'>
+                            <h2>{props.formType} Teather</h2>
+                            <p>We suggest using the email address you use at work.</p>
+                        </div>
+                        {renderErrors()}
+                        <div className="login-form">
+                            <div className='login-input-flex'>
+
+                                <label>Email:</label>
+                                <input type="text"
+                                    value={formData.email || demoEmail}
+                                    ref={dEmail}
+                                    placeholder="FighterOfTheNightMan@ahahhh.com"
+                                    onChange={update('email')}
+                                    className="login-input session-email"
+                                />
+
+                                <label>Password:</label>
+                                <input type="password"
+                                    value={formData.password || demoPassword}
+                                    ref={dPassword}
+                                    placeholder="MilkSteak1"
+                                    onChange={update('password')}
+                                    className="login-input session-password"
+                                />
+                                <div className='submit-button-container'>
+                                    <input className="greeting-signup-button" type="submit" value={submitName} />
+                                    <div>Or</div>
+                                    <input onClick={demoLogin} type="button" className="greeting-signup-button" value="Demo Login"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div className="session-form-change">Don't have an account yet? <Link to='/signup'>Sign up</Link></div>
+                </form>
+            </div>
+        )
     }
 }
 
