@@ -1,89 +1,71 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/session_actions'
 import { createMessage } from '../../actions/message_actions'
 
-class MessageForm extends React.Component {
+const MessageForm = (props) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            user_id: parseInt(this.props.currentUserId),
+    const initialState = {
+            user_id: parseInt(props.currentUserId),
             body: '',
-            messageable_id: this.props.typeId,
+            messageable_id: props.typeId,
             messageable_type: 'Direct'
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
-    };
 
-    // componentDidUpdate(prevProps, prevState) {
-        
-    //     if (document.querySelector('.message-to-send').value === '\n') {
-    //         document.querySelector('.message-to-send').value = ''
-    //     }
-    // }
+    const [messageForm, setMessageForm] = useState(initialState)
 
-    update(field) {
+    const update = (field) => {
         return e =>{
-                this.setState({
-                user_id: parseInt(this.props.currentUserId),
+                setMessageForm({
+                user_id: parseInt(props.currentUserId),
                 [field]: e.currentTarget.value,
-                messageable_id: parseInt(this.props.typeId),
+                messageable_id: parseInt(props.typeId),
                 messageable_type: 'Direct'
             })
         } 
     }
 
-    handleSubmit(e) {
+    const handleSubmit = (e) => {
         if(e) e.preventDefault();
-        const chatType = this.props.type === "channel" ? "Channel" : "Direct"
+        const chatType = props.type === "channel" ? "Channel" : "Direct"
 
-        const message = Object.assign({}, this.state)
+        const message = Object.assign({}, messageForm)
         App.channel.speak({
             message: {
-                ...this.state,
+                ...messageForm,
                 messageable_type: chatType
             }
         });
-        this.setState({
-            body: ""
-        });
-        // this.props.createMessage(message)
 
-        document.querySelector('.message-to-send').value = ''
-        // document.querySelector(".message-tobe-sent-container")
-        // debugger
+        setMessageForm(initialState);
+        document.querySelector('.message-to-send').value = '';
     }
 
-    render() {
-        const placeholder = `Send a message to ${this.props.typeName}`
-        return (
-            <div >
-                <form className="message-tobe-sent-container" onSubmit={this.handleSubmit}>
+    const placeholder = `Send a message to ${props.typeName}`
+    return (
+        <div>
+            <form className="message-tobe-sent-container" onSubmit={handleSubmit}>
 
-                    <textarea 
-                        className="message-to-send" 
-                        onChange={this.update('body')}
-                        onKeyDown={event => {
-                            if (event.key === 'Enter') {
-                                this.handleSubmit()
-                            }}
-                        }  
-                        value={this.state.body} 
-                        type="text" 
-                        placeholder={placeholder}></textarea>
+                <textarea 
+                    className="message-to-send" 
+                    onChange={update('body')}
+                    onKeyDown={event => {
+                        if (event.key === 'Enter') {
+                            handleSubmit()
+                        }}
+                    }  
+                    value={messageForm.body} 
+                    type="text" 
+                    placeholder={placeholder}></textarea>
 
-                    <div className='image-input-contain'>
-                    <input type="image" src="send.png" alt="Submit"/>
+                <div className='image-input-contain'>
+                <input type="image" src="send.png" alt="Submit"/>
 
-                    </div>
+                </div>
 
-                </form>
-            </div>
-
-        )
-    }
-
+            </form>
+        </div>
+    )
 }
 
 

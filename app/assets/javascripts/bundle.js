@@ -1973,128 +1973,88 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 
 
 
-var MessageForm = /*#__PURE__*/function (_React$Component) {
-  _inherits(MessageForm, _React$Component);
+var MessageForm = function MessageForm(props) {
+  var initialState = {
+    user_id: parseInt(props.currentUserId),
+    body: '',
+    messageable_id: props.typeId,
+    messageable_type: 'Direct'
+  };
 
-  var _super = _createSuper(MessageForm);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialState),
+      _useState2 = _slicedToArray(_useState, 2),
+      messageForm = _useState2[0],
+      setMessageForm = _useState2[1];
 
-  function MessageForm(props) {
-    var _this;
+  var update = function update(field) {
+    return function (e) {
+      var _setMessageForm;
 
-    _classCallCheck(this, MessageForm);
-
-    _this = _super.call(this, props);
-    _this.state = {
-      user_id: parseInt(_this.props.currentUserId),
-      body: '',
-      messageable_id: _this.props.typeId,
-      messageable_type: 'Direct'
+      setMessageForm((_setMessageForm = {
+        user_id: parseInt(props.currentUserId)
+      }, _defineProperty(_setMessageForm, field, e.currentTarget.value), _defineProperty(_setMessageForm, "messageable_id", parseInt(props.typeId)), _defineProperty(_setMessageForm, "messageable_type", 'Direct'), _setMessageForm));
     };
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
-    return _this;
-  }
+  };
 
-  _createClass(MessageForm, [{
-    key: "update",
-    value: // componentDidUpdate(prevProps, prevState) {
-    //     if (document.querySelector('.message-to-send').value === '\n') {
-    //         document.querySelector('.message-to-send').value = ''
-    //     }
-    // }
-    function update(field) {
-      var _this2 = this;
+  var handleSubmit = function handleSubmit(e) {
+    if (e) e.preventDefault();
+    var chatType = props.type === "channel" ? "Channel" : "Direct";
+    var message = Object.assign({}, messageForm);
+    App.channel.speak({
+      message: _objectSpread(_objectSpread({}, messageForm), {}, {
+        messageable_type: chatType
+      })
+    });
+    setMessageForm(initialState);
+    document.querySelector('.message-to-send').value = '';
+  };
 
-      return function (e) {
-        var _this2$setState;
-
-        _this2.setState((_this2$setState = {
-          user_id: parseInt(_this2.props.currentUserId)
-        }, _defineProperty(_this2$setState, field, e.currentTarget.value), _defineProperty(_this2$setState, "messageable_id", parseInt(_this2.props.typeId)), _defineProperty(_this2$setState, "messageable_type", 'Direct'), _this2$setState));
-      };
-    }
-  }, {
-    key: "handleSubmit",
-    value: function handleSubmit(e) {
-      if (e) e.preventDefault();
-      var chatType = this.props.type === "channel" ? "Channel" : "Direct";
-      var message = Object.assign({}, this.state);
-      App.channel.speak({
-        message: _objectSpread(_objectSpread({}, this.state), {}, {
-          messageable_type: chatType
-        })
-      });
-      this.setState({
-        body: ""
-      }); // this.props.createMessage(message)
-
-      document.querySelector('.message-to-send').value = ''; // document.querySelector(".message-tobe-sent-container")
-      // debugger
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
-
-      var placeholder = "Send a message to ".concat(this.props.typeName);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
-        className: "message-tobe-sent-container",
-        onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
-        className: "message-to-send",
-        onChange: this.update('body'),
-        onKeyDown: function onKeyDown(event) {
-          if (event.key === 'Enter') {
-            _this3.handleSubmit();
-          }
-        },
-        value: this.state.body,
-        type: "text",
-        placeholder: placeholder
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "image-input-contain"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-        type: "image",
-        src: "send.png",
-        alt: "Submit"
-      }))));
-    }
-  }]);
-
-  return MessageForm;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+  var placeholder = "Send a message to ".concat(props.typeName);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+    className: "message-tobe-sent-container",
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
+    className: "message-to-send",
+    onChange: update('body'),
+    onKeyDown: function onKeyDown(event) {
+      if (event.key === 'Enter') {
+        handleSubmit();
+      }
+    },
+    value: messageForm.body,
+    type: "text",
+    placeholder: placeholder
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "image-input-contain"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    type: "image",
+    src: "send.png",
+    alt: "Submit"
+  }))));
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
