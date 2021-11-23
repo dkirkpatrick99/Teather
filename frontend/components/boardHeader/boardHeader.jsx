@@ -128,8 +128,6 @@ class BoardHeader extends React.Component{
                     </li>
                 )
             }) : null
-            // .join('');
-            // suggestions.innerHTML = html;
             this.setState({
                 'userMatches': userMatches,
                 'channelMatches': channelMatches
