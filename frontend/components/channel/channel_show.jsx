@@ -24,7 +24,19 @@ class ChannelShow extends React.Component {
         } else if (this.props.type === 'direct') {
             this.props.fetchDirectMessages(this.props.typeId)
         }
+
         const { typeId, receiveMessage, type } = this.props;
+        let check = false;
+        let userNavables = userChannels(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects)
+        if (this.props.type === 'channel') {
+            check = userNavables.channels.includes(parseInt(typeId)) ? check = true : check = false
+            if (!check) this.props.history.push(`/client/channel/1`)
+        }
+        if (this.props.type === 'direct') {
+            check = userNavables.directs.includes(parseInt(typeId)) ? check = true : check = false
+            if (!check) this.props.history.push(`/client/channel/1`)
+        }
+
         const chatType = type === "channel" ? "ChatChannel" : "ChatDirect"
         App.channel = App.cable.subscriptions.create(
             { channel: chatType, id: typeId }, //slip data inside object and include id there history push

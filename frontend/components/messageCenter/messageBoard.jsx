@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+// import MessageBoard from './messageBoard';
 import SideBarContainer from '../sideBar/sideBar_container'
 import BoardHeader from '../boardHeader/boardHeader'
 import ChannelShowContainer from '../channel/channel_show_container'
@@ -12,35 +13,44 @@ import { fetchAllMessages } from "../../actions/message_actions";
 // import ListenerContainer from '../channel/listener_container';
 import Modal from '../modal/modal';
 
-const MessageBoard = (props) => {
+class MessageBoard extends React.Component {
 
-    useEffect(() => {
-        props.fetchAllUsers()
+    constructor(props) {
+        super(props);
+    };
+
+    componentDidMount() {
+        debugger
+        this.props.fetchAllUsers()
             .then(() => {
-                props.fetchAllChannels();
+                this.props.fetchAllChannels();
+            //     this.props.fetchAllDirects();
+            //     this.props.fetchMemberships();
+            //     this.props.fetchAllMessages();
             }
-            )
+        )
         App.NotificationsChannel = App.cable.subscriptions.create(
-            { channel: "NotificationsChannel", currentUserId: props.currentUser },
+            { channel: "NotificationsChannel", currentUserId: this.props.currentUser },
             {
                 received: data => {
+                    debugger
                     switch (data.type) {
 
                         case "membershipAdd":
-                            props
+                            this.props
                                 .receiveMembership(data.membership);
                             break;
                         case "directAdd":
-                            props
+                            this.props
                                 .fetchDirect(data.directId);
                             break;
                         case "channelAdd":
-                            props
+                            this.props
                                 .fetchChannel(data.channelId);
                             break;
                         case "userAdd":
-                            props.fetchUserDirects(props.currentUser);
-                            props
+                            this.props.fetchUserDirects(this.props.currentUser);
+                            this.props
                                 .fetchUser(data.userId);
 
                             break;
@@ -48,33 +58,32 @@ const MessageBoard = (props) => {
                 }
             }
         );
-    }, [])
+    }
+    componentDidUpdate() { }
 
-    useEffect(() => {
+    componentWillUnmount() {
         App.NotificationsChannel.unsubscribe();
-    }) 
-    
-    // componentWillUnmount() {
-    //     App.NotificationsChannel.unsubscribe();
-    // }
+    }
 
     
 
     // houses all of the main app components and is the only route rendered while 
     // a user is logged in
-    return (
-        <div className="client-main-container">
-            <BoardHeader history={props.history} />
-            <div className="flex-container">
-                <SideBarContainer type={props.type} typeId={props.typeId}/>
-                <ChannelShowContainer type={props.type} typeId={props.typeId} history={props.history}/>
+    render(){
+        return (
+            <div className="client-main-container">
+                <BoardHeader history={this.props.history} />
+                <div className="flex-container">
+                    <SideBarContainer type={this.props.type} typeId={this.props.typeId}/>
+                    <ChannelShowContainer type={this.props.type} typeId={this.props.typeId} history={this.props.history}/>
+                </div>
+                {/* <ListenerContainer type={this.props.type} typeId={this.props.typeId}/> */}
+                <Modal history={this.props.history}/>
+                
             </div>
-            {/* <ListenerContainer type={this.props.type} typeId={this.props.typeId}/> */}
-            <Modal history={props.history}/>
-            
-        </div>
 
-    )
+        )
+    }
 
 }
 

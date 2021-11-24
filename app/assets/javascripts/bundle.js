@@ -1153,6 +1153,19 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
           typeId = _this$props.typeId,
           receiveMessage = _this$props.receiveMessage,
           type = _this$props.type;
+      var check = false;
+      var userNavables = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.userChannels)(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects);
+
+      if (this.props.type === 'channel') {
+        check = userNavables.channels.includes(parseInt(typeId)) ? check = true : check = false;
+        if (!check) this.props.history.push("/client/channel/1");
+      }
+
+      if (this.props.type === 'direct') {
+        check = userNavables.directs.includes(parseInt(typeId)) ? check = true : check = false;
+        if (!check) this.props.history.push("/client/channel/1");
+      }
+
       var chatType = type === "channel" ? "ChatChannel" : "ChatDirect";
       App.channel = App.cable.subscriptions.create({
         channel: chatType,
@@ -2048,7 +2061,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_direct_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/direct_actions */ "./frontend/actions/direct_actions.js");
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
 /* harmony import */ var _modal_modal__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../modal/modal */ "./frontend/components/modal/modal.jsx");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+ // import MessageBoard from './messageBoard';
 
 
 
@@ -2062,62 +2098,96 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var MessageBoard = function MessageBoard(props) {
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    props.fetchAllUsers().then(function () {
-      props.fetchAllChannels();
-    });
-    App.NotificationsChannel = App.cable.subscriptions.create({
-      channel: "NotificationsChannel",
-      currentUserId: props.currentUser
-    }, {
-      received: function received(data) {
-        switch (data.type) {
-          case "membershipAdd":
-            props.receiveMembership(data.membership);
-            break;
+var MessageBoard = /*#__PURE__*/function (_React$Component) {
+  _inherits(MessageBoard, _React$Component);
 
-          case "directAdd":
-            props.fetchDirect(data.directId);
-            break;
+  var _super = _createSuper(MessageBoard);
 
-          case "channelAdd":
-            props.fetchChannel(data.channelId);
-            break;
+  function MessageBoard(props) {
+    _classCallCheck(this, MessageBoard);
 
-          case "userAdd":
-            props.fetchUserDirects(props.currentUser);
-            props.fetchUser(data.userId);
-            break;
+    return _super.call(this, props);
+  }
+
+  _createClass(MessageBoard, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this = this;
+
+      debugger;
+      this.props.fetchAllUsers().then(function () {
+        _this.props.fetchAllChannels(); //     this.props.fetchAllDirects();
+        //     this.props.fetchMemberships();
+        //     this.props.fetchAllMessages();
+
+      });
+      App.NotificationsChannel = App.cable.subscriptions.create({
+        channel: "NotificationsChannel",
+        currentUserId: this.props.currentUser
+      }, {
+        received: function received(data) {
+          debugger;
+
+          switch (data.type) {
+            case "membershipAdd":
+              _this.props.receiveMembership(data.membership);
+
+              break;
+
+            case "directAdd":
+              _this.props.fetchDirect(data.directId);
+
+              break;
+
+            case "channelAdd":
+              _this.props.fetchChannel(data.channelId);
+
+              break;
+
+            case "userAdd":
+              _this.props.fetchUserDirects(_this.props.currentUser);
+
+              _this.props.fetchUser(data.userId);
+
+              break;
+          }
         }
-      }
-    });
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    App.NotificationsChannel.unsubscribe();
-  }); // componentWillUnmount() {
-  //     App.NotificationsChannel.unsubscribe();
-  // }
-  // houses all of the main app components and is the only route rendered while 
-  // a user is logged in
+      });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {}
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      App.NotificationsChannel.unsubscribe();
+    } // houses all of the main app components and is the only route rendered while 
+    // a user is logged in
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "client-main-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_boardHeader_boardHeader__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    history: props.history
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "flex-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_sideBar_sideBar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    type: props.type,
-    typeId: props.typeId
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_show_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    type: props.type,
-    typeId: props.typeId,
-    history: props.history
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    history: props.history
-  }));
-}; // export default MessageBoard
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "client-main-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_boardHeader_boardHeader__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        history: this.props.history
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "flex-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_sideBar_sideBar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        type: this.props.type,
+        typeId: this.props.typeId
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_show_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        type: this.props.type,
+        typeId: this.props.typeId,
+        history: this.props.history
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        history: this.props.history
+      }));
+    }
+  }]);
+
+  return MessageBoard;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component); // export default MessageBoard
 
 
 var mapSTP = function mapSTP(state, ownProps) {
