@@ -23,11 +23,11 @@ class MessageBoard extends React.Component {
         this.props.fetchAllUsers()
             .then(() => {
                 this.props.fetchAllChannels();
-            //     this.props.fetchAllDirects();
-            //     this.props.fetchMemberships();
-            //     this.props.fetchAllMessages();
+                //     this.props.fetchAllDirects();
+                //     this.props.fetchMemberships();
+                //     this.props.fetchAllMessages();
             }
-        )
+            )
         App.NotificationsChannel = App.cable.subscriptions.create(
             { channel: "NotificationsChannel", currentUserId: this.props.currentUser },
             {
@@ -64,21 +64,21 @@ class MessageBoard extends React.Component {
         App.NotificationsChannel.unsubscribe();
     }
 
-    
+
 
     // houses all of the main app components and is the only route rendered while 
     // a user is logged in
-    render(){
+    render() {
         return (
             <div className="client-main-container">
                 <BoardHeader history={this.props.history} />
                 <div className="flex-container">
-                    <SideBarContainer type={this.props.type} typeId={this.props.typeId}/>
-                    <ChannelShowContainer type={this.props.type} typeId={this.props.typeId} history={this.props.history}/>
+                    <SideBarContainer type={this.props.type} typeId={this.props.typeId} />
+                    <ChannelShowContainer type={this.props.type} typeId={this.props.typeId} history={this.props.history} />
                 </div>
                 {/* <ListenerContainer type={this.props.type} typeId={this.props.typeId}/> */}
-                <Modal history={this.props.history}/>
-                
+                <Modal history={this.props.history} />
+
             </div>
 
         )
