@@ -116,9 +116,8 @@ const Greeting = (props) => {
                             </div>
 
                     </div>
-                    </div>
+                </div>
             </div>
-            
         </div>
     )
 }

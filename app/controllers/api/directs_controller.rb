@@ -33,7 +33,7 @@ class Api::DirectsController < ApplicationController
   def destroy
     @direct = Direct.find(params[:id])
     @direct.destroy
-
+    broadcastNewUserAll(current_user)
     # broadcastNewDirect(Direct.first, current_user.id)
     render :show
   end
@@ -47,5 +47,8 @@ class Api::DirectsController < ApplicationController
   end
   def broadcastNewDirect(direct, user)
     ActionCable.server.broadcast "notifications_#{user}", {directId: direct.id, type: 'directAdd'}
+  end
+  def broadcastNewUserAll(user)
+    ActionCable.server.broadcast "notifications_all", {userId: user.id, type: 'userAdd'}
   end
 end

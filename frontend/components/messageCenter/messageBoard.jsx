@@ -20,7 +20,6 @@ class MessageBoard extends React.Component {
     };
 
     componentDidMount() {
-        debugger
         this.props.fetchAllUsers()
             .then(() => {
                 this.props.fetchAllChannels();
@@ -33,7 +32,6 @@ class MessageBoard extends React.Component {
             { channel: "NotificationsChannel", currentUserId: this.props.currentUser },
             {
                 received: data => {
-                    debugger
                     switch (data.type) {
 
                         case "membershipAdd":
@@ -49,7 +47,8 @@ class MessageBoard extends React.Component {
                                 .fetchChannel(data.channelId);
                             break;
                         case "userAdd":
-                            this.props.fetchUserDirects(this.props.currentUser);
+                            this.props
+                                .fetchUserDirects(this.props.currentUser);
                             this.props
                                 .fetchUser(data.userId);
 

@@ -63,12 +63,11 @@ class ChannelShow extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        let prevMessages = Object.values(prevProps.messages);
         let prevTypeId = prevProps.typeId;
         let propTypeId = this.props.typeId
         let propsType = this.props.type
         let check = false;
-        if(prevTypeId && prevTypeId !== this.props.typeId || prevProps.type !== this.props.type) {
+        if(prevTypeId && prevTypeId !== this.props.typeId || prevProps.type !== this.props.type || prevProps.userDirects !== this.props.userDirects) {
             this.getCurrentChannel(this.props)
             this.configChat()
             let userNavables = userChannels(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects)
@@ -81,7 +80,7 @@ class ChannelShow extends React.Component {
                 if (!check) this.props.history.push(`/client/channel/1`)
             }
         }
-
+        if (!this.props.history.location.pathname.includes(propsType)) this.props.history.push(`/client/channel/1`)
         var elem = document.querySelector('.messages-main-container');
         if (elem) elem.scrollTop = elem.scrollHeight;
 
@@ -151,7 +150,6 @@ class ChannelShow extends React.Component {
     }
 
     render() {
-
         if (!this.props.currentUser) {
             return(
                 <div></div>

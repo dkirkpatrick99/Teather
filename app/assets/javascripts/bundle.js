@@ -1196,13 +1196,12 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      var prevMessages = Object.values(prevProps.messages);
       var prevTypeId = prevProps.typeId;
       var propTypeId = this.props.typeId;
       var propsType = this.props.type;
       var check = false;
 
-      if (prevTypeId && prevTypeId !== this.props.typeId || prevProps.type !== this.props.type) {
+      if (prevTypeId && prevTypeId !== this.props.typeId || prevProps.type !== this.props.type || prevProps.userDirects !== this.props.userDirects) {
         this.getCurrentChannel(this.props);
         this.configChat();
         var userNavables = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.userChannels)(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects);
@@ -1218,6 +1217,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
         }
       }
 
+      if (!this.props.history.location.pathname.includes(propsType)) this.props.history.push("/client/channel/1");
       var elem = document.querySelector('.messages-main-container');
       if (elem) elem.scrollTop = elem.scrollHeight;
     }
@@ -2114,7 +2114,6 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this = this;
 
-      debugger;
       this.props.fetchAllUsers().then(function () {
         _this.props.fetchAllChannels(); //     this.props.fetchAllDirects();
         //     this.props.fetchMemberships();
@@ -2126,8 +2125,6 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
         currentUserId: this.props.currentUser
       }, {
         received: function received(data) {
-          debugger;
-
           switch (data.type) {
             case "membershipAdd":
               _this.props.receiveMembership(data.membership);
