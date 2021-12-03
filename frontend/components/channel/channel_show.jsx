@@ -36,30 +36,31 @@ class ChannelShow extends React.Component {
             check = userNavables.directs.includes(parseInt(typeId)) ? check = true : check = false
             if (!check) this.props.history.push(`/client/channel/1`)
         }
+        this.configChat();
 
-        const chatType = type === "channel" ? "ChatChannel" : "ChatDirect"
-        App.channel = App.cable.subscriptions.create(
-            { channel: chatType, id: typeId }, //slip data inside object and include id there history push
-            {
-                received: data => {
-                    let incomingMessage = JSON.parse(data.message);
-                    switch (data.type) {
-                        case "message":
-                            receiveMessage(incomingMessage);
-                            break;
-                        case "edit":
-                            receiveMessage(incomingMessage);
-                            break;
-                    }
-                },
-                speak: function (message) {
-                    return this.perform("speak", message);
-                },
-                load: function () {
-                    return this.perform("load");
-                }
-            }
-        );
+        // const chatType = type === "channel" ? "ChatChannel" : "ChatDirect"
+        // App.channel = App.cable.subscriptions.create(
+        //     { channel: chatType, id: typeId }, //slip data inside object and include id there history push
+        //     {
+        //         received: data => {
+        //             let incomingMessage = JSON.parse(data.message);
+        //             switch (data.type) {
+        //                 case "message":
+        //                     receiveMessage(incomingMessage);
+        //                     break;
+        //                 case "edit":
+        //                     receiveMessage(incomingMessage);
+        //                     break;
+        //             }
+        //         },
+        //         speak: function (message) {
+        //             return this.perform("speak", message);
+        //         },
+        //         load: function () {
+        //             return this.perform("load");
+        //         }
+        //     }
+        // );
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -67,9 +68,9 @@ class ChannelShow extends React.Component {
         let propTypeId = this.props.typeId
         let propsType = this.props.type
         let check = false;
+        this.configChat()
         if(prevTypeId && prevTypeId !== this.props.typeId || prevProps.type !== this.props.type || prevProps.userDirects !== this.props.userDirects) {
             this.getCurrentChannel(this.props)
-            this.configChat()
             let userNavables = userChannels(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects)
             if (this.props.type === 'channel') {
                 check = userNavables.channels.includes(parseInt(propTypeId)) ? check = true : check = false
@@ -106,9 +107,10 @@ class ChannelShow extends React.Component {
                 speak: function (message) {
                     return this.perform("speak", message);
                 },
-                load: function () {
-                    return this.perform("load");
-                }
+                // load: function () {
+                //     debugger
+                //     return this.perform("load");
+                // }
             }
         );
     }
@@ -137,10 +139,6 @@ class ChannelShow extends React.Component {
     }
 
     deleteChannel() {
-        // const membership = Object.values(this.props.memberships).find(membership => membership.channel_id === parseInt(this.props.channelId))
-        // if (membership) {
-        //     this.props.deleteMembership(membership.id)
-        // }
         if(this.props.type === 'channel'){
             this.props.destroyChannel(this.props.typeId)
         } else if(this.props.type === 'direct') {

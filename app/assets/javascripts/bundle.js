@@ -1142,32 +1142,29 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
         if (!check) this.props.history.push("/client/channel/1");
       }
 
-      var chatType = type === "channel" ? "ChatChannel" : "ChatDirect";
-      App.channel = App.cable.subscriptions.create({
-        channel: chatType,
-        id: typeId
-      }, //slip data inside object and include id there history push
-      {
-        received: function received(data) {
-          var incomingMessage = JSON.parse(data.message);
-
-          switch (data.type) {
-            case "message":
-              receiveMessage(incomingMessage);
-              break;
-
-            case "edit":
-              receiveMessage(incomingMessage);
-              break;
-          }
-        },
-        speak: function speak(message) {
-          return this.perform("speak", message);
-        },
-        load: function load() {
-          return this.perform("load");
-        }
-      });
+      this.configChat(); // const chatType = type === "channel" ? "ChatChannel" : "ChatDirect"
+      // App.channel = App.cable.subscriptions.create(
+      //     { channel: chatType, id: typeId }, //slip data inside object and include id there history push
+      //     {
+      //         received: data => {
+      //             let incomingMessage = JSON.parse(data.message);
+      //             switch (data.type) {
+      //                 case "message":
+      //                     receiveMessage(incomingMessage);
+      //                     break;
+      //                 case "edit":
+      //                     receiveMessage(incomingMessage);
+      //                     break;
+      //             }
+      //         },
+      //         speak: function (message) {
+      //             return this.perform("speak", message);
+      //         },
+      //         load: function () {
+      //             return this.perform("load");
+      //         }
+      //     }
+      // );
     }
   }, {
     key: "componentDidUpdate",
@@ -1176,10 +1173,10 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       var propTypeId = this.props.typeId;
       var propsType = this.props.type;
       var check = false;
+      this.configChat();
 
       if (prevTypeId && prevTypeId !== this.props.typeId || prevProps.type !== this.props.type || prevProps.userDirects !== this.props.userDirects) {
         this.getCurrentChannel(this.props);
-        this.configChat();
         var userNavables = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.userChannels)(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects);
 
         if (this.props.type === 'channel') {
@@ -1224,10 +1221,11 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
         },
         speak: function speak(message) {
           return this.perform("speak", message);
-        },
-        load: function load() {
-          return this.perform("load");
-        }
+        } // load: function () {
+        //     debugger
+        //     return this.perform("load");
+        // }
+
       });
     }
   }, {
@@ -1264,10 +1262,6 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteChannel",
     value: function deleteChannel() {
-      // const membership = Object.values(this.props.memberships).find(membership => membership.channel_id === parseInt(this.props.channelId))
-      // if (membership) {
-      //     this.props.deleteMembership(membership.id)
-      // }
       if (this.props.type === 'channel') {
         this.props.destroyChannel(this.props.typeId);
       } else if (this.props.type === 'direct') {

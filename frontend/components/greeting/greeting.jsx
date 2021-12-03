@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { render } from 'react-dom';
 import GreetingHeader from './greeting_header'
 
-
-
 const Greeting = (props) => {
 
     return (
