@@ -29,10 +29,7 @@ class ChatDirect < ApplicationCable::Channel
   def unsubscribed
   end
   def format(message)
-    ApplicationController.render(
-      partial: 'api/messages/message',
-      locals: {message: message}
-    )
+    ApplicationController.render(partial: 'api/messages/message',locals: {message: message})
   end
   private 
   def message_params

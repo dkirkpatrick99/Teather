@@ -68,8 +68,8 @@ class ChannelShow extends React.Component {
         let propTypeId = this.props.typeId
         let propsType = this.props.type
         let check = false;
-        this.configChat()
         if(prevTypeId && prevTypeId !== this.props.typeId || prevProps.type !== this.props.type || prevProps.userDirects !== this.props.userDirects) {
+            this.configChat()
             this.getCurrentChannel(this.props)
             let userNavables = userChannels(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects)
             if (this.props.type === 'channel') {
@@ -189,7 +189,7 @@ class ChannelShow extends React.Component {
                                 <p className="message-body-text">{message.body}</p>
                             </div>
                         </li>)
-                }) : "no messages"  
+                }) : "Loading messages..."  
         // }
 
         if(this.props.currentChannel && this.props.userDirects){

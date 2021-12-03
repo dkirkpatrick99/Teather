@@ -1173,9 +1173,9 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       var propTypeId = this.props.typeId;
       var propsType = this.props.type;
       var check = false;
-      this.configChat();
 
       if (prevTypeId && prevTypeId !== this.props.typeId || prevProps.type !== this.props.type || prevProps.userDirects !== this.props.userDirects) {
+        this.configChat();
         this.getCurrentChannel(this.props);
         var userNavables = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.userChannels)(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects);
 
@@ -1333,7 +1333,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
         }, dateFormat)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
           className: "message-body-text"
         }, message.body)));
-      }) : "no messages"; // }
+      }) : "Loading messages..."; // }
 
       if (this.props.currentChannel && this.props.userDirects) {
         channelName = this.props.type === "channel" ? this.props.currentChannel.name : this.props.userDirects[this.props.typeId].name;
@@ -1943,18 +1943,18 @@ var MessageForm = function MessageForm(props) {
         messageable_type: chatType
       })
     });
-    setMessageForm(initialState);
-    document.querySelector('.message-to-send').value = '';
+    setMessageForm(initialState); // document.querySelector('.message-to-send').value = '';
   };
 
-  var placeholder = "Send a message to ".concat(props.typeName);
+  var placeholder = "Send a message to ".concat(props.typeName); // debugger
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     className: "message-tobe-sent-container",
     onSubmit: handleSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
     className: "message-to-send",
     onChange: update('body'),
-    onKeyDown: function onKeyDown(event) {
+    onKeyUp: function onKeyUp(event) {
       if (event.key === 'Enter') {
         handleSubmit();
       }

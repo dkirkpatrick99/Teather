@@ -38,10 +38,11 @@ const MessageForm = (props) => {
         });
 
         setMessageForm(initialState);
-        document.querySelector('.message-to-send').value = '';
+        // document.querySelector('.message-to-send').value = '';
     }
 
     const placeholder = `Send a message to ${props.typeName}`
+    // debugger
     return (
         <div>
             <form className="message-tobe-sent-container" onSubmit={handleSubmit}>
@@ -49,7 +50,7 @@ const MessageForm = (props) => {
                 <textarea 
                     className="message-to-send" 
                     onChange={update('body')}
-                    onKeyDown={event => {
+                    onKeyUp={event => {
                         if (event.key === 'Enter') {
                             handleSubmit()
                         }}
