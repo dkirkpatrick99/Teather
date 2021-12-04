@@ -13,6 +13,7 @@ class ChannelShow extends React.Component {
     };
 
     componentDidMount(props) {
+        console.log("didmount")
         this.props.fetchAllChannels();
         this.props.fetchAllUsers();
         this.props.fetchMemberships();
@@ -64,6 +65,7 @@ class ChannelShow extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.log('compdidupdate')
         let prevTypeId = prevProps.typeId;
         let propTypeId = this.props.typeId
         let propsType = this.props.type
@@ -88,6 +90,7 @@ class ChannelShow extends React.Component {
     }
 
     configChat() {
+        console.log('config chat')
         const { type, receiveMessage } = this.props;
         const chatType = type === "channel" ? "ChatChannel" : "ChatDirect"
         App.channel = App.cable.subscriptions.create(

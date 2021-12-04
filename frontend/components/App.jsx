@@ -17,6 +17,7 @@ import MessageBoardContainer from './messageCenter/messageBoard'
 import GreetingHeader from './greeting/greeting_header'
 import ChannelCreateFrom from './channel/channel_create_form'
 import DirectMessageSearch from './directMessage/direct_message_search'
+import TestHeader from './greeting/test_header'
 
 
 const App = () => (
@@ -27,9 +28,10 @@ const App = () => (
         <Switch>
             <AuthRoute exact path="/login" component={LogInFormContainer} />
             <AuthRoute exact path="/signup" component={SignUpFormContainer} />
+            <AuthRoute exact path="/testheader" component={TestHeader}/>
             <ProtectedRoute exact path="/client/:type/:type_id" component={MessageBoardContainer} />
             {/* <ProtectedRoute exact path="/dm" component={DirectMessageSearch} /> */}
-            <AuthRoute exact path="/" component= {GreetingContainer}/>
+            <AuthRoute exact path="/" component={GreetingContainer}/>
         </Switch>
     </div>
 );

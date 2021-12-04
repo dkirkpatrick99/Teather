@@ -10,38 +10,38 @@ const GreetingHeader = (props) => {
 
 
 
-    const handleEnter = (e) => {
-        e.currentTarget.classList.add('trigger-enter');
-        // setTimeout(() => e.currentTarget.classList.contains('trigger-enter') && e.currentTarget.classList.add('trigger-enter-active'), 150);
-        const bounceInt = setInterval(() => { e.currentTarget.classList.contains('trigger-enter') && e.currentTarget.classList.add('trigger-enter-active') },150);
-        clearInterval(bounceInt);
-        const background = document.querySelector('.dropdownBackground');
-        const nav = document.querySelector('.top');
+    // const handleEnter = (e) => {
+    //     e.currentTarget.classList.add('trigger-enter');
+    //     // setTimeout(() => e.currentTarget.classList.contains('trigger-enter') && e.currentTarget.classList.add('trigger-enter-active'), 150);
+    //     const bounceInt = setInterval(() => { e.currentTarget.classList.contains('trigger-enter') && e.currentTarget.classList.add('trigger-enter-active') },150);
+    //     clearInterval(bounceInt);
+    //     const background = document.querySelector('.dropdownBackground');
+    //     const nav = document.querySelector('.top');
         
-        background.classList.add('open');
+    //     background.classList.add('open');
         
-        const dropdown = e.currentTarget.querySelector('.dropdown');
-        const dropdownCoords = dropdown.getBoundingClientRect();
-        const navCoords = nav.getBoundingClientRect();
+    //     const dropdown = e.currentTarget.querySelector('.dropdown');
+    //     const dropdownCoords = dropdown.getBoundingClientRect();
+    //     const navCoords = nav.getBoundingClientRect();
 
-        const coords = {
-            height: dropdownCoords.height,
-            width: dropdownCoords.width,
-            top: dropdownCoords.top - navCoords.top + 100,
-            left: dropdownCoords.left - navCoords.left
-        };
+    //     const coords = {
+    //         height: dropdownCoords.height,
+    //         width: dropdownCoords.width,
+    //         top: dropdownCoords.top - navCoords.top + 100,
+    //         left: dropdownCoords.left - navCoords.left
+    //     };
 
-        background.style.setProperty('width', `${coords.width}px`);
-        background.style.setProperty('height', `${coords.height}px`);
-        background.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px)`);
-    }
+    //     background.style.setProperty('width', `${coords.width}px`);
+    //     background.style.setProperty('height', `${coords.height}px`);
+    //     background.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px)`);
+    // }
 
-    const handleLeave = (e) => {
-        e.currentTarget.classList.remove('trigger-enter', 'trigger-enter-active');
-        const background = document.querySelector('.dropdownBackground');
-        // debugger
-        background.classList.remove('open');
-    }
+    // const handleLeave = (e) => {
+    //     e.currentTarget.classList.remove('trigger-enter', 'trigger-enter-active');
+    //     const background = document.querySelector('.dropdownBackground');
+    //     // debugger
+    //     background.classList.remove('open');
+    // }
 
     // triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
     // triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));

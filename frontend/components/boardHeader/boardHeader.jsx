@@ -13,15 +13,7 @@ const BoardHeader = (props) => {
     const [userMatches, setUserMatches] = useState(null)
     const [channelMatches, setChannelMatches] = useState(null)
 
-    // constructor(props) {
-    //     super(props)
-    //     this.state = {
-    //         'userMatches': null,
-    //         'channelMatches': null
-    //     };
-    //     this.displayMatches = this.displayMatches.bind(this)
-    //     this.handleSubmit = this.handleSubmit.bind(this)
-    // }
+
 
     useEffect(() => {
         props.fetchAllUsers();
@@ -31,14 +23,7 @@ const BoardHeader = (props) => {
             props.fetchUserDirects(props.currentUser.id)
         }
     },[])
-    // componentDidMount(props) {
-    //     this.props.fetchAllUsers();
-    //     this.props.fetchAllChannels();
-    //     this.props.fetchMemberships();
-    //     if(this.props.currentUser){
-    //         this.props.fetchUserDirects(this.props.currentUser.id)
-    //     }
-    // }
+
 
     const handleSubmit = (e) => {
         e.preventDefault();

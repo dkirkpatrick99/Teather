@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { render } from 'react-dom';
 import GreetingHeader from './greeting_header'
+import TestHeader from './test_header'
 
 const Greeting = (props) => {
 
@@ -45,7 +46,8 @@ const Greeting = (props) => {
     return (
         <div className="greeting-main-container">
 
-                <GreetingHeader />
+                {/* <GreetingHeader /> */}
+                <TestHeader />
 
                 <div className="top-greeting-container">
                     <div className='greeting-video-fill'></div>
