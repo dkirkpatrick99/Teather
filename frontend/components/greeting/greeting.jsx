@@ -5,6 +5,43 @@ import GreetingHeader from './greeting_header'
 
 const Greeting = (props) => {
 
+    
+    const debounce = (func, wait = 20, immediate = true) => {
+      var timeout;
+      return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearInterval(timeout);
+        timeout = setInterval(later, wait)
+        if (callNow) func.apply(context, args);
+      };
+    };
+
+    
+    const checkSlide = () => {
+        const sliderImages = document.querySelectorAll('.slide-in');
+        sliderImages.forEach(sliderImage => {
+            // half way through the image
+            const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 3;
+            // bottom of the image
+            const imageBottom = sliderImage.offsetTop + sliderImage.height;
+            const isHalfShown = slideInAt > sliderImage.offsetTop;
+            const isNotScrolledPast = window.scrollY < imageBottom;
+            if (isHalfShown && isNotScrolledPast) {
+                sliderImage.classList.add('active');
+                console.log('here')
+            } else {
+                sliderImage.classList.remove('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', debounce(checkSlide));
+
     return (
         <div className="greeting-main-container">
 
@@ -59,7 +96,7 @@ const Greeting = (props) => {
                     <div className='smoosh'>
 
                         <div className="chat-text-container">
-                            <img src="SlackChat4.gif" alt=""/>
+                            <img className="align-left slide-in" src="SlackChat4.gif" alt=""/>
                             <div className="chat-desc-container">
                                 <h2>Move faster by organizing your work life</h2>
                                 <p>The key to productivity in Teather is organized spaces called channels—a different one for everything you’re working on. With all the people, messages and files related to a topic in one place, you can move a whole lot faster.</p>
@@ -81,7 +118,7 @@ const Greeting = (props) => {
                                 <p>Give everyone you work with—inside and outside your company—a more productive way to stay in sync. Respond faster with emoji, keep conversations focused in channels, and simplify all your communication into one place.</p>
                                     <Link className='greeting-signup-button' to='/signup'>Try For Free</Link>
                                 </div>
-                                <img src="SlackDM.gif" alt="" />
+                                <img className="align-right slide-in" src="SlackDM.gif" alt="" />
                             </div>
 
                         </div>
@@ -94,7 +131,7 @@ const Greeting = (props) => {
                         <div className='smoosh'>
 
                             <div className="video-text-container">
-                                <img src="SlackVideoCalling.gif" alt="" />
+                                <img className="align-left slide-in" src="SlackVideoCalling.gif" alt="" />
                                 <div className="chat-desc-container">
                                     <h2>And you can chat face to face, with just a click</h2>
                                 <p>Meet more efficiently with video conferencing. It’s easier to see things eye-to-eye when you’re face-to-face. Video conferencing helps you share information more efficiently, so work gets done faster.</p>

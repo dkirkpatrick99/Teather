@@ -1659,6 +1659,46 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Greeting = function Greeting(props) {
+  var debounce = function debounce(func) {
+    var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
+    var immediate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+    var timeout;
+    return function () {
+      var context = this,
+          args = arguments;
+
+      var later = function later() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+
+      var callNow = immediate && !timeout;
+      clearInterval(timeout);
+      timeout = setInterval(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  };
+
+  var checkSlide = function checkSlide() {
+    var sliderImages = document.querySelectorAll('.slide-in');
+    sliderImages.forEach(function (sliderImage) {
+      // half way through the image
+      var slideInAt = window.scrollY + window.innerHeight - sliderImage.height / 3; // bottom of the image
+
+      var imageBottom = sliderImage.offsetTop + sliderImage.height;
+      var isHalfShown = slideInAt > sliderImage.offsetTop;
+      var isNotScrolledPast = window.scrollY < imageBottom;
+
+      if (isHalfShown && isNotScrolledPast) {
+        sliderImage.classList.add('active');
+        console.log('here');
+      } else {
+        sliderImage.classList.remove('active');
+      }
+    });
+  };
+
+  window.addEventListener('scroll', debounce(checkSlide));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "greeting-main-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_header__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1702,6 +1742,7 @@ var Greeting = function Greeting(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "chat-text-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "align-left slide-in",
     src: "SlackChat4.gif",
     alt: ""
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1722,6 +1763,7 @@ var Greeting = function Greeting(props) {
     className: "greeting-signup-button",
     to: "/signup"
   }, "Try For Free")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "align-right slide-in",
     src: "SlackDM.gif",
     alt: ""
   }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1733,6 +1775,7 @@ var Greeting = function Greeting(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "video-text-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "align-left slide-in",
     src: "SlackVideoCalling.gif",
     alt: ""
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1822,6 +1865,40 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var GreetingHeader = function GreetingHeader(props) {
+  // const triggers = document.querySelectorAll('.cool > li');
+  var handleEnter = function handleEnter(e) {
+    e.currentTarget.classList.add('trigger-enter'); // setTimeout(() => e.currentTarget.classList.contains('trigger-enter') && e.currentTarget.classList.add('trigger-enter-active'), 150);
+
+    var bounceInt = setInterval(function () {
+      e.currentTarget.classList.contains('trigger-enter') && e.currentTarget.classList.add('trigger-enter-active');
+    }, 150);
+    clearInterval(bounceInt);
+    var background = document.querySelector('.dropdownBackground');
+    var nav = document.querySelector('.top');
+    background.classList.add('open');
+    var dropdown = e.currentTarget.querySelector('.dropdown');
+    var dropdownCoords = dropdown.getBoundingClientRect();
+    var navCoords = nav.getBoundingClientRect();
+    var coords = {
+      height: dropdownCoords.height,
+      width: dropdownCoords.width,
+      top: dropdownCoords.top - navCoords.top + 100,
+      left: dropdownCoords.left - navCoords.left
+    };
+    background.style.setProperty('width', "".concat(coords.width, "px"));
+    background.style.setProperty('height', "".concat(coords.height, "px"));
+    background.style.setProperty('transform', "translate(".concat(coords.left, "px, ").concat(coords.top, "px)"));
+  };
+
+  var handleLeave = function handleLeave(e) {
+    e.currentTarget.classList.remove('trigger-enter', 'trigger-enter-active');
+    var background = document.querySelector('.dropdownBackground'); // debugger
+
+    background.classList.remove('open');
+  }; // triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
+  // triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
+
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "header-centerizer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
