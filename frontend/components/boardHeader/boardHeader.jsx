@@ -174,9 +174,9 @@ const BoardHeader = (props) => {
                         </div>
                     </div>
                     <div className='dropdown-user-links-container'>
-                        <a href="https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/">Visit my portfolio</a>
-                        <a href="https://github.com/dkirkpatrick99">Visit my GitHub</a>
-                        <a href="https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184">Contact Me!</a>
+                        <a href="https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/" target="_blank">Visit my portfolio</a>
+                        <a href="https://github.com/dkirkpatrick99" target="_blank">Visit my GitHub</a>
+                        <a href="https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184" target="_blank">Contact Me!</a>
                     </div>
                     <div className='dropdown-user-logout-container'>
                         <a onClick={() => props.logout()}>Log out of {props.currentUser.username}</a>

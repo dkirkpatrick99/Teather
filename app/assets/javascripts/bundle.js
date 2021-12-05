@@ -839,11 +839,14 @@ var BoardHeader = function BoardHeader(props) {
   }, "Active")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "dropdown-user-links-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
-    href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
+    href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/",
+    target: "_blank"
   }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
-    href: "https://github.com/dkirkpatrick99"
+    href: "https://github.com/dkirkpatrick99",
+    target: "_blank"
   }, "Visit my GitHub"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
-    href: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184"
+    href: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184",
+    target: "_blank"
   }, "Contact Me!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "dropdown-user-logout-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
