@@ -111,8 +111,8 @@ const SideBar = (props) => {
                                 </div>
                                 <div className="sidebar-dropdown-links">
                                     <Link onClick={props.logout}>Log out of {props.currentUser.username}</Link>
-                                    <a href='https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/'>Visit my portfolio</a>
-                                    <a href=''>Switch to Light Theme</a>
+                                    <a href='https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/' target="_blank">Visit my portfolio</a>
+                                    <a >Switch to Light Theme</a>
                                 </div>
                             </div>
                         </div>
@@ -144,15 +144,15 @@ const SideBar = (props) => {
                     </div>
 
                     <div className='sidebar-personal-icons'>
-                        <Link to='https://github.com/dkirkpatrick99'>
+                        <a to='https://github.com/dkirkpatrick99' target="_blank">
                             <img src="github.png" alt="" />
-                        </Link>
-                        <Link to='https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/'>
+                        </a>
+                        <a to='https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/' target="_blank">
                             <img src="linkedin.png" alt="" />
-                        </Link>
-                        <Link to='https://angel.co/u/dalton-kirkpatrick'>
+                        </a>
+                        <a to='https://angel.co/u/dalton-kirkpatrick' target="_blank">
                             <img src="angellist.png" alt="" />
-                        </Link>
+                        </a>
                     </div>
                 </div>                    
             </div>
@@ -161,7 +161,7 @@ const SideBar = (props) => {
 
     } else {
         return (
-            <div>hello</div>
+            <div>Loading</div>
         )
     }
 }

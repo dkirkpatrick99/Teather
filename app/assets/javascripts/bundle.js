@@ -2965,10 +2965,9 @@ var SideBar = function SideBar(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
       onClick: props.logout
     }, "Log out of ", props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-      href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
-    }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-      href: ""
-    }, "Switch to Light Theme")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/",
+      target: "_blank"
+    }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null, "Switch to Light Theme")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
       onClick: function onClick() {
         return props.openModal('directMessageSearch');
       },
@@ -3006,24 +3005,27 @@ var SideBar = function SideBar(props) {
       className: "dm-list"
     }, dmLinks))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "sidebar-personal-icons"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-      to: "https://github.com/dkirkpatrick99"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+      to: "https://github.com/dkirkpatrick99",
+      target: "_blank"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
       src: "github.png",
       alt: ""
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-      to: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+      to: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184/",
+      target: "_blank"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
       src: "linkedin.png",
       alt: ""
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-      to: "https://angel.co/u/dalton-kirkpatrick"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+      to: "https://angel.co/u/dalton-kirkpatrick",
+      target: "_blank"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
       src: "angellist.png",
       alt: ""
     })))));
   } else {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "hello");
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading");
   }
 };
 
