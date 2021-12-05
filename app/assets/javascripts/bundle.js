@@ -2016,7 +2016,7 @@ var GreetingHeader = function GreetingHeader(props) {
     target: "_blank"
   }, "LinkedIn")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
     "class": "button",
-    href: "#",
+    href: "https://angel.co/u/dalton-kirkpatrick",
     target: "_blank"
   }, "AngelList"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     "class": "right-header-container"

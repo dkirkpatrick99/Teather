@@ -123,7 +123,7 @@ const Greeting = (props) => {
                             <div className='DM-content-container'>
                                 <div className="chat-desc-container">
                                     <h2>Simplify teamwork for everyone</h2>
-                                <p>Give everyone you work with—inside and outside your company—a more productive way to stay in sync. Respond faster with emoji, keep conversations focused in channels, and simplify all your communication into one place.</p>
+                                    <p>Give everyone you work with—inside and outside your company—a more productive way to stay in sync. Respond faster with emoji, keep conversations focused in channels, and simplify all your communication into one place.</p>
                                     <Link className='greeting-signup-button' to='/signup'>Try For Free</Link>
                                 </div>
                                 <img className="align-right slide-in" src="SlackDM.gif" alt="" />

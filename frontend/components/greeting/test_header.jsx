@@ -95,7 +95,7 @@ const GreetingHeader = (props) => {
                             <li><a class="button" href="https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/" target="_blank">Portfolio</a></li>
                             <li><a class="button" href="https://github.com/dkirkpatrick99" target="_blank">GitHub</a></li>
                             <li><a class="button" href="https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184" target="_blank">LinkedIn</a></li>
-                            <li><a class="button" href="#" target="_blank">AngelList</a></li>
+                            <li><a class="button" href="https://angel.co/u/dalton-kirkpatrick" target="_blank">AngelList</a></li>
                         </ul>
                     </li>
                 </ul>
