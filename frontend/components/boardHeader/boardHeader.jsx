@@ -180,7 +180,6 @@ const BoardHeader = (props) => {
                     </div>
                     <div className='dropdown-user-logout-container'>
                         <a onClick={() => props.logout()}>Log out of {props.currentUser.username}</a>
-
                     </div>
                 </div>
 
