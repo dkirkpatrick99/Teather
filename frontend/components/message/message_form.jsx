@@ -38,11 +38,9 @@ const MessageForm = (props) => {
         });
 
         setMessageForm(initialState);
-        // document.querySelector('.message-to-send').value = '';
     }
 
     const placeholder = `Send a message to ${props.typeName}`
-    // debugger
     return (
         <div>
             <form className="message-tobe-sent-container" onSubmit={handleSubmit}>

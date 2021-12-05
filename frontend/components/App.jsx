@@ -22,15 +22,10 @@ import TestHeader from './greeting/test_header'
 
 const App = () => (
     <div>
-        {/* <header>
-            <AuthRoute exact path={['/', '/signup', '/login']} component={GreetingHeader} />
-        </header> */}
         <Switch>
             <AuthRoute exact path="/login" component={LogInFormContainer} />
             <AuthRoute exact path="/signup" component={SignUpFormContainer} />
-            <AuthRoute exact path="/testheader" component={TestHeader}/>
             <ProtectedRoute exact path="/client/:type/:type_id" component={MessageBoardContainer} />
-            {/* <ProtectedRoute exact path="/dm" component={DirectMessageSearch} /> */}
             <AuthRoute exact path="/" component={GreetingContainer}/>
         </Switch>
     </div>

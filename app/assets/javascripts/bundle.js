@@ -558,6 +558,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sideBar_sideBar_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./sideBar/sideBar_container */ "./frontend/components/sideBar/sideBar_container.js");
 /* harmony import */ var _messageCenter_messageBoard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./messageCenter/messageBoard */ "./frontend/components/messageCenter/messageBoard.jsx");
 /* harmony import */ var _greeting_greeting_header__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./greeting/greeting_header */ "./frontend/components/greeting/greeting_header.jsx");
+/* harmony import */ var _greeting_greeting_header__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_greeting_greeting_header__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _channel_channel_create_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./channel/channel_create_form */ "./frontend/components/channel/channel_create_form.jsx");
 /* harmony import */ var _directMessage_direct_message_search__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./directMessage/direct_message_search */ "./frontend/components/directMessage/direct_message_search.jsx");
 /* harmony import */ var _greeting_test_header__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./greeting/test_header */ "./frontend/components/greeting/test_header.jsx");
@@ -584,10 +585,6 @@ var App = function App() {
     exact: true,
     path: "/signup",
     component: _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__.AuthRoute, {
-    exact: true,
-    path: "/testheader",
-    component: _greeting_test_header__WEBPACK_IMPORTED_MODULE_11__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__.ProtectedRoute, {
     exact: true,
     path: "/client/:type/:type_id",
@@ -742,9 +739,7 @@ var BoardHeader = function BoardHeader(props) {
       var userMatchies = matchArray.users.length > 0 ? matchArray.users.map(function (user) {
         var regex = new RegExp(e.currentTarget.value, 'gi');
         var userName = user.username;
-        var userEmail = user.email; // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
-        // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
-
+        var userEmail = user.email;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
           key: user.id,
           value: user.id,
@@ -757,9 +752,7 @@ var BoardHeader = function BoardHeader(props) {
       }) : null;
       var channelMatchies = matchArray.channels.length > 0 ? matchArray.channels.map(function (channel) {
         var regex = new RegExp(e.currentTarget.value, 'gi');
-        var channelName = channel.name; // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
-        // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
-
+        var channelName = channel.name;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
           key: channel.id,
           value: channel.id,
@@ -1101,7 +1094,6 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
   _createClass(ChannelShow, [{
     key: "componentDidMount",
     value: function componentDidMount(props) {
-      console.log("didmount");
       this.props.fetchAllChannels();
       this.props.fetchAllUsers();
       this.props.fetchMemberships();
@@ -1133,34 +1125,11 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
         if (!check) this.props.history.push("/client/channel/1");
       }
 
-      this.configChat(); // const chatType = type === "channel" ? "ChatChannel" : "ChatDirect"
-      // App.channel = App.cable.subscriptions.create(
-      //     { channel: chatType, id: typeId }, //slip data inside object and include id there history push
-      //     {
-      //         received: data => {
-      //             let incomingMessage = JSON.parse(data.message);
-      //             switch (data.type) {
-      //                 case "message":
-      //                     receiveMessage(incomingMessage);
-      //                     break;
-      //                 case "edit":
-      //                     receiveMessage(incomingMessage);
-      //                     break;
-      //             }
-      //         },
-      //         speak: function (message) {
-      //             return this.perform("speak", message);
-      //         },
-      //         load: function () {
-      //             return this.perform("load");
-      //         }
-      //     }
-      // );
+      this.configChat();
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      console.log('compdidupdate');
       var prevTypeId = prevProps.typeId;
       var propTypeId = this.props.typeId;
       var propsType = this.props.type;
@@ -1189,7 +1158,6 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "configChat",
     value: function configChat() {
-      console.log('config chat');
       var _this$props2 = this.props,
           type = _this$props2.type,
           receiveMessage = _this$props2.receiveMessage;
@@ -1214,11 +1182,7 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
         },
         speak: function speak(message) {
           return this.perform("speak", message);
-        } // load: function () {
-        //     debugger
-        //     return this.perform("load");
-        // }
-
+        }
       });
     }
   }, {
@@ -1533,8 +1497,7 @@ var DirectMessageSearch = function DirectMessageSearch(props) {
       props.createDirect(directObject);
     } else {
       props.history.push("/client/".concat(channelChecker));
-    } // this.props.createDirect(directObject)
-
+    }
 
     setDirectForm(_objectSpread(_objectSpread({}, directForm), {}, {
       name: "",
@@ -1557,9 +1520,7 @@ var DirectMessageSearch = function DirectMessageSearch(props) {
       var matchArray = findMatches(e.currentTarget.value, props.allUsers);
       var html = matchArray.map(function (user) {
         var regex = new RegExp(e.currentTarget.value, 'gi');
-        var userName = user.username; // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
-        // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
-
+        var userName = user.username;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
           key: user.id,
           value: user.id,
@@ -1643,11 +1604,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var _greeting_header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./greeting_header */ "./frontend/components/greeting/greeting_header.jsx");
-/* harmony import */ var _test_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./test_header */ "./frontend/components/greeting/test_header.jsx");
-
+/* harmony import */ var _test_header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./test_header */ "./frontend/components/greeting/test_header.jsx");
 
 
 
@@ -1696,7 +1655,7 @@ var Greeting = function Greeting(props) {
   window.addEventListener('scroll', debounce(checkSlide));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "greeting-main-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_test_header__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_test_header__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "top-greeting-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "greeting-video-fill"
@@ -1711,13 +1670,13 @@ var Greeting = function Greeting(props) {
     className: "greeting-main-text"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Teather is where the future works"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Transform the way you work with one place for everyone and everything you need to get stuff done."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "greeting-button-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
     className: "greeting-signup-button",
     to: "/signup"
-  }, "TRY TEATHER"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+  }, "TRY TEATHER"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
     className: "greeting-login-button",
     to: "/signup"
-  }, "SEE THE DEMO")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Already using Teather? ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+  }, "SEE THE DEMO")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Already using Teather? ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
     to: "/login"
   }, "Sign In"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "greeting-text-blocks-container"
@@ -1742,7 +1701,7 @@ var Greeting = function Greeting(props) {
     alt: ""
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "chat-desc-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Move faster by organizing your work life"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "The key to productivity in Teather is organized spaces called channels\u2014a different one for everything you\u2019re working on. With all the people, messages and files related to a topic in one place, you can move a whole lot faster."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Move faster by organizing your work life"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "The key to productivity in Teather is organized spaces called channels\u2014a different one for everything you\u2019re working on. With all the people, messages and files related to a topic in one place, you can move a whole lot faster."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
     to: "/signup"
   }, "Try For Free"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "mid2-greeting-container"
@@ -1754,7 +1713,7 @@ var Greeting = function Greeting(props) {
     className: "DM-content-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "chat-desc-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Simplify teamwork for everyone"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Give everyone you work with\u2014inside and outside your company\u2014a more productive way to stay in sync. Respond faster with emoji, keep conversations focused in channels, and simplify all your communication into one place."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Simplify teamwork for everyone"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Give everyone you work with\u2014inside and outside your company\u2014a more productive way to stay in sync. Respond faster with emoji, keep conversations focused in channels, and simplify all your communication into one place."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
     className: "greeting-signup-button",
     to: "/signup"
   }, "Try For Free")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
@@ -1775,7 +1734,7 @@ var Greeting = function Greeting(props) {
     alt: ""
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "chat-desc-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "And you can chat face to face, with just a click"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Meet more efficiently with video conferencing. It\u2019s easier to see things eye-to-eye when you\u2019re face-to-face. Video conferencing helps you share information more efficiently, so work gets done faster."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "And you can chat face to face, with just a click"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Meet more efficiently with video conferencing. It\u2019s easier to see things eye-to-eye when you\u2019re face-to-face. Video conferencing helps you share information more efficiently, so work gets done faster."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
     to: "/signup"
   }, "Try For Free"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "end-mid-container"
@@ -1786,7 +1745,7 @@ var Greeting = function Greeting(props) {
     alt: ""
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Welcome to where the future works")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "greeting-button-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
     className: "greeting-signup-white",
     to: "/signup"
   }, "TRY TEATHER"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
@@ -1841,103 +1800,84 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 /*!**********************************************************!*\
   !*** ./frontend/components/greeting/greeting_header.jsx ***!
   \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
-
-
-
-
-
-
-var GreetingHeader = function GreetingHeader(props) {
-  // const triggers = document.querySelectorAll('.cool > li');
-  // const handleEnter = (e) => {
-  //     e.currentTarget.classList.add('trigger-enter');
-  //     // setTimeout(() => e.currentTarget.classList.contains('trigger-enter') && e.currentTarget.classList.add('trigger-enter-active'), 150);
-  //     const bounceInt = setInterval(() => { e.currentTarget.classList.contains('trigger-enter') && e.currentTarget.classList.add('trigger-enter-active') },150);
-  //     clearInterval(bounceInt);
-  //     const background = document.querySelector('.dropdownBackground');
-  //     const nav = document.querySelector('.top');
-  //     background.classList.add('open');
-  //     const dropdown = e.currentTarget.querySelector('.dropdown');
-  //     const dropdownCoords = dropdown.getBoundingClientRect();
-  //     const navCoords = nav.getBoundingClientRect();
-  //     const coords = {
-  //         height: dropdownCoords.height,
-  //         width: dropdownCoords.width,
-  //         top: dropdownCoords.top - navCoords.top + 100,
-  //         left: dropdownCoords.left - navCoords.left
-  //     };
-  //     background.style.setProperty('width', `${coords.width}px`);
-  //     background.style.setProperty('height', `${coords.height}px`);
-  //     background.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px)`);
-  // }
-  // const handleLeave = (e) => {
-  //     e.currentTarget.classList.remove('trigger-enter', 'trigger-enter-active');
-  //     const background = document.querySelector('.dropdownBackground');
-  //     // debugger
-  //     background.classList.remove('open');
-  // }
-  // triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
-  // triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "header-centerizer"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "left-header-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "app-name-logo"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    src: "slack-icon-logo.png",
-    alt: ""
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Teather")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "dropdown"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Past Projects"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-    className: "projects-dropdown-content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://moneywise-crowdfunding.herokuapp.com/#/"
-  }, "MoneyWise")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://dkirkpatrick99.github.io/Super-Jelly-Hero/"
-  }, "Super Jelly Hero")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://ballup-app.herokuapp.com/#/"
-  }, "BallUp")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://github.com/dkirkpatrick99"
-  }, "GitHub"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184"
-  }, "LinkedIn"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
-  }, "Portfolio")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "right-header-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-    to: "/login"
-  }, "Sign In"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-    className: "get-started-button",
-    to: "/signup"
-  }, "Get Started")));
-}; // const mSTP = (state) => {
-//     return {
-//     }
+// import React from 'react';
+// import { Link } from 'react-router-dom';
+// import { connect } from 'react-redux';
+// import { render } from 'react-dom';
+// import { signup, login } from "../../actions/session_actions"
+// const GreetingHeader = (props) => {
+//     // const triggers = document.querySelectorAll('.cool > li');
+//     // const handleEnter = (e) => {
+//     //     e.currentTarget.classList.add('trigger-enter');
+//     //     // setTimeout(() => e.currentTarget.classList.contains('trigger-enter') && e.currentTarget.classList.add('trigger-enter-active'), 150);
+//     //     const bounceInt = setInterval(() => { e.currentTarget.classList.contains('trigger-enter') && e.currentTarget.classList.add('trigger-enter-active') },150);
+//     //     clearInterval(bounceInt);
+//     //     const background = document.querySelector('.dropdownBackground');
+//     //     const nav = document.querySelector('.top');
+//     //     background.classList.add('open');
+//     //     const dropdown = e.currentTarget.querySelector('.dropdown');
+//     //     const dropdownCoords = dropdown.getBoundingClientRect();
+//     //     const navCoords = nav.getBoundingClientRect();
+//     //     const coords = {
+//     //         height: dropdownCoords.height,
+//     //         width: dropdownCoords.width,
+//     //         top: dropdownCoords.top - navCoords.top + 100,
+//     //         left: dropdownCoords.left - navCoords.left
+//     //     };
+//     //     background.style.setProperty('width', `${coords.width}px`);
+//     //     background.style.setProperty('height', `${coords.height}px`);
+//     //     background.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px)`);
+//     // }
+//     // const handleLeave = (e) => {
+//     //     e.currentTarget.classList.remove('trigger-enter', 'trigger-enter-active');
+//     //     const background = document.querySelector('.dropdownBackground');
+//     //     // debugger
+//     //     background.classList.remove('open');
+//     // }
+//     // triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
+//     // triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
+//     return(
+//         <div className='header-centerizer'>
+//             <div className="left-header-container">
+//                 <div className="app-name-logo">
+//                     <img src="slack-icon-logo.png" alt="" />
+//                     <h1>Teather</h1>
+//                 </div>
+//                 <div className="dropdown">
+//                     <div>Past Projects</div>
+//                     <ul className="projects-dropdown-content">
+//                         <li>
+//                             <a href='https://moneywise-crowdfunding.herokuapp.com/#/'>MoneyWise</a>
+//                         </li>
+//                         <li>
+//                             <a href='https://dkirkpatrick99.github.io/Super-Jelly-Hero/'>Super Jelly Hero</a>
+//                         </li>
+//                         <li>
+//                             <a href='https://ballup-app.herokuapp.com/#/'>BallUp</a>
+//                         </li>
+//                     </ul>
+//                 </div>
+//                 <a href="https://github.com/dkirkpatrick99" >GitHub</a>
+//                 <a href="https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184">LinkedIn</a>
+//                 <a href="https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/">Portfolio</a>
+//             </div>
+//             <div className="right-header-container">
+//                 <Link to="/login">Sign In</Link>
+//                 <Link className='get-started-button' to="/signup">Get Started</Link>
+//             </div>
+//         </div>
+//     )
 // }
-
-
-var mDTP = function mDTP(dispatch) {
-  return {
-    login: function login(user) {
-      return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__.login)(user));
-    }
-  };
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mDTP)(GreetingHeader));
+// // const mSTP = (state) => {
+// //     return {
+// //     }
+// // }
+// const mDTP = (dispatch) => ({
+//     login: (user) => dispatch(login(user))
+// })
+// export default connect(null,mDTP)(GreetingHeader);
 
 /***/ }),
 
@@ -1963,14 +1903,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var TestHeader = function TestHeader(props) {
+var GreetingHeader = function GreetingHeader(props) {
   // const triggers = document.querySelectorAll('.greeting-list > li');
   // const background = document.querySelector('.dropdownBackground');
   // const nav = document.querySelector('.top');
   var handleEnter = function handleEnter(e) {
     e.target.classList.add('trigger-enter'); // const classAdd = setInterval(() =>{
-    //     e.target.classList.contains('trigger-enter') && e.target.classList.add('trigger-enter-active');
-    //     debugger
+    //     e.target.classList.contains('trigger-enter') && e.target.classList.add('trigger-enter-active');            
     // },150)
     // clearInterval(classAdd)
 
@@ -2016,60 +1955,70 @@ var TestHeader = function TestHeader(props) {
     className: "app-name-logo follow-item"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     src: "slack-icon-logo.png",
-    alt: ""
+    alt: "Please Hire me"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Teather")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
     onMouseEnter: handleEnter,
     onMouseLeave: handleLeave,
     "class": "follow-item"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "#"
+    href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/",
+    target: "_blank"
   }, "About Me"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     "class": "follow-dropdown dropdown1"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     "class": "bio"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    src: "https://logo.clearbit.com/wesbos.com"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Wes Bos sure does love web development. He teaches things like JavaScript, CSS and BBQ. Wait. BBQ isn't part of web development. It should be though!")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+    src: "Dalton.jpg"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "I have a passion for Mathematics, Engineering and Web Development. If Im not reading manga, supporting my community or hiking, you'll find me coding. The framewords I enjoy working with the most are React, and Redux. Combined with my passion for scripting languages like JavaScript, Ruby and Python, I have been falling down the beautiful rabbit hole that React has to offer. ")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
     onMouseEnter: handleEnter,
     onMouseLeave: handleLeave,
     "class": "follow-item"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "#"
+    href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/",
+    target: "_blank"
   }, "Past Projects"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
     "class": "follow-dropdown courses"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     "class": "code"
-  }, "MoneyWise"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://ReactForBeginners.com"
+  }, "MoneyWise: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://moneywise-crowdfunding.herokuapp.com/#/",
+    target: "_blank"
   }, "Crowd-fund your way to a new beginning")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     "class": "code"
-  }, "Ball Up"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://ES6.io"
+  }, "Ball Up: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://ballup-app.herokuapp.com/#/",
+    target: "_blank"
   }, "Find, Join or Post pick up basketball games")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     "class": "code"
-  }, "Super Jelly Hero"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://LearnNode.com"
+  }, "Super Jelly Hero: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://dkirkpatrick99.github.io/Super-Jelly-Hero/",
+    target: "_blank"
   }, "Embark on an epic adventure. Do you have what it takes?")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
     onMouseEnter: handleEnter,
     onMouseLeave: handleLeave,
     "class": "follow-item"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "#"
+    href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/",
+    target: "_blank"
   }, "Contact Me"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
     "class": "follow-dropdown dropdown3"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
     "class": "button",
-    href: "http://twitter.com/wesbos"
-  }, "Twitter")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/",
+    target: "_blank"
+  }, "Portfolio")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
     "class": "button",
-    href: "http://facebook.com/wesbos.developer"
-  }, "Facebook")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://github.com/dkirkpatrick99",
+    target: "_blank"
+  }, "GitHub")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
     "class": "button",
-    href: "http://wesbos.com"
-  }, "Blog")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184",
+    target: "_blank"
+  }, "LinkedIn")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
     "class": "button",
-    href: "http://wesbos.com/courses"
-  }, "Course Catalog"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    href: "#",
+    target: "_blank"
+  }, "AngelList"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     "class": "right-header-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
     to: "/login"
@@ -2087,7 +2036,7 @@ var mDTP = function mDTP(dispatch) {
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mDTP)(TestHeader));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mDTP)(GreetingHeader));
 
 /***/ }),
 
@@ -2161,11 +2110,10 @@ var MessageForm = function MessageForm(props) {
         messageable_type: chatType
       })
     });
-    setMessageForm(initialState); // document.querySelector('.message-to-send').value = '';
+    setMessageForm(initialState);
   };
 
-  var placeholder = "Send a message to ".concat(props.typeName); // debugger
-
+  var placeholder = "Send a message to ".concat(props.typeName);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     className: "message-tobe-sent-container",
     onSubmit: handleSubmit
@@ -2347,13 +2295,11 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return MessageBoard;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component); // export default MessageBoard
-
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 var mapSTP = function mapSTP(state, ownProps) {
   var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   return {
-    // channelId: ownProps.match.params,
     currentUser: currentUserId,
     type: ownProps.match.params.type,
     typeId: ownProps.match.params.type_id,
@@ -2890,8 +2836,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 
 
- // import  ChannelShowContainer from '../channel/channel_show_container'
-// import ChannelCreateFrom from '../channel/channel_create_form'
 
 
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { render } from 'react-dom';
-import GreetingHeader from './greeting_header'
-import TestHeader from './test_header'
+import GreetingHeader from './test_header'
 
 const Greeting = (props) => {
 
@@ -46,8 +45,8 @@ const Greeting = (props) => {
     return (
         <div className="greeting-main-container">
 
-                {/* <GreetingHeader /> */}
-                <TestHeader />
+                <GreetingHeader />
+                {/* <TestHeader /> */}
 
                 <div className="top-greeting-container">
                     <div className='greeting-video-fill'></div>
@@ -62,14 +61,21 @@ const Greeting = (props) => {
                     />
 
                     <div className="greeting-main-text">
+
                         <h1>Teather is where the future works</h1>
                         <p>Transform the way you work with one place for everyone and everything you need to get stuff done.</p>
                         <div className='greeting-button-container'>
                             <Link className='greeting-signup-button' to='/signup'>TRY TEATHER</Link>
                             <Link className='greeting-login-button' to='/signup'>SEE THE DEMO</Link>
                         </div>
-                        <p>Already using Teather? <Link to='/login'>Sign In</Link>
-                        </p>
+                        <p>Already using Teather? <Link to='/login'>Sign In</Link></p>
+                        {/* <img className="normie" id="asana" src={window.asana_iconURL} />
+                        <img className="reversereverse" id="atlassian" src={window.atlassian_iconURL} />
+                        <img className="reversereverse" id="dropbox" src={window.dropbox_iconURL} />
+                        <img className="reversereverse" id="google" src={window.google_iconURL} />
+                        <img className="normie" id="hubspot" src={window.hubspot_iconURL} />
+                        <img className="reversereverse" id="zendesk" src={window.zendesk_iconURL} />
+                        <img className="normie" id="zoom" src={window.zoom_iconURL} /> */}
 
                     </div>
 

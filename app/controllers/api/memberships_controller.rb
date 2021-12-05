@@ -22,6 +22,7 @@ class Api::MembershipsController < ApplicationController
   def destroy
     @membership = Membership.find(params[:id])
     @membership.destroy
+    broadcastNewUserAll(current_user)
   end
 
   private
@@ -30,6 +31,9 @@ class Api::MembershipsController < ApplicationController
   end
   def broadcastNewMembership(membership)
      ActionCable.server.broadcast "notifications_#{membership.user_id}", {membership: membership, type: 'membershipAdd'}
+  end
+  def broadcastNewUserAll(user)
+    ActionCable.server.broadcast "notifications_all", {userId: user.id, type: 'userAdd'}
   end
 
 end

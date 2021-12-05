@@ -13,7 +13,6 @@ class ChannelShow extends React.Component {
     };
 
     componentDidMount(props) {
-        console.log("didmount")
         this.props.fetchAllChannels();
         this.props.fetchAllUsers();
         this.props.fetchMemberships();
@@ -38,34 +37,9 @@ class ChannelShow extends React.Component {
             if (!check) this.props.history.push(`/client/channel/1`)
         }
         this.configChat();
-
-        // const chatType = type === "channel" ? "ChatChannel" : "ChatDirect"
-        // App.channel = App.cable.subscriptions.create(
-        //     { channel: chatType, id: typeId }, //slip data inside object and include id there history push
-        //     {
-        //         received: data => {
-        //             let incomingMessage = JSON.parse(data.message);
-        //             switch (data.type) {
-        //                 case "message":
-        //                     receiveMessage(incomingMessage);
-        //                     break;
-        //                 case "edit":
-        //                     receiveMessage(incomingMessage);
-        //                     break;
-        //             }
-        //         },
-        //         speak: function (message) {
-        //             return this.perform("speak", message);
-        //         },
-        //         load: function () {
-        //             return this.perform("load");
-        //         }
-        //     }
-        // );
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('compdidupdate')
         let prevTypeId = prevProps.typeId;
         let propTypeId = this.props.typeId
         let propsType = this.props.type
@@ -90,7 +64,6 @@ class ChannelShow extends React.Component {
     }
 
     configChat() {
-        console.log('config chat')
         const { type, receiveMessage } = this.props;
         const chatType = type === "channel" ? "ChatChannel" : "ChatDirect"
         App.channel = App.cable.subscriptions.create(
@@ -110,10 +83,6 @@ class ChannelShow extends React.Component {
                 speak: function (message) {
                     return this.perform("speak", message);
                 },
-                // load: function () {
-                //     debugger
-                //     return this.perform("load");
-                // }
             }
         );
     }

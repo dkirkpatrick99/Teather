@@ -101,8 +101,7 @@ const BoardHeader = (props) => {
                 const regex = new RegExp(e.currentTarget.value, 'gi');
                 const userName = user.username
                 const userEmail = user.email
-                // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
-                // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+
                 return (
                     <li key={user.id} value={user.id} data-classify='direct' onClick={handleSubmit} className='header-search-li users'>
                         <span className="header-search-item">{userName}</span>
@@ -114,8 +113,7 @@ const BoardHeader = (props) => {
             const channelMatchies = matchArray.channels.length > 0 ? matchArray.channels.map(channel => {
                 const regex = new RegExp(e.currentTarget.value, 'gi');
                 const channelName = channel.name
-                // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
-                // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+
                 return (
                     <li key={channel.id} value={channel.id} data-classify='channel' onClick={handleSubmit} className='header-search-li channels'>
                         <span className="header-search-item">{channelName}</span>

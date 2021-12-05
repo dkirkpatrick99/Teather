@@ -76,7 +76,6 @@ class MessageBoard extends React.Component {
                     <SideBarContainer type={this.props.type} typeId={this.props.typeId} />
                     <ChannelShowContainer type={this.props.type} typeId={this.props.typeId} history={this.props.history} />
                 </div>
-                {/* <ListenerContainer type={this.props.type} typeId={this.props.typeId}/> */}
                 <Modal history={this.props.history} />
 
             </div>
@@ -86,12 +85,10 @@ class MessageBoard extends React.Component {
 
 }
 
-// export default MessageBoard
 
 const mapSTP = (state, ownProps) => {
     const currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id
     return {
-        // channelId: ownProps.match.params,
         currentUser: currentUserId,
         type: ownProps.match.params.type,
         typeId: ownProps.match.params.type_id,

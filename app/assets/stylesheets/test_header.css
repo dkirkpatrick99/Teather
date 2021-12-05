@@ -120,6 +120,8 @@ nav ul {
     transform: translateY(100px);
     will-change: opacity;
     display: none;
+    text-align: start;
+    color: white;
 }
 
 .trigger-enter .follow-dropdown {
@@ -166,6 +168,7 @@ nav ul {
 }
 
 .bio img {
+    height: 260px;
     float: left;
     margin-right: 20px;
 }
@@ -194,14 +197,14 @@ a.button {
 }
 
 /* Matches Twitter, TWITTER, twitter, tWitter, TWiTTeR... */
-.button[href*=twitter] {
-    background: #019FE9;
+.button[href*=linkedin] {
+    background: #2b66c2;
 }
 
-.button[href*=facebook] {
-    background: #3B5998;
+.button[href*=Portfolio] {
+    background: #508a3b;
 }
 
-.button[href*=courses] {
+.button[href*="github.com"] {
     background: #ffc600;
 }

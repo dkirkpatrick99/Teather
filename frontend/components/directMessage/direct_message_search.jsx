@@ -34,9 +34,6 @@ const DirectMessageSearch = (props) => {
         } else {
             props.history.push(`/client/${channelChecker}`);
         }
-        
-        // this.props.createDirect(directObject)
-
 
         setDirectForm({
             ...directForm,
@@ -62,8 +59,6 @@ const DirectMessageSearch = (props) => {
             const html = matchArray.map(user => {
                 const regex = new RegExp(e.currentTarget.value, 'gi');
                 const userName = user.username
-                // .replace(regex, `<span class="hl">${e.currentTarget.value}</span>`);
-                // const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
                 return (
                     <li key={user.id} value={user.id} onClick={handleSubmit} className='dm-user-search-li'>
                         <span className="dm-username-item">{userName}</span>

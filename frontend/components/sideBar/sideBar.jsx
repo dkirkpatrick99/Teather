@@ -1,8 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-// import  ChannelShowContainer from '../channel/channel_show_container'
-// import ChannelCreateFrom from '../channel/channel_create_form'
 import { getUserPic } from "../../util/functions";
 
 const SideBar = (props) => {
