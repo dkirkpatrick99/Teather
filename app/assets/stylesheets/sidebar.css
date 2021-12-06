@@ -74,9 +74,15 @@
     color: white;
     padding-left: 20px;
     padding-right: 20px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.sidebar-dropdown-links a:hover{
+.sidebar-dropdown-logout:hover {
+    background-color: red;
+}
+
+.sidebar-dropdown-port:hover{
     background-color: rgb(49, 49, 181);
 }
 
@@ -244,6 +250,7 @@
 
 .sidebar-personal-icons img:hover {
     transform: scale(1.1);
+    cursor: pointer;
 }
 
 

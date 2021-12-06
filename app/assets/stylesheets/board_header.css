@@ -146,6 +146,7 @@ input.search-input {
   display: flex;
   justify-content: space-between;
   /* text-transform: capitalize; */
+  cursor: pointer;
 }
 
 .boardheader-search-items li:hover {

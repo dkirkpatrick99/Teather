@@ -2966,11 +2966,15 @@ var SideBar = function SideBar(props) {
     }, props.currentUser.email))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "sidebar-dropdown-links"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+      className: "sidebar-dropdown-logout",
       onClick: props.logout
     }, "Log out of ", props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+      className: "sidebar-dropdown-port",
       href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/",
       target: "_blank"
-    }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null, "Switch to Light Theme")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    }, "Visit my portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+      className: "sidebar-dropdown-port"
+    }, "Switch to Light Theme")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
       onClick: function onClick() {
         return props.openModal('directMessageSearch');
       },

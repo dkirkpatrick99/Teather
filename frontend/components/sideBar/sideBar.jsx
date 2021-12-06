@@ -110,9 +110,9 @@ const SideBar = (props) => {
                                     </div>
                                 </div>
                                 <div className="sidebar-dropdown-links">
-                                    <Link onClick={props.logout}>Log out of {props.currentUser.username}</Link>
-                                    <a href='https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/' target="_blank">Visit my portfolio</a>
-                                    <a >Switch to Light Theme</a>
+                                    <Link className="sidebar-dropdown-logout" onClick={props.logout}>Log out of {props.currentUser.username}</Link>
+                                    <a className="sidebar-dropdown-port" href='https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/' target="_blank">Visit my portfolio</a>
+                                    <a className="sidebar-dropdown-port">Switch to Light Theme</a>
                                 </div>
                             </div>
                         </div>

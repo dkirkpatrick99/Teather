@@ -59,6 +59,11 @@ input.dm-user-search-input {
   display: flex;
   justify-content: space-between;
   text-transform: capitalize;
+  cursor: pointer;
+}
+
+.dm-user-search-items li:hover {
+  background-color: royalblue;
 }
 
 span.dm-username-item {
