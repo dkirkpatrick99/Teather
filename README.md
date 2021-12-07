@@ -1,9 +1,9 @@
 # Teather
 
-**teather** is a web-based instant-messaging application that improves workplace communication and collaboration. A live demo is available at https://teather-together.herokuapp.com/#/
+**Teather** is a web-based instant-messaging application that improves workplace communication and collaboration. A live demo is available at https://teather-together.herokuapp.com/#/
  
 ## Tech/Framework Used
-**teather** was built with
+**Teather** was built with
 + Ruby on Rails
 + React/Redux
 + JavaScript
