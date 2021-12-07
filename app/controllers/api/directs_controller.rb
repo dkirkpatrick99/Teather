@@ -9,7 +9,6 @@ class Api::DirectsController < ApplicationController
         broadcastNewMembership(@membership)
         broadcastNewDirect(@direct, @membership.user_id)
       end
-      # Membership.create(user_id: stack_bot.id, memberable_id: @direct.id, memberable_type: Direct)
       Message.create(user_id: stack_bot.id, body: "Direct messages have started", messageable_id: @direct.id, messageable_type: Direct)
       render :show
     else

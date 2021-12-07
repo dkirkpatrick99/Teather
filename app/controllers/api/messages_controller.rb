@@ -10,7 +10,6 @@ class Api::MessagesController < ApplicationController
             @messages = Direct.find_by(id: params[:directId]).messages
             render :index
         end
-
     end
 
     def show
