@@ -10,18 +10,18 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RECEIVE_ALL_CHANNELS": () => (/* binding */ RECEIVE_ALL_CHANNELS),
-/* harmony export */   "RECEIVE_CHANNEL": () => (/* binding */ RECEIVE_CHANNEL),
-/* harmony export */   "REMOVE_CHANNEL": () => (/* binding */ REMOVE_CHANNEL),
-/* harmony export */   "RECEIVE_CHANNEL_ERRORS": () => (/* binding */ RECEIVE_CHANNEL_ERRORS),
-/* harmony export */   "CLEAR_CHANNEL_ERRORS": () => (/* binding */ CLEAR_CHANNEL_ERRORS),
-/* harmony export */   "fetchAllChannels": () => (/* binding */ fetchAllChannels),
-/* harmony export */   "fetchChannel": () => (/* binding */ fetchChannel),
-/* harmony export */   "createChannel": () => (/* binding */ createChannel),
-/* harmony export */   "destroyChannel": () => (/* binding */ destroyChannel),
-/* harmony export */   "updateChannel": () => (/* binding */ updateChannel),
-/* harmony export */   "clearChannelErrors": () => (/* binding */ clearChannelErrors),
-/* harmony export */   "receiveErrors": () => (/* binding */ receiveErrors)
+/* harmony export */   CLEAR_CHANNEL_ERRORS: () => (/* binding */ CLEAR_CHANNEL_ERRORS),
+/* harmony export */   RECEIVE_ALL_CHANNELS: () => (/* binding */ RECEIVE_ALL_CHANNELS),
+/* harmony export */   RECEIVE_CHANNEL: () => (/* binding */ RECEIVE_CHANNEL),
+/* harmony export */   RECEIVE_CHANNEL_ERRORS: () => (/* binding */ RECEIVE_CHANNEL_ERRORS),
+/* harmony export */   REMOVE_CHANNEL: () => (/* binding */ REMOVE_CHANNEL),
+/* harmony export */   clearChannelErrors: () => (/* binding */ clearChannelErrors),
+/* harmony export */   createChannel: () => (/* binding */ createChannel),
+/* harmony export */   destroyChannel: () => (/* binding */ destroyChannel),
+/* harmony export */   fetchAllChannels: () => (/* binding */ fetchAllChannels),
+/* harmony export */   fetchChannel: () => (/* binding */ fetchChannel),
+/* harmony export */   receiveErrors: () => (/* binding */ receiveErrors),
+/* harmony export */   updateChannel: () => (/* binding */ updateChannel)
 /* harmony export */ });
 /* harmony import */ var _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/channel_api_util */ "./frontend/util/channel_api_util.js");
 
@@ -78,21 +78,18 @@ var receiveErrors = function receiveErrors(errors) {
     errors: errors
   };
 };
-
 var receiveChannels = function receiveChannels(channels) {
   return {
     type: RECEIVE_ALL_CHANNELS,
     channels: channels
   };
 };
-
 var receiveChannel = function receiveChannel(channel) {
   return {
     type: RECEIVE_CHANNEL,
     channel: channel
   };
 };
-
 var removeChannel = function removeChannel(channel) {
   return {
     type: REMOVE_CHANNEL,
@@ -111,20 +108,20 @@ var removeChannel = function removeChannel(channel) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RECEIVE_ALL_DIRECTS": () => (/* binding */ RECEIVE_ALL_DIRECTS),
-/* harmony export */   "RECEIVE_DIRECT": () => (/* binding */ RECEIVE_DIRECT),
-/* harmony export */   "RECEIVE_DIRECT_ERRORS": () => (/* binding */ RECEIVE_DIRECT_ERRORS),
-/* harmony export */   "CLEAR_DIRECT_ERRORS": () => (/* binding */ CLEAR_DIRECT_ERRORS),
-/* harmony export */   "REMOVE_DIRECT": () => (/* binding */ REMOVE_DIRECT),
-/* harmony export */   "fetchAllDirects": () => (/* binding */ fetchAllDirects),
-/* harmony export */   "fetchUserDirects": () => (/* binding */ fetchUserDirects),
-/* harmony export */   "fetchDirect": () => (/* binding */ fetchDirect),
-/* harmony export */   "createDirect": () => (/* binding */ createDirect),
-/* harmony export */   "destroyDirect": () => (/* binding */ destroyDirect),
-/* harmony export */   "updateDirect": () => (/* binding */ updateDirect),
-/* harmony export */   "clearDirectErrors": () => (/* binding */ clearDirectErrors),
-/* harmony export */   "receiveErrors": () => (/* binding */ receiveErrors),
-/* harmony export */   "receiveDirect": () => (/* binding */ receiveDirect)
+/* harmony export */   CLEAR_DIRECT_ERRORS: () => (/* binding */ CLEAR_DIRECT_ERRORS),
+/* harmony export */   RECEIVE_ALL_DIRECTS: () => (/* binding */ RECEIVE_ALL_DIRECTS),
+/* harmony export */   RECEIVE_DIRECT: () => (/* binding */ RECEIVE_DIRECT),
+/* harmony export */   RECEIVE_DIRECT_ERRORS: () => (/* binding */ RECEIVE_DIRECT_ERRORS),
+/* harmony export */   REMOVE_DIRECT: () => (/* binding */ REMOVE_DIRECT),
+/* harmony export */   clearDirectErrors: () => (/* binding */ clearDirectErrors),
+/* harmony export */   createDirect: () => (/* binding */ createDirect),
+/* harmony export */   destroyDirect: () => (/* binding */ destroyDirect),
+/* harmony export */   fetchAllDirects: () => (/* binding */ fetchAllDirects),
+/* harmony export */   fetchDirect: () => (/* binding */ fetchDirect),
+/* harmony export */   fetchUserDirects: () => (/* binding */ fetchUserDirects),
+/* harmony export */   receiveDirect: () => (/* binding */ receiveDirect),
+/* harmony export */   receiveErrors: () => (/* binding */ receiveErrors),
+/* harmony export */   updateDirect: () => (/* binding */ updateDirect)
 /* harmony export */ });
 /* harmony import */ var _util_direct_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/direct_api_util */ "./frontend/util/direct_api_util.js");
 
@@ -188,21 +185,18 @@ var receiveErrors = function receiveErrors(errors) {
     errors: errors
   };
 };
-
 var receiveDirects = function receiveDirects(directs) {
   return {
     type: RECEIVE_ALL_DIRECTS,
     directs: directs
   };
 };
-
 var receiveDirect = function receiveDirect(direct) {
   return {
     type: RECEIVE_DIRECT,
     direct: direct
   };
 };
-
 var removeDirect = function removeDirect(direct) {
   return {
     type: REMOVE_DIRECT,
@@ -221,16 +215,16 @@ var removeDirect = function removeDirect(direct) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RECEIVE_MEMBERSHIPS": () => (/* binding */ RECEIVE_MEMBERSHIPS),
-/* harmony export */   "RECEIVE_MEMBERSHIP": () => (/* binding */ RECEIVE_MEMBERSHIP),
-/* harmony export */   "REMOVE_MEMBERSHIP": () => (/* binding */ REMOVE_MEMBERSHIP),
-/* harmony export */   "fetchMemberships": () => (/* binding */ fetchMemberships),
-/* harmony export */   "fetchMembership": () => (/* binding */ fetchMembership),
-/* harmony export */   "createMembership": () => (/* binding */ createMembership),
-/* harmony export */   "destroyMembership": () => (/* binding */ destroyMembership),
-/* harmony export */   "fetchChannelMembers": () => (/* binding */ fetchChannelMembers),
-/* harmony export */   "receiveMemberships": () => (/* binding */ receiveMemberships),
-/* harmony export */   "receiveMembership": () => (/* binding */ receiveMembership)
+/* harmony export */   RECEIVE_MEMBERSHIP: () => (/* binding */ RECEIVE_MEMBERSHIP),
+/* harmony export */   RECEIVE_MEMBERSHIPS: () => (/* binding */ RECEIVE_MEMBERSHIPS),
+/* harmony export */   REMOVE_MEMBERSHIP: () => (/* binding */ REMOVE_MEMBERSHIP),
+/* harmony export */   createMembership: () => (/* binding */ createMembership),
+/* harmony export */   destroyMembership: () => (/* binding */ destroyMembership),
+/* harmony export */   fetchChannelMembers: () => (/* binding */ fetchChannelMembers),
+/* harmony export */   fetchMembership: () => (/* binding */ fetchMembership),
+/* harmony export */   fetchMemberships: () => (/* binding */ fetchMemberships),
+/* harmony export */   receiveMembership: () => (/* binding */ receiveMembership),
+/* harmony export */   receiveMemberships: () => (/* binding */ receiveMemberships)
 /* harmony export */ });
 /* harmony import */ var _util_membership_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/membership_api_util */ "./frontend/util/membership_api_util.js");
 
@@ -284,7 +278,6 @@ var receiveMembership = function receiveMembership(membership) {
     membership: membership
   };
 };
-
 var removeMembership = function removeMembership(membershipId) {
   return {
     type: REMOVE_MEMBERSHIP,
@@ -303,15 +296,15 @@ var removeMembership = function removeMembership(membershipId) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RECEIVE_ALL_MESSAGES": () => (/* binding */ RECEIVE_ALL_MESSAGES),
-/* harmony export */   "RECEIVE_MESSAGE": () => (/* binding */ RECEIVE_MESSAGE),
-/* harmony export */   "fetchAllMessages": () => (/* binding */ fetchAllMessages),
-/* harmony export */   "fetchChannelMessages": () => (/* binding */ fetchChannelMessages),
-/* harmony export */   "fetchDirectMessages": () => (/* binding */ fetchDirectMessages),
-/* harmony export */   "fetchMessage": () => (/* binding */ fetchMessage),
-/* harmony export */   "createMessage": () => (/* binding */ createMessage),
-/* harmony export */   "updateMessage": () => (/* binding */ updateMessage),
-/* harmony export */   "receiveMessage": () => (/* binding */ receiveMessage)
+/* harmony export */   RECEIVE_ALL_MESSAGES: () => (/* binding */ RECEIVE_ALL_MESSAGES),
+/* harmony export */   RECEIVE_MESSAGE: () => (/* binding */ RECEIVE_MESSAGE),
+/* harmony export */   createMessage: () => (/* binding */ createMessage),
+/* harmony export */   fetchAllMessages: () => (/* binding */ fetchAllMessages),
+/* harmony export */   fetchChannelMessages: () => (/* binding */ fetchChannelMessages),
+/* harmony export */   fetchDirectMessages: () => (/* binding */ fetchDirectMessages),
+/* harmony export */   fetchMessage: () => (/* binding */ fetchMessage),
+/* harmony export */   receiveMessage: () => (/* binding */ receiveMessage),
+/* harmony export */   updateMessage: () => (/* binding */ updateMessage)
 /* harmony export */ });
 /* harmony import */ var _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/message_api_util */ "./frontend/util/message_api_util.js");
 
@@ -359,14 +352,12 @@ var updateMessage = function updateMessage(message) {
     });
   };
 };
-
 var receiveMessages = function receiveMessages(messages) {
   return {
     type: RECEIVE_ALL_MESSAGES,
     messages: messages
   };
 };
-
 var receiveMessage = function receiveMessage(message) {
   return {
     type: RECEIVE_MESSAGE,
@@ -385,10 +376,10 @@ var receiveMessage = function receiveMessage(message) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "OPEN_MODAL": () => (/* binding */ OPEN_MODAL),
-/* harmony export */   "CLOSE_MODAL": () => (/* binding */ CLOSE_MODAL),
-/* harmony export */   "openModal": () => (/* binding */ openModal),
-/* harmony export */   "closeModal": () => (/* binding */ closeModal)
+/* harmony export */   CLOSE_MODAL: () => (/* binding */ CLOSE_MODAL),
+/* harmony export */   OPEN_MODAL: () => (/* binding */ OPEN_MODAL),
+/* harmony export */   closeModal: () => (/* binding */ closeModal),
+/* harmony export */   openModal: () => (/* binding */ openModal)
 /* harmony export */ });
 var OPEN_MODAL = 'OPEN_MODAL';
 var CLOSE_MODAL = 'CLOSE_MODAL';
@@ -415,22 +406,24 @@ var closeModal = function closeModal() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RECEIVE_CURRENT_USER": () => (/* binding */ RECEIVE_CURRENT_USER),
-/* harmony export */   "LOGOUT_CURRENT_USER": () => (/* binding */ LOGOUT_CURRENT_USER),
-/* harmony export */   "RECEIVE_SESSION_ERRORS": () => (/* binding */ RECEIVE_SESSION_ERRORS),
-/* harmony export */   "CLEAR_SESSION_ERRORS": () => (/* binding */ CLEAR_SESSION_ERRORS),
-/* harmony export */   "receiveCurrentUser": () => (/* binding */ receiveCurrentUser),
-/* harmony export */   "clearSessionErrors": () => (/* binding */ clearSessionErrors),
-/* harmony export */   "signup": () => (/* binding */ signup),
-/* harmony export */   "login": () => (/* binding */ login),
-/* harmony export */   "logout": () => (/* binding */ logout)
+/* harmony export */   CLEAR_SESSION_ERRORS: () => (/* binding */ CLEAR_SESSION_ERRORS),
+/* harmony export */   LOGOUT_CURRENT_USER: () => (/* binding */ LOGOUT_CURRENT_USER),
+/* harmony export */   RECEIVE_CURRENT_USER: () => (/* binding */ RECEIVE_CURRENT_USER),
+/* harmony export */   RECEIVE_SESSION_ERRORS: () => (/* binding */ RECEIVE_SESSION_ERRORS),
+/* harmony export */   clearSessionErrors: () => (/* binding */ clearSessionErrors),
+/* harmony export */   login: () => (/* binding */ login),
+/* harmony export */   logout: () => (/* binding */ logout),
+/* harmony export */   receiveCurrentUser: () => (/* binding */ receiveCurrentUser),
+/* harmony export */   signup: () => (/* binding */ signup)
 /* harmony export */ });
 /* harmony import */ var _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/session_api_util */ "./frontend/util/session_api_util.js");
 
 var RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 var LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 var RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
-var CLEAR_SESSION_ERRORS = 'CLEAR_SESSION_ERRORS'; // Reg action creators
+var CLEAR_SESSION_ERRORS = 'CLEAR_SESSION_ERRORS';
+
+// Reg action creators
 
 var receiveCurrentUser = function receiveCurrentUser(currentUser) {
   return {
@@ -438,25 +431,24 @@ var receiveCurrentUser = function receiveCurrentUser(currentUser) {
     currentUser: currentUser
   };
 };
-
 var logoutCurrentUser = function logoutCurrentUser() {
   return {
     type: LOGOUT_CURRENT_USER
   };
 };
-
 var receiveErrors = function receiveErrors(errors) {
   return {
     type: RECEIVE_SESSION_ERRORS,
     errors: errors
   };
 };
-
 var clearSessionErrors = function clearSessionErrors() {
   return {
     type: CLEAR_SESSION_ERRORS
   };
-}; // Thunk action creators
+};
+
+// Thunk action creators
 
 var signup = function signup(formUser) {
   return function (dispatch) {
@@ -497,10 +489,10 @@ var logout = function logout() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RECEIVE_ALL_USERS": () => (/* binding */ RECEIVE_ALL_USERS),
-/* harmony export */   "RECEIVE_USER": () => (/* binding */ RECEIVE_USER),
-/* harmony export */   "fetchAllUsers": () => (/* binding */ fetchAllUsers),
-/* harmony export */   "fetchUser": () => (/* binding */ fetchUser)
+/* harmony export */   RECEIVE_ALL_USERS: () => (/* binding */ RECEIVE_ALL_USERS),
+/* harmony export */   RECEIVE_USER: () => (/* binding */ RECEIVE_USER),
+/* harmony export */   fetchAllUsers: () => (/* binding */ fetchAllUsers),
+/* harmony export */   fetchUser: () => (/* binding */ fetchUser)
 /* harmony export */ });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
@@ -520,14 +512,12 @@ var fetchUser = function fetchUser(userId) {
     });
   };
 };
-
 var receiveUsers = function receiveUsers(users) {
   return {
     type: RECEIVE_ALL_USERS,
     users: users
   };
 };
-
 var receiveUser = function receiveUser(user) {
   return {
     type: RECEIVE_USER,
@@ -575,7 +565,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var App = function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__.AuthRoute, {
     exact: true,
@@ -595,7 +584,6 @@ var App = function App() {
     component: _greeting_greeting_container__WEBPACK_IMPORTED_MODULE_3__["default"]
   })));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 
 /***/ }),
@@ -620,18 +608,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_direct_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/direct_actions */ "./frontend/actions/direct_actions.js");
 /* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
 
 
 
@@ -643,25 +624,21 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var BoardHeader = function BoardHeader(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
-      _useState2 = _slicedToArray(_useState, 2),
-      userMatches = _useState2[0],
-      setUserMatches = _useState2[1];
-
+    _useState2 = _slicedToArray(_useState, 2),
+    userMatches = _useState2[0],
+    setUserMatches = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
-      _useState4 = _slicedToArray(_useState3, 2),
-      channelMatches = _useState4[0],
-      setChannelMatches = _useState4[1];
-
+    _useState4 = _slicedToArray(_useState3, 2),
+    channelMatches = _useState4[0],
+    setChannelMatches = _useState4[1];
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     props.fetchAllUsers();
     props.fetchAllChannels();
     props.fetchMemberships();
-
     if (props.currentUser) {
       props.fetchUserDirects(props.currentUser.id);
     }
   }, []);
-
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     var identifier = e.currentTarget.dataset.classify;
@@ -677,7 +654,6 @@ var BoardHeader = function BoardHeader(props) {
       memberable_type: "Channel"
     };
     var channelChecker = (0,_util_functions__WEBPACK_IMPORTED_MODULE_7__.channelCheck)(props.userDirects, identifier, props.currentUser.id, value, props.allMemberships, props.allChannels);
-
     if (e.currentTarget.dataset.classify === "direct") {
       if (!channelChecker) {
         props.createDirect(directObject);
@@ -691,12 +667,10 @@ var BoardHeader = function BoardHeader(props) {
         props.history.push("/client/".concat(channelChecker));
       }
     }
-
     inputEle.value = '';
     setUserMatches(null);
     setChannelMatches(null);
   };
-
   var handleHistoryButtons = function handleHistoryButtons(field) {
     if (field === 'back') {
       props.history.goBack();
@@ -704,15 +678,12 @@ var BoardHeader = function BoardHeader(props) {
       props.history.goForward();
     }
   };
-
   var toggleElement = function toggleElement() {
     var dropdownToggle = document.querySelector('.user-profile-dropdown-container');
-
     if (dropdownToggle) {
       dropdownToggle.classList.toggle('active');
     }
   };
-
   var findMatches = function findMatches(wordToMatch, channels, users) {
     var matches = {
       "users": [],
@@ -731,7 +702,6 @@ var BoardHeader = function BoardHeader(props) {
     });
     return matches;
   };
-
   var displayMatches = function displayMatches(e) {
     if (Object.keys(props.allUsers).length !== 0) {
       var suggestions = document.querySelector('.dm-user-search-items');
@@ -767,7 +737,6 @@ var BoardHeader = function BoardHeader(props) {
       setChannelMatches(channelMatchies);
     }
   };
-
   var onlineIndicator = !props.currentUser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "boarderheader-online-wrapper"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
@@ -777,11 +746,9 @@ var BoardHeader = function BoardHeader(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "boardheader-online-indicator online"
   }));
-
   if (!props.currentUser) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null);
   }
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "board-header-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
@@ -855,7 +822,6 @@ var BoardHeader = function BoardHeader(props) {
     }
   }, "Log out of ", props.currentUser.username)))));
 };
-
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   return {
@@ -866,7 +832,6 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     userDirects: state.entities.directs
   };
 };
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchAllUsers: function fetchAllUsers() {
@@ -892,7 +857,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(BoardHeader));
 
 /***/ }),
@@ -913,24 +877,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
 
 
 
@@ -944,25 +898,21 @@ var ChannelCreateForm = function ChannelCreateForm(props) {
     is_private: false,
     is_dm: false
   };
-
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(initialState),
-      _useState2 = _slicedToArray(_useState, 2),
-      channelForm = _useState2[0],
-      setChannelForm = _useState2[1];
-
+    _useState2 = _slicedToArray(_useState, 2),
+    channelForm = _useState2[0],
+    setChannelForm = _useState2[1];
   var update = function update(field) {
     return function (e) {
       field === "is_private" ? setChannelForm(_objectSpread(_objectSpread({}, channelForm), {}, _defineProperty({}, field, e.target.checked))) : setChannelForm(_objectSpread(_objectSpread({}, channelForm), {}, _defineProperty({}, field, e.target.value)));
     };
   };
-
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     props.createChannel(channelForm);
     setChannelForm(initialState);
     props.closeModal();
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("form", {
     className: "channel-create-form",
     onSubmit: handleSubmit
@@ -1009,14 +959,12 @@ var ChannelCreateForm = function ChannelCreateForm(props) {
     value: "CREATE"
   })));
 };
-
 var mSTP = function mSTP(state) {
   var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   return {
     currentUser: state.entities.users[currentUserId]
   };
 };
-
 var mDTP = function mDTP(dispatch) {
   return {
     createChannel: function createChannel(channel) {
@@ -1027,7 +975,6 @@ var mDTP = function mDTP(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(ChannelCreateForm));
 
 /***/ }),
@@ -1051,28 +998,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _message_message_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../message/message_form */ "./frontend/components/message/message_form.jsx");
 /* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
 
 
 
@@ -1081,53 +1016,42 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 var ChannelShow = /*#__PURE__*/function (_React$Component) {
   _inherits(ChannelShow, _React$Component);
-
   var _super = _createSuper(ChannelShow);
-
   function ChannelShow(props) {
     var _this;
-
     _classCallCheck(this, ChannelShow);
-
     _this = _super.call(this, props);
     _this.state;
     return _this;
   }
-
   _createClass(ChannelShow, [{
     key: "componentDidMount",
     value: function componentDidMount(props) {
       this.props.fetchAllChannels();
       this.props.fetchAllUsers();
       this.props.fetchMemberships();
-
       if (this.props.currentUser) {
         this.props.fetchUserDirects(this.props.currentUser.id);
       }
-
       if (this.props.type === 'channel') {
         this.props.fetchChannelMessages(this.props.typeId);
       } else if (this.props.type === 'direct') {
         this.props.fetchDirectMessages(this.props.typeId);
       }
-
       var _this$props = this.props,
-          typeId = _this$props.typeId,
-          receiveMessage = _this$props.receiveMessage,
-          type = _this$props.type;
+        typeId = _this$props.typeId,
+        receiveMessage = _this$props.receiveMessage,
+        type = _this$props.type;
       var check = false;
       var userNavables = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.userChannels)(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects);
-
       if (this.props.type === 'channel') {
         check = userNavables.channels.includes(parseInt(typeId)) ? check = true : check = false;
         if (!check) this.props.history.push("/client/channel/1");
       }
-
       if (this.props.type === 'direct') {
         check = userNavables.directs.includes(parseInt(typeId)) ? check = true : check = false;
         if (!check) this.props.history.push("/client/channel/1");
       }
-
       this.configChat();
     }
   }, {
@@ -1137,23 +1061,19 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       var propTypeId = this.props.typeId;
       var propsType = this.props.type;
       var check = false;
-
       if (prevTypeId && prevTypeId !== this.props.typeId || prevProps.type !== this.props.type || prevProps.userDirects !== this.props.userDirects) {
         this.configChat();
         this.getCurrentChannel(this.props);
         var userNavables = (0,_util_functions__WEBPACK_IMPORTED_MODULE_4__.userChannels)(this.props.memberships, this.props.currentUser.id, this.props.allChannels, this.props.userDirects);
-
         if (this.props.type === 'channel') {
           check = userNavables.channels.includes(parseInt(propTypeId)) ? check = true : check = false;
           if (!check) this.props.history.push("/client/channel/1");
         }
-
         if (this.props.type === 'direct') {
           check = userNavables.directs.includes(parseInt(propTypeId)) ? check = true : check = false;
           if (!check) this.props.history.push("/client/channel/1");
         }
       }
-
       if (!this.props.history.location.pathname.includes(propsType)) this.props.history.push("/client/channel/1");
       var elem = document.querySelector('.messages-main-container');
       if (elem) elem.scrollTop = elem.scrollHeight;
@@ -1162,22 +1082,21 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
     key: "configChat",
     value: function configChat() {
       var _this$props2 = this.props,
-          type = _this$props2.type,
-          receiveMessage = _this$props2.receiveMessage;
+        type = _this$props2.type,
+        receiveMessage = _this$props2.receiveMessage;
       var chatType = type === "channel" ? "ChatChannel" : "ChatDirect";
       App.channel = App.cable.subscriptions.create({
         channel: chatType,
         id: this.props.typeId
-      }, //slip data inside object and include id there history push
+      },
+      //slip data inside object and include id there history push
       {
         received: function received(data) {
           var incomingMessage = JSON.parse(data.message);
-
           switch (data.type) {
             case "message":
               receiveMessage(incomingMessage);
               break;
-
             case "edit":
               receiveMessage(incomingMessage);
               break;
@@ -1210,11 +1129,9 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
     key: "unsubscribe",
     value: function unsubscribe() {
       var _this2 = this;
-
       var membership = Object.values(this.props.memberships).find(function (membership) {
         return membership.memberable_id === _this2.props.currentChannel.id && membership.user_id === _this2.props.currentUser.id;
       });
-
       if (membership) {
         this.props.destroyMembership(membership.id);
       }
@@ -1227,25 +1144,21 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       } else if (this.props.type === 'direct') {
         this.props.destroyDirect(this.props.typeId);
       }
-
       this.props.history.push("/client/channel/1");
     }
   }, {
     key: "render",
     value: function render() {
       var _this3 = this;
-
       if (!this.props.currentUser) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null);
       }
-
       var currentMessages;
       var channelName = "Loading Channel Name";
       var deleteChannelButton;
       var deleteMembershipButton;
       var showOption;
       var partySize = this.props.currentChannel ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "Party: ", this.props.currentChannel.user_ids.length) : null;
-
       if (this.props.currentUser && this.props.currentChannel) {
         deleteChannelButton = this.props.type === 'direct' || this.props.currentChannel.admin_id === this.props.currentUser.id && this.props.currentChannel.name !== "Global" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "user-option-button",
@@ -1260,9 +1173,9 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
           }
         }, "Unsubscribe") : null;
         showOption = deleteChannelButton ? deleteChannelButton : deleteMembershipButton;
-      } // if (this.state && Object.keys(this.props.allUsers).length > 1) {
+      }
 
-
+      // if (this.state && Object.keys(this.props.allUsers).length > 1) {
       currentMessages = Object.keys(this.props.messages).length !== 0 ? Object.values(this.props.messages).map(function (message) {
         var date = new Date(message.created_at);
         var dateFormat = new Intl.DateTimeFormat('en-US', {
@@ -1293,12 +1206,12 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
         }, dateFormat)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
           className: "message-body-text"
         }, message.body)));
-      }) : "Loading messages..."; // }
+      }) : "Loading messages...";
+      // }
 
       if (this.props.currentChannel && this.props.userDirects) {
         channelName = this.props.type === "channel" ? this.props.currentChannel.name : this.props.userDirects[this.props.typeId].name;
       }
-
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "channel-show-main"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
@@ -1321,10 +1234,8 @@ var ChannelShow = /*#__PURE__*/function (_React$Component) {
       }));
     }
   }]);
-
   return ChannelShow;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component);
-
 ;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.withRouter)(ChannelShow));
 
@@ -1358,7 +1269,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   var currentChannel = ownProps.type === "channel" ? state.entities.channels[ownProps.typeId] : state.entities.directs[ownProps.typeId];
@@ -1372,7 +1282,6 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     userDirects: state.entities.directs
   };
 };
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchAllUsers: function fetchAllUsers() {
@@ -1416,7 +1325,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_channel_show__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ }),
@@ -1440,24 +1348,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_membership_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/membership_actions */ "./frontend/actions/membership_actions.js");
 /* harmony import */ var _util_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
 
 
 
@@ -1472,22 +1370,18 @@ var DirectMessageSearch = function DirectMessageSearch(props) {
       invitedUsersIds: [props.currentUser.id]
     }
   };
-
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialState),
-      _useState2 = _slicedToArray(_useState, 2),
-      directForm = _useState2[0],
-      setDirectForm = _useState2[1];
-
+    _useState2 = _slicedToArray(_useState, 2),
+    directForm = _useState2[0],
+    setDirectForm = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      matches = _useState4[0],
-      setMatches = _useState4[1];
-
+    _useState4 = _slicedToArray(_useState3, 2),
+    matches = _useState4[0],
+    setMatches = _useState4[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.fetchAllUsers();
     props.fetchUserDirects(props.currentUser.id);
   }, []);
-
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     var directObject = directForm.direct;
@@ -1495,20 +1389,17 @@ var DirectMessageSearch = function DirectMessageSearch(props) {
     var receivingUserId = props.allUsers[e.currentTarget.value];
     directForm.direct.invitedUsersIds.push(e.currentTarget.value);
     var channelChecker = (0,_util_functions__WEBPACK_IMPORTED_MODULE_6__.channelCheck)(props.userDirects, 'direct', currentUser.id, receivingUserId.id);
-
     if (!channelChecker) {
       props.createDirect(directObject);
     } else {
       props.history.push("/client/".concat(channelChecker));
     }
-
     setDirectForm(_objectSpread(_objectSpread({}, directForm), {}, {
       name: "",
       invitedUsersIds: [props.currentUser.id]
     }));
     props.closeModal();
   };
-
   var findMatches = function findMatches(wordToMatch, users) {
     return Object.values(users).filter(function (user) {
       // here we need to figure out if the city or state matches what was searched
@@ -1516,7 +1407,6 @@ var DirectMessageSearch = function DirectMessageSearch(props) {
       return user.username.match(regex);
     });
   };
-
   var displayMatches = function displayMatches(e) {
     if (Object.keys(props.allUsers).length !== 0) {
       var suggestions = document.querySelector('.dm-user-search-items');
@@ -1536,7 +1426,6 @@ var DirectMessageSearch = function DirectMessageSearch(props) {
       setMatches(html);
     }
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "user-search-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1559,7 +1448,6 @@ var DirectMessageSearch = function DirectMessageSearch(props) {
     className: "dm-user-search-items"
   }, matches)));
 };
-
 var mSTP = function mSTP(state) {
   var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   return {
@@ -1570,7 +1458,6 @@ var mSTP = function mSTP(state) {
     userDirects: state.entities.directs
   };
 };
-
 var mDTP = function mDTP(dispatch) {
   return {
     fetchAllUsers: function fetchAllUsers() {
@@ -1590,7 +1477,6 @@ var mDTP = function mDTP(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(DirectMessageSearch));
 
 /***/ }),
@@ -1614,7 +1500,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var Greeting = function Greeting(props) {
   var debounce = function debounce(func) {
     var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
@@ -1622,30 +1507,26 @@ var Greeting = function Greeting(props) {
     var timeout;
     return function () {
       var context = this,
-          args = arguments;
-
+        args = arguments;
       var later = function later() {
         timeout = null;
         if (!immediate) func.apply(context, args);
       };
-
       var callNow = immediate && !timeout;
       clearInterval(timeout);
       timeout = setInterval(later, wait);
       if (callNow) func.apply(context, args);
     };
   };
-
   var checkSlide = function checkSlide() {
     var sliderImages = document.querySelectorAll('.slide-in');
     sliderImages.forEach(function (sliderImage) {
       // half way through the image
-      var slideInAt = window.scrollY + window.innerHeight - sliderImage.height / 3; // bottom of the image
-
+      var slideInAt = window.scrollY + window.innerHeight - sliderImage.height / 3;
+      // bottom of the image
       var imageBottom = sliderImage.offsetTop + sliderImage.height;
       var isHalfShown = slideInAt > sliderImage.offsetTop;
       var isNotScrolledPast = window.scrollY < imageBottom;
-
       if (isHalfShown && isNotScrolledPast) {
         sliderImage.classList.add('active');
         console.log('here');
@@ -1654,7 +1535,6 @@ var Greeting = function Greeting(props) {
       }
     });
   };
-
   window.addEventListener('scroll', debounce(checkSlide));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "greeting-main-container"
@@ -1756,7 +1636,6 @@ var Greeting = function Greeting(props) {
     href: "https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/"
   }, "CONTACT ME")))))));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Greeting);
 
 /***/ }),
@@ -1778,15 +1657,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var mapStateToProps = function mapStateToProps(_ref) {
   var session = _ref.session,
-      users = _ref.entities.users;
+    users = _ref.entities.users;
   return {
     currentUser: users[session.id]
   };
 };
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     logout: function logout() {
@@ -1794,7 +1671,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_greeting__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ }),
@@ -1810,8 +1686,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 // import { connect } from 'react-redux';
 // import { render } from 'react-dom';
 // import { signup, login } from "../../actions/session_actions"
+
 // const GreetingHeader = (props) => {
+
 //     // const triggers = document.querySelectorAll('.cool > li');
+
 //     // const handleEnter = (e) => {
 //     //     e.currentTarget.classList.add('trigger-enter');
 //     //     // setTimeout(() => e.currentTarget.classList.contains('trigger-enter') && e.currentTarget.classList.add('trigger-enter-active'), 150);
@@ -1819,28 +1698,35 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 //     //     clearInterval(bounceInt);
 //     //     const background = document.querySelector('.dropdownBackground');
 //     //     const nav = document.querySelector('.top');
+
 //     //     background.classList.add('open');
+
 //     //     const dropdown = e.currentTarget.querySelector('.dropdown');
 //     //     const dropdownCoords = dropdown.getBoundingClientRect();
 //     //     const navCoords = nav.getBoundingClientRect();
+
 //     //     const coords = {
 //     //         height: dropdownCoords.height,
 //     //         width: dropdownCoords.width,
 //     //         top: dropdownCoords.top - navCoords.top + 100,
 //     //         left: dropdownCoords.left - navCoords.left
 //     //     };
+
 //     //     background.style.setProperty('width', `${coords.width}px`);
 //     //     background.style.setProperty('height', `${coords.height}px`);
 //     //     background.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px)`);
 //     // }
+
 //     // const handleLeave = (e) => {
 //     //     e.currentTarget.classList.remove('trigger-enter', 'trigger-enter-active');
 //     //     const background = document.querySelector('.dropdownBackground');
 //     //     // debugger
 //     //     background.classList.remove('open');
 //     // }
+
 //     // triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
 //     // triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
+
 //     return(
 //         <div className='header-centerizer'>
 //             <div className="left-header-container">
@@ -1862,24 +1748,33 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 //                         </li>
 //                     </ul>
 //                 </div>
+
 //                 <a href="https://github.com/dkirkpatrick99" >GitHub</a>
 //                 <a href="https://www.linkedin.com/in/dalton-kirkpatrick-9284b3184">LinkedIn</a>
 //                 <a href="https://dkirkpatrick99.github.io/DaltonKirkpatrickPortfolio/">Portfolio</a>
+
 //             </div>
+
 //             <div className="right-header-container">
 //                 <Link to="/login">Sign In</Link>
 //                 <Link className='get-started-button' to="/signup">Get Started</Link>
 //             </div>
+
 //         </div>
+
 //     )
 // }
+
 // // const mSTP = (state) => {
 // //     return {
+
 // //     }
 // // }
+
 // const mDTP = (dispatch) => ({
 //     login: (user) => dispatch(login(user))
 // })
+
 // export default connect(null,mDTP)(GreetingHeader);
 
 /***/ }),
@@ -1905,17 +1800,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var GreetingHeader = function GreetingHeader(props) {
   // const triggers = document.querySelectorAll('.greeting-list > li');
   // const background = document.querySelector('.dropdownBackground');
   // const nav = document.querySelector('.top');
+
   var handleEnter = function handleEnter(e) {
-    e.target.classList.add('trigger-enter'); // const classAdd = setInterval(() =>{
+    e.target.classList.add('trigger-enter');
+    // const classAdd = setInterval(() =>{
     //     e.target.classList.contains('trigger-enter') && e.target.classList.add('trigger-enter-active');            
     // },150)
     // clearInterval(classAdd)
-
     setTimeout(function () {
       return e.target.classList.contains('trigger-enter') && e.target.classList.add('trigger-enter-active');
     }, 150);
@@ -1935,14 +1830,14 @@ var GreetingHeader = function GreetingHeader(props) {
     background.style.setProperty('height', "".concat(coords.height, "px"));
     background.style.setProperty('transform', "translate(".concat(coords.left, "px, ").concat(coords.top, "px)"));
   };
-
   var handleLeave = function handleLeave(e) {
     var background = document.querySelector('.dropdownBackground');
     e.currentTarget.classList.remove('trigger-enter', 'trigger-enter-active');
     background.classList.remove('open');
-  }; // triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
-  // triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
+  };
 
+  // triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
+  // triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     "class": "main"
@@ -2030,7 +1925,6 @@ var GreetingHeader = function GreetingHeader(props) {
     to: "/signup"
   }, "Get Started"))));
 };
-
 var mDTP = function mDTP(dispatch) {
   return {
     login: function login(user) {
@@ -2038,7 +1932,6 @@ var mDTP = function mDTP(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mDTP)(GreetingHeader));
 
 /***/ }),
@@ -2059,24 +1952,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
 
 
 
@@ -2088,22 +1971,18 @@ var MessageForm = function MessageForm(props) {
     messageable_id: props.typeId,
     messageable_type: 'Direct'
   };
-
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialState),
-      _useState2 = _slicedToArray(_useState, 2),
-      messageForm = _useState2[0],
-      setMessageForm = _useState2[1];
-
+    _useState2 = _slicedToArray(_useState, 2),
+    messageForm = _useState2[0],
+    setMessageForm = _useState2[1];
   var update = function update(field) {
     return function (e) {
       var _setMessageForm;
-
       setMessageForm((_setMessageForm = {
         user_id: parseInt(props.currentUserId)
       }, _defineProperty(_setMessageForm, field, e.currentTarget.value), _defineProperty(_setMessageForm, "messageable_id", parseInt(props.typeId)), _defineProperty(_setMessageForm, "messageable_type", 'Direct'), _setMessageForm));
     };
   };
-
   var handleSubmit = function handleSubmit(e) {
     if (e) e.preventDefault();
     var chatType = props.type === "channel" ? "Channel" : "Direct";
@@ -2115,7 +1994,6 @@ var MessageForm = function MessageForm(props) {
     });
     setMessageForm(initialState);
   };
-
   var placeholder = "Send a message to ".concat(props.typeName);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     className: "message-tobe-sent-container",
@@ -2139,7 +2017,6 @@ var MessageForm = function MessageForm(props) {
     alt: "Submit"
   }))));
 };
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createMessage: function createMessage(message) {
@@ -2147,7 +2024,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps)(MessageForm));
 
 /***/ }),
@@ -2176,29 +2052,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
 /* harmony import */ var _modal_modal__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../modal/modal */ "./frontend/components/modal/modal.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
- // import MessageBoard from './messageBoard';
+// import MessageBoard from './messageBoard';
 
 
 
@@ -2208,31 +2074,24 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
- // import ListenerContainer from '../channel/listener_container';
-
-
+// import ListenerContainer from '../channel/listener_container';
 
 var MessageBoard = /*#__PURE__*/function (_React$Component) {
   _inherits(MessageBoard, _React$Component);
-
   var _super = _createSuper(MessageBoard);
-
   function MessageBoard(props) {
     _classCallCheck(this, MessageBoard);
-
     return _super.call(this, props);
   }
-
   _createClass(MessageBoard, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this = this;
-
       this.props.fetchAllUsers().then(function () {
-        _this.props.fetchAllChannels(); //     this.props.fetchAllDirects();
+        _this.props.fetchAllChannels();
+        //     this.props.fetchAllDirects();
         //     this.props.fetchMemberships();
         //     this.props.fetchAllMessages();
-
       });
       App.NotificationsChannel = App.cable.subscriptions.create({
         channel: "NotificationsChannel",
@@ -2242,24 +2101,16 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
           switch (data.type) {
             case "membershipAdd":
               _this.props.receiveMembership(data.membership);
-
               break;
-
             case "directAdd":
               _this.props.fetchDirect(data.directId);
-
               break;
-
             case "channelAdd":
               _this.props.fetchChannel(data.channelId);
-
               break;
-
             case "userAdd":
               _this.props.fetchUserDirects(_this.props.currentUser);
-
               _this.props.fetchUser(data.userId);
-
               break;
           }
         }
@@ -2272,9 +2123,10 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       App.NotificationsChannel.unsubscribe();
-    } // houses all of the main app components and is the only route rendered while 
-    // a user is logged in
+    }
 
+    // houses all of the main app components and is the only route rendered while 
+    // a user is logged in
   }, {
     key: "render",
     value: function render() {
@@ -2296,10 +2148,8 @@ var MessageBoard = /*#__PURE__*/function (_React$Component) {
       }));
     }
   }]);
-
   return MessageBoard;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
-
 var mapSTP = function mapSTP(state, ownProps) {
   var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   return {
@@ -2309,7 +2159,6 @@ var mapSTP = function mapSTP(state, ownProps) {
     history: ownProps.history
   };
 };
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     logout: function logout() {
@@ -2347,7 +2196,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapSTP, mapDispatchToProps)(MessageBoard));
 
 /***/ }),
@@ -2373,26 +2221,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var Modal = function Modal(_ref) {
   var modal = _ref.modal,
-      closeModal = _ref.closeModal,
-      history = _ref.history;
-
+    closeModal = _ref.closeModal,
+    history = _ref.history;
   if (!modal) {
     return null;
-  } // uses a string variable called modal to determine which comonent to render
+  }
+
+  // uses a string variable called modal to determine which comonent to render
   // if info needs to be passed later I can refactor to send a pojo with a type: key
   // and a data: key
-
-
   var component;
-
   switch (modal) {
     case 'createChannel':
       component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_create_form__WEBPACK_IMPORTED_MODULE_3__["default"], null);
       break;
-
     case 'directMessageSearch':
       component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_directMessage_direct_message_search__WEBPACK_IMPORTED_MODULE_4__["default"], {
         history: history
@@ -2401,11 +2245,9 @@ var Modal = function Modal(_ref) {
     // case 'userSearch':
     //     component = <UserSearchContainer />;
     //     break;
-
     default:
       break;
   }
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "modal-screen",
     onClick: closeModal
@@ -2416,13 +2258,11 @@ var Modal = function Modal(_ref) {
     }
   }, component));
 };
-
 var mapStateToProps = function mapStateToProps(state) {
   return {
     modal: state.ui.modal
   };
 };
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     closeModal: function closeModal() {
@@ -2430,7 +2270,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Modal));
 
 /***/ }),
@@ -2453,7 +2292,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- //need to preload script for running loading icon while client page renders
+
+
+//need to preload script for running loading icon while client page renders
 
 var Root = function Root(_ref) {
   var store = _ref.store;
@@ -2461,7 +2302,6 @@ var Root = function Root(_ref) {
     store: store
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_App__WEBPACK_IMPORTED_MODULE_0__["default"], null)));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Root);
 
 /***/ }),
@@ -2491,7 +2331,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var mapStateToProps = function mapStateToProps(state) {
   return {
     errors: state.errors.sessionErrors,
@@ -2501,7 +2340,6 @@ var mapStateToProps = function mapStateToProps(state) {
     }, "sign up instead")
   };
 };
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     processForm: function processForm(user) {
@@ -2515,7 +2353,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_session_form__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
@@ -2536,24 +2373,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var regenerator_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
 /* harmony import */ var regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime__WEBPACK_IMPORTED_MODULE_1__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
 
 
 
@@ -2564,35 +2391,29 @@ var SessionForm = function SessionForm(props) {
     email: '',
     password: ''
   };
-
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialState),
-      _useState2 = _slicedToArray(_useState, 2),
-      formData = _useState2[0],
-      setFormData = _useState2[1];
-
+    _useState2 = _slicedToArray(_useState, 2),
+    formData = _useState2[0],
+    setFormData = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-      _useState4 = _slicedToArray(_useState3, 2),
-      demoEmail = _useState4[0],
-      setDemoEmail = _useState4[1];
-
+    _useState4 = _slicedToArray(_useState3, 2),
+    demoEmail = _useState4[0],
+    setDemoEmail = _useState4[1];
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-      _useState6 = _slicedToArray(_useState5, 2),
-      demoPassword = _useState6[0],
-      setDemoPassword = _useState6[1];
-
+    _useState6 = _slicedToArray(_useState5, 2),
+    demoPassword = _useState6[0],
+    setDemoPassword = _useState6[1];
   var dEmail = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var dPassword = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.fetchAllUsers();
     props.fetchAllChannels();
   }, []);
-
   var update = function update(field, value) {
     return function (e) {
       return setFormData(_objectSpread(_objectSpread({}, formData), {}, _defineProperty({}, field, e.currentTarget.value)));
     };
   };
-
   var handleSubmit = function handleSubmit(e) {
     if (e) {
       e.preventDefault();
@@ -2606,31 +2427,23 @@ var SessionForm = function SessionForm(props) {
       props.processForm(demo);
     }
   };
-
   var demoLogin = function demoLogin() {
     setFormData(initialState);
-
     if (document.querySelector('.session-email')) {
       var _demoEmail = "demouser@gmail.com".split('');
-
       var _demoPassword = "pleasehireme".split('');
-
       var emailInterval = setInterval(function () {
         var first = _demoEmail.splice(0, 1);
-
         setDemoEmail(function (demoEmail) {
           return demoEmail + first[0];
         });
-
         if (!_demoEmail.length) {
           clearInterval(emailInterval);
           var passwordInterval = setInterval(function () {
             var first = _demoPassword.splice(0, 1);
-
             setDemoPassword(function (demoPassword) {
               return demoPassword + first[0];
             });
-
             if (!_demoPassword.length) {
               clearInterval(passwordInterval);
               handleSubmit();
@@ -2640,7 +2453,6 @@ var SessionForm = function SessionForm(props) {
       }, 100);
     }
   };
-
   var renderErrors = function renderErrors() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, props.errors.map(function (error, i) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
@@ -2648,9 +2460,7 @@ var SessionForm = function SessionForm(props) {
       }, error);
     }));
   };
-
   var submitName = "".concat(props.formType, " Teather");
-
   if (props.formType === 'Sign Up for') {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "login-form-container-main"
@@ -2763,7 +2573,6 @@ var SessionForm = function SessionForm(props) {
     }, "Sign up"))));
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SessionForm);
 
 /***/ }),
@@ -2793,7 +2602,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var mapStateToProps = function mapStateToProps(state) {
   return {
     errors: state.errors.sessionErrors,
@@ -2803,7 +2611,6 @@ var mapStateToProps = function mapStateToProps(state) {
     }, "log in instead")
   };
 };
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     processForm: function processForm(user) {
@@ -2817,7 +2624,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_session_form__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
@@ -2841,28 +2647,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var SideBar = function SideBar(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.fetchAllUsers();
     props.fetchAllChannels();
     props.fetchMemberships();
-
     if (props.currentUser) {
       props.fetchUserDirects(props.currentUser.id);
     }
   }, []);
-
   var renderChannels = function renderChannels() {
     var userChannels = [];
     var memberships = props.memberships;
     var userMemberships = [];
-
     if (Object.keys(props.allChannels).length !== 0 && Object.keys(props.memberships).length !== 0 && Object.keys(props.allUsers).length > 1) {
       Object.values(memberships).forEach(function (membership) {
         var channelId = membership.memberable_type === 'Channel' && membership.user_id === props.currentUser.id ? membership.memberable_id : null;
         var channel = props.allChannels[channelId];
-
         if (!channel) {
           return;
         } else {
@@ -2870,22 +2671,17 @@ var SideBar = function SideBar(props) {
         }
       });
     }
-
     return userChannels;
   };
-
   var toggleElement = function toggleElement() {
     var dropdownToggle = document.querySelector('.dropdown');
-
     if (dropdownToggle) {
       dropdownToggle.classList.toggle('active');
     }
   };
-
   if (!props.currentUser) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
   }
-
   var typeId = parseInt(props.typeId);
   var channels = renderChannels();
   var dmLinks;
@@ -2920,7 +2716,6 @@ var SideBar = function SideBar(props) {
       alt: ""
     }), onlineIndicator, dmName));
   }) : null;
-
   if (channels.length !== 0) {
     channelLinks = channels.map(function (channel) {
       return typeId === channel.id && props.type === 'channel' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
@@ -2936,7 +2731,6 @@ var SideBar = function SideBar(props) {
       }, "# " + channel.name));
     });
   }
-
   if (!!props.currentUser) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "flex-container"
@@ -3035,7 +2829,6 @@ var SideBar = function SideBar(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading");
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.withRouter)(SideBar));
 
 /***/ }),
@@ -3069,7 +2862,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   var currentUserId = !isNaN(state.session.id) ? state.session.id : state.session.id.id;
   return {
@@ -3081,7 +2873,6 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     userDirects: state.entities.directs
   };
 };
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchAllUsers: function fetchAllUsers() {
@@ -3110,7 +2901,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_sideBar__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ }),
@@ -3132,25 +2922,20 @@ __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
   var newState;
-
   switch (action.type) {
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_ALL_CHANNELS:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, action.channels);
-
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CHANNEL:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _defineProperty({}, action.channel.id, action.channel));
-
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_CHANNEL:
       newState = lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state);
       delete newState[action.channelId];
       return newState;
-
     default:
       return state;
   }
@@ -3175,25 +2960,20 @@ __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
   var newState;
-
   switch (action.type) {
     case _actions_direct_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_ALL_DIRECTS:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, action.directs);
-
     case _actions_direct_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_DIRECT:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _defineProperty({}, action.direct.id, action.direct));
-
     case _actions_direct_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_DIRECT:
       newState = lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state);
       delete newState[action.directId];
       return newState;
-
     default:
       return state;
   }
@@ -3274,25 +3054,20 @@ __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
   var newState;
-
   switch (action.type) {
     case _actions_membership_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MEMBERSHIPS:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, action.memberships);
-
     case _actions_membership_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MEMBERSHIP:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _defineProperty({}, action.membership.id, action.membership));
-
     case _actions_membership_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_MEMBERSHIP:
       newState = lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state);
       delete newState[action.membershipId];
       return newState;
-
     default:
       return state;
   }
@@ -3317,20 +3092,16 @@ __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
   var newState;
-
   switch (action.type) {
     case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_ALL_MESSAGES:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, action.messages);
-
     case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MESSAGE:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _defineProperty({}, action.message.id, action.message));
-
     default:
       return state;
   }
@@ -3351,24 +3122,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 
-
 var modalsReducer = function modalsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
-
   switch (action.type) {
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__.OPEN_MODAL:
       return action.modal;
-
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__.CLOSE_MODAL:
       return null;
-
     default:
       return state;
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modalsReducer);
 
 /***/ }),
@@ -3417,27 +3183,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 
-
 var sessionErrorsReducer = function sessionErrorsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
-
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_SESSION_ERRORS:
       return action.errors;
-
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CURRENT_USER:
       return [];
-
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__.CLEAR_SESSION_ERRORS:
       return [];
-
     default:
       return state;
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sessionErrorsReducer);
 
 /***/ }),
@@ -3457,31 +3217,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 
 
-
 var _nullUser = Object.freeze({
   id: null,
   currentChannel: null
 });
-
 var sessionReducer = function sessionReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _nullUser;
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
-
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CURRENT_USER:
       return Object.assign({}, state, {
         id: action.currentUser
       });
-
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__.LOGOUT_CURRENT_USER:
       return _nullUser;
-
     default:
       return state;
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sessionReducer);
 
 /***/ }),
@@ -3523,23 +3277,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
 
 
-
 var usersReducer = function usersReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
-
   switch (action.type) {
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_ALL_USERS:
       return Object.assign({}, state, action.users);
-
     default:
       return state;
   }
-
   ;
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (usersReducer);
 
 /***/ }),
@@ -3558,16 +3307,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _reducers_root_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../reducers/root_reducer */ "./frontend/reducers/root_reducer.js");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
- // import logger from "redux-logger";
 
-
+// import logger from "redux-logger";
 
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return (0,redux__WEBPACK_IMPORTED_MODULE_2__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_0__["default"], preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_2__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"]));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (configureStore);
 
 /***/ }),
@@ -3581,11 +3328,11 @@ var configureStore = function configureStore() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createChannel": () => (/* binding */ createChannel),
-/* harmony export */   "destroyChannel": () => (/* binding */ destroyChannel),
-/* harmony export */   "updateChannel": () => (/* binding */ updateChannel),
-/* harmony export */   "fetchChannel": () => (/* binding */ fetchChannel),
-/* harmony export */   "fetchAllChannels": () => (/* binding */ fetchAllChannels)
+/* harmony export */   createChannel: () => (/* binding */ createChannel),
+/* harmony export */   destroyChannel: () => (/* binding */ destroyChannel),
+/* harmony export */   fetchAllChannels: () => (/* binding */ fetchAllChannels),
+/* harmony export */   fetchChannel: () => (/* binding */ fetchChannel),
+/* harmony export */   updateChannel: () => (/* binding */ updateChannel)
 /* harmony export */ });
 var createChannel = function createChannel(channel) {
   return $.ajax({
@@ -3635,12 +3382,12 @@ var fetchAllChannels = function fetchAllChannels() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createDirect": () => (/* binding */ createDirect),
-/* harmony export */   "fetchDirect": () => (/* binding */ fetchDirect),
-/* harmony export */   "fetchAllDirects": () => (/* binding */ fetchAllDirects),
-/* harmony export */   "fetchUserDirects": () => (/* binding */ fetchUserDirects),
-/* harmony export */   "updateDirect": () => (/* binding */ updateDirect),
-/* harmony export */   "destroyDirect": () => (/* binding */ destroyDirect)
+/* harmony export */   createDirect: () => (/* binding */ createDirect),
+/* harmony export */   destroyDirect: () => (/* binding */ destroyDirect),
+/* harmony export */   fetchAllDirects: () => (/* binding */ fetchAllDirects),
+/* harmony export */   fetchDirect: () => (/* binding */ fetchDirect),
+/* harmony export */   fetchUserDirects: () => (/* binding */ fetchUserDirects),
+/* harmony export */   updateDirect: () => (/* binding */ updateDirect)
 /* harmony export */ });
 var createDirect = function createDirect(direct) {
   return $.ajax({
@@ -3702,13 +3449,12 @@ var destroyDirect = function destroyDirect(id) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getUserPic": () => (/* binding */ getUserPic),
-/* harmony export */   "channelCheck": () => (/* binding */ channelCheck),
-/* harmony export */   "userChannels": () => (/* binding */ userChannels)
+/* harmony export */   channelCheck: () => (/* binding */ channelCheck),
+/* harmony export */   getUserPic: () => (/* binding */ getUserPic),
+/* harmony export */   userChannels: () => (/* binding */ userChannels)
 /* harmony export */ });
 var getUserPic = function getUserPic(userName) {
   var first = userName.slice(0, 1).toLowerCase();
-
   if (userName === 'Stack Bot') {
     return "slackbot.png";
   } else if ('abcd'.includes(first)) {
@@ -3727,7 +3473,6 @@ var getUserPic = function getUserPic(userName) {
 };
 var channelCheck = function channelCheck(userDirects, identifier, currentUserId, typeId, allMemberships, allChannels) {
   var flag = false;
-
   if (identifier === 'direct') {
     var directFinder = Object.values(userDirects).find(function (direct) {
       if (direct.user_ids[0].user_id === currentUserId && direct.user_ids[1].user_id === typeId || direct.user_ids[1].user_id === currentUserId && direct.user_ids[0].user_id === typeId) {
@@ -3737,12 +3482,10 @@ var channelCheck = function channelCheck(userDirects, identifier, currentUserId,
     if (directFinder) flag = "direct/".concat(directFinder.id);
   } else if (identifier === 'channel') {
     var userNavables = userChannels(allMemberships, currentUserId, allChannels, userDirects);
-
     if (userNavables.channels.includes(parseInt(typeId))) {
       flag = "channel/".concat(typeId);
     }
   }
-
   return flag;
 };
 var userChannels = function userChannels(allMemberships, currentUserId, allChannels, userDirects) {
@@ -3755,7 +3498,6 @@ var userChannels = function userChannels(allMemberships, currentUserId, allChann
     var directId = membership.memberable_type === 'Direct' && membership.user_id === currentUserId ? membership.memberable_id : null;
     var channel = allChannels[channelId];
     var direct = userDirects[directId];
-
     if (channel || direct) {
       channel ? userNavables["channels"].push(channel.id) : userNavables["directs"].push(direct.id);
     } else {
@@ -3763,7 +3505,8 @@ var userChannels = function userChannels(allMemberships, currentUserId, allChann
     }
   });
   return userNavables;
-}; // const mem = Object.values(memberships).some(membership => membership.channel_id === channelId)
+};
+// const mem = Object.values(memberships).some(membership => membership.channel_id === channelId)
 
 /***/ }),
 
@@ -3776,11 +3519,11 @@ var userChannels = function userChannels(allMemberships, currentUserId, allChann
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createMembership": () => (/* binding */ createMembership),
-/* harmony export */   "destroyMembership": () => (/* binding */ destroyMembership),
-/* harmony export */   "fetchMembership": () => (/* binding */ fetchMembership),
-/* harmony export */   "fetchMemberships": () => (/* binding */ fetchMemberships),
-/* harmony export */   "fetchChannelMemberships": () => (/* binding */ fetchChannelMemberships)
+/* harmony export */   createMembership: () => (/* binding */ createMembership),
+/* harmony export */   destroyMembership: () => (/* binding */ destroyMembership),
+/* harmony export */   fetchChannelMemberships: () => (/* binding */ fetchChannelMemberships),
+/* harmony export */   fetchMembership: () => (/* binding */ fetchMembership),
+/* harmony export */   fetchMemberships: () => (/* binding */ fetchMemberships)
 /* harmony export */ });
 var createMembership = function createMembership(membership) {
   return $.ajax({
@@ -3830,12 +3573,12 @@ var fetchChannelMemberships = function fetchChannelMemberships(channelId) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createMessage": () => (/* binding */ createMessage),
-/* harmony export */   "updateMessage": () => (/* binding */ updateMessage),
-/* harmony export */   "fetchMessage": () => (/* binding */ fetchMessage),
-/* harmony export */   "fetchAllMessages": () => (/* binding */ fetchAllMessages),
-/* harmony export */   "fetchChannelMessages": () => (/* binding */ fetchChannelMessages),
-/* harmony export */   "fetchDirectMessages": () => (/* binding */ fetchDirectMessages)
+/* harmony export */   createMessage: () => (/* binding */ createMessage),
+/* harmony export */   fetchAllMessages: () => (/* binding */ fetchAllMessages),
+/* harmony export */   fetchChannelMessages: () => (/* binding */ fetchChannelMessages),
+/* harmony export */   fetchDirectMessages: () => (/* binding */ fetchDirectMessages),
+/* harmony export */   fetchMessage: () => (/* binding */ fetchMessage),
+/* harmony export */   updateMessage: () => (/* binding */ updateMessage)
 /* harmony export */ });
 var createMessage = function createMessage(message) {
   return $.ajax({
@@ -3897,8 +3640,8 @@ var fetchDirectMessages = function fetchDirectMessages(directId) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AuthRoute": () => (/* binding */ AuthRoute),
-/* harmony export */   "ProtectedRoute": () => (/* binding */ ProtectedRoute)
+/* harmony export */   AuthRoute: () => (/* binding */ AuthRoute),
+/* harmony export */   ProtectedRoute: () => (/* binding */ ProtectedRoute)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
@@ -3906,12 +3649,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var Auth = function Auth(_ref) {
   var Component = _ref.component,
-      path = _ref.path,
-      loggedIn = _ref.loggedIn,
-      exact = _ref.exact;
+    path = _ref.path,
+    loggedIn = _ref.loggedIn,
+    exact = _ref.exact;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Route, {
     path: path,
     exact: exact,
@@ -3922,12 +3664,11 @@ var Auth = function Auth(_ref) {
     }
   });
 };
-
 var Protected = function Protected(_ref2) {
   var Component = _ref2.component,
-      path = _ref2.path,
-      loggedIn = _ref2.loggedIn,
-      exact = _ref2.exact;
+    path = _ref2.path,
+    loggedIn = _ref2.loggedIn,
+    exact = _ref2.exact;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Route, {
     path: path,
     exact: exact,
@@ -3938,13 +3679,11 @@ var Protected = function Protected(_ref2) {
     }
   });
 };
-
 var mapStateToProps = function mapStateToProps(state) {
   return {
     loggedIn: Boolean(state.session.id)
   };
 };
-
 var AuthRoute = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.withRouter)((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps)(Auth));
 var ProtectedRoute = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.withRouter)((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps)(Protected));
 
@@ -3959,9 +3698,9 @@ var ProtectedRoute = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.withRouter
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "signup": () => (/* binding */ signup),
-/* harmony export */   "login": () => (/* binding */ login),
-/* harmony export */   "logout": () => (/* binding */ logout)
+/* harmony export */   login: () => (/* binding */ login),
+/* harmony export */   logout: () => (/* binding */ logout),
+/* harmony export */   signup: () => (/* binding */ signup)
 /* harmony export */ });
 var signup = function signup(user) {
   return $.ajax({
@@ -3999,8 +3738,8 @@ var logout = function logout() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fetchAllUsers": () => (/* binding */ fetchAllUsers),
-/* harmony export */   "fetchUser": () => (/* binding */ fetchUser)
+/* harmony export */   fetchAllUsers: () => (/* binding */ fetchAllUsers),
+/* harmony export */   fetchUser: () => (/* binding */ fetchUser)
 /* harmony export */ });
 var fetchAllUsers = function fetchAllUsers() {
   return $.ajax({
@@ -4026,13 +3765,13 @@ var fetchUser = function fetchUser(id) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createBrowserHistory": () => (/* binding */ createBrowserHistory),
-/* harmony export */   "createHashHistory": () => (/* binding */ createHashHistory),
-/* harmony export */   "createMemoryHistory": () => (/* binding */ createMemoryHistory),
-/* harmony export */   "createLocation": () => (/* binding */ createLocation),
-/* harmony export */   "locationsAreEqual": () => (/* binding */ locationsAreEqual),
-/* harmony export */   "parsePath": () => (/* binding */ parsePath),
-/* harmony export */   "createPath": () => (/* binding */ createPath)
+/* harmony export */   createBrowserHistory: () => (/* binding */ createBrowserHistory),
+/* harmony export */   createHashHistory: () => (/* binding */ createHashHistory),
+/* harmony export */   createLocation: () => (/* binding */ createLocation),
+/* harmony export */   createMemoryHistory: () => (/* binding */ createMemoryHistory),
+/* harmony export */   createPath: () => (/* binding */ createPath),
+/* harmony export */   locationsAreEqual: () => (/* binding */ locationsAreEqual),
+/* harmony export */   parsePath: () => (/* binding */ parsePath)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
 /* harmony import */ var resolve_pathname__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! resolve-pathname */ "./node_modules/resolve-pathname/esm/resolve-pathname.js");
@@ -8587,7 +8326,7 @@ function createReactContext(defaultValue, calculateChangedBits) {
     return Provider;
   }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[contextProp] = (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object.isRequired), _Provider$childContex);
+  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[contextProp] = (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object).isRequired, _Provider$childContex);
 
   var Consumer = /*#__PURE__*/function (_Component2) {
     (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(Consumer, _Component2);
@@ -36493,7 +36232,7 @@ if (false) {} else {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ReactReduxContext": () => (/* binding */ ReactReduxContext),
+/* harmony export */   ReactReduxContext: () => (/* binding */ ReactReduxContext),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -36568,9 +36307,9 @@ function Provider(_ref) {
 if (true) {
   Provider.propTypes = {
     store: prop_types__WEBPACK_IMPORTED_MODULE_1___default().shape({
-      subscribe: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func.isRequired),
-      dispatch: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func.isRequired),
-      getState: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func.isRequired)
+      subscribe: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func).isRequired,
+      dispatch: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func).isRequired,
+      getState: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func).isRequired
     }),
     context: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object),
     children: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().any)
@@ -36990,7 +36729,7 @@ _ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createConnect": () => (/* binding */ createConnect),
+/* harmony export */   createConnect: () => (/* binding */ createConnect),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
@@ -37112,10 +36851,10 @@ function createConnect(_temp) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "whenMapDispatchToPropsIsFunction": () => (/* binding */ whenMapDispatchToPropsIsFunction),
-/* harmony export */   "whenMapDispatchToPropsIsMissing": () => (/* binding */ whenMapDispatchToPropsIsMissing),
-/* harmony export */   "whenMapDispatchToPropsIsObject": () => (/* binding */ whenMapDispatchToPropsIsObject),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   whenMapDispatchToPropsIsFunction: () => (/* binding */ whenMapDispatchToPropsIsFunction),
+/* harmony export */   whenMapDispatchToPropsIsMissing: () => (/* binding */ whenMapDispatchToPropsIsMissing),
+/* harmony export */   whenMapDispatchToPropsIsObject: () => (/* binding */ whenMapDispatchToPropsIsObject)
 /* harmony export */ });
 /* harmony import */ var _utils_bindActionCreators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/bindActionCreators */ "./node_modules/react-redux/es/utils/bindActionCreators.js");
 /* harmony import */ var _wrapMapToProps__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./wrapMapToProps */ "./node_modules/react-redux/es/connect/wrapMapToProps.js");
@@ -37149,9 +36888,9 @@ function whenMapDispatchToPropsIsObject(mapDispatchToProps) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "whenMapStateToPropsIsFunction": () => (/* binding */ whenMapStateToPropsIsFunction),
-/* harmony export */   "whenMapStateToPropsIsMissing": () => (/* binding */ whenMapStateToPropsIsMissing),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   whenMapStateToPropsIsFunction: () => (/* binding */ whenMapStateToPropsIsFunction),
+/* harmony export */   whenMapStateToPropsIsMissing: () => (/* binding */ whenMapStateToPropsIsMissing)
 /* harmony export */ });
 /* harmony import */ var _wrapMapToProps__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./wrapMapToProps */ "./node_modules/react-redux/es/connect/wrapMapToProps.js");
 
@@ -37176,11 +36915,11 @@ function whenMapStateToPropsIsMissing(mapStateToProps) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "defaultMergeProps": () => (/* binding */ defaultMergeProps),
-/* harmony export */   "wrapMergePropsFunc": () => (/* binding */ wrapMergePropsFunc),
-/* harmony export */   "whenMergePropsIsFunction": () => (/* binding */ whenMergePropsIsFunction),
-/* harmony export */   "whenMergePropsIsOmitted": () => (/* binding */ whenMergePropsIsOmitted),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   defaultMergeProps: () => (/* binding */ defaultMergeProps),
+/* harmony export */   whenMergePropsIsFunction: () => (/* binding */ whenMergePropsIsFunction),
+/* harmony export */   whenMergePropsIsOmitted: () => (/* binding */ whenMergePropsIsOmitted),
+/* harmony export */   wrapMergePropsFunc: () => (/* binding */ wrapMergePropsFunc)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
 /* harmony import */ var _utils_verifyPlainObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/verifyPlainObject */ "./node_modules/react-redux/es/utils/verifyPlainObject.js");
@@ -37232,9 +36971,9 @@ function whenMergePropsIsOmitted(mergeProps) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "impureFinalPropsSelectorFactory": () => (/* binding */ impureFinalPropsSelectorFactory),
-/* harmony export */   "pureFinalPropsSelectorFactory": () => (/* binding */ pureFinalPropsSelectorFactory),
-/* harmony export */   "default": () => (/* binding */ finalPropsSelectorFactory)
+/* harmony export */   "default": () => (/* binding */ finalPropsSelectorFactory),
+/* harmony export */   impureFinalPropsSelectorFactory: () => (/* binding */ impureFinalPropsSelectorFactory),
+/* harmony export */   pureFinalPropsSelectorFactory: () => (/* binding */ pureFinalPropsSelectorFactory)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
 /* harmony import */ var _verifySubselectors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./verifySubselectors */ "./node_modules/react-redux/es/connect/verifySubselectors.js");
@@ -37370,9 +37109,9 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "wrapMapToPropsConstant": () => (/* binding */ wrapMapToPropsConstant),
-/* harmony export */   "getDependsOnOwnProps": () => (/* binding */ getDependsOnOwnProps),
-/* harmony export */   "wrapMapToPropsFunc": () => (/* binding */ wrapMapToPropsFunc)
+/* harmony export */   getDependsOnOwnProps: () => (/* binding */ getDependsOnOwnProps),
+/* harmony export */   wrapMapToPropsConstant: () => (/* binding */ wrapMapToPropsConstant),
+/* harmony export */   wrapMapToPropsFunc: () => (/* binding */ wrapMapToPropsFunc)
 /* harmony export */ });
 /* harmony import */ var _utils_verifyPlainObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/verifyPlainObject */ "./node_modules/react-redux/es/utils/verifyPlainObject.js");
 
@@ -37451,17 +37190,17 @@ function wrapMapToPropsFunc(mapToProps, methodName) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Provider": () => (/* reexport safe */ _components_Provider__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "connectAdvanced": () => (/* reexport safe */ _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "ReactReduxContext": () => (/* reexport safe */ _components_Context__WEBPACK_IMPORTED_MODULE_2__.ReactReduxContext),
-/* harmony export */   "connect": () => (/* reexport safe */ _connect_connect__WEBPACK_IMPORTED_MODULE_3__["default"]),
-/* harmony export */   "useDispatch": () => (/* reexport safe */ _hooks_useDispatch__WEBPACK_IMPORTED_MODULE_4__.useDispatch),
-/* harmony export */   "createDispatchHook": () => (/* reexport safe */ _hooks_useDispatch__WEBPACK_IMPORTED_MODULE_4__.createDispatchHook),
-/* harmony export */   "useSelector": () => (/* reexport safe */ _hooks_useSelector__WEBPACK_IMPORTED_MODULE_5__.useSelector),
-/* harmony export */   "createSelectorHook": () => (/* reexport safe */ _hooks_useSelector__WEBPACK_IMPORTED_MODULE_5__.createSelectorHook),
-/* harmony export */   "useStore": () => (/* reexport safe */ _hooks_useStore__WEBPACK_IMPORTED_MODULE_6__.useStore),
-/* harmony export */   "createStoreHook": () => (/* reexport safe */ _hooks_useStore__WEBPACK_IMPORTED_MODULE_6__.createStoreHook),
-/* harmony export */   "shallowEqual": () => (/* reexport safe */ _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_7__["default"])
+/* harmony export */   Provider: () => (/* reexport safe */ _components_Provider__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   ReactReduxContext: () => (/* reexport safe */ _components_Context__WEBPACK_IMPORTED_MODULE_2__.ReactReduxContext),
+/* harmony export */   connect: () => (/* reexport safe */ _connect_connect__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   connectAdvanced: () => (/* reexport safe */ _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   createDispatchHook: () => (/* reexport safe */ _hooks_useDispatch__WEBPACK_IMPORTED_MODULE_4__.createDispatchHook),
+/* harmony export */   createSelectorHook: () => (/* reexport safe */ _hooks_useSelector__WEBPACK_IMPORTED_MODULE_5__.createSelectorHook),
+/* harmony export */   createStoreHook: () => (/* reexport safe */ _hooks_useStore__WEBPACK_IMPORTED_MODULE_6__.createStoreHook),
+/* harmony export */   shallowEqual: () => (/* reexport safe */ _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_7__["default"]),
+/* harmony export */   useDispatch: () => (/* reexport safe */ _hooks_useDispatch__WEBPACK_IMPORTED_MODULE_4__.useDispatch),
+/* harmony export */   useSelector: () => (/* reexport safe */ _hooks_useSelector__WEBPACK_IMPORTED_MODULE_5__.useSelector),
+/* harmony export */   useStore: () => (/* reexport safe */ _hooks_useStore__WEBPACK_IMPORTED_MODULE_6__.useStore)
 /* harmony export */ });
 /* harmony import */ var _components_Provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Provider */ "./node_modules/react-redux/es/components/Provider.js");
 /* harmony import */ var _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/connectAdvanced */ "./node_modules/react-redux/es/components/connectAdvanced.js");
@@ -37492,8 +37231,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createDispatchHook": () => (/* binding */ createDispatchHook),
-/* harmony export */   "useDispatch": () => (/* binding */ useDispatch)
+/* harmony export */   createDispatchHook: () => (/* binding */ createDispatchHook),
+/* harmony export */   useDispatch: () => (/* binding */ useDispatch)
 /* harmony export */ });
 /* harmony import */ var _components_Context__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Context */ "./node_modules/react-redux/es/components/Context.js");
 /* harmony import */ var _useStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useStore */ "./node_modules/react-redux/es/hooks/useStore.js");
@@ -37552,7 +37291,7 @@ var useDispatch = /*#__PURE__*/createDispatchHook();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "useReduxContext": () => (/* binding */ useReduxContext)
+/* harmony export */   useReduxContext: () => (/* binding */ useReduxContext)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _components_Context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Context */ "./node_modules/react-redux/es/components/Context.js");
@@ -37596,8 +37335,8 @@ function useReduxContext() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createSelectorHook": () => (/* binding */ createSelectorHook),
-/* harmony export */   "useSelector": () => (/* binding */ useSelector)
+/* harmony export */   createSelectorHook: () => (/* binding */ createSelectorHook),
+/* harmony export */   useSelector: () => (/* binding */ useSelector)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _useReduxContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useReduxContext */ "./node_modules/react-redux/es/hooks/useReduxContext.js");
@@ -37774,8 +37513,8 @@ var useSelector = /*#__PURE__*/createSelectorHook();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createStoreHook": () => (/* binding */ createStoreHook),
-/* harmony export */   "useStore": () => (/* binding */ useStore)
+/* harmony export */   createStoreHook: () => (/* binding */ createStoreHook),
+/* harmony export */   useStore: () => (/* binding */ useStore)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _components_Context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Context */ "./node_modules/react-redux/es/components/Context.js");
@@ -37834,18 +37573,18 @@ var useStore = /*#__PURE__*/createStoreHook();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Provider": () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.Provider),
-/* harmony export */   "ReactReduxContext": () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.ReactReduxContext),
-/* harmony export */   "connect": () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.connect),
-/* harmony export */   "connectAdvanced": () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.connectAdvanced),
-/* harmony export */   "createDispatchHook": () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.createDispatchHook),
-/* harmony export */   "createSelectorHook": () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.createSelectorHook),
-/* harmony export */   "createStoreHook": () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.createStoreHook),
-/* harmony export */   "shallowEqual": () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.shallowEqual),
-/* harmony export */   "useDispatch": () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.useDispatch),
-/* harmony export */   "useSelector": () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.useSelector),
-/* harmony export */   "useStore": () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.useStore),
-/* harmony export */   "batch": () => (/* reexport safe */ _utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_1__.unstable_batchedUpdates)
+/* harmony export */   Provider: () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.Provider),
+/* harmony export */   ReactReduxContext: () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.ReactReduxContext),
+/* harmony export */   batch: () => (/* reexport safe */ _utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_1__.unstable_batchedUpdates),
+/* harmony export */   connect: () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.connect),
+/* harmony export */   connectAdvanced: () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.connectAdvanced),
+/* harmony export */   createDispatchHook: () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.createDispatchHook),
+/* harmony export */   createSelectorHook: () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.createSelectorHook),
+/* harmony export */   createStoreHook: () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.createStoreHook),
+/* harmony export */   shallowEqual: () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.shallowEqual),
+/* harmony export */   useDispatch: () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.useDispatch),
+/* harmony export */   useSelector: () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.useSelector),
+/* harmony export */   useStore: () => (/* reexport safe */ _exports__WEBPACK_IMPORTED_MODULE_0__.useStore)
 /* harmony export */ });
 /* harmony import */ var _exports__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./exports */ "./node_modules/react-redux/es/exports.js");
 /* harmony import */ var _utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/reactBatchedUpdates */ "./node_modules/react-redux/es/utils/reactBatchedUpdates.js");
@@ -37869,7 +37608,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createSubscription": () => (/* binding */ createSubscription)
+/* harmony export */   createSubscription: () => (/* binding */ createSubscription)
 /* harmony export */ });
 /* harmony import */ var _batch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./batch */ "./node_modules/react-redux/es/utils/batch.js");
  // encapsulates the subscription logic for connecting a component to the redux store, as
@@ -38010,8 +37749,8 @@ function createSubscription(store, parentSub) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "setBatch": () => (/* binding */ setBatch),
-/* harmony export */   "getBatch": () => (/* binding */ getBatch)
+/* harmony export */   getBatch: () => (/* binding */ getBatch),
+/* harmony export */   setBatch: () => (/* binding */ setBatch)
 /* harmony export */ });
 // Default to a dummy "batch" implementation that just runs the callback
 function defaultNoopBatch(callback) {
@@ -38102,7 +37841,7 @@ function isPlainObject(obj) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "unstable_batchedUpdates": () => (/* reexport safe */ react_dom__WEBPACK_IMPORTED_MODULE_0__.unstable_batchedUpdates)
+/* harmony export */   unstable_batchedUpdates: () => (/* reexport safe */ react_dom__WEBPACK_IMPORTED_MODULE_0__.unstable_batchedUpdates)
 /* harmony export */ });
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* eslint-disable import/no-unresolved */
@@ -38160,7 +37899,7 @@ function shallowEqual(objA, objB) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "useIsomorphicLayoutEffect": () => (/* binding */ useIsomorphicLayoutEffect)
+/* harmony export */   useIsomorphicLayoutEffect: () => (/* binding */ useIsomorphicLayoutEffect)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
  // React currently throws a warning when using useLayoutEffect on the server.
@@ -38246,24 +37985,24 @@ function warning(message) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "MemoryRouter": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.MemoryRouter),
-/* harmony export */   "Prompt": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.Prompt),
-/* harmony export */   "Redirect": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.Redirect),
-/* harmony export */   "Route": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.Route),
-/* harmony export */   "Router": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.Router),
-/* harmony export */   "StaticRouter": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.StaticRouter),
-/* harmony export */   "Switch": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.Switch),
-/* harmony export */   "generatePath": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.generatePath),
-/* harmony export */   "matchPath": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.matchPath),
-/* harmony export */   "useHistory": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.useHistory),
-/* harmony export */   "useLocation": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.useLocation),
-/* harmony export */   "useParams": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.useParams),
-/* harmony export */   "useRouteMatch": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.useRouteMatch),
-/* harmony export */   "withRouter": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.withRouter),
-/* harmony export */   "BrowserRouter": () => (/* binding */ BrowserRouter),
-/* harmony export */   "HashRouter": () => (/* binding */ HashRouter),
-/* harmony export */   "Link": () => (/* binding */ Link),
-/* harmony export */   "NavLink": () => (/* binding */ NavLink)
+/* harmony export */   BrowserRouter: () => (/* binding */ BrowserRouter),
+/* harmony export */   HashRouter: () => (/* binding */ HashRouter),
+/* harmony export */   Link: () => (/* binding */ Link),
+/* harmony export */   MemoryRouter: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.MemoryRouter),
+/* harmony export */   NavLink: () => (/* binding */ NavLink),
+/* harmony export */   Prompt: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.Prompt),
+/* harmony export */   Redirect: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.Redirect),
+/* harmony export */   Route: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.Route),
+/* harmony export */   Router: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.Router),
+/* harmony export */   StaticRouter: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.StaticRouter),
+/* harmony export */   Switch: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.Switch),
+/* harmony export */   generatePath: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.generatePath),
+/* harmony export */   matchPath: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.matchPath),
+/* harmony export */   useHistory: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.useHistory),
+/* harmony export */   useLocation: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.useLocation),
+/* harmony export */   useParams: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.useParams),
+/* harmony export */   useRouteMatch: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.useRouteMatch),
+/* harmony export */   withRouter: () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_0__.withRouter)
 /* harmony export */ });
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
@@ -38607,22 +38346,22 @@ if (true) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "MemoryRouter": () => (/* binding */ MemoryRouter),
-/* harmony export */   "Prompt": () => (/* binding */ Prompt),
-/* harmony export */   "Redirect": () => (/* binding */ Redirect),
-/* harmony export */   "Route": () => (/* binding */ Route),
-/* harmony export */   "Router": () => (/* binding */ Router),
-/* harmony export */   "StaticRouter": () => (/* binding */ StaticRouter),
-/* harmony export */   "Switch": () => (/* binding */ Switch),
-/* harmony export */   "__HistoryContext": () => (/* binding */ historyContext),
-/* harmony export */   "__RouterContext": () => (/* binding */ context),
-/* harmony export */   "generatePath": () => (/* binding */ generatePath),
-/* harmony export */   "matchPath": () => (/* binding */ matchPath),
-/* harmony export */   "useHistory": () => (/* binding */ useHistory),
-/* harmony export */   "useLocation": () => (/* binding */ useLocation),
-/* harmony export */   "useParams": () => (/* binding */ useParams),
-/* harmony export */   "useRouteMatch": () => (/* binding */ useRouteMatch),
-/* harmony export */   "withRouter": () => (/* binding */ withRouter)
+/* harmony export */   MemoryRouter: () => (/* binding */ MemoryRouter),
+/* harmony export */   Prompt: () => (/* binding */ Prompt),
+/* harmony export */   Redirect: () => (/* binding */ Redirect),
+/* harmony export */   Route: () => (/* binding */ Route),
+/* harmony export */   Router: () => (/* binding */ Router),
+/* harmony export */   StaticRouter: () => (/* binding */ StaticRouter),
+/* harmony export */   Switch: () => (/* binding */ Switch),
+/* harmony export */   __HistoryContext: () => (/* binding */ historyContext),
+/* harmony export */   __RouterContext: () => (/* binding */ context),
+/* harmony export */   generatePath: () => (/* binding */ generatePath),
+/* harmony export */   matchPath: () => (/* binding */ matchPath),
+/* harmony export */   useHistory: () => (/* binding */ useHistory),
+/* harmony export */   useLocation: () => (/* binding */ useLocation),
+/* harmony export */   useParams: () => (/* binding */ useParams),
+/* harmony export */   useRouteMatch: () => (/* binding */ useRouteMatch),
+/* harmony export */   withRouter: () => (/* binding */ withRouter)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -38750,7 +38489,7 @@ var Router = /*#__PURE__*/function (_React$Component) {
 if (true) {
   Router.propTypes = {
     children: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().node),
-    history: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object.isRequired),
+    history: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object).isRequired,
     staticContext: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)
   };
 
@@ -41796,12 +41535,12 @@ thunk.withExtraArgument = createThunkMiddleware;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "__DO_NOT_USE__ActionTypes": () => (/* binding */ ActionTypes),
-/* harmony export */   "applyMiddleware": () => (/* binding */ applyMiddleware),
-/* harmony export */   "bindActionCreators": () => (/* binding */ bindActionCreators),
-/* harmony export */   "combineReducers": () => (/* binding */ combineReducers),
-/* harmony export */   "compose": () => (/* binding */ compose),
-/* harmony export */   "createStore": () => (/* binding */ createStore)
+/* harmony export */   __DO_NOT_USE__ActionTypes: () => (/* binding */ ActionTypes),
+/* harmony export */   applyMiddleware: () => (/* binding */ applyMiddleware),
+/* harmony export */   bindActionCreators: () => (/* binding */ bindActionCreators),
+/* harmony export */   combineReducers: () => (/* binding */ combineReducers),
+/* harmony export */   compose: () => (/* binding */ compose),
+/* harmony export */   createStore: () => (/* binding */ createStore)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectSpread2 */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
 
@@ -44800,12 +44539,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
 document.addEventListener("DOMContentLoaded", function () {
   var root = document.getElementById("root");
-  var store; // Allows me to bootstrap the current user to the window to use and then deletes
+  var store;
+  // Allows me to bootstrap the current user to the window to use and then deletes
   // it so users can't reference themselves in the console
-
   if (window.currentUser) {
     var preloadedState = {
       entities: {
@@ -44819,10 +44557,9 @@ document.addEventListener("DOMContentLoaded", function () {
     delete window.currentUser;
   } else {
     store = (0,_store_store__WEBPACK_IMPORTED_MODULE_0__["default"])();
-  } // JUST FOR TESTING -----------//
+  }
+  // JUST FOR TESTING -----------//
   //-----------------------------//
-
-
   react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_components_root__WEBPACK_IMPORTED_MODULE_3__["default"], {
     store: store
   }), root);
